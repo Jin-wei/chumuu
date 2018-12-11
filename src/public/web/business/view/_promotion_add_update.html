@@ -1,0 +1,194 @@
+<div id="promotion_add_update_view" class="page-content row">
+    <div class="col-xs-12  widget-container-span ui-sortable">
+    <div class="widget-box transparent">
+    <div class="widget-header widget-header-flat">
+        <h4 class="lighter">
+            <i class="icon-star orange"></i>
+            {{title}}
+        </h4>
+
+        <!--<div class="widget-toolbar" >-->
+        <!--<a href="javascript:;" data-action="collapse">-->
+        <!--<i class="icon-chevron-up"></i>-->
+        <!--</a>-->
+        <!--</div>-->
+
+        <div class="widget-toolbar">
+            <button ng-show="isUpdatePage" class="btn btn-danger promotion-delete-btn" ng-click="deletePromotion(promotion)">
+                <i class="icon-ban-circle"></i>
+                {{L.delete}}
+            </button>
+            <div id="dialog-confirm" class="hide">
+                <div class="alert alert-info bigger-110"> This item will be permanently deleted and cannot be recovered. </div>
+                <div class="space-6"></div>
+                <p class="bigger-110 bolder center grey">
+                    <i class="icon-hand-right blue bigger-120"></i> Are you sure?
+                </p>
+            </div><!-- #dialog-confirm -->
+        </div>
+    </div>
+
+    <div class="widget-body">
+        <div class="widget-main no-padding">
+            <div class="space-6"></div>
+            <form class="promotionAddUpdateForm mp-form-validation" name="promotionForm" novalidate>
+                <div class="col-xs-12 myitem">
+                    <div class="col-xs-12 col-sm-2 center">
+                        <div class="row_title">
+                            <span class="icon-asterisk required_label"></span> {{L.promo_level}}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-10 ">
+                        <select ng-model="promo_level" style="width:140px;">
+                            <option value="1" ng-bind="L.promo_level_type1"></option>
+                            <option value="2" ng-bind="L.promo_level_type2"></option>
+                        </select>
+                        <span class="" style="margin-left:20px;"></span>
+                        <span class="" ng-show="promo_level==PROMO_LEVEL.MENU_ITEM_LEVEL" style="color:gray;">{{L.promo_level_desc1_1}} <b class="Arial bigger-120 black">{{L.promo_level_desc1_2}}</b> {{L.promo_level_desc1_3}}</span>
+                        <span class="" ng-show="promo_level==PROMO_LEVEL.ORDER_LEVEL" style="color:gray;">{{L.promo_level_desc2_1}} <b class="Arial bigger-120 black">{{L.promo_level_desc2_2}}</b></span>
+                    </div>
+                </div>
+                <div ng-show="promo_level==PROMO_LEVEL.MENU_ITEM_LEVEL" class="col-xs-12 myitem">
+                    <div class="col-xs-12 col-sm-2 center">
+                        <div class="row_title">
+                            <span class="icon-asterisk required_label"></span>{{L.menu_menu_item}}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-10 center">
+                        <select
+                            chosen
+                            allow-single-deselect="true"
+                            data-placeholder="Choose Your Own Adventure"
+                            no-results-text="'Tough luck'"
+                            ng-model="menuItemSelect"
+                            ng-change="menuItemSelectChange()"
+                            ng-options="menuItem.prod_id as menuItem.prod_id>0 ? menuItem.name+' | '+ menuItem.name_lang : menuItem.name for menuItem in menuItems"
+                            id="form-field-select-menu-type" data-placeholder="{{L.promo_select_menu_item_placeholder}}">
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-xs-12 myitem">
+                    <div class="col-xs-12 col-sm-2 center">
+                        <div class="row_title">
+                            <span class="icon-asterisk required_label"></span>{{L.name}}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-10 center">
+                        <input name="name" ng-model="promotion.name" type="text" required ng-maxlength="100" placeholder={{L.name_field_required}}>
+                    </div>
+                </div>
+                <div class="col-xs-12 myitem">
+                    <div class="col-xs-12 col-sm-2 center">
+                        <div class="row_title">
+                            <span class="icon-asterisk required_label"></span>{{L.discount}}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-10 ">
+                        <div class="radio discount-radio">
+                            <label>
+                                <span class="lbl" style="vertical-align: text-bottom;">( </span>
+                                <input name="discount" ng-model="discountType" type="radio" value="1" class="ace" />
+                                <span class="lbl"> {{L.percent}}</span>
+                            </label>
+                        </div>
+                        <span style="margin:0px 0px;">/</span>
+                        <div class="radio discount-radio">
+                            <label>
+                                <input name="discount" ng-model="discountType" type="radio" value="2" class="ace" />
+                                <span class="lbl"> {{L.amount}} )</span>
+                            </label>
+                        </div>
+                        <span ng-show="promo_level==PROMO_LEVEL.ORDER_LEVEL" style="margin-left:20px;">
+                            <span ng-bind="L.promo_discount_desc1"></span>
+                            <input ng-model="promotion.discountValue" type="text" style="width:50px;"/>
+                            <select style="width:43px;">
+                                <option>$</option>
+                                <option>%</option>
+                            </select>
+                            <span>{{discountType==DISCOUNT_TYPE.PERCENT ? '%':'$'}}</span>
+                            <span style="margin:0 8px;" ng-bind="L.promo_discount_desc2"></span>
+                            <input ng-model="promotion.discount_level" type="text" style="width:50px;"/>
+                            $
+                        </span>
+                        <span ng-show="promo_level==PROMO_LEVEL.MENU_ITEM_LEVEL">
+                            <!--<div class="col-xs-4 center">-->
+                                <input ng-model="promotion.discountValue" type="text" style="width:100px;margin-left:10px;"/>
+                            <!--</div>-->
+                            <!--<div class="col-xs-1 center">-->
+                                <span>{{discountType==DISCOUNT_TYPE.PERCENT ? '%':'$'}}</span>
+                            <!--</div>-->
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 myitem">
+                    <div class="col-xs-12 col-sm-2 center">
+                        <div class="row_title">
+                            <span class="icon-asterisk required_label"></span>{{L.description}}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-10 center">
+                        <textarea ng-model="promotion.description" required ng-maxlength="250" required placeholder={{L.des_field_required}}></textarea>
+                    </div>
+                </div>
+                <div class="col-xs-12 myitem">
+                    <div class="col-xs-12 col-sm-2 center">
+                        <div class="row_title">
+                            <span class="icon-asterisk required_label"></span>{{L.week_schedule}}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-10 center" style="text-align: left !important;padding:2px;">
+                        <span class="weekly-repeat-item" style="{{day.hover?'font-weight:bold;':''}}{{day.isChosen?'background-color:rgb(254, 225, 136);font-weight:bold;':''}}"
+                              bindonce ng-repeat="day in days" bo-bind="day.name"
+                              ng-click="onDayClick(day)" ng-mouseenter="onDayMouseEnter(day)" ng-mouseleave="onDayMouseLeave(day)"></span>
+                        <span style="color: grey">{{L.week_schedule_memo}}</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 myitem">
+                    <div class="col-xs-12 col-sm-2 center">
+                        <div class="row_title" ng-bind="L.start_date"> </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 center">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="icon-calendar bigger-110"></i>
+                            </span>
+                            <input class="date-picker form-control" ng-model="promotion.start_date" type="text" data-date-format="mm/dd/yyyy" style="height:35px;">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 center">
+                        <div class="row_title" ng-bind="L.end_date"> </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 center">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="icon-calendar bigger-110"></i>
+                            </span>
+                            <input class="date-picker form-control" ng-model="promotion.end_date" type="text" data-date-format="mm/dd/yyyy" style="height:35px;" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 myitem">
+                    <div class="hr hr-18 dotted hr-double"></div>
+                    <div class="col-xs-6 center">
+                        <button type="button" class="btn btn-sm btn-default" ng-click="onBack()">
+                            <i class="icon-arrow-left icon-on-left bigger-110"></i>
+                            {{L.back}}
+                        </button>
+                    </div>
+                    <div class="col-xs-6 center">
+                        <button type="button" class="btn btn-sm btn-success" ng-click="onPromotionSubmit(promotionForm.$valid,promotion)">
+                            {{L.submit}}
+                            <i class="icon-arrow-right icon-on-right bigger-110"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /widget-main -->
+    </div>
+    <!-- /widget-body -->
+    </div>
+    <!-- /widget-box -->
+    </div>
+</div>

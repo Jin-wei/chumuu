@@ -1,0 +1,352 @@
+<div class="page-content" style="position: relative">
+    <div class="row">
+    <div class="0row col-xs-12" style=" padding-top: 20px; ">
+        <div class=" col-xs-12 infobox-container">
+            <div class="infobox infobox-green infobox-large infobox-dark ">
+                <!--<div class="infobox-icon">
+                    <i class="icon-bookmark"></i>
+                </div>-->
+                <div class="infobox-data">
+                    <div class="infobox-content" ng-bind="L.total_item_types"></div>
+                    <span class="infobox-data-number center" >{{productTypeCount}}</span>
+                </div>
+            </div>
+
+            <div class="infobox infobox-green infobox-large infobox-dark">
+                <!--<div class="infobox-icon">
+                    <i class="icon-food"></i>
+                </div>-->
+                <div class="infobox-data">
+                    <div class="infobox-content" ng-bind="L.total_active_items"></div>
+                    <span class="infobox-data-number center">{{productCount}}</span>
+                </div>
+            </div>
+
+            <div class="infobox infobox-green infobox-large infobox-dark">
+
+                <div class="infobox-data">
+                    <div class="infobox-content" ng-bind="L.total_item_click"></div>
+                    <span class="infobox-data-number center">{{totalClickCount}}</span>
+                </div>
+            </div>
+
+             <div class="infobox infobox-green infobox-large infobox-dark">
+                <!--<div class="infobox-icon">
+                    <i class="icon-group"></i>
+                </div>-->
+                <div class="infobox-data">
+                    <div class="infobox-content" ng-bind="L.menu_item_click"></div>
+                    <span class="infobox-data-number center">{{SumConsumeMoney | currency:currency}}</span>
+                </div>
+            </div>
+
+            <!--<div class="infobox infobox-green infobox-large infobox-dark">
+
+                <div class="infobox-data">
+                    <div class="infobox-content">Item Click Yesterday</div>
+                    <span class="infobox-data-number center">{{lastClickCount}}</span>
+                </div>
+            </div>
+
+            <div class="infobox infobox-green infobox-large infobox-dark">
+
+                <div class="infobox-data">
+                    <div class="infobox-content">New Customers Yesterday</div>
+                    <span class="infobox-data-number center">{{lastCustomerCount}}</span>
+                </div>
+            </div>-->
+        </div>
+
+    </div>
+    <div class="hr hr32 hr-dotted col-xs-12"></div>
+    <div class="0row col-xs-12">
+        <div class="col-sm-6">
+            <div class="widget-box transparent">
+                <div class="widget-header widget-header-flat">
+                    <h4 class="lighter green">
+                        <i class="icon-star"></i>
+                         {{L.top_10_consumption_categories}}
+                    </h4>
+
+                    <div class="widget-toolbar">
+                        <a  data-action="collapse">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-body-inner" style="display: block;">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th class="center col-sm-2">{{L.ranking}}</th>
+                                <th class="center">{{L.category_name}}</th>
+                                <th class="center">{{L.order_quantity}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="productItem in prodType">
+                                    <td class="center"> {{$index +1}} </td>
+                                    <td class="center">{{productItem.typeName}} </td>
+                                    <td class="center"> {{productItem.total_click||0}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- /widget-body -->
+            </div><!-- /widget-box -->
+        </div>
+
+
+        <div class="col-sm-6">
+            <div class="widget-box transparent">
+                <div class="widget-header widget-header-flat">
+                    <h4 class="lighter green">
+                        <i class="icon-star"></i>
+                        {{L.top_10_consumer_dishes}}
+                    </h4>
+
+                    <div class="widget-toolbar">
+                        <a  data-action="collapse">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-body-inner" style="display: block;">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr >
+                                <th class="center col-sm-2">{{L.ranking}}</th>
+                                <th class="center">{{L.item_name}}</th>
+                                <th class="center">{{L.order_quantity}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="prodItem in orderMenu">
+                                <td class="center"> {{$index +1}} </td>
+                                <td class="center">{{prodItem.name}}</td>
+                                <td class="center"> {{prodItem.total_count||0}} </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- /widget-body -->
+            </div><!-- /widget-box -->
+        </div>
+
+        <div class="col-sm-6">
+            <div class="widget-box transparent">
+                <div class="widget-header widget-header-flat">
+                    <h4 class="lighter green">
+                        <i class="icon-star"></i>
+                        {{L.consumer_dishes}}
+                    </h4>
+
+                    <div class="widget-toolbar">
+                        <a  data-action="collapse">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-body">
+                    <div style="margin:10px 0">
+                        <span><b>{{L.search_order_choice}}</b></span>
+                        <select ng-model="selectProdType" id="prodTypeAll" >
+                            <option value="">{{L.search_status_all}}</option>
+                            <option ng-repeat="prod in prodTypeAll" value="{{prod.type_id}}">{{prod.name}}</option>
+                        </select>
+
+                        <span class="page-search-item" style="margin-left: 20px">
+                            <span>{{L.time}}</span>
+                            <input type="text" id="searchCreateDate" readonly class="date-range-picker mp-pointer" style="width: 180px"
+                            data-date-format="yyyy-mm-dd">
+                        </span>
+                        <button class="btn btn-info" style="margin-left:10px;padding:0 10px;" ng-click="refreshDishesArr()" >{{L.search}}</button>
+                    </div>
+                    <div class="widget-body-inner" style="display: block;">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr >
+                                <th class="center col-sm-3">{{L.name}}</th>
+                                <th class="center">{{L.name_lang_cn}}</th>
+                                <th class="center">{{L.order_quantity}}</th>
+                                <th class="center">{{L.price}}</th>
+                                <th class="center">{{L.amount}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="dishes in dishesArr">
+                                <td class="center">{{dishes.name}}</td>
+                                <td class="center">{{dishes.name_lang}}</td>
+                                <td class="center"> {{dishes.quantity||0}} </td>
+                                <td class="center">{{dishes.price | currency: currency}}</td>
+                                <td class="center">{{dishes.money | currency: currency}}</td>
+                            </tr>
+                            <tr >
+                                <td class="center">{{L.total_money}}</td>
+                                <td class="center"></td>
+                                <td class="center">  </td>
+                                <td class="center"></td>
+                                <td class="center">{{totalMoney | currency: currency}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-xs-12 mp-display-box">
+                        <div class="mp-boxflex-1">
+                            <ul class="pagination">
+                                <li ng-class="{'disabled':!hasPreviousPage}">
+                                    <a href="javascript:;" ng-click="onBtnPageTo('previous')">
+                                        <i class="icon-double-angle-left"></i> {{L.has_previous_page}}
+                                    </a>
+                                </li>
+
+                                <li ng-class="{'disabled':!hasNextPage}">
+                                    <a href="javascript:;" ng-click="onBtnPageTo('next')">
+                                        <i class="icon-double-angle-right"></i> {{L.has_next_page}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="page-search-item" style="margin:10px 0;">
+                                <span>{{L.search_page_size}}</span>
+                                <select ng-model="searchPageSize" id="searchPageSize">
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="1000">1000</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /widget-body -->
+            </div><!-- /widget-box -->
+        </div>
+
+
+
+        <div class="col-sm-6">
+            <div class="widget-box transparent">
+                <div class="widget-header widget-header-flat">
+                    <h4 class="lighter green">
+                        <i class="icon-star"></i>
+                        {{L.order_money_table}}
+                    </h4>
+
+                    <div class="widget-toolbar">
+                        <a  data-action="collapse">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-body">
+                    <div style="margin:10px 0">
+                        <span class="page-search-item" style="margin-left: 20px">
+                            <span>{{L.time}}</span>
+                            <input type="text" id="searchCreateDateMoney" readonly class="date-range-picker mp-pointer" style="width: 180px"
+                                   data-date-format="yyyy-mm-dd">
+                        </span>
+                        <button class="btn btn-info" style="margin-left:10px;padding:0 10px;" ng-click="refreshOrderMoneyArr()" >{{L.search}}</button>
+                    </div>
+                    <div class="widget-body-inner" style="display: block;">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr >
+                                <th class="center">{{L.order_money_table1}}</th>
+                                <th class="center">{{L.order_money_table2}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="orderMoney in orderMoneyArr">
+                                <td class="center">{{orderMoney.checkout_name}}</td>
+                                <td class="center">{{orderMoney.total_payment_money | currency: currency}}</td>
+                            </tr>
+                            <tr >
+                                <td class="center">{{L.total_money}}</td>
+                                <td class="center">{{totalOrderMoney | currency: currency}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- /widget-body -->
+            </div><!-- /widget-box -->
+        </div>
+
+
+
+    </div>
+    <div class="hr hr32 hr-dotted col-xs-12"></div>
+    <div class="0row col-xs-12">
+        <div class="col-xs-12 col-md-12 col-sm-12" style="position: relative">
+            <div class="widget-box">
+                <div class="widget-header widget-header-flat widget-header-small">
+                    <h5 class="green">
+                        <i class="icon-signal"></i>
+                        {{L.trending_menu_clicks}}
+                    </h5>
+
+                    <div class="widget-toolbar">
+                        <a  data-action="collapse">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </div>
+                    <div class="widget-toolbar no-border middle">
+                        <select class="input-medium" style="border:aqua;"
+                                ng-model="menuDateSel" ng-change="menuStateSel()">
+                            <option value="1" >{{L.by_month}}</option>
+                            <option value="2" >{{L.by_week}}</option>
+                            <option value="3" >{{L.by_day}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main" style="width: 100%">
+                        <div id="monthMenuChart" ng-show="menuDateSel==1" ></div>
+                        <div id="weekMenuChart" ng-show="menuDateSel==2" ></div>
+                        <div id="dayMenuChart" ng-show="menuDateSel==3" ></div>
+                    </div><!-- /widget-main -->
+                </div><!-- /widget-body -->
+            </div><!-- /widget-box -->
+        </div>
+
+        <div class="col-xs-12  col-md-12" style="position: relative">
+            <div class="widget-box">
+                <div class="widget-header widget-header-flat widget-header-small">
+                    <h5 class="green">
+                        <i class="icon-signal"></i>
+                        {{L.trending_menu_ordered}}
+                    </h5>
+
+                    <div class="widget-toolbar">
+                        <a  data-action="collapse">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </div>
+                    <div class="widget-toolbar no-border middle">
+                        <select class="input-medium" style="border:aqua;"
+                                ng-model="menuOrderDateSel" ng-change="menuOrderStateSel()">
+                            <option value="1" >{{L.by_month}}</option>
+                            <option value="2" >{{L.by_week}}</option>
+                            <option value="3" >{{L.by_day}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main" style="width: 100%">
+                        <div id="monthChart" ng-show="menuOrderDateSel==1"></div>
+                        <div id="weekChart" ng-show="menuOrderDateSel==2" ></div>
+                        <div id="dayChart" ng-show="menuOrderDateSel==3" ></div>
+                    </div><!-- /widget-main -->
+                </div>
+
+                <!-- /widget-body -->
+            </div><!-- /widget-box -->
+        </div>
+    </div>
+    </div>
+</div>

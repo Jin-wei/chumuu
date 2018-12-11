@@ -1,0 +1,209 @@
+#my_order_view .page-order-item {;
+    margin:10px 0;
+}
+
+#my_order_view .page-order-item > div:nth-child(1) {
+    font-size: 20px;
+    padding: 5px 10px 5px 10px;
+    background-color: rgb(136, 192, 52);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: white;
+}
+
+#my_order_view .page-order-item > div:nth-child(2) {
+    border: 1px solid #ddd;
+    border-top: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/* past order */
+#my_order_view .page-past-order-item {
+    color: #232323;
+    font-size: 15px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    background: rgb(250, 250, 250);
+}
+
+#my_order_view .page-past-order-item > div {
+    height: 40px;
+    line-height: 40px;
+    float: left;
+}
+
+/*icon*/
+#my_order_view .page-past-order-item > div:nth-child(1) {
+    background: #ddd;
+    width: 35px;
+    display: inline-block;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+}
+
+/*id*/
+#my_order_view .page-past-order-item > div:nth-child(2) {
+    width: 80px;
+    text-align: center;
+}
+
+/*date*/
+#my_order_view .page-past-order-item > div:nth-child(3) {
+    width: 245px;
+}
+
+/*biz name*/
+#my_order_view .page-past-order-item > div:nth-child(4) {
+    width: 345px;
+}
+
+/*price*/
+#my_order_view .page-past-order-item > div:nth-child(5) {
+    width: 85px;
+}
+
+/*status*/
+#my_order_view .page-past-order-item > div:nth-child(6) {
+    width: 100px;
+}
+
+#my_order_view .mp-order-past-order-opened {
+    border-color: rgb(137,190,58);
+    color: rgb(137,190,58);
+}
+
+/*icon*/
+#my_order_view .mp-order-past-order-opened > div:nth-child(1) {
+    background: rgb(137,190,58);
+}
+
+#my_order_view .mp-order-past-order-detail {
+    margin: 20px 0 30px 0;
+    padding: 0 0 30px 35px;
+    border-bottom: 1px solid  rgb(137,190,58);
+}
+
+#my_order_view .mp-order-past-order-base-info {
+    width: 400px;
+    border-right: 1px solid  rgb(137,190,58);
+    padding: 0px 10px 0px 0;
+    font-size: 17px;
+}
+
+/*bizinfo right*/
+#my_order_view .page-past-order-bizinfo > div:nth-child(2) {
+    padding: 0 0 0 10px;
+    font-size: 17px
+}
+
+/*payment type*/
+#my_order_view .page-payment-type {
+    font-size: 17px;
+}
+
+#my_order_view .page-payment-type > div:nth-child(2) {
+    color: darkorange;
+}
+
+#my_order_view .page-payment-info {
+    font-size: 17px;
+    color: #bbb;
+    margin-top: 5px;
+}
+
+#my_order_view .page-order-items {
+    font-size: 17px;
+    padding: 20px 10px;
+}
+
+#my_order_view .page-order-icon {
+    width: 25px;
+    color: #909090;
+    display: inline-block;
+}
+
+#my_order_view .page-sub-item-left {;
+}
+
+#my_order_view .page-sub-item-right {
+    text-align: center;
+    font-size: 22px;
+}
+
+#my_order_view .page-sub-item-right > div:nth-child(2) {
+    color: darkorange;
+}
+
+/* for mobile */
+@media only screen and (max-width: 600px) {
+    #my_order_view .mp-biz-tab {
+        width: 272px !important;
+        margin: 15px auto 10px auto !important;
+    }
+
+    #my_order_view .mp-biz-tab>div {
+        width: 135px !important;
+    }
+
+    #my_order_view .page-past-order-item > div:nth-child(4) {
+        width: 300px;
+    }
+
+    #my_order_view .page-order-item > div:nth-child(1) {
+        font-size: 16px;
+        padding: 3px 0 3px 10px;
+    }
+
+    #my_order_view .page-order-item > div:nth-child(2) {
+        padding:5px !important;
+    }
+
+    #my_order_view .mp-order-past-order-detail {
+        margin: 10px 0 10px 0;
+        padding: 0 0 10px 0;
+    }
+
+    #my_order_view .mp-order-past-order-base-info {
+        width: 100%;
+        border-right: 0px;
+        padding: 0;
+        font-size: 15px;
+    }
+    #my_order_view .page-past-order-bizinfo > div:nth-child(2) {
+        font-size: 15px !important;
+    }
+    #my_order_view starrating {
+        font-size: 20px !important;
+    }
+    #my_order_view .page-order-items {
+        font-size: 15px;
+        padding: 5px 0;
+    }
+    #my_order_view .page-sub-item-right {
+        font-size: 15px;
+    }
+    #my_order_view .page-past-order-item {
+        font-size: 12px;
+    }
+    /*id*/
+    #my_order_view .page-past-order-item > div:nth-child(2) {
+        width: 65px;
+    }
+    /*date*/
+    #my_order_view .page-past-order-item > div:nth-child(3) {
+        width: 175px;
+    }
+    /*payment type*/
+    #my_order_view .page-payment-type {
+        font-size: 15px;
+    }
+    #my_order_view .page-payment-info {
+        font-size: 15px;
+    }
+    #my_order_view .page-order-box-part-2 {
+        border-bottom:1px solid #eee;
+        margin-bottom: 10px;
+    }
+}

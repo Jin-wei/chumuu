@@ -1,0 +1,210 @@
+.restaurant_view .mp-special-item {
+    padding: 5px 10px;
+}
+
+.restaurant_view .mp-special-item>div:nth-child(1){
+    border: 1px solid #eee;
+    border-bottom: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 5px;
+}
+.restaurant_view .mp-special-item>div:nth-child(2){
+    border: 1px solid #eee;
+    border-top: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.restaurant_view .mp-special-item>div:nth-child(2)>div:nth-child(0){
+    /*background-image: url('/image/visa1.png');*/
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.restaurant_view .mp-special-item>div:nth-child(2)>div:nth-child(1){
+    font-size:24px;
+    padding: 0px 20px;
+}
+.restaurant_view .mp-special-item>div:nth-child(2)>div:nth-child(1)>div{
+    height:36px;
+}
+.restaurant_view .mp-special-item>div:nth-child(2)>div:nth-child(2){
+    padding: 5px 20px;
+    font-size:20px;
+}
+.restaurant_view .mp-special-item>div:nth-child(2)>div:nth-child(3){
+    border-top: 1px solid #eee;
+    font-size:20px;
+    color:#323131;
+    padding: 10px 20px;
+}
+
+.restaurant_view  .mp-biz-banner>div:nth-child(2) {
+    padding: 15px 0px 0px 40px;
+}
+.restaurant_view .mp-biz-introduction>div:nth-child(1) {
+    font-weight: bold;
+    font-size:30px;
+}
+.restaurant_view .mp-biz-introduction>div:nth-child(2) {
+    text-indent: 2em;
+}
+.restaurant_view .service_green{
+    color: #41981a;
+}
+.restaurant_view .service_gray{
+    color: #bbb;
+}
+.restaurant_view .mp-biz-info {
+    border: 1px solid #d4d4d4;
+    border-radius: 5px;
+    margin-top: 70px;
+    padding: 0px 30px;
+}
+.restaurant_view .mp-biz-info-title {
+}
+.restaurant_view .mp-biz-info-title>div:nth-child(1) {
+    font-weight: bold;
+    font-size: 18px;
+    color: #232323;
+}
+.restaurant_view .mp-biz-info-title>div:nth-child(2) {
+    font-size: 18px;
+    color: #1086ff;
+}
+.restaurant_view .mp-biz-info-service {
+}
+.restaurant_view .mp-biz-info-service>div {
+    margin-top:10px;
+}
+.restaurant_view .mp-biz-info-service>div>div {
+    line-height: 2.8;
+}
+.restaurant_view .mp-biz-info-hours {
+    margin-top:30px;
+}
+.restaurant_view .mp-biz-info-promotion {
+    margin-top:20px;
+}
+.restaurant_view .mp-biz-info-rating {
+    margin:20px 0px;
+}
+.restaurant_view .mp-biz-info-rating>.rating {
+    font-size: 16px;
+}
+.restaurant_view .mp-biz-info-rating>.rating>span {
+    font: 18px Verdana;
+    color: #232323;
+}
+.restaurant_view .mp-biz-info-rating>.rating>starrating {
+    display: inline-block;
+    color: orange;
+}
+.restaurant_view .mp-biz-special-title {
+    margin-top: 30px;
+    padding: 0px 20px;
+}
+.restaurant_view .mp-biz-special-title>span:nth-child(1) {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right:30px;
+}
+.restaurant_view .mp-biz-special-title>span:nth-child(2) {
+    color: #9a9a9a;
+    font-size: 17px;
+}
+
+/* for mobile */
+@media only screen and (max-width: 600px) {
+    .restaurant_view .mp-special-item {
+        padding: 5px 10px;
+    }
+
+    .restaurant_view .mp-special-item>div:nth-child(1){
+        border: 0px;
+    }
+    .restaurant_view .mp-special-item>div:nth-child(2){
+        border: 0px;
+        padding-top: 5px;
+    }
+    .restaurant_view .mp-special-item>div:nth-child(2)>div:nth-child(0){
+        /*background-image: url('/image/visa1.png');*/
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .restaurant_view .mp-special-item>div:nth-child(2)>div:nth-child(1){
+        font-size:16px;
+        padding: 0px 8px;
+    }
+    .restaurant_view .mp-shopping-cart-add-button,
+    .restaurant_view .mp-shopping-cart-reduce-button {
+        width: 26px;
+    }
+    .restaurant_view .mp-shopping-cart-count {
+        margin: 0 5px;
+    }
+    .restaurant_view .mp-special-item>div:nth-child(2)>div:nth-child(2){
+        padding: 5px 8px 0px 8px;
+        font-size:15px;
+    }
+    .restaurant_view .mp-special-item>div:nth-child(2)>div:nth-child(3){
+        border-top: 0px;
+        font-size:15px;
+        padding: 5px 8px;
+    }
+    .modal-footer{
+        padding-left: 10px;
+        padding-right: 5px;
+    }
+
+}
+
+.iconfont-size{
+    font-size: 38px;
+    color:#5db834;
+}
+
+.iconfont-size1{
+    font-size: 26px;
+    color:#5db834;
+    margin-left: 10px;
+}
+
+.iconfont-size2{
+    font-size: 26px;
+    color:blue;
+    margin-left: 10px;
+}
+
+.iconfont-size3{
+    font-size: 38px;
+    color:#ff892a;
+}
+.iconfont-size4{
+    font-size: 38px;
+}
+
+.serviceClass0:before{
+    content: "\e60d";
+}
+.serviceClass1:before{
+    content: "\e616";
+}
+.serviceClass2:before{
+    content: "\e617";
+}
+.serviceClass3:before{
+    content: "\e618";
+}
+.serviceClass4:before{
+    content: "\e619";
+}
+.serviceClass5:before{
+    content: "\e61a";
+}
+
+.vetically{
+    line-height: 53px !important;
+}
+.icon-tianjia:hover,.icon-shandiao:hover{
+    text-decoration:none;
+}

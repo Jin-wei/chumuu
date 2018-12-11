@@ -1,0 +1,187 @@
+{
+    "apiVersion":"1.0.0",
+    "swaggerVersion":"1.2",
+    "basePath":"http://localhost:8080/api",
+    "resourcePath":"/apidoc/admin.json",
+    "apis":[
+        {
+            "path": "/admin/do/login",
+            "description": "Admin user login system",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "adminLogin",
+                    "type": "AdminUserToken",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "admin password",
+                            "type": "AdminUserForLogin",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Admin user do login",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/admin/{adminId}/password",
+            "description": "Admin user change password",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "changeAdminPassword",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "adminId",
+                            "description": "admin id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "password",
+                            "type": "AdminUserPassword",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Admin user change password",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/admin/{adminId}",
+            "description": "get admin user info",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getAdminUserInfo",
+                    "type": "AdminUserInfo",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "adminId",
+                            "description": "admin id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": " get admin user info ,need token",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/admin/{adminId}",
+            "description": "Admin user update info",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateAdminInfo",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "adminId",
+                            "description": "admin id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "password",
+                            "type": "AdminUserInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Admin user update info",
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+
+    "models":{
+        "AdminUserForLogin" : {
+            "id" : "AdminUserForLogin",
+            "properties" : {
+                "username" :{
+                    "type": "String",
+                    "required": true,
+                    "description": "admin username"
+                },
+                "password" : {
+                    "type": "String",
+                    "required": true,
+                    "description": "customer password"
+                }
+            }
+        },
+        "AdminUserPassword" : {
+            "id" : "AdminUserPassword",
+            "properties" : {
+                "originPassword" :{
+                    "type": "String",
+                    "required": true,
+                    "description": "admin origin password"
+                },
+                "newPassword" : {
+                    "type": "String",
+                    "required": true,
+                    "description": "admin new password"
+                }
+            }
+        },
+        "AdminUserInfo" : {
+            "id" : "AdminUserInfo",
+            "properties" : {
+                "phone" :{
+                    "type": "String",
+                    "required": true,
+                    "description": "admin user phone"
+                },
+                "name" :{
+                    "type": "String",
+                    "required": true,
+                    "description": "admin user name"
+                },
+                "remark" : {
+                    "type": "String",
+                    "required": true,
+                    "description": "admin new remark"
+                }
+            }
+        }
+    }
+}

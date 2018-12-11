@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <title>Payment - Chumuu</title>
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/assets/css/ace-fonts.css" />
+    <link rel="stylesheet" href="/assets/css/ace.min.css" />
+</head>
+
+<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+<body ng-app="mp_customer">
+<!--
+<h5>MasterCard:5555555555554444</h5>
+-->
+
+<div class="rows" ng-controller="paymentController">
+    <!--<div class="rows">
+        <input type="text" ng-model="orderId"/>
+    </div>-->
+    <div class="rows">
+        <div class="col-sm-6 col-xm-12">
+            <ul id="myTab" class="nav nav-tabs" >
+                <li class="active"><a href="#home"  data-toggle="tab" >Credit card</a></li>
+                <li class=""><a href="#profile"  data-toggle="tab" >PayPal account</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div  class="tab-pane active" id="home" >
+                    <form id="checkout" action="{{paymentAction}}" method="post" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Credit card number </label>
+
+                            <div class="col-sm-9">
+                                <input data-braintree-name="number" value="4111111111111111" class="col-xs-10 col-sm-5">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> CVV </label>
+
+                            <div class="col-sm-9">
+                                <input data-braintree-name="cvv" value="100" class="col-xs-10 col-sm-5">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Expiration (MM/YY) </label>
+
+                            <div class="col-sm-9">
+                                <select autocomplete="off" data-braintree-name="expiration_month"  id="expiration-month-" name="" required="required">
+                                    <option value=""></option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                /
+                                <select autocomplete="off"  data-braintree-name="expiration_year" id="expiration-year-" name="" required="required">
+                                    <option value=""></option>
+                                    <option value="2014">14</option>
+                                    <option value="2015">15</option>
+                                    <option value="2016">16</option>
+                                    <option value="2017">17</option>
+                                    <option value="2018">18</option>
+                                    <option value="2019">19</option>
+                                    <option value="2020" selected>20</option>
+                                    <option value="2021">21</option>
+                                    <option value="2022">22</option>
+                                    <option value="2023">23</option>
+                                    <option value="2024">24</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Postal Code </label>
+
+                            <div class="col-sm-9">
+                                <input data-braintree-name="postal_code" value="94107" class="col-xs-10 col-sm-5">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Cardholder Name </label>
+
+                            <div class="col-sm-9">
+                                <input data-braintree-name="cardholder_name" value="John Smith" class="col-xs-10 col-sm-5">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Billing Address </label>
+
+                            <div class="col-sm-9">
+                                <input data-braintree-name="street_address" value="John Smith" class="col-xs-10 col-sm-5">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">  </label>
+
+                            <div class="col-sm-9">
+                                <input type="submit" id="submit" value="Pay" class="btn btn-info">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="tab-pane " id="profile" >
+                    <div id="paypal-button"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--<form id="checkout" method="post" action="/payment">
+    <div id="dropin"></div>
+    <input type="submit" value="Pay $10">
+</form>-->
+
+
+
+
+</body>
+<script src="/assets/js/jquery-2.0.3.min.js" ></script>
+<script src="/assets/js/bootstrap.min.js" ></script>
+<script>
+    var clientToken = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiI2NDhlOTE3MWE5YTBjZTU2NjljNWQ4ZGE0Njg0YWRmMTg0ZDM2NzNkMDJmMzA0ZDc5ZGJhZmFhZTdkMWY0NzU2fGNyZWF0ZWRfYXQ9MjAxNC0xMi0xMVQwMjoyMDozNi41Njc4NTkzMjQrMDAwMFx1MDAyNm1lcmNoYW50X2lkPTd5ank5ZGYzYjgycTJ2ejhcdTAwMjZwdWJsaWNfa2V5PXpzY3Q1NmY3d3R2bm1uYjgiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvN3lqeTlkZjNiODJxMnZ6OC9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwicGF5bWVudEFwcHMiOltdLCJjbGllbnRBcGlVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvN3lqeTlkZjNiODJxMnZ6OC9jbGllbnRfYXBpIiwiYXNzZXRzVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhdXRoVXJsIjoiaHR0cHM6Ly9hdXRoLnZlbm1vLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhbmFseXRpY3MiOnsidXJsIjoiaHR0cHM6Ly9jbGllbnQtYW5hbHl0aWNzLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb20ifSwidGhyZWVEU2VjdXJlRW5hYmxlZCI6ZmFsc2UsInBheXBhbEVuYWJsZWQiOnRydWUsInBheXBhbCI6eyJkaXNwbGF5TmFtZSI6Ik1pc3Npb24gcHVibGljIiwiY2xpZW50SWQiOm51bGwsInByaXZhY3lVcmwiOiJodHRwOi8vZXhhbXBsZS5jb20vcHAiLCJ1c2VyQWdyZWVtZW50VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3RvcyIsImJhc2VVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImFzc2V0c1VybCI6Imh0dHBzOi8vY2hlY2tvdXQucGF5cGFsLmNvbSIsImRpcmVjdEJhc2VVcmwiOm51bGwsImFsbG93SHR0cCI6dHJ1ZSwiZW52aXJvbm1lbnROb05ldHdvcmsiOnRydWUsImVudmlyb25tZW50Ijoib2ZmbGluZSIsIm1lcmNoYW50QWNjb3VudElkIjoidHhoMm5ucGhyMzJoaHRrZiIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJjb2luYmFzZUVuYWJsZWQiOmZhbHNlLCJtZXJjaGFudElkIjoiN3lqeTlkZjNiODJxMnZ6OCIsInZlbm1vIjoib2ZmIn0="
+
+
+</script>
+
+<script src="/js/lib/ng.1.2.6/angular.min.js"></script>
+<script src="/js/lib/ng.1.2.6/angular-route.min.js"></script>
+<script src="/js/lib/jquery.cookie.js"></script>
+<script src="/js/lib/bindonce.min.js"></script>
+
+<script src="/customer/js/customer_module.js"></script>
+<script src="/customer/js/service.js"></script>
+<script src="/payment/payment_controller.js"></script>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的帐号</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/coffee_profile.css">
+    <script src='../assets/js/jquery-2.0.3.min.js'></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=1"></script>
+    <script>
+        function getParameter(param) {
+            var reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null)
+                return unescape(r[2]);
+            return null;
+        }
+        var code = getParameter('code');
+        //alert(code);
+        var url = "/api/wechat/user?code="
+        url = url + code;
+        //alert(url);
+        /*$.get(url,function(data,status){
+         alert(data);
+         alert(status);
+         });*/
+        var data = $.ajax({
+            url:url,
+            type:'get',
+            async: false
+        });
+        alert(data.responseText);
+
+    </script>
+</head>
+
+<body>
+
+<div class="page-box page-user mp-display-box">
+    <div><div class="page-user-avatar"></div></div>
+    <div class="mp-box-flex-1">
+        <div>咖啡香 Coffee & Sweet</div>
+        <div>每天一杯好心情</div>
+    </div>
+    <div> &gt; </div>
+</div>
+
+<div class="page-box page-wallet">
+    <div class="page-title mp-display-box">
+        <div class="page-title-icon"></div>
+        <div class="page-title-name mp-box-flex-1">我的钱包</div>
+        <div class="page-title-more">
+            查看全部财产 &gt;
+        </div>
+    </div>
+    <div class="page-sub-content">
+        <div>
+            <span>全额 0.00</span>
+            <span>红包 1</span>
+        </div>
+    </div>
+</div>
+
+<div class="page-box page-order">
+    <div class="page-title mp-display-box">
+        <div class="page-title-icon"></div>
+        <div class="page-title-name mp-box-flex-1">我的订单</div>
+        <div class="page-title-more">
+            查看全部订单 &gt;
+        </div>
+    </div>
+    <div class="page-sub-content">
+        <div class="mp-display-box">
+            <div class="mp-box-flex-1">
+                <img src="image/coffee.png">
+                <div>我订的咖啡</div>
+            </div>
+            <div class="mp-box-flex-1">
+                <img src="image/coffee.png">
+                <div>我请的咖啡</div>
+            </div>
+            <div class="mp-box-flex-1">
+                <img src="image/coffee.png">
+                <div>我领的咖啡</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-box page-order">
+    <div class="page-title mp-display-box">
+        <div class="page-title-icon"></div>
+        <div class="page-title-name mp-box-flex-1">我的地址库</div>
+        <div class="page-title-more">
+            管理配送地址 &gt;
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

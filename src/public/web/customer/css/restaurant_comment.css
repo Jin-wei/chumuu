@@ -1,0 +1,70 @@
+#restaurant_comment_view .page-box{
+    border:1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+#restaurant_comment_view .page-title{
+    font-size:25px;
+}
+
+#restaurant_comment_view .page-star {
+    font-size:20px;
+}
+
+
+#restaurant_comment_view .mp-menu-item-label {
+    width:40%;
+    min-width:100px;
+    max-width:200px;
+    font-size:17px;
+    color:#232323;
+    height: 35px;
+    line-height: 35px;
+}
+#restaurant_comment_view .mp-menu-item-value {
+    font-size:17px;
+    height: 35px;
+    line-height: 35px;
+}
+#restaurant_comment_view .mp-menu-item-comment {
+    border: 1px solid #d4d4d4;
+    border-radius: 5px;
+    color: #232323;
+    font-size: 20px;
+    padding:20px;
+}
+#restaurant_comment_view .mp-menu-item-comment:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+#restaurant_comment_view starratingeditor {
+    font-size:25px;
+}
+/* for mobile */
+@media only screen and (max-width: 600px) {
+    #restaurant_comment_view .page-title {
+        font-size:20px;
+    }
+    #restaurant_comment_view starratingeditor {
+        font-size:15px;
+    }
+    #restaurant_comment_view .page-main-info .page-star > div{
+        float: none !important;
+        text-align: left;
+        font-size:10px;
+    }
+    #restaurant_comment_view .page-main-info .page-star > starrating{
+        font-size:13px;
+    }
+    #restaurant_comment_view .page-main-info .page-star span{
+        width:55px;
+        display: inline-block;
+    }
+    #restaurant_comment_view .page-comment-star span {
+        display: block;
+    }
+    #restaurant_comment_view .page-comment-star > div {
+        line-height: 18px !important;
+    }
+}

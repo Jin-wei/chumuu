@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>购物车</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/coffee_give.css">
+    <script src='../assets/js/jquery-2.0.3.min.js'></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+    <script src="./js/config.js"></script>
+    <script src="./js/util.js"></script>
+    <script src="/js/lib/jquery.cookie.min.js"></script>
+</head>
+
+<body>
+
+<div class="page-content">
+    <div id="page-items"></div>
+    <div id="page-comment" style="padding:20px 30px 20px 20px">
+        <div>备注</div>
+        <textarea rows="5" placeholder="请输入您的特殊要求~" style=" background-color: rgb(248, 243, 240); border: none; width: 100%; margin-top: 5px; padding: 5px; color: rgb(202, 168, 155); border-radius: 3px; "></textarea>
+    </div>
+
+    <div class="page-footer mp-display-box">
+        <div><span id="js-total-count">0</span>份 ￥<span id="js-total-price">0.00</span></div>
+        <div class="mp-box-flex-1"></div>
+        <div>
+            <span class="page-btn-ok" onclick="ConfirmOrder()">确认商品</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    var html = '\
+    <div class="page-item js-item-#id#">\
+    <div class=" mp-display-box">\
+    <div class="page-item-logo">\
+    <img src="image/coffee.png">\
+    </div>\
+    <div class="mp-box-flex-1 page-item-content">\
+    <div>#name# ￥#price#</div>\
+    <div>#desc#</div>\
+    </div>\
+    <div class="page-item-option">\
+    <span class="page-item-count">#count#</span>\
+    </div>\
+    </div>\
+    <div class="page-item-addition" style="display: none;">\
+    <div class="page-item-textarea">\
+    <textarea placeholder="咖啡像是生活本身的味道, 久了就喝出香浓"></textarea>\
+    </div>\
+    <div class="page-item-desc">\
+    接受礼物的朋友可以从下列组合中任选一种\
+    <div class="page-item-title">组合1:香草拿铁(热)</div>\
+    香草拿铁比卡布期诺少了点CREAM, 比普通拿铁多了点甜味, 适合爱吃甜品的萌妹子.\
+    <div class="page-item-title">组合2:经典热巧克力</div>\
+    以新鲜牛奶,香浓可可粉黄金比例搭配而成的热巧克力,香浓美味,热力四射.\
+    <div class="page-item-title">组合3:美式咖啡(热)</div>\
+    传说中的清咖, 苦啊~\
+    <div class="page-item-title">组合4:冰摩卡</div>\
+    巧克力是咖啡的好朋友,冰摩卡将它们的关系升华到极致.\
+    <div class="page-item-title">组合5:抹茶星冰乐</div>\
+    不含咖啡因的饮料清新的绿茶风味融合了搅打奶油的柔滑.\
+    </div>\
+    </div>\
+    </div>\
+            ';
+
+    var order = getCookieAsObject('order');//LocalStoreUtil.getAsObject('order');
+    console.log('order',order);
+    if(!order || !order.prods || order.prods.length<1) {
+        alert('没有查到订单信息');
+    }
+    else {
+        var arr = order.prods;
+
+        var $list = $('#page-items');
+        for(var i=0;i<arr.length;++i) {
+            var tmp = html.replace(/#name#/g,arr[i].name);
+            tmp = tmp.replace(/#id#/g,arr[i].prod_id);
+            tmp = tmp.replace(/#price#/g,arr[i].price);
+            tmp = tmp.replace(/#count#/g,arr[i].count || 0);
+            tmp = tmp.replace(/#desc#/g,arr[i].description);
+            $list.append($(tmp));
+        }
+
+        $('#js-total-count').html(order.totalCount);
+        $('#js-total-price').html(order.totalPrice);
+    }
+
+    function ConfirmOrder() {
+        order = order || {};
+        order.remark = $('#page-comment textarea').first().val();
+        setCookie('order',order);
+        //LocalStoreUtil.set('order',order);
+
+        var userInfo = getCookieAsObject('userInfo');//LocalStoreUtil.getAsObject('userInfo');
+        var nextPage = "coffee_confirm_order.html";
+        if(userInfo) {
+            alert('already has userInfo');
+            window.location.href = nextPage;
+        }
+        else {
+            alert('No userInfo, request open data');
+            LocateToWeiXinPage(GC.domain + '/coffee/' + nextPage);
+        }
+    }
+
+</script>
+
+<script>
+    DisableAutoZoom();
+</script>
+
+</body>
+</html>
+

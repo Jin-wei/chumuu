@@ -1,0 +1,112 @@
+<div id="invoice_view" class="page-content row">
+    <mp-tab class="col-xs-12 nopadding" ng-model="tabs"></mp-tab>
+    <div style="padding: 40px 15px 15px 15px">
+        <div tab ng-controller="invoiceListController">
+
+            <div class="col-xs-12 mp-display-box mp-nopadding">
+                <div class="mp-boxflex-1">
+                    <ul class="pagination">
+                        <li ng-class="{'disabled':!hasPreviousPage}">
+                            <a href="javascript:;" ng-click="onBtnPageTo('previous')">
+                                <i class="icon-double-angle-left"></i> 上一页
+                            </a>
+                        </li>
+
+                        <li ng-class="{'disabled':!hasNextPage}">
+                            <a href="javascript:;" ng-click="onBtnPageTo('next')">
+                                <i class="icon-double-angle-right"></i> 下一页
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="page-search-item" style="margin:10px 0;">
+                        <span>每页显示条数:</span>
+                        <select ng-model="searchPageSize">
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="1000">1000</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="invoice-list" class="table table-striped table-bordered table-hover table-tr-link col-xs-12">
+                <thead>
+                <tr>
+                    <th>周期</th>
+                    <!--<th>起始于</th>-->
+                    <!--<th>结束于</th>-->
+                    <th>订单总数</th>
+                    <th>销售总额</th>
+                    <th>平台费</th>
+                    <!--<th>配送费</th>-->
+                    <th>应付总额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="mp-pointer" ng-click="showDetail(item)" bindonce ng-repeat="item in $mpInvoice.getData()">
+                    <td bo-bind="item.year_week"></td>
+                    <!--<td bo-bind="DateFormat(item.start,'yyyy-MM-dd')"></td>-->
+                    <!--<td bo-bind="DateFormat(item.end,'yyyy-MM-dd')"></td>-->
+                    <td ng-bind="item.order_count"></td>
+                    <td ng-bind="item.total_amount"></td>
+                    <td bo-bind="item.fee"></td>
+                    <td bo-bind="item.amount"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-xs-12 mp-display-box mp-nopadding">
+                <div class="mp-boxflex-1">
+                    <ul class="pagination">
+                        <li ng-class="{'disabled':!hasPreviousPage}">
+                            <a href="javascript:;" ng-click="onBtnPageTo('previous')">
+                                <i class="icon-double-angle-left"></i> 上一页
+                            </a>
+                        </li>
+
+                        <li ng-class="{'disabled':!hasNextPage}">
+                            <a href="javascript:;" ng-click="onBtnPageTo('next')">
+                                <i class="icon-double-angle-right"></i> 下一页
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div tab id="invoice-detail" ng-controller="invoiceDetailController">
+            <table class="table table-striped table-bordered table-hover col-xs-12">
+                <thead>
+                <tr>
+                    <th>商家</th>
+                    <th>订单总数</th>
+                    <th>销售总额</th>
+                    <th>平台费</th>
+                    <!--<th>配送费</th>-->
+                    <th>应付总额</th>
+                    <!--<th width="270px">-->
+                    <!--<span style="display: inline-block;width:50px;">操作</span>-->
+                    <!--<button class="btn btn-info" style="padding:0;">一键全部标记为已支付</button>-->
+                    <!--</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="item in item.items">
+                    <td ng-bind="item.name"></td>
+                    <td ng-bind="item.order_count"></td>
+                    <td ng-bind="item.amount"></td>
+                    <td bo-bind="item.fee"></td>
+                    <td bo-bind="item.actual_amount"></td>
+                    <!--<td style="line-height: 30px;">-->
+                    <!--<div ng-hide="item.paid">-->
+                    <!--<span style="display: inline-block;width:50px;">标记为</span>-->
+                    <!--<button class="btn btn-info" style="padding:0 10px;">已支付</button>-->
+                    <!--</div>-->
+                    <!--<span ng-show="item.paid" style="">已支付</span>-->
+                    <!--</td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="space-12"></div>
+</div>

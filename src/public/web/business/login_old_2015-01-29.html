@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Login Page - TruMenu Business</title>
+
+    <meta name="description" content="User login page"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- build:js ../js/mp-g-bl.jq-ng.js -->
+    <script src='../assets/js/jquery-2.0.3.min.js'></script>;
+    <script src="../js/lib/ng.1.2.6/angular.min.js"></script>
+    <script src="../js/lib/ng.1.2.6/angular-cookies.js"></script>
+    <script src="../js/lib/ng.1.2.6/angular-route.min.js"></script>
+    <script src="../js/lib/ng-infinite-scroll.js"></script>
+    <script src="../js/lib/angular-chosen.js"></script>
+    <script src="../js/lib/jquery.cookie.js"></script>
+    <script src="../js/lib/bindonce.min.js"></script>
+    <!--endbuild-->
+
+    <!-- basic styles -->
+    <!-- build:css ../css/mp-g-bl.bs-ace-mp.css -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../assets/css/ace.min.css"/>
+    <link rel="stylesheet" href="../assets/css/ace-rtl.min.css"/>
+    <link rel="stylesheet" href="css/login.css"/>
+    <!--endbuild-->
+
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css"/>
+</head>
+
+<body class="login-layout" ng-app="mp_business">
+<div class="main-container">
+<div class="main-content">
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1">
+<div class="login-container">
+<div class="center">
+    <h1>
+        <img src="/image/logo_small.png"/>
+        <span class="red">TruMenu Business</span>
+    </h1>
+</div>
+
+<div class="space-6"></div>
+
+<div class="" ng-controller="loginIndexController">
+<div id="login-box" class="login-box visible widget-box no-border" ng-controller="loginController">
+    <div class="widget-body">
+        <div class="widget-main">
+            <h4 class="header blue lighter bigger">
+                <i class="icon-coffee green"></i>
+                {{L.please_enter_your_info}}
+            </h4>
+
+            <div class="space-6"></div>
+
+            <form>
+                <fieldset>
+                    <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input ng-model="user" type="text" class="form-control"
+                                                                   placeholder="{{L.user_name}}"/>
+															<i class="icon-user"></i>
+														</span>
+                    </label>
+
+                    <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input ng-model="password" type="password"
+                                                                   class="form-control" placeholder="{{L.password}}"/>
+															<i class="icon-lock"></i>
+														</span>
+                    </label>
+
+                    <div class="space"></div>
+
+                    <div class="clearfix">
+                        <!--<label class="inline">-->
+                        <!--<input type="checkbox" class="ace" />-->
+                        <!--<span class="lbl"> Remember Me</span>-->
+                        <!--</label>-->
+
+                        <button type="button" class="width-35 pull-right btn btn-sm btn-primary" ng-click="onLogin()">
+                            <i class="icon-key"></i>
+                            {{L.login}}
+                        </button>
+                    </div>
+
+                    <div class="space-4"></div>
+                </fieldset>
+            </form>
+
+            <!--<div class="social-or-login center">-->
+            <!--<span class="bigger-110">Or Login Using</span>-->
+            <!--</div>-->
+
+            <!--<div class="social-login center">-->
+            <!--<a class="btn btn-primary">-->
+            <!--<i class="icon-facebook"></i>-->
+            <!--</a>-->
+
+            <!--<a class="btn btn-info">-->
+            <!--<i class="icon-twitter"></i>-->
+            <!--</a>-->
+
+            <!--<a class="btn btn-danger">-->
+            <!--<i class="icon-google-plus"></i>-->
+            <!--</a>-->
+            <!--</div>-->
+        </div>
+        <!-- /widget-main -->
+
+        <div class="toolbar clearfix">
+            <div>
+                <a href="#" onclick="show_box('forgot-box'); return false" class="forgot-password-link">
+                    <i class="icon-arrow-left"></i>
+                    {{L.forgot_pwd}}
+                </a>
+            </div>
+
+            <div>
+                <a href="#" onclick="show_box('signup-box'); return false" class="user-signup-link">
+                    {{L.register}}
+                    <i class="icon-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- /widget-body -->
+</div>
+<!-- /login-box -->
+
+<div id="forgot-box" class="forgot-box visible widget-box no-border">
+    <div class="widget-body">
+        <div class="widget-main">
+            <h4 class="header red lighter bigger">
+                <i class="icon-key"></i>
+                {{L.retrieve_pwd}}
+            </h4>
+
+            <div class="space-6"></div>
+            <p ng-bind="L.enter_your_email"> </p>
+
+            <form>
+                <fieldset>
+                    <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="email" class="form-control"
+                                                                   placeholder="{{L.email}}"/>
+															<i class="icon-envelope"></i>
+														</span>
+                    </label>
+
+                    <div class="clearfix">
+                        <button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+                            <i class="icon-lightbulb"></i>
+                            {{L.send}}
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <!-- /widget-main -->
+
+        <div class="toolbar center">
+            <a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+                {{L.back}}
+                <i class="icon-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <!-- /widget-body -->
+</div>
+<!-- /forgot-box -->
+
+<div id="signup-box" class="signup-box visible widget-box no-border" ng-controller="signUpController">
+    <div class="widget-body">
+        <div class="widget-main">
+            <h4 class="header green lighter bigger">
+                <i class="icon-group blue"></i>
+                {{L.new_user_registration}}
+            </h4>
+
+            <div class="space-6"></div>
+            <p>{{L.enter_your_details}}</p>
+
+            <form name="signUpForm" novalidate>
+                <fieldset>
+                    <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="email" class="form-control" ng-model="regEmail" ng-focus="signUpForm_email_blur=false" ng-blur="signUpForm_email_blur=true"  name="regEmail" required  placeholder={{L.email}}>
+                                <i class="icon-envelope" ></i>
+                            </span>
+                            <span ng-show="signUpForm.regEmail.$invalid && signUpForm.regEmail.$dirty && signUpForm_email_blur">
+                                <span ng-show="signUpForm.regEmail.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.email_warning_text_1}}
+                                </span>
+                            </span>
+                    </label>
+
+                    <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="text" class="form-control" name="userName" ng-maxlength="20" ng-model="userName" placeholder={{L.user_name}}>
+                                <i class="icon-user" style="padding-right: 5px;"></i>
+                            </span>
+                            <span ng-show="signUpForm.userName.$invalid && signUpForm.userName.$dirty">
+                                <span ng-show="signUpForm.userName.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.user_name_warning_text}}
+                                </span>
+                            </span>
+                    </label>
+
+                    <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="password" class="form-control" name="newPassword" ng-focus="signUpForm_newPwd_blur=false" ng-blur="signUpForm_newPwd_blur=true"  required ng-minlength="6" ng-maxlength="15" ng-model="newPassword" placeholder={{L.password}}>
+                                <i class="icon-lock" style="padding-right: 7px;"></i>
+                            </span>
+                            <span ng-show="signUpForm.newPassword.$invalid && signUpForm.newPassword.$dirty && signUpForm_newPwd_blur">
+                                <span ng-show="signUpForm.newPassword.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.password_warning_text}}
+                                </span>
+                            </span>
+                    </label>
+
+                    <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="password" class="form-control" name="retypeNewPassword" ng-focus="signUpForm_retypePwd_blur=false" ng-blur="signUpForm_retypePwd_blur=true"  required ng-minlength="6" ng-maxlength="15" ng-model="retypeNewPassword" placeholder={{L.repeat_pwd}}>
+                                <i class="icon-lock" style="padding-right: 7px;"></i>
+                            </span>
+                            <span ng-show="signUpForm.newPassword.$invalid && signUpForm.newPassword.$dirty && signUpForm_retypePwd_blur">
+                                <span ng-show="signUpForm.newPassword.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.password_warning_text}}
+                                </span>
+                            </span>
+
+                            <span ng-show="signUpForm.newPassword.$valid && newPassword!=retypeNewPassword" class="label label-danger label-xlg " style="width: 100%;">
+                                <i class="icon-warning-sign  bigger-130"></i>
+                                {{L.change_password_warning_text_3}}
+                            </span>
+                    </label>
+
+                    <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="text" class="form-control" name="firstName" ng-focus="signUpForm_firstN_blur=false" ng-blur="signUpForm_firstN_blur=true"  required ng-minlength="1" ng-maxlength="20" ng-model="firstName" placeholder={{L.first_name}}>
+                                <i class="icon-user " style="padding-right: 5px;"></i>
+                            </span>
+                            <span ng-show="signUpForm.firstName.$invalid && signUpForm.firstName.$dirty && signUpForm_firstN_blur">
+                                <span ng-show="signUpForm.firstName.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.first_name_warning_text}}
+                                </span>
+                            </span>
+                    </label>
+
+                    <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="text" class="form-control" name="lastName" ng-focus="signUpForm_lastN_blur=false" ng-blur="signUpForm_lastN_blur=true"  required ng-minlength="1" ng-maxlength="20" ng-model="lastName" placeholder={{L.last_name}}>
+                                <i class="icon-user " style="padding-right: 5px;"></i>
+                            </span>
+                            <span ng-show="signUpForm.lastName.$invalid && signUpForm.lastName.$dirty && signUpForm_lastN_blur">
+                                <span ng-show="signUpForm.lastName.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.last_name_warning_text}}
+                                </span>
+                            </span>
+                    </label>
+
+                    <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="text" class="form-control" name="phoneNum" ng-maxlength="20" ng-model="phoneNum" placeholder={{L.phone}}>
+                                <i class="icon-phone " style="padding-right: 5px;"></i>
+                            </span>
+                            <span ng-show="signUpForm.phoneNum.$invalid && signUpForm.phoneNum.$dirty">
+                                <span ng-show="signUpForm.phoneNum.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{ }}
+                                </span>
+                            </span>
+                    </label>
+
+                    <label class="block">
+                        <input type="checkbox" class="ace"/>
+														<span class="lbl">
+                                                            {{L.i_accept}}
+															<a href="#" ng-bind="L.user_agreement"></a>
+														</span>
+                    </label>
+
+                    <div class="space-24"></div>
+
+                    <div class="clearfix">
+                        <button type="reset" class="width-30 pull-left btn btn-sm">
+                            <i class="icon-refresh"></i>
+                            {{L.reset}}
+                        </button>
+
+                        <button type="button" class="width-65 pull-right btn btn-sm btn-success" id="signUpBtn" ng-disabled="signUpForm.$invalid || newPassword!=retypeNewPassword" ng-click="doSignUp()">
+                            {{L.register}}
+                            <i class="icon-arrow-right icon-on-right"></i>
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="toolbar center">
+            <a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+                <i class="icon-arrow-left"></i>
+                {{L.back}}
+            </a>
+        </div>
+    </div>
+    <!-- /widget-body -->
+</div>
+<!-- /signup-box -->
+<div class="login-copyright">
+    <h4 class="blue" style="">&copy; Mission Public Inc. 2015</h4>
+
+    <h3><a href="javascript:;" ng-click="onChangeLanguage()">{{L.next_lang}}</a></h3>
+</div>
+</div>
+<!-- /position-relative -->
+</div>
+</div>
+<!-- /.col -->
+</div>
+<!-- /.row -->
+</div>
+</div>
+<!-- /.main-container -->
+
+<!-- basic scripts -->
+
+<script type="text/javascript">
+    if ("ontouchend" in document) document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+
+<script type="text/javascript">
+    function show_box(id) {
+        jQuery('.widget-box.visible').removeClass('visible');
+        jQuery('#' + id).addClass('visible');
+        angular.element(".widget-box").css("display","none");
+        angular.element("#"+id).css("display","block");
+    }
+</script>
+
+<!-- build:js ../js/mp-g-bl.mp.js -->
+<script src="js/i18n/en_us.js"></script>
+<script src="js/i18n/zh_cn.js"></script>
+<script src="js/business_module.js"></script>
+<script src="js/service.js"></script>
+<script src="../js/system_config.js"></script>
+<script src="../js/global_function.js"></script>
+<script src="js/global_function.js"></script>
+<script src="js/login_controller.js"></script>
+<script src="js/loginIndexController.js"></script>
+<!--endbuild-->
+
+<!--[if lt IE 9]>
+<script src="../assets/js/html5shiv.js"></script>
+<script src="../assets/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+    if(gBrowser.sys_config.statistics_js) {
+        document.write(unescape(gBrowser.sys_config.statistics_js));
+    }
+</script>
+</body>
+</html>

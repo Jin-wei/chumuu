@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAIE,4BAAW;EACT,OAAO,EAAE,KAAK;AAEhB,kCAAiB;EACf,KAAK,EAAE,IAAI;EACX,WAAW,EAAE,IAAI;EACjB,MAAM,EAAE,IAAI;EACZ,YAAY,EAAE,IAAI",
+"sources": ["invoice.scss"],
+"names": [],
+"file": "invoice.css"
+}

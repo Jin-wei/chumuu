@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>请选择一种套餐</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/coffee_give.css">
+    <script src='../assets/js/jquery-2.0.3.min.js'></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        function getParameter(param) {
+            var reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null)
+                return unescape(r[2]);
+            return null;
+        }
+        var code = getParameter('code');
+        //alert(code);
+        var url = "/api/wechat/user?code="
+        url = url + code;
+        //alert(url);
+        /*$.get(url,function(data,status){
+         alert(data);
+         alert(status);
+         });*/
+        var data = $.ajax({
+            url:url,
+            type:'get',
+            async: false
+        });
+        alert(data.responseText);
+
+
+    </script>
+</head>
+
+<body>
+<div class="page-content">
+    Feedback!
+</div>
+
+</body>
+</html>

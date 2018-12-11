@@ -1,0 +1,212 @@
+<div id="menu_add_update_view" class="page-content row">
+    <div class="col-xs-12  widget-container-span ui-sortable row">
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h4 class="lighter">
+                    <i class="icon-star orange"></i>
+                    {{isAddPage ? L.create+' '+L.menu_item : L.save+' '+L.menu_item}}
+                </h4>
+
+                <!--<div class="widget-toolbar" >-->
+                <!--<a href="javascript:;" data-action="collapse">-->
+                <!--<i class="icon-chevron-up"></i>-->
+                <!--</a>-->
+                <!--</div>-->
+
+
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <div class="space-6"></div>
+                    <form id="menuItemForm" class="mp-form-validation" name="menuItemForm" novalidate="novalidate" enctype="multipart/form-data">
+
+                        <table>
+                            <colgroup>
+                                <col width="5%"/>
+                                <col width="45%">
+                                <col width="5%"/>
+                                <col width="40%"/>
+                                <col width="5%"/>
+                            </colgroup>
+                            <thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+
+                                    <td>
+                                        <div class="menuAddUpdateForm">
+                                            <div class="col-xs-12 myitem">
+                                                <div class="col-xs-12 col-sm-2 center">
+                                                    <div class="row_title">
+                                                        <span class="icon-asterisk required_label"></span>{{L.name}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-10 center">
+                                                    <input name="name" ng-model="menuItem.productName" type="text" required ng-maxlength="100" placeholder="this field is requied"/>
+                                                    <!--<span ng-show="menuItemForm.name.$error.required">required</span>-->
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 myitem">
+                                                <div class="col-xs-12 col-sm-2 center">
+                                                    <div class="row_title" ng-bind="L.name_lang"> </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-10 center">
+                                                    <input name="name_lang" ng-model="menuItem.name_lang" type="text"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 myitem">
+                                                <div class="col-xs-12 col-sm-2 center">
+                                                    <div class="row_title" ng-bind="L.description"> </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-10 center">
+                                                    <textarea name="description" ng-model="menuItem.description"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 myitem">
+                                                <div class="col-xs-12 col-sm-2 center">
+                                                    <div class="row_title" ng-bind="L.description_lang"> </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-10 center">
+                                                    <textarea name="description_lang" ng-model="menuItem.description_lang"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 myitem">
+                                                <div class="col-xs-12 col-sm-2 center">
+                                                    <div class="row_title" ng-bind="L.ingredients"> </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-10 center">
+                                                    <input name="ingredient" ng-model="menuItem.ingredient" type="text"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 myitem">
+                                                <div class="col-xs-12 col-sm-2 center">
+                                                    <div class="row_title" ng-bind="L.type"> </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-4 center">
+                                                    <select name="type_id" ng-model="menuItem.type_id">
+                                                        <option ng-repeat="menuType in menuTypes"
+                                                                ng-selected="menuItem.type_id==menuType.type_id"
+                                                                value="{{menuType.type_id}}">{{menuType.name}} | {{menuType.name_lang}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-2 center">
+                                                    <div class="row_title" ng-bind="L.calorie"> </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-4 center">
+                                                    <input name="calorie" ng-model="menuItem.calorie" type="number"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 myitem">
+                                                <div class="col-xs-12 col-sm-2 center">
+                                                    <div class="row_title" ng-bind="L.spiciness_scale"> </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-4 center">
+                                                    <!--ng-model="menuItem.spiciness"-->
+                                                    <input name="spiciness" type="text" class="input-mini" id="menu_add_spiciness"/>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-2 center">
+                                                    <div class="row_title" ng-bind="L.price"> </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-4 center">
+                                                    <input name="price" ng-model="menuItem.price" class="input-mask-price" type="number"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 myitem">
+                                                <div class="col-xs-6 center">
+                                                    <label>
+                                                        <input type="hidden" name="togo" id="menu_add_togo" />
+                                                        <input ng-model="menuItem.togo" type="checkbox" class="ace"/>
+                                                        <span class="lbl">{{L.to_go}}</span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-xs-6 center" ng-show="false">
+                                                    <label>
+                                                        <input type="hidden" name="active" id="menu_add_active" />
+                                                        <input ng-model="menuItem.active" type="checkbox" class="ace"/>
+                                                        <span class="lbl"> Active</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td></td>
+
+                                    <td>
+
+                                        <div class="col-xs-12 center control-group">
+                                            <!--<input ng-show="isAddPage" name="image" type="file" id="menu_add_image"/>-->
+                                            <!--<img ng-src="../image/{{menuItem.img_url}}/s" ng-show="isUpdatePage" />-->
+
+                                            <img ng-if="menuItem.img_url" ng-src="/image/{{menuItem.img_url}}/l" style="width:100%;"/>
+                                            <img ng-if="!(menuItem.img_url)" ng-src="/image/{{'default_item_pic.png'}}" style="width:100%;"/>
+                                        </div>
+
+                                        <div class="space-6"></div>
+
+                                        <div class="col-xs-4 center" style="cursor:pointer;">
+                                            <span class="icon-picture editable img-responsive" id="avatar" style="font-size:200%;" ng-click="isUpdatePage = true;">
+                                                Upload
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-4 center"></div>
+                                        <div class="col-xs-4 center" style="cursor:pointer;">
+                                            <span class="icon-trash" style="font-size:200%;" ng-click="deleteMenuItemPicture()">
+                                                Delete
+                                            </span>
+                                        </div>
+
+                                    </td>
+
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="space-6"></div>
+                        <div class="col-xs-12 myitem">
+                            <div class="hr hr-18 dotted hr-double"></div>
+                            <div class="col-xs-4 center">
+                                <button type="button" class="btn btn-sm btn-default" ng-click="onBack()">
+                                    <i class="icon-arrow-left icon-on-left bigger-110"></i>
+                                    {{L.back}}
+                                </button>
+                            </div>
+                            <div class="col-xs-4 center">
+                                <button type="button" class="btn btn-sm btn-success" ng-click="onMenuItemSubmit(menuItemForm.$valid,menuItem)">
+                                    {{isAddPage ? L.submit : L.save}}
+                                    <i class="icon-ok icon-on-right bigger-110"></i>
+                                </button>
+                            </div>
+                            <div class="col-xs-4 center widget-toolbar">
+                                <button ng-show="isUpdatePage" class="btn btn-danger menu-delete-btn" ng-click="deleteMenuItem(menuItem)">
+                                    <i class="icon-ban-circle"></i>
+                                    {{L.delete}}
+                                </button>
+
+                                <div id="dialog-confirm" class="hide">
+                                    <div class="alert alert-info bigger-110"> This item will be permanently deleted and cannot be recovered. </div>
+                                    <div class="space-6"></div>
+                                    <p class="bigger-110 bolder center grey">
+                                        <i class="icon-hand-right blue bigger-120"></i> Are you sure?
+                                    </p>
+                                </div><!-- #dialog-confirm -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /widget-main -->
+            </div>
+            <!-- /widget-body -->
+        </div>
+        <!-- /widget-box -->
+    </div>
+</div>

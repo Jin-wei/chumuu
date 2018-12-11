@@ -1,0 +1,75 @@
+<div id="qrcode_view" class="page-content row position-relative">
+
+    <div class=" mp-disable-box">
+        <div class="mp-boxflex-1" style=" padding: 10px; background-color: #f8f8f8; border: 1px solid #eee; ">
+            <div style="padding:5px 0;">
+                <span class="page-search-item">
+                    <span>二维码编号:</span>
+                    <input type="text" ng-model="searchQrcode">
+                </span>
+                <span class="page-search-item">
+                    <span>商家:</span>
+                    <input type="text" ng-model="searchBizName">
+                </span>
+                <span class="page-search-item">
+                    <button class="btn btn-info"  ng-click="onBtnSearch()">查询</button>
+                </span>
+            </div>
+        </div>
+        <div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 mp-display-box">
+        <div class="mp-boxflex-1">
+            <ul class="pagination">
+                <li ng-class="{'disabled':!hasPreviousPage}">
+                    <a href="javascript:;" ng-click="onBtnPageTo('previous')">
+                        <i class="icon-double-angle-left"></i> 上一页
+                    </a>
+                </li>
+
+                <li ng-class="{'disabled':!hasNextPage}">
+                    <a href="javascript:;" ng-click="onBtnPageTo('next')">
+                        <i class="icon-double-angle-right"></i> 下一页
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div class="page-search-item" style="margin:10px 0;">
+                <span>每页显示条数:</span>
+                <select ng-model="searchPageSize">
+                    <option value="8">8</option>
+                    <option value="16">16</option>
+                    <option value="32">32</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-3 mp-menu-item" bindonce ng-repeat="code in qrcodes">
+         <div>{{code.biz_name}}</div>
+         <div>{{code.table_name}}</div>
+         <div><mp-table-qr code="q={{code.code}}" seq="{{code.seq_id}}"></mp-table-qr></div>
+    </div>
+
+
+    <div class="col-xs-12 mp-display-box">
+        <div class="mp-boxflex-1">
+            <ul class="pagination">
+                <li ng-class="{'disabled':!hasPreviousPage}">
+                    <a href="javascript:;" ng-click="onBtnPageTo('previous')">
+                        <i class="icon-double-angle-left"></i> 上一页
+                    </a>
+                </li>
+
+                <li ng-class="{'disabled':!hasNextPage}">
+                    <a href="javascript:;" ng-click="onBtnPageTo('next')">
+                        <i class="icon-double-angle-right"></i> 下一页
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>

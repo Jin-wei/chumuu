@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>请选择一种套餐</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/coffee_give.css">
+    <script src='/assets/js/jquery-2.0.3.min.js'></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+    <script src="/coffee/js/config.js"></script>
+    <script src="/coffee/js/util.js"></script>
+    <script>
+
+        var latitude = 0;
+        var longitude = 0;
+
+        var address = getParameter('address');
+        var bizId = getParameter('bizId');
+        var isCanOrder = bizId>0 ? true : false;
+
+        if(!isCanOrder) {
+            SetWeChatConfig({jsApiList:['openLocation','getLocation']});
+            wx.ready(function () {
+                wx.getLocation({
+                    success: function (res) {
+                        GetAddressOfCoordinate(res.latitude,res.longitude);
+                        alert(JSON.stringify(res));
+//                        console.log('should get prods here',res.latitude,res.longitude);
+                        var location = {
+                            lat: res.latitude,
+                            lng: res.longitude
+                        };
+
+                        SearchBiz({
+                                    latitude: location.lat,
+                                    longitude: location.lng
+                                },
+                                function(data){
+                                    if(data && data.length>0) {
+                                        var minDistance = GC.minSearchDistance+1;
+                                        var biz_id = 0;
+                                        for(var i=0;i<data.length;++i) {
+                                            var distance = GetDistance(data[i].latitude,data[i].longitude,location.lat,location.lng);
+                                            if(distance<minDistance) {
+                                                minDistance = distance;
+                                                biz_id = data[i].biz_id;
+                                            }
+                                        }
+                                        bizId = biz_id;
+                                        isCanOrder = true;
+                                        //enable order
+                                    }
+                                    else {
+                                        alert('抱歉,附近没有商家,请切换地址重试');
+                                    }
+                                },
+                                function(XMLHttpRequest, textStatus, errorThrown) {
+                                    console.log('search biz error');
+                                    alert('搜索商家失败, 请重试');
+                                });
+                    },
+                    failure: function (res) {
+                        alert("定位失败");
+                    }
+                });
+            });
+        }
+
+
+        var geocoderForAddress = new qq.maps.Geocoder( {
+            complete : function(result){
+                //wechat get location , then get address to show
+                $('#js-address').text(result.detail.addressComponents.street);
+                var location = result.detail.location;
+            },
+            error: function() {
+                alert('获取地址失败');
+            }
+        });
+
+        function GetAddressOfCoordinate(lat,lng) {
+            var coord = new qq.maps.LatLng(lat,lng);
+            geocoderForAddress.getAddress(coord);
+        }
+
+
+
+    </script>
+</head>
+
+<body>
+
+<div class="page-header mp-display-box">
+    <div><img width="70px" src="/coffee/image/kiss.png"></div>
+    <div class="mp-box-flex-1">
+        <div>亲, 现在时您<span>拍马P</span>的时间哟</div>
+        <div>摩擦一摩擦, 拍拍-拍拍, 还等什么~</div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div id="page-items"></div>
+
+    <div class="mp-dialog">
+        <div class="mp-dialog-header">
+            <!--<div class="mp-dialog-close">x</div>-->
+            确认支付
+        </div>
+        <div class="mp-dialog-content">
+            <div class="mp-dialog-prods">
+            </div>
+            <mp-hr></mp-hr>
+            <div class="mp-display-box">
+                <div class="mp-box-flex-1">使用红包</div>
+                <div>满1杯减10元 &gt;</div>
+            </div>
+            <mp-hr></mp-hr>
+            <div class="page-wechat-order-price">
+                <div class="mp-display-box">
+                    <div class="mp-box-flex-1">商品金额</div>
+                    <div>￥<span id="total_price"></span></div>
+                </div>
+                <div class="mp-display-box">
+                    <div class="mp-box-flex-1">优惠金额</div>
+                    <div>-￥10</div>
+                </div>
+                <div class="mp-display-box">
+                    <div class="mp-box-flex-1">总支付额</div>
+                    <div>￥<span id="final_total_price"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="mp-dialog-footer mp-display-box">
+            <div class="mp-box-flex-1 text-center" onclick="CloseDialog()">关闭</div>
+            <div class="mp-box-flex-1 text-center" onclick="WechatPay()" style="border-left: 1px solid;">微信支付</div>
+        </div>
+    </div>
+    <div class="mp-mask"></div>
+
+    <div class="page-footer mp-display-box">
+        <div><span id="js-total-count">0</span>份</div>
+        <div class="mp-box-flex-1">购买须知</div>
+        <div>
+            <span class="page-btn-ok" onclick="ConfirmOrder()">选好了</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    var html = '\
+    <div class="page-item js-item-#id#">\
+    <div class=" mp-display-box">\
+    <div class="page-item-logo">\
+    <img src="image/coffee.png">\
+    </div>\
+    <div class="mp-box-flex-1 page-item-content">\
+    <div>#name# ￥#price#</div>\
+    <div>#desc#</div>\
+    </div>\
+    <div class="page-item-option">\
+    <span class="page-btn-reduce" onclick="ReduceProd(#id#)" style="display: none;">-</span>\
+    <span class="page-item-count">#count#</span>\
+    <span class="page-btn-add" onclick="AddProd(#id#)">+</span>\
+    </div>\
+    </div>\
+    <div class="page-item-addition" style="display: none;">\
+    <div class="page-item-textarea">\
+    <textarea placeholder="咖啡像是生活本身的味道, 久了就喝出香浓"></textarea>\
+    </div>\
+    <div class="page-item-desc">\
+    接受礼物的朋友可以从下列组合中任选一种\
+    <div class="page-item-title">组合1:香草拿铁(热)</div>\
+    香草拿铁比卡布期诺少了点CREAM, 比普通拿铁多了点甜味, 适合爱吃甜品的萌妹子.\
+    <div class="page-item-title">组合2:经典热巧克力</div>\
+    以新鲜牛奶,香浓可可粉黄金比例搭配而成的热巧克力,香浓美味,热力四射.\
+    <div class="page-item-title">组合3:美式咖啡(热)</div>\
+    传说中的清咖, 苦啊~\
+    <div class="page-item-title">组合4:冰摩卡</div>\
+    巧克力是咖啡的好朋友,冰摩卡将它们的关系升华到极致.\
+    <div class="page-item-title">组合5:抹茶星冰乐</div>\
+    不含咖啡因的饮料清新的绿茶风味融合了搅打奶油的柔滑.\
+    </div>\
+    </div>\
+    </div>\
+            ';
+
+    var arr = [
+        {
+            prod_id:1,
+            name:'abcq',
+            price:3.32,
+            count:0,
+            description:'3232323fdfdfdf'
+        },
+        {
+            prod_id:2,
+            name:'abfdfdfc',
+            price:33.32,
+            count:0,
+            description:'3232323fdfdfll  df'
+        },
+        {
+            prod_id:3,
+            name:'abc000',
+            price:30.32,
+            count:0,
+            description:'3232323f0000dfdfdf'
+        },
+        {
+            prod_id:4,
+            name:'abclll',
+            price:9.32,
+            count:0,
+            description:'3232dfdf323fdfdfdf'
+        }
+    ];
+
+    var totalCount = 0;
+
+    var $list = $('#page-items');
+    for(var i=0;i<arr.length;++i) {
+        var tmp = html.replace(/#name#/g,arr[i].name);
+        tmp = tmp.replace(/#id#/g,arr[i].prod_id);
+        tmp = tmp.replace(/#price#/g,arr[i].price);
+        tmp = tmp.replace(/#count#/g,arr[i].count || 0);
+        tmp = tmp.replace(/#desc#/g,arr[i].description);
+        $list.append($(tmp));
+        if(arr[i].count>0) {
+            totalCount += arr[i].count;
+            $('.js-item-'+arr[i].id+' .page-btn-reduce').show();
+//            $('.js-item-'+arr[i].id+' .page-item-addition').show();
+        }
+    }
+
+    $('#js-total-count').html(totalCount);
+
+    function GetProdById(id) {
+        var ret = null;
+        for(var i=0;i<arr.length;++i) {
+            if(arr[i].prod_id===id){
+                ret = arr[i];
+                break;
+            }
+        }
+        return ret;
+    }
+
+    function AddProd(id) {
+        if(!isCanOrder) {
+            alert('请等待定位成功后, 为您分配商家');
+            return false;
+        }
+        $('.js-item-'+id+' .page-btn-reduce').show();
+//        $('.js-item-'+id+' .page-item-addition').show();
+        var prod = GetProdById(id);
+        if(prod) {
+            prod.count++;
+            totalCount++;
+            $('.js-item-'+id+' .page-item-count').html(prod.count);
+            $('#js-total-count').html(totalCount);
+        }
+    }
+
+    function ReduceProd(id) {
+        var prod = GetProdById(id);
+        if(prod) {
+            prod.count--;
+            totalCount--;
+            $('.js-item-'+id+' .page-item-count').html(prod.count);
+            $('#js-total-count').html(totalCount);
+            if(prod.count===0) {
+                $('.js-item-'+id+' .page-btn-reduce').hide();
+//                $('.js-item-'+id+' .page-item-addition').hide();
+            }
+        }
+    }
+
+    function ConfirmOrder() {
+
+        var html = '\
+                <div class="mp-display-box">\
+                    <div class="mp-box-flex-1">#prod_name#</div>\
+                    <div>x#count#</div>\
+                </div>\
+                ';
+
+        var dialogProds = $('.mp-dialog-prods');
+        dialogProds.html('');
+
+        var totalPrice = 0;
+        var final_total_price = 0;
+
+        var order = {prods:[]};
+        for(var i=0;i<arr.length;++i) {
+            var o = arr[i];
+            if(o.count>0) {
+                order.prods.push(o);
+                var tmp = html.replace('#prod_name#', o.name);
+                tmp = tmp.replace('#count#', o.count);
+                dialogProds.append($(tmp));
+                totalPrice += o.price * o.count;
+            }
+        }
+
+        if(order.prods.length>0) {
+            order.totalPrice = totalPrice;
+            order.totalCount = totalCount;
+            console.log('coffee:order',order);
+
+            LocalStoreUtil.set('order',order);
+        }
+    }
+
+    function ShowDialog() {
+        $('.mp-mask').show();
+        $('.mp-dialog').show();
+    }
+
+    function CloseDialog() {
+        $('.mp-mask').hide();
+        $('.mp-dialog').hide();
+    }
+
+    function WechatPay() {
+        console.log('pay',bizId);
+    }
+
+</script>
+
+<script>
+    DisableAutoZoom();
+
+    if(isCanOrder) {
+        $('#js-address').text(address);
+    }
+</script>
+
+</body>
+</html>

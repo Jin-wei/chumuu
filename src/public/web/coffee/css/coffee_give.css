@@ -1,0 +1,180 @@
+body {
+    background-color: rgb(240, 230, 228);
+}
+
+.mp-location {
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgb(240, 230, 228);
+}
+
+.mp-location  a {
+    color: rgb(100, 63, 51);
+    text-decoration: none;
+}
+
+.mp-location > span:nth-child(2) {
+    color: rgb(152, 118, 105);
+    font-size: 14px;
+}
+
+.page-content {
+    color: rgb(152, 118, 105);
+    margin-bottom: 70px;
+}
+
+.page-item {
+    padding: 15px 10px;
+    background-color: rgb(248, 243, 240);
+    margin-bottom: 1px;
+}
+
+.page-item-logo {
+    width: 32px;
+    padding: 8px;
+    border-right: 1px solid rgb(236, 224, 221);
+}
+
+.page-item-logo > img {
+    width: 100%;
+}
+
+.page-item-content {
+    font-size: 13px;
+    padding: 5px 13px;
+}
+
+.page-item-content > div:nth-child(1) {
+    color: rgb(125, 74, 52);
+    font-family: Arial;
+}
+
+.page-item-content > div:nth-child(2) {
+    font-size: 10px;
+    margin-top: 12px;
+    color: rgb(202, 168, 155);
+}
+
+.page-item-count {
+    color: rgb(125, 74, 52);
+    padding: 4px;
+    font-size:20px;
+}
+
+.page-item-option {
+}
+
+.page-btn-reduce {
+    border: 1px solid;
+    width: 26px;
+    text-align: center;
+    height: 26px;
+    border-radius: 20px;
+    font-size: 28px;
+    line-height: 26px;
+    display: inline-block;
+}
+
+.page-btn-add {
+    border: 1px solid;
+    width: 26px;
+    text-align: center;
+    height: 26px;
+    border-radius: 20px;
+    font-size: 28px;
+    line-height: 26px;
+    display: inline-block;
+}
+
+.page-footer {
+    position: fixed;
+    bottom: 0;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgb(246, 238, 235);
+    width: 100%;
+    font-size: 12px;
+}
+
+.page-footer > div:nth-child(1) {
+    padding-left: 20px;
+    color: rgb(125, 74, 52);
+    font-family: Arial;
+    font-size: 16px;
+}
+
+.page-footer > div:nth-child(2) {
+    text-align: center;
+}
+
+.page-footer > div:nth-child(3) {
+    padding-right: 20px;
+}
+.page-btn-ok {
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 6px 8px;
+}
+.page-item-addition {
+    padding:10px;
+}
+.page-item-textarea {
+}
+.page-item-textarea>textarea {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    color: #777;
+    padding: 3px;
+}
+.page-item-desc {
+    font-size:11px;
+    padding-top:15px;
+}
+.page-item-title {
+    font-weight: bold;
+    margin:20px 0 5px 0;
+    color: rgb(125, 74, 52);
+}
+
+.mp-dialog-header {
+    padding: 10px 0;
+}
+.mp-dialog-footer>div{
+    padding:10px;
+    width:76px;
+}
+.mp-dialog-content >div {
+    padding:10px;
+}
+.mp-dialog-content hr {
+
+}
+.page-wechat-order-price>div {
+    padding:3px 0;
+}
+.mp-dialog-prods>div {
+    padding:3px 0;
+}
+
+.page-header {
+    background-color: rgb(248, 243, 240);
+    padding:15px 20px;
+}
+.page-header>div:nth-child(1) {
+    ;
+}
+.page-header>div:nth-child(2) {
+;
+}
+.page-header>div:nth-child(2)>div:nth-child(1) {
+;
+}
+.page-header>div:nth-child(2)>div:nth-child(1)>span {
+;
+}
+.page-header>div:nth-child(2)>div:nth-child(2) {
+;
+}

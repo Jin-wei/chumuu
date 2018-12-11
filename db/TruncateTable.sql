@@ -1,0 +1,10 @@
+truncate table `bw`.`c_activity`;
+truncate table `bw`.`bc_activity`;
+truncate table `bw`.`coupon`;
+truncate table `bw`.`promotion`;
+truncate table `bw`.`product`;
+truncate table `bw`.`biz_customer_rel`;
+truncate table `bw`.`biz_user`;
+truncate table `bw`.`customer`;
+truncate table `bw`.`business`;
+truncate table `bw`.`point`;

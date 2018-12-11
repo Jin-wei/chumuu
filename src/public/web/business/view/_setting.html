@@ -1,0 +1,470 @@
+<div id="setting_view" class="page-content row">
+    <mp-tab class="col-xs-12" ng-model="tabs"></mp-tab>
+    <div class="col-xs-12" id="setting_tab" style="margin-top:10px;">
+        <!--安全-->
+        <div class="col-xs-12">
+            <form name="changePasswordForm" novalidate>
+                <div>
+                    <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"
+                         onmouseover="jQuery(this).addClass('ui-state-hover');"
+                         onmouseout="jQuery(this).removeClass('ui-state-hover')">
+                        <span ng-hide="edit.password" class="ui-icon ui-icon-pencil" style="width:auto;" ng-click="edit.password=true">{{L.edit}}</span>
+                    </div>
+
+                    <label>
+                        <i class="icon-lock"></i><span style="margin-left: 6px;">{{L.password}}</span>
+                    </label>
+
+                    <div class="space-6"></div>
+
+                    <div ng-if="edit.password">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12 col-sm-2">
+                                <span>{{L.current}}</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+
+
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" class="form-control" required ng-model="passInfo.current" name="currentPass" ng-focus="changePasswordForm_current_blur=false" ng-blur="changePasswordForm_current_blur=true" placeholder={{L.password}}>
+
+                                    </span>
+
+                                    <span ng-show="changePasswordForm.currentPass.$invalid && changePasswordForm.currentPass.$dirty && changePasswordForm_current_blur">
+                                         <span ng-show="changePasswordForm.currentPass.$error.required" class="label label-danger label-xlg " style="width: auto;">
+                                            <i class="icon-warning-sign  bigger-130"></i>
+                                            {{L.change_password_warning_text_1}}</span>
+                                    </span>
+                                </label>
+
+                                <div class="space"></div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="col-xs-12 col-sm-2">
+                                <span>{{L.new}}</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+
+
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" class="form-control" ng-model="passInfo.new" name="newPass" ng-focus="changePasswordForm_new_blur=false" ng-blur="changePasswordForm_new_blur=true"  required ng-minlength=6 ng-maxlength=15 placeholder={{L.password}}>
+
+                                    </span>
+
+                                    <span ng-show="changePasswordForm.newPass.$invalid && changePasswordForm.newPass.$dirty && changePasswordForm_new_blur">
+                                        <span ng-show="changePasswordForm.newPass.$invalid" class="label label-danger label-xlg " style="width: auto;">
+                                            <i class="icon-warning-sign  bigger-130"></i>
+                                            {{L.change_password_warning_text_2}}</span>
+                                    </span>
+                                </label>
+
+                                <div class="space"></div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="col-xs-12 col-sm-2">
+                                <span>{{L.retype_new}}</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+
+
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" class="form-control" ng-model="passInfo.retypeNew" name="reNewPass" ng-focus="changePasswordForm_reNew_blur=false" ng-blur="changePasswordForm_reNew_blur=true"  required ng-minlength=6 ng-maxlength=15 placeholder={{L.password}}>
+
+                                    </span>
+
+                                    <span ng-show="changePasswordForm.reNewPass.$invalid && changePasswordForm.reNewPass.$dirty && changePasswordForm_reNew_blur">
+                                        <span ng-show="changePasswordForm.reNewPass.$invalid" class="label label-danger label-xlg " style="width: auto;">
+                                            <i class="icon-warning-sign  bigger-130"></i>
+                                            {{L.change_password_warning_text_2}}</span>
+                                    </span>
+
+                                    <span ng-show="changePasswordForm.reNewPass.$valid && passInfo.new != passInfo.retypeNew" class="label label-danger label-xlg " style="width: auto;">
+                                            <i class="icon-warning-sign  bigger-130"></i>
+                                            {{L.change_password_warning_text_3}}</span>
+                                </label>
+
+                                <div class="space"></div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="clearfix">
+                            <button type="button" class="width-30 pull-left btn btn-sm btn-success" ng-disabled="changePasswordForm.$invalid || passInfo.new != passInfo.retypeNew || passInfo.current == passInfo.new" ng-click="onPasswordChange()">
+                                <i class="icon-ok"></i>
+                                {{L.save}}
+                            </button>
+
+                            <button type="button" class="width-30 pull-right btn btn-sm" ng-click="edit.password=false">
+                                {{L.cancel}}
+                                <i class="icon-remove icon-on-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--餐桌管理-->
+        <div class="col-xs-12" ng-controller="setting_tab_table_controller">
+            <div class="col-xs-12">
+                <div class="col-xs-12">
+                    <span class="pull-left" style="margin:4px;">{{L.table_type}}:</span>
+                    <div class="pull-left table_type_sign mp-no-select" ng-repeat="(key,value) in TABLE_TYPE.DESC[L.key]" ng-bind="value"
+                         style="background-color:{{TABLE_TYPE.COLOR[key]}};">
+                            </div>
+                </div>
+                <div class="col-xs-12 hr hr-6"></div>
+                <div class="pull-left biz-table mp-no-select pointer" ng-repeat="t in tables" ng-click="onEditTable($index)"
+                     style="background-color:{{TABLE_TYPE.COLOR[t.table_type]}};">
+                    <div ng-bind="t.name"></div>
+                    <div>({{t.seats}})</div>
+                </div>
+                <div class="pull-left biz-table mp-no-select pointer icon-plus green" style="font-size:30pt;line-height: 100px;" ng-click="onNewTable()"></div>
+            </div>
+            <div id="add_update_form">
+                <div class="col-xs-4 bigger-130 Arial">{{L.name}}</div>
+                <div class="col-xs-8 "><input class="width-100" type="text" ng-model="new_table.name"  ></div>
+                <div class="col-xs-12 space-2"></div>
+                <div class="col-xs-4 bigger-130 Arial">{{L.seats}}</div>
+                <div class="col-xs-8 "><input class="width-100 input-mask-number" type="number" ng-model="new_table.seats"  ></div>
+                <div class="col-xs-12 space-2"></div>
+                <div class="col-xs-4 bigger-130 Arial">{{L.type_cap}}</div>
+                <div class="col-xs-8 ">
+                    <select class="width-100" ng-model="new_table.table_type">
+                        <option value="{{key}}" ng-repeat="(key,value) in TABLE_TYPE.DESC[L.key]" ng-bind="value"></option>
+                    </select>
+                </div>
+                <div class="col-xs-12 space-2"></div>
+                <div class="col-xs-4 bigger-130 Arial">{{L.remark}}</div>
+                <div class="col-xs-8"><input class="width-100" type="text" ng-model="new_table.remark"  ></div>
+                <div class="col-xs-12 space-2"></div>
+                <div class="col-xs-4 bigger-130 Arial" ng-show="is_edit">{{L.qr_code}}</div>
+                <div class="col-xs-4 bigger-130 Arial" ng-hide="is_edit">{{L.qr_code_seq}}</div>
+                <div class="col-xs-8">
+                    <select  ng-hide="is_edit" class="width-100" ng-model="new_table.qr_seq_id" ng-options="qr.seq_id for qr in availableQrCodes"></select>
+                </select>
+                <mp-table-qr ng-show="is_edit" code="q={{new_table.qrcode}}" seq="{{new_table.qr_seq_id}}"></mp-table-qr>
+                </div>
+                <div class="col-xs-12 space-12"></div>
+                <div class="col-xs-12" style="max-width: 350px;">
+                    <div class="col-xs-4 text-center"> <button class="btn btn-danger btn-small" ng-click="onDelete()"> {{L.delete}}</button> </div>
+                    <div class="col-xs-4 text-center"> <button class="btn btn-success btn-small" ng-disabled="!new_table.name || new_table.name==''" ng-click="onSubmit()"> {{L.submit}}</button> </div>
+                    <div class="col-xs-4 text-center"> <button class="btn btn-default btn-small" ng-click="onCancel()"> {{L.cancel}}</button> </div>
+                </div>
+            </div>
+        </div>
+        <!--打印设备-->
+        <div class="col-xs-12" ng-controller="setting_tab_printer_controller">
+            <div class="col-xs-12">
+                <button class="btn btn-info btn-small icon-plus" ng-click="onBtnNewPrinter()"> {{L.new_printer}}</button>
+            </div>
+            <div class="col-xs-12 hr hr-6"> </div>
+            <table class="table table-striped table-bordered table-hover col-xs-12">
+                <colgroup>
+                    <col width="12%"/>
+                    <col width="10%"/>
+                    <col width="12%"/>
+                    <col width="12%"/>
+                    <col width="12%"/>
+                    <col width="12%"/>
+                    <col width=""/>
+                    <col width="12%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>{{L.name}}</th>
+                    <th>{{L.type_cap}}</th>
+                    <!--<th>IP</th>-->
+                    <th>{{L.device_name}}</th>
+                    <th>{{L.bind_name}}</th>
+                    <th>{{L.print_num}}</th>
+                    <th>{{L.location}}</th>
+                    <th>{{L.notes}}</th>
+                    <th>{{L.operations}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="print in printers">
+                    <td class="blue pointer" ng-bind="print.name" ng-click="onClickPrinter(print)"></td>
+                    <td ng-bind="PRINTER_TYPE.DESC[print.type]"></td>
+                    <td ng-bind="print.device_name"></td>
+                    <td ng-bind="BIND_STATUS.DESC[print.bind_status]"></td>
+                    <td ng-bind="print.print_num"></td>
+                    <td ng-bind="print.local"></td>
+                    <td ng-bind="print.remark"></td>
+                    <td class="mp-no-select">
+                        <span ng-show="!is_delete" class="red icon-trash bigger-200 pointer" ng-click="is_delete=true"></span>
+                        <span ng-show="is_delete" class="red icon-remove bigger-200 pointer" ng-click="is_delete=false"></span>
+                        <span ng-show="is_delete" class="green icon-ok bigger-200 pointer" ng-click="onDelete(print)" style="margin-left:30px;"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="modal" id="printer_add_update_form"  style="overflow-y:auto;height: auto">
+                <div class="modal-dialog"   style="min-height: 200px;height:auto;overflow: auto">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close"  data-dismiss="modal" aria-hidden="true"  ng-click="onCancel()">×</button>
+                            <h4 class="modal-title"  style="text-align: left">&nbsp</h4>
+                        </div>
+                        <form>
+                            <div class="modal-body"  style="min-height: 150px;height:auto;overflow:  auto">
+                                <div class="form-group col-md-12 col-xs-12">
+                                    <div class="col-xs-4 bigger-130">{{L.name}}:</div>
+                                    <div class="col-xs-8"><input type="text" ng-model="printer_edit_form.name"></div>
+
+                                    <div class="col-xs-12 space-6"></div>
+                                    <div class="col-xs-4 bigger-130">{{L.type}}:</div>
+                                    <div class="col-xs-8">
+                                        <select ng-model="printer_edit_form.type">
+                                            <option value="{{key}}" ng-repeat="(key,value) in PRINTER_TYPE.DESC" ng-bind="value"></option>
+                                        </select>
+                                    </div>
+
+                                    <!--<div class="col-xs-12 space-6"></div>-->
+                                    <!--<div class="col-xs-4 bigger-130">IP:</div>-->
+                                    <!--<div class="col-xs-8"><input type="text" ng-model="printer_edit_form.ip"></div>-->
+
+                                    <div class="col-xs-12 space-6"></div>
+                                    <div class="col-xs-4 bigger-130">{{L.device_name}}:</div>
+                                    <div class="col-xs-8"><input type="text" ng-model="printer_edit_form.device_name"></div>
+
+                                    <div class="col-xs-12 space-6"></div>
+                                    <div class="col-xs-4 bigger-130">{{L.print_num}}:</div>
+                                    <div class="col-xs-8"><input type="text" ng-model="printer_edit_form.print_num"></div>
+
+
+                                    <div class="col-xs-12 space-6"></div>
+                                    <div class="col-xs-4 bigger-130">{{L.location}}:</div>
+                                    <div class="col-xs-8"><input type="text" ng-model="printer_edit_form.local"></div>
+                                    <div class="col-xs-12 space-6"></div>
+                                    <div class="col-xs-4 bigger-130">{{L.notes}}:</div>
+                                    <div class="col-xs-8"><input type="text" ng-model="printer_edit_form.remark"></div>
+                                    <div class="col-xs-12 space-6"></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer form-group" style="border: none;margin-bottom: 0px">
+                                <div class="col-xs-12 " >
+                                    <div class="col-xs-3 text-center">
+                                        <button class="btn btn-danger btn-small" ng-click="onDelete()">{{L.delete}}</button>
+                                    </div>
+                                    <div class="col-xs-3 text-center">
+                                        <button class="btn btn-success btn-small" ng-click="onSubmit()">{{L.submit}}</button>
+                                    </div>
+                                    <div class="col-xs-3 text-center">
+                                        <button class="btn btn-primary btn-small" ng-click="onPrintTest()">{{L.print_test}}</button>
+                                    </div>
+                                    <div class="col-xs-3 text-center">
+                                        <button class="btn btn-default btn-small" ng-click="onCancel()">{{L.cancel}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--呼叫管理-->
+        <div class="col-xs-12" ng-controller="setting_tab_callOut_controller">
+            <div class="col-xs-12">
+                <button class="btn btn-info btn-small icon-plus" ng-click="showCallOut()"> {{L.add_callOut}}</button>
+            </div>
+            <div class="col-xs-12 hr hr-6"> </div>
+            <table class="table table-striped table-bordered table-hover col-xs-12">
+                <colgroup>
+                    <col width="12%"/>
+                    <col width="10%"/>
+                    <col width="10%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>{{L.call_title}}</th>
+                    <th>{{L.call_content}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="call in callOutArr">
+                    <td>{{call.title}}</td>
+                    <td>{{call.call_content}}</td>
+                    <td class="mp-no-select">
+                        <span ng-show="!is_delete" class="red icon-trash bigger-200 pointer" ng-click="is_delete=true"></span>
+                        <span ng-show="is_delete" class="red icon-remove bigger-200 pointer" ng-click="is_delete=false"></span>
+                        <span ng-show="is_delete" class="green icon-ok bigger-200 pointer" ng-click="onDeleteBizCall(call)" style="margin-left:30px;"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!--增加呼叫项目-->
+            <div class="modal" id="add_callOut"  style="overflow-y:auto;height: auto">
+                <div class="modal-dialog"   style="min-height: 200px;height:auto;overflow: auto">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close"  data-dismiss="modal" aria-hidden="true"  ng-click="hideCallOut()">×</button>
+                            <h4 class="modal-title"  style="text-align: left">&nbsp</h4>
+                        </div>
+                        <form>
+                            <div class="modal-body"  style="min-height: 150px;height:auto;overflow:  auto">
+                                <div class="form-group col-md-12 col-xs-12">
+                                    <table class="table table-striped table-bordered table-hover col-xs-12">
+                                        <colgroup>
+                                            <col width="5%"/>
+                                            <col width="10%"/>
+                                            <col width="10%"/>
+                                        </colgroup>
+                                        <thead>
+                                        <tr>
+                                            <th><input type="checkbox" ng-click="modifyCheckStatus()" id="checkTitle"></th>
+                                            <th>{{L.call_title}}</th>
+                                            <th>{{L.call_content}}</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="call in callOutAllArr">
+                                            <td><input type="checkbox" ng-checked="checkStatus" class="checkCall"></td>
+                                            <td>{{call.title}}</td>
+                                            <td>{{call.call_content}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer form-group" style="border: none;margin-bottom: 0px">
+                                <div class="col-xs-12 " >
+                                    <div class="col-xs-6 text-center">
+                                        <button class="btn btn-success btn-small" ng-click="addBizCallOut()">{{L.submit}}</button>
+                                    </div>
+                                    <div class="col-xs-6 text-center">
+                                        <button class="btn btn-default btn-small" ng-click="hideCallOut()">{{L.cancel}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--结账方式设置-->
+        <div class="col-xs-12" ng-controller="setting_tab_checkout_controller">
+            <div class="col-xs-12">
+                <button class="btn btn-info btn-small icon-plus" ng-click="showCheckOut()"> {{L.add_checkout}}</button>
+            </div>
+            <div class="col-xs-12 hr hr-6"> </div>
+            <table class="table table-striped table-bordered table-hover col-xs-12">
+                <colgroup>
+                    <col width="10%"/>
+                    <col width="12%"/>
+                    <col width="10%"/>
+                    <col width="10%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>{{L.checkout_id}}</th>
+                    <th>{{L.checkout_name}}</th>
+                    <th>{{L.checkout_remark}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="checkout in checkoutArr">
+                    <td class="blue pointer" ng-click="onClickCheckout(checkout)" >{{checkout.checkout_id}}</td>
+                    <td class="blue pointer" ng-click="onClickCheckout(checkout)" >{{checkout.checkout_name}}</td>
+                    <td>{{checkout.checkout_remark}}</td>
+                    <td class="mp-no-select">
+                        <span ng-show="!is_delete" class="red icon-trash bigger-200 pointer" ng-click="is_delete=true"></span>
+                        <span ng-show="is_delete" class="red icon-remove bigger-200 pointer" ng-click="is_delete=false"></span>
+                        <span ng-show="is_delete" class="green icon-ok bigger-200 pointer" ng-click="onDeleteBizCheckOut(checkout)" style="margin-left:30px;"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="modal" id="add_checkout"  style="overflow-y:auto;height: auto">
+                <div class="modal-dialog"   style="min-height: 200px;height:auto;overflow: auto">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close"  data-dismiss="modal" aria-hidden="true"  ng-click="onCancel()">×</button>
+                            <h4 class="modal-title"  style="text-align: left">&nbsp</h4>
+                        </div>
+                        <form>
+                            <div class="modal-body"  style="min-height: 150px;height:auto;overflow:  auto">
+                                <div class="form-group col-md-12 col-xs-12">
+                                    <div class="col-xs-4 bigger-130">{{L.name}}:</div>
+                                    <div class="col-xs-8"><input type="text" ng-model="checkoutInfoItem.checkout_name"></div>
+                                    <div class="col-xs-12 space-6"></div>
+                                    <div class="col-xs-4 bigger-130">{{L.notes}}:</div>
+                                    <div class="col-xs-8"><input type="text" ng-model="checkoutInfoItem.checkout_remark"></div>
+                                    <div class="col-xs-12 space-6"></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer form-group" style="border: none;margin-bottom: 0px">
+                                <div class="col-xs-12 " >
+                                    <div class="col-xs-3 text-center">
+                                        <button class="btn btn-danger btn-small" ng-click="onDeleteBizCheckOut(checkoutInfoItem)">{{L.delete}}</button>
+                                    </div>
+                                    <div class="col-xs-3 text-center">
+                                        <button class="btn btn-success btn-small" ng-click="addBizCheckOut()">{{L.submit}}</button>
+                                    </div>
+                                    <div class="col-xs-3 text-center">
+                                        <button class="btn btn-default btn-small" ng-click="onCancel()">{{L.cancel}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--setting_tab_module_controller-->
+        <div class="col-xs-12" ng-controller="setting_tab_module_controller">
+            <div class="col-xs-12 icon-magic bigger-150"> Modules</div>
+            <div id="function_module" class="col-xs-12" style="margin-top:10px;padding:10px;">
+                <!--<div class="col-xs-12">-->
+                    <!--<label>-->
+                        <!--<input ng-model="func.menu_item" class="ace ace-checkbox-2" type="checkbox" />-->
+                        <!--<span class="lbl" style="color:black;">&nbsp;Included</span>-->
+                    <!--</label>-->
+                    <!--<span class="Arial bolder bigger-120"> Menu Item Display </span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-12">-->
+                    <!--<label>-->
+                        <!--<input ng-model="func.promotion" class="ace ace-checkbox-2" type="checkbox" />-->
+                        <!--<span class="lbl" style="color:black;">&nbsp;Included</span>-->
+                    <!--</label>-->
+                    <!--<span class="Arial bolder bigger-120"> Promotions Display </span>-->
+                <!--</div>-->
+                <div class="col-xs-12">
+                    <label>
+                        <input ng-model="func.order" class="ace ace-checkbox-2" type="checkbox" ng-click="onClickModule('order',func.order)"/>
+                        <span class="lbl" style="color:black;">&nbsp;Enable</span>
+                    </label>
+                    <span class="Arial bolder bigger-120"> Online Order </span>
+                </div>
+                <!--<div class="col-xs-12">-->
+                    <!--<label>-->
+                        <!--<input ng-model="func.comment" class="ace ace-checkbox-2" type="checkbox" />-->
+                        <!--<span class="lbl" style="color:black;">&nbsp;Enable</span>-->
+                    <!--</label>-->
+                    <!--<span class="Arial bolder bigger-120"> Customer Comments </span>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+

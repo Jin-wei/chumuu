@@ -1,0 +1,140 @@
+#restaurant_menu_view .mp-menu-type-list div {
+    padding: 5px;
+    border-radius: 2px;
+    text-align: center;
+    height: 45px;
+    line-height: 20px;
+    background-color: #fcc532;
+    color: white;
+    font-size: 15px;
+    margin-right:5px;
+    cursor: pointer;
+}
+
+#restaurant_menu_view .mp-menu-type-list div:hover {
+    background-color: #fcb232;
+}
+
+#restaurant_menu_view .mp-current-menu-type {
+    background-color: #fca432 !important;
+}
+
+.restaurant_menu_view .mp-menu-item {
+    padding: 5px 10px;
+}
+
+.restaurant_menu_view .mp-menu-item>div:nth-child(1){
+    border: 1px solid #eee;
+    border-bottom: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 5px;
+}
+.restaurant_menu_view .mp-menu-item>div:nth-child(2){
+    border: 1px solid #eee;
+    border-top: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.restaurant_menu_view .mp-menu-item>div:nth-child(2)>div:nth-child(0){
+    /*background-image: url('/image/visa1.png');*/
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.restaurant_menu_view .mp-menu-item>div:nth-child(2)>div:nth-child(1){
+    font-size:18px;
+    padding: 0px 20px;
+}
+.restaurant_menu_view .mp-menu-item>div:nth-child(2)>div:nth-child(1)>div{
+    height:36px;
+}
+.restaurant_menu_view .mp-menu-item>div:nth-child(2)>div:nth-child(2){
+    padding: 5px 20px;
+    font-size:16px;
+}
+.restaurant_menu_view .mp-menu-item>div:nth-child(2)>div:nth-child(3){
+    border-top: 1px solid #eee;
+    font-size:16px;
+    color:#323131;
+    padding: 10px 20px;
+}
+
+.image-sold-out{
+    position: absolute;
+    width: 110px;
+    height: auto;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.image-sold-out img{
+    width: 110px;
+    height: auto;
+}
+
+.menu_block{
+    position: relative;
+}
+/* for mobile */
+@media only screen and (max-width: 600px) {
+    .restaurant_menu_view .mp-menu-item {
+        padding: 5px 10px;
+    }
+
+    .restaurant_menu_view .mp-menu-item>div:nth-child(1){
+        border: 0px;
+    }
+    .restaurant_menu_view .mp-menu-item>div:nth-child(2){
+        border: 0px;
+        padding-top: 5px;
+    }
+    .restaurant_menu_view .mp-menu-item>div:nth-child(2)>div:nth-child(0){
+        /*background-image: url('/image/visa1.png');*/
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .restaurant_menu_view .mp-menu-item>div:nth-child(2)>div:nth-child(1){
+        font-size:16px;
+        padding: 0px 8px;
+    }
+    /*.restaurant_menu_view .mp-shopping-cart-add-button,*/
+    /*.restaurant_menu_view .mp-shopping-cart-reduce-button {*/
+        /*width: 26px;*/
+    /*}*/
+    .restaurant_menu_view .mp-shopping-cart-count {
+        margin: 0 5px;
+    }
+    .restaurant_menu_view .mp-menu-item>div:nth-child(2)>div:nth-child(2){
+        padding: 5px 8px 0px 8px;
+        font-size:14px;
+    }
+    .restaurant_menu_view .mp-menu-item>div:nth-child(2)>div:nth-child(3){
+        border-top: 0px;
+        font-size:14px;
+        padding: 5px 8px;
+    }
+
+    .restaurant_menu_view .mytable-opt-button {
+        border-top:1px solid red;
+    }
+    .restaurant_menu_view .mytable-opt-button>div{
+        height:40px;
+        line-height:40px;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .restaurant_menu_view .mytable-opt-button>div:nth-child(1){
+        background-color: white;
+        color: red;
+    }
+
+    .restaurant_menu_view .mytable-opt-button>div:nth-child(2){
+        background-color: red;
+        color: white;
+    }
+    .restaurant_menu_view .mytable-opt-button>div:nth-child(2):hover{
+        cursor: pointer;
+    }
+}

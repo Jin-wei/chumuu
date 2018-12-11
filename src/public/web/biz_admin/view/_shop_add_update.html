@@ -1,0 +1,146 @@
+<div id="shop_add_update_view" class="page-content row">
+    <div class="page-header">
+        <a href="javascript:;" ng-click="navTo('shop')">商家</a> &gt; <span ng-bind="pageTitle"></span>
+    </div>
+    <form id="shop" name="shop" class="col-xs-12 mp-nopadding mp-form-validation" novalidate="novalidate" enctype="multipart/form-data">
+        <div class="col-xs-6">
+            <div class="col-xs-12 page-line mp-display-box">
+                <div class="page-line-label">店名 <span class="icon-asterisk required_label"></span></div>
+                <div class="page-line-content mp-boxflex-1"><input ng-model="item.name" name="name" type="text" class="width-100" ></div>
+            </div>
+            <div class="col-xs-12 page-line mp-display-box">
+                <div class="page-line-label">店翻译名称</div>
+                <div class="page-line-content mp-boxflex-1"><input ng-model="item.name_lang" name="name_lang" type="text" class="width-100" ></div>
+            </div>
+
+            <div class="col-xs-12 page-line mp-display-box">
+                <div class="page-line-label">开业日期</div>
+                <div class="page-line-content mp-boxflex-1"><input placeholder="年－月－日" ng-model="item.opened_date" name="opened_date" type="text" class="width-100" id="openedDate"></div>
+            </div>
+            <div class="col-xs-12 page-line mp-display-box">
+                <div class="page-line-label">店主</span></div>
+                <div class="page-line-content mp-boxflex-1"><input ng-model="item.owner_name" name="owner_name" type="text" class="width-100" ></div>
+            </div>
+            <div class="col-xs-12 page-line mp-display-box">
+                <div class="page-line-label">电话</div>
+                <div class="page-line-content mp-boxflex-1"><input ng-model="item.phone_no" name="phone_no" type="text" class="width-100" ></div>
+            </div>
+            <div class="col-xs-12 page-line mp-display-box">
+                <div class="page-line-label">地址 <span class="icon-asterisk required_label"></span></div>
+                <div class="page-line-content mp-boxflex-1">
+                    <select id="province" ng-model="item.state" ng-options="province.name as province.name for province in Const.CITY"> </select>
+                    <select id="city" ng-model="item.city" ng-options="city as city for city in cities"> </select>
+                    <input ng-model="item.address" name="address" type="text" class="">
+                    <button class="btn btn-info mp-nopadding" data-rel="tooltip" title="点击按地理位置自动定位经纬度" ng-click="searchAddress()">定位</button>
+                    <input type="hidden" value="{{item.state}}" name="state">
+                    <input type="hidden" value="{{item.city}}" name="city">
+                </div>
+            </div>
+
+            <div class="col-xs-12 mp-nopadding">
+                <div class="col-xs-6 mp-nopadding">
+                    <div class="page-line mp-display-box">
+                        <div class="page-line-label">经度 <span class="icon-asterisk required_label"></span></div>
+                        <div class="page-line-content mp-boxflex-1"><input readonly ng-model="item.longitude" id="longitude" name="longitude" type="text" class="width-100" ></div>
+                    </div>
+                </div>
+                <div class="col-xs-6  mp-nopadding">
+                    <div class="page-line mp-display-box">
+                        <div class="page-line-label">纬度 <span class="icon-asterisk required_label"></span></div>
+                        <div class="page-line-content mp-boxflex-1"><input readonly ng-model="item.latitude" id="latitude" name="latitude" type="text" class="width-100" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 page-line mp-display-box">
+                <div class="page-line-label">邮编</div>
+                <div class="page-line-content mp-boxflex-1"><input ng-model="item.zipcode" name="zipcode" type="text" class="width-100" ></div>
+            </div>
+            <div class="col-xs-12 mp-nopadding">
+                <!--<div class="col-xs-6 mp-nopadding">-->
+                <!--<div class="page-line mp-display-box">-->
+                <!--<div class="page-line-label">配送半径</div>-->
+                <!--<div class="page-line-content mp-boxflex-1"><input ng-model="item.distance" name="distance" type="text" class="width-100" ></div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="col-xs-12  mp-nopadding">
+                    <div class="page-line mp-display-box">
+                        <div class="page-line-label">状态</div>
+                        <div class="page-line-content mp-boxflex-1">
+                            <select ng-model="item.active" name="active">
+                                <option value="1">上线</option>
+                                <option value="0">下线</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12  mp-nopadding">
+                    <div class="page-line mp-display-box">
+                        <div class="page-line-label">允许下单</div>
+                        <div class="page-line-content mp-boxflex-1">
+                            <select ng-model="item.order_status" name="order_status">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12  mp-nopadding">
+                    <div class="page-line mp-display-box">
+                        <div class="page-line-label">微信支付</div>
+                        <div class="page-line-content mp-boxflex-1">
+                            <select ng-model="item.wxpay_flag" name="wxpay_flag">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-xs-12 page-line mp-display-box">-->
+            <!--<div class="page-line-label">备注</div>-->
+            <!--<div class="page-line-content mp-boxflex-1"><textarea ng-model="item.remark" name="remark" class="width-100" ></textarea></div>-->
+            <!--</div>-->
+            <div class="col-xs-12">
+                <!--<div class="col-xs-6 mp-nopadding text-center">-->
+                <!--<button class="btn btn-default icon-arrow-left">-->
+                <!--返回-->
+                <!--</button>-->
+                <!--</div>-->
+                <div class="col-xs-6 mp-nopadding text-center">
+                    <button class="btn btn-success icon-ok" ng-click="onSubmit()">
+                        提交
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="map-view" class="col-xs-6" style="border:1px solid;height:400px;">
+
+        </div>
+        <input type="hidden" name="parentId" id="parentId" value="{{item.parentId}}">
+        <input type="hidden" name="country" id="country" value="{{item.country}}">
+        <input type="hidden" name="time_offset" id="timeOffset" value="{{item.time_offset}}">
+        <input type="hidden" name="created_by" id="createdBy" value="{{item.created_by}}">
+    </form>
+    <div class="space-12"></div>
+</div>
+
+<script>
+    function onCenterChangedCallback(e) {
+        var lat = e.lnglat.getLat();
+        var lng = e.lnglat.getLng();
+        $('#latitude').val(lat);
+        $('#longitude').val(lng);
+        SetMapToCenter({latitude:lat, longitude:lng});
+        $('#latitude').addClass('page-set-coordinate');
+        $('#longitude').addClass('page-set-coordinate');
+        setTimeout(function(){
+            $('#latitude').removeClass('page-set-coordinate');
+            $('#longitude').removeClass('page-set-coordinate');
+        },700);
+    }
+    FireAfterGaodeResourceLoad({fn:function(){
+        InitMap("map-view");
+    }, args:[]});
+    $('[data-rel=tooltip]').tooltip({container:'body'});
+    $('[data-rel=popover]').popover({container:'body'});
+</script>

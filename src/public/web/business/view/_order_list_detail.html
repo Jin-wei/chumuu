@@ -1,0 +1,213 @@
+<div class="col-xs-12 page-content" style="margin-bottom: 140px">
+    <!-- A.order detail left -->
+    <div class="top-link">
+        <ol class="breadcrumb">
+            <li><a href="#">{{L.home}}</a></li>
+            <li class="active"><a href="#order-list">{{L.current_tabel}}</a></li>
+            <li class="active">{{L.current_table_detail}}</li>
+        </ol>
+    </div>
+    <div class="col-sm-12 col-xs-12" style="border:0px solid red;background-color: beige; padding: 5px;">
+        <!-- 1.operation -->
+        <div class="col-sm-12 col-xs-12" style="padding-right: 20px">
+            <!-- 2.order details -->
+            <div class="col-xs-12" style="margin-bottom:10px;">
+                <div class="pull-left " style="margin-right: 20px;margin-top: 8px">
+                    <button class=" btn btn-success btn-lg" ng-click="onBtnConfirmOrder()"
+                            ng-disabled="!cur_order.is_can_confirm">{{L.confirm_order}}
+                    </button>
+                </div>
+
+                <div class="pull-left" style="margin-right: 20px;margin-top: 8px">
+                    <button class=" btn btn-info btn-lg" ng-click="onBtnCancelOrder()"
+                            ng-disabled="!cur_order.is_can_cancel">{{L.cancel_order}}
+                    </button>
+                </div>
+
+                <div class="pull-left" style="margin-right: 20px;margin-top: 8px">
+                    <button class=" btn btn-warning btn-lg" ng-click="onBtnComplete()"
+                            ng-disabled="!cur_order.is_can_complete">{{L.complete_order}}
+                    </button>
+                </div>
+               <!-- <div class="pull-left" style="margin-right: 20px;margin-top: 8px">-->
+               <!--     <button class=" btn btn-primary btn-lg" ng-click="onBtnPrintInvoice()"-->
+               <!--             ng-disabled="!cur_order.is_can_print_invoice">{{L.print_invoice}}-->
+               <!--     </button>-->
+               <!-- </div>-->
+                <div class="pull-left" style="margin-right: 20px;margin-top: 8px">
+                    <button class=" btn btn-default btn-lg" ng-click="returnList()">{{L.back_list}}</button>
+                </div>
+            </div>
+            <form name="order_detail">
+                <div id="order_details1" class="col-xs-12 col-sm-11 order-detail">
+                    <div class="col-xs-6 col-sm-2">
+                        <span>{{L.order_noun}}:{{cur_order.seq}}</span>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-2" ng-show="cur_order.order_type==ORDER_TYPE.DINE_IN">
+                        <span>{{L.table}}:</span>
+                        <span ng-if="!cur_order.table_id>0 || cur_order.table_name.length>0" class="width-100" style="border-width:3px;font-size: 19px;color: #ff9a00;" ng-bind="cur_order && cur_order.table_name ? cur_order.table_name : '[Book One]'" ng-disabled="sub_tab==BOOKTABLE_PAGE || !cur_order.is_can_booktable"></span>
+                        <span ng-if="cur_order.table_id>0 && cur_order.table_name.length==0" class="width-100" type="text" value=""></span>
+                    </div>
+                    <!--<div class="col-xs-6 col-sm-2">
+                        <span >{{L.type_cap}}:{{ORDER_TYPE.DESC[cur_order.order_type]}}</span>
+                        &lt;!&ndash; <span  value="{{ORDER_TYPE.DESC[cur_order.order_type]}}" id="orderType" readonly></span>&ndash;&gt;
+                    </div>-->
+                    <div class="col-xs-6 col-sm-2">
+                        <span>{{L.status}}:{{ORDER_STATUS.DESC[cur_order.status]}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <span>{{L.order_time}}:{{DateFormat(cur_order.order_start,'MM/dd/yyyy hh:mm TT')}}</span>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="col-sm-12 col-xs-12">
+            <!-- 4.order's menu items -->
+            <div id="order_menu_items" class="col-xs-12">
+                <table class="table table-striped table-hover col-xs-12">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{L.menu_item_instruction}}</th>
+                        <th>{{L.add_dishes_type}}</th>
+                        <th>{{L.quantity_times_price}}</th>
+                        <!--th>{{L.status}}</th>-->
+                    </tr>
+                    </thead>
+                    <tbody style="background-color: white;">
+                   <!-- <tr ng-hide="!cur_order || cur_order.is_items_loaded"><td colspan="5">Loading...</td></tr>-->
+                    <tr ng-repeat="item in cur_order.menu_items">
+                        <td ng-bind="$index+1"></td>
+                        <td>
+                            <div>
+                                <span ng-bind="item.prod_name"></span>
+                                <span ng-if="item.prod_name_lang!=''&& item.prod_name_lang!=null">({{item.prod_name_lang}})</span>
+                            </div>
+                            <div style="margin-left:5px;color:grey;" ng-bind="item.remark"></div>
+                        </td>
+                        <td ng-bind="item.prod_extend"></td>
+                        <td ng-bind="item.quantity+'*'+((item.actual_price ? item.actual_price/item.quantity : item.unit_price) | customCurrency:currency)"></td>
+                        <!--<td ng-bind="ORDER_ITEM_STATUS.DESC[item.status]"></td>-->
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="space-12"></div>
+    <audio id="js-audio-warning">
+        Your browser dose not support audio.
+        <source src="../../media/warning_tone2.ogg" type="audio/ogg">
+        <source src="../../media/warning_tone2.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="space-12"></div>
+    <audio id="call_out">
+        Your browser dose not support audio.
+        <source src="">
+    </audio>
+</div>
+
+<style>
+    .main-content{
+        margin-left: 0;
+    }
+    .top-link .breadcrumb{
+        font-size: 18px;
+        margin-left: 0;
+        margin-bottom: 5px;
+    }
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.428571429;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+    .btn-default {
+        color: #333!important;
+        background-color: #fff!important;
+        border-color: #ccc!important;
+    }
+    .btn-lg {
+        /*border-width: 5px;*/
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.3333333;
+        border-radius: 6px;
+    }
+    .btn:hover, .btn-default:hover, .open .btn.dropdown-toggle, .open .btn-default.dropdown-toggle {
+        background-color: #8b9aa3!important;
+        border-color: #abbac3;
+    }
+    .btn-success:hover {
+        color: #fff!important;
+        background-color: #449d44!important;
+        border-color: #398439!important;
+    }
+    .btn-primary:hover {
+        color: #fff!important;
+        background-color: #286090!important;
+        border-color: #204d74!important;
+    }
+    .btn-info {
+        color: #fff!important;
+        background-color: #5bc0de!important;
+        border-color: #46b8da!important;
+    }
+    .btn-warning:hover {
+        color: #fff!important;
+        background-color: #ec971f!important;
+        border-color: #d58512!important;
+    }
+    .btn-info:hover {
+        color: #fff!important;
+        background-color: #31b0d5!important;
+        border-color: #269abc!important;
+    }
+    .order-detail{
+        padding: 5px 0 10px 0px;
+        font-size: 15px;
+    }
+    #order_details1 span{
+        font-size: 16px;
+    }
+    .table thead tr{
+        background-image: none;
+        background: #ffffff;
+        color: #707070;
+        font-size: 16px;
+        border-bottom:2px solid #ddd;
+    }
+    .table tbody tr{
+        font-size: 16px;
+    }
+    .table>thead>tr>th {
+        vertical-align: bottom;
+        border-bottom: 3px solid #ddd;
+    }
+    .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th{
+        background: #dff0d8;
+    }
+    .table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td{
+        padding: 10px;
+    }
+</style>
+

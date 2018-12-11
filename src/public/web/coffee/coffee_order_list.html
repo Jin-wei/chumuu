@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的订单</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/coffee_order_list.css">
+    <script src='../assets/js/jquery-2.0.3.min.js'></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=1"></script>
+    <script src="./js/config.js"></script>
+    <script src='js/util.js'></script>
+    <script>
+        function getParameter(param) {
+            var reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null)
+                return unescape(r[2]);
+            return null;
+        }
+        var code = getParameter('code');
+        //alert(code);
+        var url = "/api/wechat/user?code="
+        url = url + code;
+        //alert(url);
+        /*$.get(url,function(data,status){
+         alert(data);
+         alert(status);
+         });*/
+        var data = $.ajax({
+            url:url,
+            type:'get',
+            async: false
+        });
+//        alert(data.responseText);
+
+    </script>
+</head>
+
+<body>
+<div class="order-list-header mp-display-box">
+    <div class="page-header-active">全部</div>
+    <div>订的咖啡</div>
+    <div>领的咖啡</div>
+    <div>请的咖啡</div>
+</div>
+<div class="page-content">
+
+    <div class="page-items">
+        <!--<div class="page-item">-->
+            <!--<div class="page-item-header mp-display-box">-->
+                <!--<div>2015-04-03</div>-->
+                <!--<div class="mp-box-flex-1">订单编号: 1231231231</div>-->
+                <!--<div>关闭交易</div>-->
+            <!--</div>-->
+            <!--<div class="page-item-content">-->
+                <!--<div class="page-prod">拿铁(热) (中杯)*1</div>-->
+                <!--<div class="page-prod">拿铁(热) (中杯)*1</div>-->
+                <!--<div class="page-prod">拿铁(热) (中杯)*1</div>-->
+                <!--<div class="page-order-user">订咖啡人: 机器猫</div>-->
+                <!--<div class="page-order-detail">-->
+                    <!--<div>电话:12312312312</div>-->
+                    <!--<div>北京海淀区鼎好大厦1234</div>-->
+                    <!--<div>下单时间:05月26日 14:02</div>-->
+                    <!--<div>预约时间:05月26日 17:00-17:30</div>-->
+                    <!--<div>支付方式:微信支付(未支付)</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+    <div class="page-no-order" style="display: none;">
+        <div>
+            <img src="image/order_list.png">
+        </div>
+        <div>
+            您还没有订单哦~
+        </div>
+        <div>
+            <span class="page-go-to-order">我要去下单</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    var orderArr = [
+        {
+            id:1,
+            orderId:321321313,
+            date:'2015-04-03 14:03:00',
+            username: '机器猫',
+            phone: '3243243234',
+            address: '北京海淀区鼎好大厦1234',
+            orderDate: '2015-04-03 17:30:00',
+            status:'关闭交易'
+        },
+        {
+            id:2,
+            orderId:321321313,
+            date:'2015-04-03 14:03:00',
+            username: '机器猫',
+            phone: '3243243234',
+            address: '北京海淀区鼎好大厦1234',
+            orderDate: '2015-04-03 17:30:00',
+            status:'关闭交易'
+        },
+        {
+            id:3,
+            orderId:321321313,
+            date:'2015-04-03 14:03:00',
+            username: '机器猫',
+            phone: '3243243234',
+            address: '北京海淀区鼎好大厦1234',
+            orderDate: '2015-04-03 17:30:00',
+            status:'关闭交易'
+        },
+        {
+            id:4,
+            orderId:321321313,
+            date:'2015-04-03 14:03:00',
+            username: '机器猫',
+            phone: '3243243234',
+            address: '北京海淀区鼎好大厦1234',
+            orderDate: '2015-04-03 17:30:00',
+            status:'关闭交易'
+        }
+    ];
+
+    var html = '\
+        <div class="page-item">\
+            <div class="page-item-header mp-display-box">\
+                <div>#date#</div>\
+                <div class="mp-box-flex-1">订单编号: #orderId#</div>\
+                <div>#status#</div>\
+            </div>\
+            <div class="page-item-content">\
+                <div class="page-prods"></div>\
+                <div class="page-prod">拿铁(热) (中杯)*1</div>\
+                <div class="page-prod">拿铁(热) (中杯)*1</div>\
+                <div class="page-prod">拿铁(热) (中杯)*1</div>\
+                <div class="page-order-user">订咖啡人: #username#</div>\
+                <div class="page-order-detail">\
+                    <div>电话:#phone#</div>\
+                    <div>#address#</div>\
+                    <div>下单时间:#date2#</div>\
+                    <div>预约时间:#orderDate#</div>\
+                    <div>支付方式:微信支付(未支付)</div>\
+                </div>\
+            </div>\
+        </div>\
+            ';
+
+//    var orderProdArr = ;
+
+    for(var i=0;i<orderArr.length;++i) {
+        var o = orderArr[i];
+        var tmp = html.replace('#date#', DateUtil.format(o.date,'yyyy-MM-dd'));
+        tmp = tmp.replace('#orderId#', o.orderId);
+        tmp = tmp.replace('#status#', o.status);
+        tmp = tmp.replace('#username#', o.username);
+        tmp = tmp.replace('#phone#', o.phone);
+        tmp = tmp.replace('#address#', o.address);
+        tmp = tmp.replace('#date2#', DateUtil.format(o.date,'MM月dd日 HH:mm'));
+        tmp = tmp.replace('#orderDate#', DateUtil.format(o.orderDate,'MM月dd日 HH:mm'));
+        $('.page-items').append($(tmp));
+    }
+
+    $('.page-item').click(function(){
+        var $detail = $(this).find('.page-item-content');
+        $detail.toggle();
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<div id="" class="page-content row">
+    <div class="col-xs-12  widget-container-span ui-sortable">
+        <div class="widget-box transparent">
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <mp-tab ng-model="customers_tabs"></mp-tab>
+                    <div class="col-xs-12" style="padding-top:20px;padding-left: 0px;padding-right: 0px">
+                        <!--<div class="col-xs-12 space-6"></div>-->
+                        <div id="promotion_view" class="col-xs-12" ng-controller="customerListController">
+                            <div>
+                                <span class="lighter" style="font-size: 120%">
+                                    {{L.filter}}:
+                                </span>
+                                <span class="input-icon" style="margin:0px 0px 0px 20px;">
+                                    <input ng-model="customerKeyword" type="text" style="width:300px;" placeholder={{L.by_name_phone_email_address}} />
+                                    <i class="icon-search green"></i>
+                                </span>
+                            </div>
+
+                            <hr>
+
+                            <table id="menu_type_table" class="table table-striped table-bordered table-hover col-xs-12">
+                                <colgroup>
+                                    <col width="10%"/>
+                                    <col width="10%">
+                                    <col width="10%"/>
+                                    <col width="15%"/>
+                                    <col width="20%"/>
+                                    <col width="15%"/>
+                                    <col width="10%"/>
+                                    <col width="10%"/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th ng-bind="L.customer + ' ' + L.id" ></th>
+                                    <th ng-bind="L.customer + ' ' + L.name"></th>
+                                    <th ng-bind="L.phone"></th>
+                                    <th ng-bind="L.email"></th>
+                                    <th ng-bind="L.address"></th>
+                                    <th ng-bind="L.last + L.order"></th>
+                                    <th ng-bind="L.total_spending"></th>
+                                    <th ng-bind="L.customer_since"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr bindonce ng-repeat="customer in customers_by_filter">
+                                    <td class="blue pointer" ng-bind="customer.cust_id" ng-click="showCustomerDetail(customer)"></td>
+                                    <td>{{customer.first_name + ' ' + customer.last_name}}</td>
+                                    <td>{{customer.phone_no}}</td>
+                                    <td>{{customer.email}}</td>
+                                    <td>{{customer.full_address}}</td>
+                                    <td>{{DateFormat(customer.last_order_date, 'MM/dd/yyyy hh:mm')}}</td>
+                                    <td>{{'$' + customer.total_spend}}</td>
+                                    <td>{{DateFormat(customer.origin_order_date, 'MM/dd/yyyy')}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="customer_view" class="col-xs-12" ng-controller="customerDetailController">
+                            <form class="customerDetailForm" name="customer_detail">
+                                <div class="col-xs-12 myitem">
+                                    <div class="col-xs-12 col-sm-4 center">
+                                        <div class="col-xs-12 col-sm-3 center">{{L.customer + ' ' + L.id + ':'}}</div>
+                                        <div class="col-xs-12 col-sm-9 center"><input class="width-100" type="text" value="{{customer.cust_id}}" readonly></div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4 center">
+                                        <div class="col-xs-12 col-sm-3 center">{{L.first_name + ':'}}</div>
+                                        <div class="col-xs-12 col-sm-9 center"><input class="width-100" type="text" value="{{customer.first_name}}" readonly></div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4 center">
+                                        <div class="col-xs-12 col-sm-3 center">{{L.phone + ':'}}</div>
+                                        <div class="col-xs-12 col-sm-9 center"><input class="width-100" type="text" value="{{customer.phone_no}}" readonly></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 myitem">
+                                    <div class="col-xs-12 col-sm-4 center">
+                                        <div class="col-xs-12 col-sm-3 center">{{L.customer_since + ':'}}</div>
+                                        <div class="col-xs-12 col-sm-9 center"><input class="width-100" type="text" value="{{DateFormat(customer.origin_order_date, 'MM/dd/yyyy')}}" readonly></div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4 center">
+                                        <div class="col-xs-12 col-sm-3 center">{{L.last_name + ':'}}</div>
+                                        <div class="col-xs-12 col-sm-9 center"><input class="width-100" type="text" value="{{customer.last_name}}" readonly></div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4 center">
+                                        <div class="col-xs-12 col-sm-3 center">{{L.email + ':'}}</div>
+                                        <div class="col-xs-12 col-sm-9 center"><input class="width-100" type="text" value="{{customer.email}}" readonly></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 myitem">
+                                    <div class="col-xs-12 col-sm-6" style="padding-right: 10px;">
+                                        <div class="col-xs-12 col-sm-2 center" style="">{{L.address + ':'}}</div>
+                                        <div class="col-xs-12 col-sm-10 center" style="padding-right: 10px">
+                                            <input class="width-100" type="text" value="{{customer.address}}" style="margin-bottom: 10px" placeholder="Address Line 1" readonly>
+                                            <input class="width-100" type="text" value="{{customer.city}}" style="margin-bottom: 10px" placeholder="Address Line 2" readonly>
+                                            <div class="col-xs-12 col-sm-3 center" style="padding-right: 10px;margin-bottom: 10px">
+                                                <input class="width-100" style="" type="text" value="{{customer.state}}" placeholder="State" readonly>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-9"><input class="width-100" style="" type="text" value="{{customer.zipcode}}" placeholder="ZipCode" readonly></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div style="text-align: left;">{{L.notes + ':'}}</div>
+                                        <textarea class="width-100" ng-model="commentOnCustomer" style="min-height:83px"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-xs-12">
+                                <div class="col-xs-6 center">
+                                    <button type="button" class="btn btn-sm btn-default" ng-click="onBack()">
+                                        <i class="icon-arrow-left icon-on-left bigger-110"></i>
+                                        {{L.back}}
+                                    </button>
+                                </div>
+                                <div class="col-xs-6 center">
+                                    <button type="button" class="btn btn-sm btn-success" ng-click="onCustomerNotesSubmit(commentOnCustomer)">
+                                        {{L.save}}
+                                        <i class="icon-ok icon-on-right bigger-110"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-xs-12 hr hr-10"></div>
+                            <br>
+                            <div style="font-size: 120%;">{{L.purchase_history}}</div>
+                            <br>
+                            <table id="" class="table table-striped table-bordered table-hover col-xs-12">
+                                <colgroup>
+                                    <col width="15%"/>
+                                    <col width="20%"/>
+                                    <col width="20%"/>
+                                    <col width="15%"/>
+                                    <col width="15%"/>
+                                    <col width="15%"/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th ng-bind="L.order_noun + '#'" ></th>
+                                    <th ng-bind="L.service_time"></th>
+                                    <th ng-bind="L.order_time"></th>
+                                    <th ng-bind="L.order_type"></th>
+                                    <th ng-bind="L.total_spending"></th>
+                                    <th ng-bind="L.status"></th>
+                                </tr>
+                                </thead>ng-repeat
+                                <tbody>
+                                <tr bindonce ng-repeat="customer_order in customer_orders">
+                                    <td><span ng-click="showOrderDetail(customer)">{{customer_order.id}}</span></td>
+                                    <td>{{DateFormat(customer_order.order_start, 'MM/dd/yyyy hh:mm')}}</td>
+                                    <td>{{DateFormat(customer_order.create_on, 'MM/dd/yyyy hh:mm')}}</td>
+                                    <td>{{ORDER_TYPE.DESC[customer_order.order_type]}}</td>
+                                    <td>{{'$' + customer_order.total_price}}</td>
+                                    <td>{{customer_order.status_info}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+<!-- /widget-main -->
+            </div>
+<!-- /widget-body -->
+        </div>
+<!-- /widget-box -->
+    </div>
+</div>

@@ -1,0 +1,211 @@
+{
+    "apiVersion":"1.0.0",
+    "swaggerVersion":"1.2",
+    "basePath":"http://localhost:8080/api",
+    "resourcePath":"/apidoc/payment.json",
+    "apis":[
+        {
+            "path":"/cust/{custId}/payment",
+            "description":"Get customer payment info",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"queryCustomerPayment",
+                    "type":"paymentInfo",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get customer payment ",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/payment",
+            "description":"Get business payment info",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"queryBusinessPayment",
+                    "type":"paymentInfo",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get business payment ",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/{custId}/paymentToken",
+            "description":"Get client token for customer payment",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getPaymentClientToken",
+                    "type":"String",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get token for customer payment",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/{custId}/order/{orderId}/payment",
+            "description":"customer do payment for order",
+            "operations":[
+                {
+                    "method":"POST",
+                    "nickname":"doOrderPayment",
+                    "type":"String",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the payment form info",
+                            "type": "PaymentInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get token for customer payment",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/{custId}/order/{orderId}/paypal",
+            "description":"customer do payment for order by paypal",
+            "operations":[
+                {
+                    "method":"POST",
+                    "nickname":"doOrderPayment",
+                    "type":"String",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the payment form info",
+                            "type": "PaymentInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get token for customer payment",
+                    "notes": ""
+                }
+            ]
+        }
+
+    ],
+
+    "models":{
+        "OrderInfo": {
+            "id": "PaymentInfo",
+            "properties": {
+
+                "payment_method_nonce": {
+                    "type": "String",
+                    "required": true,
+                    "description": "the payment method nonce"
+                }
+            }
+        }
+    }
+}

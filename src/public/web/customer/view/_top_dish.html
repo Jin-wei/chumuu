@@ -1,0 +1,224 @@
+<div id="top_dish_view" class="mp-page-content">
+    <div class="col-xs-12  widget-container-span ui-sortable mp-mobile-nodisplay">
+        <div class="transparent">
+            <div class="mp-display-box position-relative " ng-class="{'mp-mobile-height-280px':isLoginBoxDisplay}">
+                <div class="widget-main no-padding width-100">
+                    <div id="js-banner" class="banner" style="">
+                        <ul>
+                            <li class="mp-mobile-minheight-140px mp-mobile-height-140px position-relative" style="background-image: url('customer/image/Homepage-pic01_n.jpg');">
+                                <div class="mp-mobile-paddingtop-50px mp-cover" style="padding-top:10px;"> <h1 class="mp-mobile-fontsize-10px mp-mobile-width-140px mp-mobile-lineheight-1pc mp-mobile-top-10px mp-mobile-padding-6px">{{isCN ? L.top_dish_picwall_text_1_CN : L.top_dish_picwall_text_1}}</h1> </div>
+                                <div class="mp-upholder-40pc"></div>
+                            </li>
+                            <li class="mp-mobile-minheight-140px mp-mobile-height-140px position-relative" style="background-image: url('customer/image/Homepage-pic02_n.jpg');">
+                                <div class="mp-cover" style="padding-top:10px;"> <h1 class="mp-mobile-fontsize-10px mp-mobile-width-140px mp-mobile-lineheight-1pc mp-mobile-top-10px mp-mobile-padding-6px">{{L.top_dish_picwall_text_2}}</h1> </div>
+                                <div class="mp-upholder-40pc"></div>
+                            </li>
+                            <li class="mp-mobile-minheight-140px mp-mobile-height-140px position-relative" style="background-image: url('customer/image/Homepage-pic03_n.jpg');">
+                                <div class="mp-mobile-paddingtop-60px mp-cover" style="padding-top:10px;"> <h1 class="mp-mobile-fontsize-10px mp-mobile-width-140px mp-mobile-lineheight-1pc mp-mobile-top-10px mp-mobile-padding-6px">{{L.top_dish_picwall_text_3}}</h1> </div>
+                                <div class="mp-upholder-40pc"></div>
+                            <li class="mp-mobile-minheight-140px mp-mobile-height-140px position-relative" style="background-image: url('customer/image/Homepage-pic04_n.jpg');">
+                                <div class="mp-cover" style="padding-top:10px;"> <h1 class="mp-mobile-fontsize-10px mp-mobile-width-140px mp-mobile-lineheight-1pc mp-mobile-top-10px mp-mobile-padding-6px">{{L.top_dish_picwall_text_4}}</h1> </div>
+                                <div class="mp-upholder-40pc"></div>
+                            </li>
+                            <li class="mp-mobile-minheight-140px mp-mobile-height-140px position-relative" style="background-image: url('customer/image/Homepage-pic05_n.jpg');">
+                                <div class="mp-mobile-paddingtop-50px mp-cover" style="padding-top:10px;"> <h1 class="mp-mobile-fontsize-10px mp-mobile-width-140px mp-mobile-lineheight-1pc mp-mobile-top-10px mp-mobile-padding-6px">{{L.top_dish_picwall_text_5}}</h1> </div>
+                                <div class="mp-upholder-40pc"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div><!-- /widget-main -->
+                <div id="js-login-box" class="position-absolute mp-mobile-paddingtop-14px mp-mobile-paddingbottom-20px mp-mobile-paddingleft-50px mp-mobile-paddingright-50px" style="display:{{isLoginBoxDisplay ? 'block':'none'}};top:0px;right:0px;" ng-controller="loginController">
+                    <div class="mp-mobile-fontsize-18px mp-mobile-margintop-0px mp-mobile-marginbottom-14px" style="font: 32px GothamRounded;color: white;margin-bottom: 24px;">{{L.login_to_your_account}}</div>
+                    <div id="mp-login-input">
+                        <div class="mp-display-box mp-mobile-height-26px mp-mobile-lineheight-26px ">
+                            <div class="icon-user mp-mobile-fontsize-19px mp-mobile-marginleft-10px" style=""></div>
+                            <div class="mp-boxflex-1">
+                                <input class="mp width-100 mp-mobile-fontsize-12px mp-mobile-height-26px mp-mobile-lineheight-26px"
+                                       placeholder="{{isCN ? L.phone : L.email}}" ng-model="cust_user" type="text">
+                            </div>
+                        </div>
+                        <div class="hr" style="margin:0px 0;border-top-color: #dadada;height:0"></div>
+                        <div class="mp-display-box mp-mobile-height-26px mp-mobile-lineheight-26px ">
+                            <div class="icon-lock mp-mobile-fontsize-19px mp-mobile-marginleft-10px"></div>
+                            <div class="mp-boxflex-1">
+                                <input class="mp width-100 mp-mobile-fontsize-12px mp-mobile-height-26px mp-mobile-lineheight-26px"
+                                       style="padding-left:14px;"
+                                       placeholder="{{L.password}}" ng-model="cust_password" type="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mp-no-select mp-mobile-margintop-10px" style="margin:20px auto 0px auto;text-align: left;">
+                        <label class="mp">
+                            <input id="remember-me" class="mp" ng-model="remember_user" type="checkbox" style="width:26px;height:26px;">
+                            <span class="lbl" style="background-image: url('/image/checkout_2.png');width:26px;height:26px;"></span>
+                            <span class="mp-mobile-fontsize-12px mp-mobile-lineheight-29px" style="font-size:16px;margin-left:5px;line-height: 46px;color:white;">{{L.remember_me}}</span>
+                        </label>
+                        <button id="btn2" class="pull-right login-btn mp-pointer mp-mobile-width-80px mp-mobile-height-30px mp-mobile-fontsize-14px mp-btn-simple" ng-disabled="!cust_user || !cust_password" type="button" ng-click="doLogin()">{{L.login}}</button>
+                    </div>
+
+                    <div ng-show="false" class="mp-mobile-fontsize-30px mp-mobile-width-24px mp-mobile-height-22px" style="font-size: 40px;color: #1086ff;width:32px;height:34px;background-color: white;border-radius: 5px;margin-top:16px;">
+                        <!--<div class="fb-login-button" scope="public_profile,email" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" onlogin="checkLoginState('login');"></div>-->
+                        <span class="fa-facebook-square mp-pointer" onlogin="checkLoginState('login')" style="margin-top: -13px; position: absolute; margin-left: -1px;"> </span>
+
+                    </div>
+
+                    <div class="col-xs-12 position-relative" style="top:50px;">
+                        <div class="col-xs-7"><a href="javascript:;" class="mp-mobile-fontsize-15px" style="color:#4ea400;font-size:20px;" ng-click="navTo('forgot-password')">{{L.forgot_pwd}}</a></div>
+                        <div class="col-xs-5 text-right"><a href="javascript:;" class="mp-mobile-fontsize-15px" style="color:#4ea400;font-size:20px;" ng-click="navTo('register')">{{L.sign_up}}</a></div>
+                    </div>
+                </div>
+            </div><!-- /widget-body -->
+        </div><!-- /widget-box -->
+    </div>
+    <div class="col-xs-12 text-center mp-mobile-fontsize-18px mp-mobile-margintop-18px mp-mobile-paddingleft-5px mp-mobile-paddingright-5px" style="margin-top:35px;font-size:40px;">
+        <span class="mp-mobile-display-block" style="color:#777;font-family: Gothic;">{{L.top_dish_page_text_1}} </span>
+        <span class="mp-mobile-margintop-8px" style="color:#434343;font-family: Gothic;">{{L.top_dish_page_text_2}}</span>
+    </div>
+    <div class="col-xs-12 text-center mp-mobile-paddingleft-5px mp-mobile-paddingright-5px mp-mobile-fontsize-12px mp-mobile-margintop-10px" style="margin-top:15px;font-size:18px;color:#a3a3a3;">
+        {{L.top_dish_page_text_3}}
+    </div>
+    <div ng-show="false" class="col-xs-12 text-center mp-mobile-margintop-10px" style="margin-top:37px;font-size:20px;">
+        <span class="text-center mp-no-select mp-pointer mp-mobile-width-120px mp-mobile-height-25px mp-mobile-lineheight-25px mp-mobile-fontsize-12px" style="display: inline-block;width:170px;height:40px;line-height:40px;border:1px solid #f6602d;border-radius: 20px;background-color: #f15a29;color:white;">{{L.restaurants}}</span>
+        <span class="mp-mobile-marginleft-30px" style="margin-left:100px;"></span>
+        <span class="text-center mp-no-select mp-pointer mp-mobile-width-120px mp-mobile-height-25px mp-mobile-lineheight-25px mp-mobile-fontsize-12px" style="display: inline-block;width:170px;height:40px;line-height:40px;border:1px solid #c3c3c3;border-radius: 20px;color:#343434;">{{L.food_help}}</span>
+    </div>
+
+    <div class="col-xs-12  widget-container-span ui-sortable">
+        <div class="mp-mobile-paddingright-20px mp-mobile-paddingleft-20px mp-mobile-margintop-27px" style="margin-top:40px;padding: 0px 60px;">
+            <div class="" style="padding-bottom: 6px;border-bottom-color:#e8e8e8;">
+                <span class="mp-mobile-fontsize-16px" style="font-size:28px;color:#ff3e00;">{{L.nearby_rest}}</span>
+                <!--<span class="pull-right mp-mobile-fontsize-13px" style="color:#adadad;font-size:16px;line-height: 47px;">MORE</span>-->
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <div class="col-xs-12 space-20"></div>
+                    <div class="col-xs-12 icon-spinner icon-spin orange bigger-300" ng-if="$mpBizList.isLoading"></div>
+                    <div bindonce class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in $mpBizList.getData()" style="margin-bottom:40px;">
+                        <div class="col-xs-5">
+                            <img class="mp-pointer" style="width:100%;" bo-src-i="{{item.img_url_240}}" ng-click="onShowBiz(item)"/>
+                        </div>
+                        <div class="col-xs-7 mp-mobile-paddingright-0px  mp-mobile-fontsize-12px" style="padding:0px 30px 0px 20px;font-size:16px;">
+                            <a href="/restaurant/{{item.bizKey}}" title="{{item.name}}"><div class="Arial width-100 mp-text-ellipsis overflow-hidden" bo-bind="item.name" style="color:#232323;"></div></a>
+                            <div class="Arial width-100 mp-text-ellipsis overflow-hidden" bo-bind="item.name_lang || '&nbsp;'"  style="color:#2c2c2c;margin-top:-3px;"></div>
+                            <div style="margin-top:4px;">
+                                <div class="mp-display-box" style="">
+                                    <span class="icon-home mp-display-block" style="width:20px;font-size:18px;color:#a7a7a7;margin-right:6px;"></span>
+                                    <!--<span class="mp-display-inline-block" style="width:18px;height:18px;background-size:100%;margin:0px 10px 0px 0px;background-image: url('/customer/image/icon_home.png');"></span>-->
+                                    <a class="mp-pointer mp-display-block mp-boxflex-1 mp-text-ellipsis overflow-hidden" style="color:#1086ff;" onclick="javascript:;" bo-bind="item.address" ng-click="onOpenBizMapNavigator(item)"></a>
+                                </div>
+                                <div class="mp-display-box" style="">
+                                    <span class="icon-phone mp-display-block" style="width:20px;font-size:18px;color:#a7a7a7;margin-right:6px;"></span>
+                                    <!--<span class="mp-display-inline-block" style="width:18px;height:18px;background-size:100%;margin:0px 10px 0px 0px;background-image: url('/customer/image/icon_phone.png');"></span>-->
+                                    <a href="tel:{{item.phoneNo}}"  class="mp-display-block mp-boxflex-1 mp-text-ellipsis overflow-hidden" style="color:#1086ff;" bo-bind="item.phoneNo"></a>
+                                </div>
+                                <div style="height:33px;">
+                                    <div ng-show="!_.isUndefined(item.distance)">
+                                        <span class="icon-map-marker mp-display-inline-block" style="width:20px;font-size:18px;color:#a7a7a7;margin-right:6px;"></span>
+                                        <!--<span class="mp-display-inline-block" style="width:18px;height:18px;background-size:100%;margin:0px 10px 0px 0px;background-image: url('/customer/image/icon_position.png');"></span>-->
+                                        <span ng-if="disName == 'mile'" class="" style="color:grey;" >{{item.distance | number:2}} {{L.miles}}</span>
+                                        <span ng-if="disName == 'km'" class="" style="color:grey;" >{{item.distance | number:2}} {{L.km}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="" style="">
+                                <starrating style="display: inline-block;color:orange;font-size:22px;" class="col-xs-9 col-sm-12 text-left mp-mobile-fontsize-14px commentItemStar" rating="{{item.commentRating.avg_ratingForStar}}"></starrating>
+                                <div class="col-xs-3 col-sm-12" style="height:33px;">
+                                    <i ng-show="item.meShareVideo" class="fa-video-camera" style="color:orange;font-size: 1.4em"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 space-8"></div>
+                </div><!-- /widget-main -->
+            </div><!-- /widget-body -->
+        </div><!-- /widget-box -->
+    </div>
+    <div class="col-xs-12 space-12"></div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    // This is called with the results from from FB.getLoginStatus().
+    function statusChangeCallback(response,action) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        console.log(action);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        // Full docs on the response object can be found in the documentation
+        // for FB.getLoginStatus().
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            console.log('connected');
+            console.dir(response);
+            var token= response.authResponse.accessToken;
+            if('login'==action){
+                var scope = angular.element($("#login-box")).scope();
+                scope.$apply(function(){
+                    scope.fbToken =token;
+                    //console.log('token========'+scope.fbToken);
+                    scope.doLogin();
+                })
+            }
+            else{
+                console.log('action = sign up');
+                var scope = angular.element($("#signup-box")).scope();
+                scope.$apply(function(){
+                    console.log('apply doSignup()');
+                    scope.fbToken =token;
+                    console.log(scope.fbToken);
+                    //console.log('token========'+scope.fbToken);
+                    scope.doSignUp();
+                })
+            }
+        } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+            //document.getElementById('status').innerHTML = 'Please log ' +
+            //'into this app.';
+        } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+            //document.getElementById('status').innerHTML = 'Please log ' +
+            //'into Facebook.';
+        }
+    }
+
+    // This function is called when someone finishes with the Login
+    // Button.  See the onlogin handler attached to it in the sample
+    // code below.
+    function checkLoginState(action) {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response,action);
+        });
+    }
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '814884431855774',
+            cookie     : true,  // enable cookies to allow the server to access
+            // the session
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.0' // use version 2.0
+        });
+
+// Now that we've initialized the JavaScript SDK, we call
+// FB.getLoginStatus().  This function gets the state of the
+// person visiting this page and can return one of three states to
+// the callback you provide.  They can be:
+//
+// 1. Logged into your app ('connected')
+// 2. Logged into Facebook, but not your app ('not_authorized')
+// 3. Not logged into Facebook and can't tell if they are logged into
+//    your app or not.
+//
+// These three cases are handled in the callback function.
+
+//FB.getLoginStatus(function(response) {
+//    statusChangeCallback(response);
+//});
+
+    };
+</script>

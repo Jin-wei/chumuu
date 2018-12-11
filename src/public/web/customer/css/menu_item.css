@@ -1,0 +1,45 @@
+#menu_item_view .mp-menu-item-label {
+    width:40%;
+    min-width:100px;
+    max-width:200px;
+    font-size:17px;
+    color:#232323;
+    height: 35px;
+    line-height: 35px;
+}
+#menu_item_view .mp-menu-item-value {
+    font-size:17px;
+    min-height: 35px;
+    line-height: 35px;
+}
+#menu_item_view .mp-menu-item-comment {
+    border: 1px solid #d4d4d4;
+    border-radius: 5px;
+    color: #232323;
+    font-size: 20px;
+    padding:20px;
+}
+#menu_item_view .mp-menu-item-comment:nth-child(even) {
+    background-color: #f8f8f8;
+}
+/* for mobile */
+@media only screen and (max-width: 600px) {
+    #menu_item_view .mp-menu-item-label {
+        width:45%;
+        font-size:14px;
+    }
+    #menu_item_view .mp-menu-item-value {
+        font-size:14px;
+    }
+   #menu_item_view .mp-type-tab {
+       width: 180px;
+       display: inline-block;
+       height: auto;
+       margin: 10px auto 10px auto;
+       border: 1px solid #f15a29;
+       border-radius: 20px;
+       font-size: 10px;
+       color: #f15a29;
+       cursor:pointer;
+   }
+}

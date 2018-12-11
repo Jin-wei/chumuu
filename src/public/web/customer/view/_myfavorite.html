@@ -1,0 +1,106 @@
+<div id="myfavorite_view" class="page-content">
+    <div class="page-header">
+        <span class="mp-page-header-title">{{L.my_favorite}}</span>
+    </div>
+    <div class="row">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li bindonce ng-class="{'active':tab.active}" ng-repeat="tab in tabs">
+                    <a data-toggle="tab" href="javascript:;" ng-click="changeTab(tab)">
+                        <i class="green {{tab.icon}} bigger-110"></i>
+                        <span bo-bind="tab.name"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="col-xs-12 0tab-content" style="padding-top:10px;">
+                <div class="col-xs-12 tab-pane in active" ng-show="tabs[0].active">
+                    <div bindonce class="col-xs-12 bizItem" ng-repeat="biz in favoriteBizArray">
+                        <div class="col-xs-4 col-sm-2">
+                            <a href="#/restaurant/{{biz.key}}">
+                                <img ng-src="{{biz.img_url_80}}"/>
+                            </a>
+                        </div>
+                        <div class="col-xs-8 col-sm-9">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="bizName">
+                                        <a class="Arial" href="#/restaurant/{{biz.key}}">
+                                            <span class="Arial" bo-bind="biz.name"></span>
+                                            <span ng-if="biz.name_lang">(<span class="Arial" bo-bind="biz.name_lang"></span>)</span>
+                                        </a>
+                                    </div>
+                                    <div class="bizRating Arial">{{L.tru_rating + ': '}}<span style="border:4px solid green;border-radius: 10px;width:24px;height:24px;padding:0px 8px;" bo-if="biz.commentRating.avg_rating" bo-bind="biz.commentRating.avg_rating | int"></span></div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="bizAddress"><span class="icon-home"></span><a href="javascript:;" ng-click="onOpenBizMapNavigator(biz)"><span bo-bind="biz.address"></span></a></div>
+                                    <div class="bizPhone">
+                                        <span class="icon-phone"></span>
+                                        <span ng-repeat="phone in biz.phones"><a href="tel:{{phone}}">{{phone}}</a><span ng-if="!$last"> , </span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-1">
+                            <button style="width:100%;padding:0px;" class="btn btn-danger" ng-click="undoFavoriteBiz(biz.key,$index)">{{L.remove}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane in active" ng-show="tabs[1].active">
+                    <div bindonce class="col-xs-12 prodItem" ng-repeat="prod in favoriteProdArray">
+                        <div class="col-xs-4 col-sm-2">
+                            <a  href="#/restaurant/{{prod.biz_key}}/menu_item/{{prod.prod_id}}">
+                                <img ng-src="{{prod.img_url_80}}" />
+                            </a>
+                        </div>
+                        <div class="col-xs-8 col-sm-9">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="prodName"><a class="Arial" href="#/restaurant/{{prod.biz_key}}/menu_item/{{prod.prod_id}}" bo-bind="prod.name"></a></div>
+                                    <div class="prodNameLang"><span class="Arial" bo-bind="prod.name_lang"></span></div>
+                                    <div class="prodPrice"><span bo-bind="prod.price | currency: currency"></span></div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="prodBizName Arial">
+                                        From:
+                                        <a class="Arial" href="#/restaurant/{{prod.biz_key}}">
+                                            <span class="Arial" bo-bind="prod.biz_name"></span>
+                                            <span ng-if="prod.biz_name_lang">(<span class="Arial" bo-bind="prod.biz_name_lang"></span>)</span>
+                                        </a>
+                                    </div>
+                                    <div class="prodRating">
+                                        <span class="Arial" style="font-weight:bold;">{{L.tru_rating + ' : '}}</span>
+                                        <starrating class="Arial" style="font-size:15pt;display: inline-block;color:green;" rating="{{prod.commentRating.avg_rating}}"></starrating>
+                                        <span ng-if="prod.commentRating.total_count>0">(<span bo-bind="prod.commentRating.total_count"></span>)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-1">
+                            <button style="width:100%;padding:0px;" class="btn btn-danger" ng-click="undoFavoriteProd(prod.prod_id,$index)">{{L.remove}}</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- /span -->
+    </div>
+
+
+    <div id="dialog-confirm-favorite-undoBiz" class="hide">
+        <div class="alert alert-info bigger-110"> {{L.delete_box_text_5}} </div>
+        <div class="space-6"></div>
+        <p class="bigger-110 bolder center grey">
+            <i class="icon-hand-right blue bigger-120"></i> {{L.are_you_sure}}
+        </p>
+    </div>
+
+    <div id="dialog-confirm-favorite-undoProd" class="hide">
+        <div class="alert alert-info bigger-110"> {{L.delete_box_text_2}} </div>
+        <div class="space-6"></div>
+        <p class="bigger-110 bolder center grey">
+            <i class="icon-hand-right blue bigger-120"></i> {{L.are_you_sure}}
+        </p>
+    </div><!-- #dialog-confirm -->
+
+</div>

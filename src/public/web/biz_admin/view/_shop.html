@@ -1,0 +1,59 @@
+<div id="shop_view" class="page-content row">
+    <!--<mp-tab class="col-xs-12 nopadding" ng-model="shop_tabs"></mp-tab>-->
+    <div style="padding: 0px 15px 15px 15px">
+        <div ng-controller="shopListController">
+            <div class="mp-display-box" style="margin:10px 0;">
+                <div class="mp-boxflex-1">
+                    <button class="btn btn-info" style="padding:3px 10px;" ng-click="onBtnAddShop()">新建</button>
+                    <!--<button class="btn btn-danger" style="padding:3px 10px;">删除</button>-->
+
+                <span class="input-icon" style="margin:0px 0px 0px 20px;">
+                    <input ng-model="search_keyword" type="text" style="width:300px;" placeholder="按名称">
+                    <i class="icon-search green"></i>
+                </span>
+                </div>
+                <div>
+                    <!--<span style="color:gray;font-size:13px;">()</span>-->
+                    <button class="btn btn-info" style="padding:3px 10px;" data-rel="tooltip" title="请在新增/变更商家数据后, 点击此按钮以进行搜索数据的更新" ng-click="onResetElasticSearchBizData()">更新搜索数据</button>
+                </div>
+            </div>
+            <table id="shop-list" class="table table-striped table-bordered table-hover table-tr-link col-xs-12">
+                <!--<colgroup>-->
+                <!--<col width="10%"/>-->
+                <!--<col width="10%">-->
+                <!--<col width="10%"/>-->
+                <!--<col width="15%"/>-->
+                <!--<col width="20%"/>-->
+                <!--<col width="15%"/>-->
+                <!--<col width="10%"/>-->
+                <!--<col width="10%"/>-->
+                <!--</colgroup>-->
+                <thead>
+                <tr>
+                    <!--<th>选择</th>-->
+                    <th>店号</th>
+                    <th>店名</th>
+                    <th>电话</th>
+                    <th>地址</th>
+                    <!--<th>半径</th>-->
+                    <th>状态</th>
+                    <!--<th>备注</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-click="showShopDetail(item)" class="mp-pointer" ng-class="{' mp-textdecoration-linethrough':!item.active}"  bindonce ng-repeat="item in $mpAdminBizList.getData() | filter: {name:search_keyword}">
+                    <!--<td ><input type="checkbox"></td>-->
+                    <td ng-bind="item.biz_id"></td>
+                    <td ng-bind="item.name"></td>
+                    <td ng-bind="item.phone_no"></td>
+                    <td ng-bind="item.state+' '+item.city+' '+item.address"></td>
+                    <!--<td ng-bind="item.distance || 0"></td>-->
+                    <td ng-bind="item.active?'上线':'下线'"></td>
+                    <!--<td ng-bind="item.remark"></td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="space-12"></div>
+</div>

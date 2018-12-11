@@ -1,0 +1,741 @@
+<div class="page-content row">
+<mp-tab class="col-xs-12 nopadding" ng-model="menu_tabs"></mp-tab>
+<div class="col-xs-12 nopadding" style="padding-top:10px;">
+<div id="menu_big_type_view" class="col-xs-12 nopadding" ng-controller="menuBigTypeController">
+    <div class="col-xs-12">
+        <button class="btn btn-info btn-lg icon-plus menu_big_add_btn" ng-click="onBtnNewBigMenu()"> {{L.new_big_type}}</button>
+        <!--<span class="" style="color:#ddd;">|</span>-->
+    </div>
+    <div class="col-xs-12 hr hr-6"></div>
+    <div class="col-xs-12" ng-sortable="menu_type_sort_option">
+        <div  class="pull-left menu_big_type mp-no-select pointer col-md-4 col-xs-12" ng-repeat="menu_big in menu_big_arr">
+            <div class="menu_big_type-block">
+                <div class="space-10"></div>
+                <div class="menu-big-name-height">
+                    <div ng-bind="menu_big.menu_name"></div>
+                    <div class="" style="" ng-bind="menu_big.menu_name_lang"></div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="col-xs-6 menu_big_edit"  ng-click="editMenuBig(menu_big)">{{L.edit_big_menu}}</div>
+                    <div class="col-xs-6 menu_big_to_samll" ng-click="showDetailMenu(menu_big.menu_id)">{{L.look_menu}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="menu_big_type_add_update_form" style="overflow-y:auto">
+        <div class="modal-dialog" style="min-height: 200px;height:auto;overflow: auto">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="onCancel()">×
+                    </button>
+                    <h4 class="modal-title" style="text-align: left">&nbsp</h4>
+                </div>
+                <form id="formBig">
+                    <div class="modal-body" style="min-height: 150px;height:auto;overflow:  auto">
+                        <div class="form-group col-md-12 col-xs-12">
+                            <div class="col-xs-4 bigger-130">{{L.type_name_cn}}:</div>
+                            <div class="col-xs-8">
+                                <input type="text" style="width: 70%" ng-model="menu_big_data.menuName">
+                            </div>
+
+                            <div class="col-xs-12 space-6"></div>
+                            <div class="col-xs-4 bigger-130">{{L.type_name_en}}:</div>
+                            <div class="col-xs-8"><input type="text" style="width: 70%"
+                                                         ng-model="menu_big_data.menuNameLang"></div>
+                            <div class="col-xs-12 space-6"></div>
+                            <div class="col-xs-4 bigger-130">{{L.type_class}}:</div>
+                            <div class="col-xs-8">
+                                <select ng-model="menu_big_data.displayType" ng-change="changeMenuType()" style="width: 70%">
+                                    <option value="1" ng-bind="L.menu_show_type"></option>
+                                    <option value="0" ng-bind="L.menu_hide_type"></option>
+                                    <option value="2" ng-bind="L.menu_time_type"></option>
+                                </select>
+                            </div>
+
+                            <div class="col-xs-12 space-6"></div>
+                            <div class="col-xs-4 bigger-130">{{L.menu_start_time}}:</div>
+                            <div class="col-xs-8">
+                                <input  type="text" id="startTime" ng-model="menu_big_data.startTime"
+                                       name="startDate" style="width:70%" ng-disabled="menu_big_data.displayType!=='2'" autocomplete="off"></div>
+
+                            <div class="col-xs-12 space-6"></div>
+                            <div class="col-xs-4 bigger-130">{{L.menu_end_time}}:</div>
+                            <div class="col-xs-8">
+                                <input  type="text" id="endTime" ng-model="menu_big_data.endTime"
+                                       name="endDate" style="width: 70%" ng-disabled="menu_big_data.displayType!=='2'" autocomplete="off"></div>
+                            <div class="clear" style="clear:both"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer form-group" style="border: none;margin-bottom: 0px">
+                        <div class="col-xs-12">
+                            <div class="col-xs-4 text-center">
+                                <button class="btn btn-danger btn-lg" ng-show="menu_big_data.menuId!==''"
+                                        ng-click="onBizMenuDelete()">{{L.delete}}
+                                </button>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <button class="btn btn-success btn-lg" ng-click="onMenuSubmit()">{{L.submit}}
+                                </button>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <button class="btn btn-default btn-lg" ng-click="onCancel()">{{L.cancel}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="menu_type_view" class="col-xs-12 nopadding" ng-controller="menuTypeController">
+        <div class="col-xs-12">
+            <button class="btn btn-info btn-small icon-plus" ng-click="onBtnNewType()"> {{L.new_small_type}}</button>
+            <span class="" style="color:#ddd;">|</span>
+            <button class="btn btn-default btn-small icon-cog" ng-click="onBtnChangeSequence()" ng-disabled="is_changing_sequence"> {{L.change_sequence}}</button>
+            <button ng-show="is_changing_sequence" class="btn btn-success btn-small icon-ok" ng-click="onBtnUpdateSequence()"> OK</button>
+            <select ng-model="menu_big_search" style="width: 65%" id="menu_big_search" onchange="angular.element(this).scope().getProdType()">
+                <option value="null" checked>{{L.search_status_all}}</option>
+                <option value="{{menu_big.menu_id}}" ng-repeat="menu_big in menu_big_arr" ng-bind="menu_big.menu_name_lang===null? menu_big.menu_name:menu_big.menu_name+'('+menu_big.menu_name_lang+')'">
+                </option>
+            </select>
+            <!--<button ng-show="is_changing_sequence" class="btn btn-default btn-small icon-remove" ng-click="onBtnCancelUpdateSequence()"> Cancel</button>-->
+        </div>
+        <div class="col-xs-12 hr hr-6"></div>
+        <div id="js_menu_type" class="col-xs-12" ng-sortable="menu_type_sort_option">
+            <div ng-if="menu_type.type_id>0" class="pull-left menu_type mp-no-select pointer"
+                 ng-class="{'changing_sequence':is_changing_sequence}"
+                 ng-repeat="menu_type in menu_types"
+                 ng-click="onClickType($index)"
+            >
+                <!--data-type-id="{{menu_type.type_id}}"-->
+                <!--data-display-order="{{menu_type.display_order}}"-->
+                <div class="space-10"></div>
+                <div ng-bind="menu_type.name"></div>
+                <div ng-bind="menu_type.name_lang"></div>
+                <div ng-bind="menu_type.menu_name_lang===null? menu_type.menu_name:menu_type.menu_name+'('+menu_type.menu_name_lang+')'" style="padding-top: 5px"></div>
+            </div>
+        </div>
+        <div class="mp-dialog" id="menu_type_add_update_form">
+            <div class="col-xs-4 bigger-130">{{L.type_name}}:</div>
+            <div class="col-xs-8"><input type="text" ng-model="menu_type_edit_form.name"></div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-4 bigger-130">{{L.type_translation}}:</div>
+            <div class="col-xs-8"><input type="text" ng-model="menu_type_edit_form.name_lang"></div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-4 bigger-130">{{L.belong_big_menu}}:</div>
+            <div class="col-xs-8">
+                <select ng-model="menu_type_edit_form.menu_id" id="edit_form_menu_id" style="width: 65%">
+                    <option value="{{menu_big.menu_id}}" ng-repeat="menu_big in menu_big_arr" ng-bind="menu_big.menu_name_lang===null? menu_big.menu_name:menu_big.menu_name+'('+menu_big.menu_name_lang+')'">
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xs-12 position-absolute" style="bottom:10px;left:0px;">
+                <div class="col-xs-4 text-center">
+                    <button class="btn btn-danger btn-small" ng-click="onDelete()">{{L.delete}}</button>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <button class="btn btn-success btn-small" ng-click="onSubmit()">{{L.submit}}</button>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <button class="btn btn-default btn-small" ng-click="onCancel()">{{L.cancel}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12" ng-controller="setting_tab_type_controller">
+        <div class="col-xs-12" style="padding-left: 0">
+            <button class="btn btn-info btn-small icon-plus" ng-click="onBtnNewTest()"  style="height: 30px;line-height: 0px"> {{L.new_dishes_type}}
+            </button>
+        </div>
+        <div class="col-xs-12 hr hr-6"></div>
+        <table id="settingtypeTable" class="table table-striped table-bordered table-hover col-xs-12"></table>
+
+        <div class="modal" id="setting_add_type_form" style="overflow-y:auto">
+            <div class="modal-dialog" style="min-height: 200px;height:auto;overflow: auto">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="onCancel()">×
+                        </button>
+                        <h4 class="modal-title" style="text-align: left">&nbsp</h4>
+                    </div>
+                    <form id="formB">
+                        <div class="modal-body" style="min-height: 150px;height:auto;overflow:  auto">
+                            <div class="form-group col-md-12 col-xs-12">
+                                <div class="col-xs-4 bigger-130">{{L.type_name_cn}}:</div>
+                                <div class="col-xs-8">
+                                    <input type="text" style="width: 70%" ng-model="edit_types.extendName">
+                                </div>
+
+                                <div class="col-xs-12 space-6"></div>
+                                <div class="col-xs-4 bigger-130">{{L.type_name_en}}:</div>
+                                <div class="col-xs-8"><input type="text" style="width: 70%"
+                                                             ng-model="edit_types.extendNameLan"></div>
+                                <div class="col-xs-12 space-6"></div>
+                                <div class="col-xs-4 bigger-130">{{L.type_class}}:</div>
+                                <div class="col-xs-8">
+                                    <select ng-model="edit_types.extendType" style="width: 70%"
+                                            ng-disabled="is_edit==true">
+                                        <option value="0" ng-bind="L.type_class_first"></option>
+                                        <option value="1" ng-bind="L.type_class_second"></option>
+                                    </select>
+                                </div>
+
+                                <div class="col-xs-12 space-6"></div>
+                                <div class="col-xs-4 bigger-130">{{L.type_parent_class}}:</div>
+                                <div class="col-xs-8">
+                                    <select ng-model="edit_types.parentId" style="width: 70%"
+                                            ng-disabled="edit_types.extendType==0 || is_edit==true">
+                                        <option value="{{value.id}}" ng-repeat="(key,value) in fristTypes"
+                                                ng-bind="value.extend_name"></option>
+                                    </select>
+                                </div>
+
+                                <div class="col-xs-12 space-6"></div>
+                                <div class="col-xs-4 bigger-130">{{L.type_price}}:</div>
+                                <div class="col-xs-8"><input type="number"  ng-model="edit_types.extendPrice"
+                                                             style="width:70%"></div>
+
+                                <div class="col-xs-12 space-6"></div>
+                                <div class="col-xs-4 bigger-130">{{L.notes}}:</div>
+                                <div class="col-xs-8"><input type="text" ng-model="edit_types.remark"
+                                                             style="width: 70%"></div>
+                                <div class="clear" style="clear:both"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer form-group" style="border: none;margin-bottom: 0px">
+                            <div class="col-xs-12">
+                                <div class="col-xs-4 text-center">
+                                    <button class="btn btn-danger btn-small" ng-show="edit_types.extendId!=''"
+                                            ng-click="onDelete()">{{L.delete}}
+                                    </button>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <button class="btn btn-success btn-small" ng-click="onSubmit()">{{L.submit}}
+                                    </button>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <button class="btn btn-default btn-small" ng-click="onCancel()">{{L.cancel}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="menu_view" class="col-xs-12 nopadding" ng-controller="menuItemController">
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-xs-1">
+            <span style="line-height: 30px;font-size: 13px">{{L.belong_big_menu}}</span>
+        </div>
+        <div class="col-xs-11">
+            <select ng-model="menu_big_search" style="width: 100%;height: 35px" id="menu_big_search2" onchange="angular.element(this).scope().getProdType(2)">
+                <option value="null" checked>{{L.search_status_all}}</option>
+                <option value="{{menu_big.menu_id}}" ng-repeat="menu_big in menu_big_arr"
+                        ng-bind="menu_big.menu_name_lang===null? menu_big.menu_name:menu_big.menu_name+'('+menu_big.menu_name_lang+')'">
+                </option>
+            </select>
+        </div>
+    </div>
+<div class="col-xs-12 list1">
+    <div class="col-xs-2" ng-repeat="type in menu_types" ng-click="onChangeMenuType(type)" >
+        <div class="pointer mp-no-select"
+             style="{{curMenuType==type?'background-color:#bf7985;':''}}"
+                >
+            <div class=" mp-text-ellipsis overflow-hidden" ng-bind="type.name"></div>
+            <span class="" style="color:beige;">{{"(" + type.menuItems.length + ")"}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12 hr hr-10"></div>
+
+<div class="col-xs-12">
+    <span class="pull-left lighter bigger-140">
+        {{L.filter}}:
+    </span>
+    <span class="pull-left input-icon" style="margin:0px 0px 0px 20px;">
+        <input ng-model="search_keyword" type="text" style="width:300px;" placeholder={{L.by_name_or_name_lang}}>
+        <i class="icon-search green"></i>
+    </span>
+    <label class="pull-left" style="margin-left:10px;">
+        <input ng-model="filter_special" class="ace ace-checkbox-2" type="checkbox"/>
+        <span class="lbl" style="color:black;">&nbsp;{{L.today_special}}</span>
+    </label>
+    <span class="pull-left mp-btn-simple green" style="margin:0px 0px 0px 20px;border-color:green;" ng-click="onClearFilter()">Clear</span>
+
+    <div class="pull-right">
+        <div class="btn-group">
+        <button id="printMenuBtn" analytics-on data-toggle="dropdown" class="btn btn-info btn-sm dropdown-toggle menu-pdf-btn">
+            {{L.print_menu_pdf}}
+            <span class="icon-caret-down icon-on-right"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-info pull-right" aria-labelledby="printMenuBtn">
+            <li>
+                <a href="javascript:;" ng-click="onPrintMenu('regular')"
+                   ng-bind="L.print_regular"></a>
+            </li>
+            <li>
+                <a href="javascript:;" ng-click="onPrintMenu('large')"
+                   ng-bind="L.print_large"></a>
+            </li>
+        </ul>
+        </div>
+        <div class="btn-group">
+        <button id="viewMenuBtn" data-toggle="dropdown" class="btn btn-info btn-sm dropdown-toggle menu-view-btn">
+            {{L.view_style}}
+            <span class="icon-caret-down icon-on-right"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-info pull-right" aria-labelledby="viewMenuBtn">
+            <li>
+                <a href="javascript:;" ng-click="onMenuViewChange('gallery')" ng-bind="L.gallery"></a>
+            </li>
+            <li>
+                <a href="javascript:;" ng-click="onMenuViewChange('grid')" ng-bind="L.list"></a>
+            </li>
+        </ul>
+        </div>
+        <button class="btn btn-success menu-edit-btn" ng-click="addMenuItem()">
+            <i class="icon-plus-sign"></i>
+        </button>
+    </div>
+</div>
+
+<div class="col-xs-12 space-6"></div>
+
+<div class="col-xs-12">
+<div ng-if="menu_view_loaded_array['grid']" ng-show="menu_view_style=='grid'">
+    <div bindonce class="col-xs-12">
+        <table class="table table-striped table-bordered table-hover">
+            <colgroup>
+                <col width=""/>
+                <col width="20%"/>
+                <col width="8%"/>
+                <col width="10%"/>
+                <col width="10%"/>
+                <col width="10%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th ng-bind="L.name"></th>
+                <th ng-bind="L.name_lang"></th>
+                <th ng-bind="L.price"></th>
+                <th>Active</th>
+                <th ng-bind="L.today_special"></th>
+                <th ng-bind="L.promotion"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr bindonce ng-repeat="menuItem in search_result">
+                <td><a class="pointer" ng-click="showMenuItemDetail(menuItem)" ng-bind="menuItem.name"></a></td>
+                <td ng-bind="menuItem.name_lang"></td>
+                <td>
+                            <span ng-class="{'price-disable':menuItem.promotions.length>0}"
+                                  ng-bind="menuItem.price | currency: currency"></span>
+                    <br>
+                            <span ng-if="menuItem.promotions.length>0"
+                                  ng-bind="menuItem.priceAfterDiscount | currency: currency"></span>
+                </td>
+                <td>
+                    <label>
+                        <input ng-model="menuItem.active" ng-readonly="menuItem.disabled_for_page"
+                               class="ace ace-switch ace-switch-5" type="checkbox"
+                               ng-click="onActiveChange(menuItem)"/>
+                        <span class="lbl lbl_active"></span>
+                    </label>
+                </td>
+                <td>
+                    <label style="margin-left:10px;">
+                        <input ng-model="menuItem.special" class="ace ace-checkbox-2" type="checkbox"
+                               ng-readonly="menuItem.disabled_for_page"
+                               ng-click="onSpecialChange(menuItem)"/>
+                        <span class="lbl" style="color:black;"></span>
+                    </label>
+                </td>
+                <td>
+                    <a ng-class="menuItem.promoClass" ng-href="{{menuItem.promoHref}}">
+                        {{L.promotion}}
+                        <i ng-class="menuItem.promoIcon"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- view style -->
+<div ng-if="menu_view_loaded_array['gallery']" ng-show="menu_view_style=='gallery'">
+    <div bindonce class="col-xs-12">
+        <div bindonce class="col-xs-12 col-sm-3 menuItem"
+             ng-repeat="menuItem in search_result">
+            <div class="menuItemImg menu_item_active_{{menuItem.active}} pointer">
+                <img ng-src="{{menuItem.img_url_240}}" ng-click="showMenuItemDetail(menuItem)"/>
+
+                <div class="skew-label" ng-if="menuItem.special" ng-bind="L.special"></div>
+            </div>
+            <div style="font-size:12pt;">
+                <div class="col-xs-12" style="height:25px;"><b
+                        class="mp-text-ellipsis Arial menuItemName overflow-hidden" title="{{menuItem.name}}">{{menuItem.name}}</b>
+                </div>
+                <div class="col-xs-12" style="height:25px;"><b class="Arial" title="{{menuItem.name_lang}}">{{menuItem.name_lang}}</b>
+                </div>
+                <div class="col-xs-12">
+                    <div class="col-xs-6" style="padding:0px;height:35px;line-height:35px;">
+                        <span ng-class="{'price-disable':menuItem.promotions.length>0}" ng-bind="menuItem.price | currency: currency"></span>
+                        <span ng-show="menuItem.priceAfterDiscount" class="Arial" style="color:green;font-size:12pt;font-weight:bold;" ng-bind="menuItem.priceAfterDiscount | currency: currency"></span>
+                    </div>
+                </div>
+                <div class="menuItemText menu_item_active">
+                    <label>
+                        <input ng-model="menuItem.active" ng-readonly="menuItem.disabled_for_page"
+                               class="ace ace-switch ace-switch-5" type="checkbox"
+                               ng-click="onActiveChange(menuItem)"/>
+                        <span class="lbl lbl_active"></span>
+                    </label>
+                    <label style="margin-left:10px;">
+                        <input ng-model="menuItem.special" class="ace ace-checkbox-2" type="checkbox"
+                               ng-readonly="menuItem.disabled_for_page"
+                               ng-click="onSpecialChange(menuItem)"/>
+                        <span class="lbl" style="color:black;">&nbsp;{{L.today_special}}</span>
+                    </label>
+                </div>
+                <div class="menuItemText">
+                    <a ng-class="menuItem.promoClass" ng-href="{{menuItem.promoHref}}">
+                        {{L.promotion}}
+                        <i ng-class="menuItem.promoIcon"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of gallery-->
+</div>
+
+</div>
+
+
+<div id="menu_add_update_view" class="col-xs-12 nopadding" ng-controller="menuAddAndUpdateController">
+    <div class="space-6"></div>
+    <form id="menuItemForm" class="mp-form-validation" name="menuItemForm" novalidate="novalidate" enctype="multipart/form-data">
+        <div class="col-xs-12 col-sm-5 center control-group">
+            <div class="mp-file-upload pointer" class="col-xs-12" style="padding:2px;border:1px solid #DDD;">
+                <img ng-src="{{menuItem.img_url_600}}" style="width:100%;"/>
+                <div class="skew-label" style="right:0px;" ng-if="menuItem.promotions">Discount</div>
+            </div>
+            <input name="image" type="file" max_size="10M" style="display: none;" >
+            <input name="img_url" type="text" ng-model="menuItem.img_url"  style="display: none;">
+
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-12 grey">
+                [ {{L.image_size_limit}} ]
+            </div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-12 myitem">
+                <span ng-show="is_edit" class="icon-trash bigger-120 pointer" ng-click="deleteMenuItemPicture()"> {{L.delete_picture}}</span>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-7 menuAddUpdateForm">
+            <div class="col-xs-12 myitem">
+                <div class="col-xs-12 col-sm-2 center">
+                    <div class="row_title">
+                        <span class="icon-asterisk required_label"></span>{{L.name}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-10 center">
+                    <input name="name" ng-model="menuItem.name" type="text" required ng-maxlength="100" id="menuItemName"
+                           placeholder="this field is required"/>
+                </div>
+            </div>
+
+            <div class="col-xs-12 myitem">
+                <div class="col-xs-12 col-sm-2 center">
+                    <div class="row_title" ng-bind="isCN ? L.name_lang_cn : L.name_lang_us"></div>
+                </div>
+                <div class="col-xs-12 col-sm-10 center">
+                    <input name="name_lang" ng-model="menuItem.name_lang" type="text"/>
+                </div>
+            </div>
+
+            <div class="col-xs-12 myitem">
+                <div class="col-xs-12 col-sm-2 center">
+                    <div class="row_title" ng-bind="L.description"></div>
+                </div>
+                <div class="col-xs-12 col-sm-10 center">
+                    <textarea name="description" ng-model="menuItem.description"  ng-maxlength="500"></textarea>
+                </div>
+                <span ng-show="menuItemForm.description.$invalid" class="label label-danger label-xlg " style="width: auto;">
+                    <i class="icon-warning-sign  bigger-130"></i>
+                    {{L.description_warning_text}}
+                </span>
+            </div>
+
+            <div class="col-xs-12 myitem">
+                <div class="col-xs-12 col-sm-2 center">
+                    <div class="row_title" ng-bind="L.description_lang"></div>
+                </div>
+                <div class="col-xs-12 col-sm-10 center">
+                    <textarea name="description_lang" ng-model="menuItem.description_lang" ng-maxlength="500"></textarea>
+                </div>
+                <span ng-show="menuItemForm.description_lang.$invalid" class="label label-danger label-xlg " style="width: auto;">
+                    <i class="icon-warning-sign  bigger-130"></i>
+                    {{L.description_warning_text}}
+                </span>
+            </div>
+
+            <div class="col-xs-12 myitem">
+                <div class="col-xs-12 col-sm-2 center">
+                    <div class="row_title" ng-bind="L.ingredients"></div>
+                </div>
+                <div class="col-xs-12 col-sm-10 center">
+                    <input name="ingredient" ng-model="menuItem.ingredient" type="text" ng-maxlength="200"/>
+                </div>
+            </div>
+
+            <div class="col-xs-12 myitem">
+                <div class="col-xs-12 col-sm-2 center">
+                    <div class="row_title" ng-bind="L.type"></div>
+                </div>
+                <div class="col-xs-12 col-sm-4 center">
+                    <select name="type_id" ng-model="menuItem.type_id" required placeholder="this field is required">
+                        <option ng-repeat="menuType in menu_types"
+                                ng-selected="menuItem.type_id==menuType.type_id"
+                                value="{{menuType.type_id}}">{{menuType.name}} | {{menuType.name_lang}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-2 center">
+                    <div class="row_title" ng-bind="L.calorie"></div>
+                </div>
+                <div class="col-xs-12 col-sm-4 center">
+                    <input name="calorie" ng-model="menuItem.calorie" type="number"/>
+                </div>
+            </div>
+
+            <div class="col-xs-12 myitem">
+                <div class="col-xs-12 col-sm-2 center">
+                    <div class="row_title" ng-bind="L.spiciness_scale"></div>
+                </div>
+                <div class="col-xs-12 col-sm-4 center">
+                    <input name="spiciness" type="text" class="input-mini" id="menu_add_spiciness"/>
+                </div>
+                <div class="col-xs-12 col-sm-2 center">
+                    <div class="row_title" ng-bind="L.price"></div>
+                </div>
+                <div class="col-xs-12 col-sm-4 center">
+                    <input name="price" ng-model="menuItem.price" class="input-mask-price" type="number"/>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 myitem">
+                <div class="col-xs-12 col-sm-3 center">
+                    <div class="row_title" ng-bind="L.display_order"></div>
+                </div>
+                <div class="col-xs-12 col-sm-9 center">
+                    <input name="display_order" ng-model="menuItem.display_order" class="input-mask-number" type="number"/>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 myitem">
+                <div class="col-xs-12 col-sm-3 center">
+                    <div class="row_title" ng-bind="L.unit_ofmeasure"></div>
+
+                </div>
+                <div class="col-xs-12 col-sm-9 center">
+                    <input name="label" ng-model="menuItem.autoCompleteArr" type="text" style="display: none;" />
+                    <input name="extend" type="text" ng-model="menuItem.extendParams" style="display: none;" >
+                    <input name="unitofmeasure" ng-model="menuItem.unitofmeasure" type="text"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 myitem" ng-if="is_edit==true">
+                <div class="col-xs-12 col-sm-3 center">
+                    <div class="row_title" ng-bind="L.label"></div>
+                </div>
+                <div class="col-xs-12 col-sm-9 center">
+                    <input  ng-model="menuItem.prod_label" ng-click="showLabelModal()" type="text"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 myitem" ng-if="is_edit==true">
+                <div class="col-xs-12 col-sm-3 center">
+                    <div class="row_title" ng-bind="L.sold_out"></div>
+                </div>
+                <div class="col-xs-12 col-sm-9 center">
+                    <select  name="sold_out_flag" ng-model="menuItem.sold_out_flag">
+                        <option value="0">{{L.no}}</option>
+                        <option value="1">{{L.yes}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 center " style="margin-top: 3px">
+                <a  class="btn btn-xs btn-success" style="width: 100%;margin: 0 5px" ng-click="showAddType()">
+                    {{L.add_dishes_type}}
+                    <i ng-class="menuItem.promoIcon"></i>
+                </a>
+            </div>
+
+
+            <div class="col-xs-6 myitem">
+                <div class="col-xs-6 center">
+                    <label>
+                        <input type="hidden" name="togo" id="menu_add_togo"/>
+                        <input ng-model="menuItem.togo" type="checkbox" class="ace"/>
+                        <span class="lbl">{{L.to_go}}</span>
+                    </label>
+                </div>
+                <div class="col-xs-6 center" ng-show="false">
+                    <label>
+                        <input type="hidden" name="active" id="menu_add_active"/>
+                        <input ng-model="menuItem.active" type="checkbox" class="ace"/>
+                        <span class="lbl"> Active</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="space-6"></div>
+            <div class="col-xs-12 myitem">
+                <div class="hr hr-18 dotted hr-double"></div>
+                <div class="col-xs-4 center">
+                    <button type="button" class="btn btn-sm btn-default" ng-click="onBack()">
+                        <i class="icon-arrow-left icon-on-left bigger-110"></i>
+                        {{L.back}}
+                    </button>
+                </div>
+                <div class="col-xs-4 center">
+                    <button type="button" class="btn btn-sm btn-success"
+                            ng-click="onMenuItemSubmit(menuItemForm.$valid)">
+                        {{L.submit}}
+                        <i class="icon-ok icon-on-right bigger-110"></i>
+                    </button>
+                </div>
+                <div class="col-xs-4 center widget-toolbar">
+                    <button ng-show="is_edit" class="btn btn-danger menu-delete-btn"
+                            ng-click="deleteMenuItem(menuItem)">
+                        <i class="icon-ban-circle"></i>
+                        {{L.delete}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col-md-12 col-xs-12" style="margin-top: 30px">
+        <div ng-if="autoCompleteArr.length!=0" class="col-md-12 col-xs-12">
+            <h4>{{L.similar_dishes}}</h4>
+        </div>
+        <div class="col-xs-4 col-sm-2 menuItem autoMenu" ng-repeat="auto in autoCompleteArr" ng-click="repeatData(auto)" style="margin-bottom: 10px">
+            <div class="menuItemImg menu_item_active_true pointer">
+                <img ng-src="{{auto._source.imgUrl_600}}">
+            </div>
+            <div style="font-size:12pt;">
+                <div class="col-xs-12" style="height:25px;">
+                    <b class="mp-text-ellipsis Arial menuItemName overflow-hidden" ng-bind="auto._source.prodName"></b>
+                    <span ng-if="auto._source.unitofmeasure">({{auto._source.unitofmeasure}})</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="add_type_form" style="overflow-y:auto">
+        <div class="modal-dialog"   style="min-height: 200px;height:auto;overflow: auto">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 5px">
+                    <button type="button" class="close"  data-dismiss="modal" aria-hidden="true" ng-click="typeCancel()">×</button>
+                    <h4 class="modal-title"  style="text-align: left">&nbsp</h4>
+                </div>
+                <form >
+                    <div class="modal-body"  style="min-height: 150px;max-height:350px;height:auto;overflow:auto;padding: 0">
+                        <div class="form-group col-md-12 col-xs-12">
+                            <table id="typeTable" class="table table-striped table-bordered table-hover col-xs-12" style="height:auto;overflow: auto;"></table>
+                        </div>
+                    </div>
+                    <div class="modal-footer form-group" style="border: none;margin-bottom: 0px">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6 text-center">
+                                <button class="btn btn-success btn-small" ng-click="onSubmit()">{{L.submit}}</button>
+                            </div>
+                            <div class="col-xs-6 text-center">
+                                <button class="btn btn-default btn-small" ng-click="typeCancel()">{{L.cancel}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="label_form" style="overflow-y:auto">
+        <div class="modal-dialog"   style="min-height: 200px;height:auto;overflow: auto">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 5px">
+                    <button type="button" class="close"  data-dismiss="modal" aria-hidden="true" ng-click="typeCancel()">×</button>
+                    <h4 class="modal-title"  style="text-align: left">&nbsp</h4>
+                </div>
+                <form >
+                    <div class="modal-body"  style="min-height: 200px;max-height:350px;height:auto;overflow:auto;padding: 0">
+                        <div class="form-group col-md-12 col-xs-12" ng-if="checkedLabelArr.length>0" style="margin-top: 10px;margin-bottom: 0px">
+                            <div class="col-md-2 col-xs-3" style="line-height: 34px">
+                                <label>{{L.label_check}}</label>
+                            </div>
+                            <div class="col-md-10 col-xs-9">
+                                <div class="checked-label-div" ng-repeat="label in checkedLabelArr">
+                                    <span class="checked-label-span">{{label.label_name}}</span>
+                                    <span class="icon-remove label-remove" ng-click="removeLabel(label)"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 col-xs-12" style="margin-top: 10px;margin-bottom: 0px;">
+                            <div class="col-md-2 col-xs-3" style="line-height: 34px">
+                                <label>{{L.label_search}}</label>
+                            </div>
+                           <div class="col-md-9 col-xs-8">
+                               <input type="text" class="form-control" id="labelSearch" placeholder="输入搜索">
+                           </div>
+                            <div class="col-md-1 col-xs-1" style="margin: 0px;padding-right:5px;padding-left: 0px">
+                                <button class="btn btn-success menu-edit-btn" style="width: 100%!important;height: 34px;border:none" ng-click="addEidteLabel()">
+                                    <i class="icon-plus-sign"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 col-xs-12" ng-if="labelList.length>0" style="max-height: 300px;margin-top: 10px;">
+                            <div class="col-md-2 col-xs-3" style="line-height: 34px">
+                                <label>{{L.label_list}}</label>
+                            </div>
+                            <div class="col-md-10 col-xs-9">
+                                <span class="label-span" ng-repeat="label in labelList" ng-click="addLabel(label)">{{label.label_name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer form-group" style="border: none;margin-bottom: 0px">
+                        <div class="col-xs-12">
+                            <div class="col-xs-6 text-center">
+                                <button class="btn btn-success btn-small" ng-click="labelSubmit()">{{L.submit}}</button>
+                            </div>
+                            <div class="col-xs-6 text-center">
+                                <button class="btn btn-default btn-small" ng-click="typeLabelCancel()">{{L.cancel}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+<div class="space-12"></div>
+</div>
+
+

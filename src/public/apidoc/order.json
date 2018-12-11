@@ -1,0 +1,1519 @@
+{
+    "apiVersion":"1.0.0",
+    "swaggerVersion":"1.2",
+    "basePath":"http://localhost:8080/api",
+    "resourcePath":"/apidoc/order.json",
+    "apis":[
+        {
+            "path": "/biz/{bizId}/orderPrice",
+            "description": "Customer get order price",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "compute price",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "number",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the menu items in a order",
+                            "type": "ItemArray",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Customer compute order price ,allow access without login",
+                    "notes": "No request body"
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/order",
+            "description": "Customer create a order info",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "customer add a order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the  order summery info",
+                            "type": "OrderInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Customer add a  order , return order info with price ",
+                    "notes": "No request body"
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/order",
+            "description": "Business create a order info",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "business add a order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the  order summery info",
+                            "type": "OrderInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business add a  order  ",
+                    "notes": "No request body"
+                }
+            ]
+        },
+        {
+            "path":"/cust/{custId}/order",
+            "description":"Get customer all orders",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getCustomerOrder",
+                    "type":"orderInfo",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "status",
+                            "description": "all of the status orders",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "startDate",
+                            "description": "the orders created after the startDate ",
+                            "type": "DateTime",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "endDate",
+                            "description": "the orders created before the startDate ",
+                            "type": "DateTime",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "the orders records start position  ",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "the orders records query size ",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "orderId",
+                            "description": "the orders id ",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get all promotion of the product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/order",
+            "description":"Get biz all orders",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizOrder",
+                    "type":"orderInfo",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "custId",
+                            "description": "the customer orders in business",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "status",
+                            "description": "all of the status orders",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "startDate",
+                            "description": "the orders created after the startDate ",
+                            "type": "DateTime",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "endDate",
+                            "description": "the orders created before the startDate ",
+                            "type": "DateTime",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "the orders records start position  ",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "the orders records query size ",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "orderDateStart",
+                            "description": "the orders start time more than parameter for query ",
+                            "type": "DateTime",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "orderDateEnd",
+                            "description": "the orders start time less than parameter for query ",
+                            "type": "DateTime",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "orderId",
+                            "description": "the order id",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "username",
+                            "description": "order user name",
+                            "type": "String",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "phone",
+                            "description": "user phone",
+                            "type": "String",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get all promotion of the product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/{custId}/order/{orderId}",
+            "description":"Get customer all menu items in order",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizOrderLineItem",
+                    "type":"itemArray",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "the order id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get all promotion of the product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/order/{orderId}",
+            "description":"Get biz all menu items in orders",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizOrderLineItem",
+                    "type":"itemArray",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "the order id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get all promotion of the product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/{custId}/order/{orderId}/status/{status}",
+            "description":"customer update order status",
+            "operations":[
+                {
+                    "method":"PUT",
+                    "nickname":"customerUpdateOrderStatus",
+                    "type":"boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "the order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "status",
+                            "description": "the order status",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Customer update order status,need token",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/order/{orderId}/status/{status}",
+            "description":"business update order status",
+            "operations":[
+                {
+                    "method":"PUT",
+                    "nickname":"businessUpdateOrderStatus",
+                    "type":"boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "the order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "status",
+                            "description": "the order status",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "custId",
+                            "description": "the customer id",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the opRemark is the order be updated remark",
+                            "type": "OrderInfo",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"business update order status,need token",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/order/{orderId}/addItem",
+            "description": "Customer add items to  a order",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "customer add items to order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the item array  info",
+                            "type": "ItemArray",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Customer add item  to order ,compute order price again",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/order/{orderId}/addItem",
+            "description": "Business add item to a order ",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "business add item to a order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the item array  info",
+                            "type": "ItemArray",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business add item  to order ,compute order price again",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/order/{orderId}/item/{itemId}/cancel",
+            "description": "Business cancel a item in order ",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "business cancel a item in order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "itemId",
+                            "description": "item id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business cancel a  item  in order ,compute order price again",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/order/{orderId}/item/{itemId}/cancel",
+            "description": "Customer cancel a item in order ",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "customer cancel a item in order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "itemId",
+                            "description": "item id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Customer cancel a  item  in order ,compute order price again",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/order/{orderId}/item/{itemId}/status/{status}",
+            "description": "Customer update a item status in order ",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "customer update a item status in order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "itemId",
+                            "description": "item id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "status",
+                            "description": "item id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Customer update a  item status,but the status is not cancelled",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/order/{orderId}/item/{itemId}/status/{status}",
+            "description": "business update a item status in order ",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "business update a item status in order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "business",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "itemId",
+                            "description": "item id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "status",
+                            "description": "item id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business update a  item status,but the status is not cancelled",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/order/{orderId}/item",
+            "description": "business DELETE a item  in order ",
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "business DELETE a item  in order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "business",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "{itemArray:[1,2]}",
+                            "type": "Array",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business delete a item,the order info is updated",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/order/{orderId}/item",
+            "description": "customer delete a item  in order ",
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "customer delete a item  in order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the item id array",
+                            "type": "Array",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "customer delete a item,the order info is updated",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/order/{orderId}/resetSize",
+            "description": "Business reset item size in order ",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "business reset item size in order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the item array  info",
+                            "type": "ItemArray",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business update item size in order ,compute order price again",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/order/{orderId}/resetSize",
+            "description": "Customer reset item size in order ",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "customer reset item size in order",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the item array  info",
+                            "type": "ItemArray",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Customer update item size in order ,compute order price again",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/order/{orderId}/table/{tableId}",
+            "description": "business get table orders",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "business get table orders",
+                    "type": "OrderInfo",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "tableId",
+                            "description": "table id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business get orders by table ,need auth-token",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/order/{orderId}/table/{tableId}",
+            "description": "business change order allocate table",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "business change order table",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "tableId",
+                            "description": "table id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business update order table ,need auth-token",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/order/{orderId}/orderPrice",
+            "description":"business update order price",
+            "operations":[
+                {
+                    "method":"PUT",
+                    "nickname":"businessUpdateOrderPrice",
+                    "type":"boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "the order id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"business update order price,need token",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/orderCustomer",
+            "description":"Get biz all orders customers",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizOrderCustomer",
+                    "type":"customer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get biz order customers",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/order/{orderId}/invoice",
+            "description":"Get biz the order info for invoice",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getOrderForInvoice",
+                    "type":"OrderInfo",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get biz order info for print invoice",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/dayOrderStat",
+            "description":"finish biz order payment stat",
+            "operations":[
+                {
+                    "method":"POST",
+                    "nickname":"finishBizOrder",
+                    "type":"Boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Finish biz order stat",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/dayOrderStat",
+            "description":"get biz order payment stat",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizDayOrder",
+                    "type":"Array",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "record start position",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "record size",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Finish biz order stat",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/order/{orderId}/item",
+            "description":"get biz order detail with item",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizOrderWithItem",
+                    "type":"Array",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"get biz order with item detail",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/{custId}/order/{orderId}/item",
+            "description":"get customer order detail with item",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getCustOrderWithItem",
+                    "type":"Array",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderId",
+                            "description": "order id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"get customer order with item detail",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/dailyOrder",
+            "description":"Get biz daily order statistics by net sale",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizDailyOrder",
+                    "type":"orderInfo",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get biz daily order statistics by net sales",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/dayOrderPaymentStat",
+            "description":"Get biz daily order and payment statistics by net sale",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"dayOrderPaymentStat",
+                    "type":"orderInfo",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get biz daily order statistics by net sales",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/searchBizOrder",
+            "description":"get biz order by criteria",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizDayOrder",
+                    "type":"Array",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "record start position",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "record size",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "orderId",
+                            "description": "the order id",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "username",
+                            "description": "order user name",
+                            "type": "String",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "phone",
+                            "description": "user phone",
+                            "type": "String",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Finish biz order stat",
+                    "notes": ""
+                }
+            ]
+        }
+
+
+
+    ],
+
+    "models":{
+        "OrderInfo": {
+            "id": "OrderInfo",
+            "properties": {
+
+                "bizId": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "the id of biz"
+                },
+                "orderType": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the order type ,togo or not"
+                },
+                "remark": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the  description in a order"
+                },
+                "status": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the order status"
+                },
+                "orderStart": {
+                    "type": "Date",
+                    "required": true,
+                    "description": "the order start date for dinner"
+                },
+                "orderEnd": {
+                    "type": "Date",
+                    "required": false,
+                    "description": "the order end date for dinner "
+                }
+                ,
+                "itemArray": {
+                    "type": "ItemArray",
+                    "required": true,
+                    "description": "the item array of orders"
+                },
+                "tableId": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the table id to allocate order"
+                },
+                "tableName": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the table name to allocate order"
+                },
+                "tableType": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the table type to allocate order"
+                },
+                "seats": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the table seat size to allocate order"
+                },
+                "tableStatus": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the table status to allocate order"
+                },
+                "phone": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the user connect phone"
+                },
+                "username": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the user name for connection"
+                },
+                "address": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the user address if order is togo"
+                },
+                "opRemark": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the change order status should add remark"
+                }
+            }
+        },
+        "ItemArray": {
+            "id": "ItemArray",
+            "properties": {
+                "itemId": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the id of a  item in order"
+                },
+
+                "prodId": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "the id of a product"
+                },
+                "quantity": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "the product quantity in a order"
+                },
+                "remark": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the menu item description in a order"
+                },
+                "status": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the menu item status in a order"
+                }
+            }
+        }
+    }
+}

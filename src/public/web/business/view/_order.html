@@ -1,0 +1,718 @@
+<div id="order_view" class="page-content row position-relative">
+<mp-tab class="col-xs-12" ng-model="order_tabs"></mp-tab>
+<div class='pull-right position-absolute' style="border:0px solid grey;height:30px;top:12px;right:22px;">
+    <span ng-show="order_tabs.cur_tab_index==1">
+        <label class="mp-switch">
+            <input ng-model="menu_lang_switch" class="ace ace-switch ace-switch-5" type="checkbox" ng-click="onClickMenuLangSwitch()" />
+            <span class="lbl lbl_active"></span>
+        </label>
+        {{L.menu_lang_switch}}
+    </span>
+    <span >
+        <label>
+            <input name="switch-field-1" class="ace ace-switch ace-switch-7" type="checkbox" ng-model="sound_alert_switch">
+            <span class="lbl lbl_active"></span>
+        </label>
+        Sound Alert
+    </span>
+
+    <!--<button ng-click="testaudio()">test</button>-->
+</div>
+<div ng-show="pending_count>0" class="col-xs-12" style="margin-top: 10px; color: red; font-weight: bold; font-size: 11pt; background: cornsilk; padding: 5px;">
+    {{pending_alert_message}}  {{pending_alert_message_seq}}
+</div>
+<!--main-->
+<div id="order_tab" class="col-xs-12" style="padding-top:10px;">
+    <!--活跃订单-->
+    <div class="col-xs-12" ng-controller="cur_orders_controller">
+        <table class="table table-striped table-bordered table-hover col-xs-12" mp-sortable="cur_orders">
+            <colgroup>
+                <col width=""/>
+                <!--  <col width="14%"/>-->
+                <col width="15%"/>
+                <col width="15%"/>
+                <col width="20%"/>
+                <col width="15%"/>
+                <col width="16%"/>
+                <col width="12%"/>
+                <col width="12%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th data-sorting-column="id">{{L.order_noun}} #</th><!--订单号-->
+                <th >{{L.order_table_no}}</th><!--台号-->
+                <th data-sorting-column="total_price">{{L.total_price}}</th><!--总金额-->
+                <th data-sorting-column="status">{{L.order_state_table}}</th><!--订单状态-->
+                <th data-sorting-column="create_on">{{L.create_time}}</th><!--创建时间-->
+                <th data-sorting-column="order_type">{{L.type_cap}}</th><!--堂吃，外卖-->
+                <!--<th data-sorting-column="status">{{L.operating_status}}</th>-->
+                <!--<th data-sorting-column="order_start">{{L.order_time}}</th>-->
+                <!--<th>Payment</th>-->
+                <!--<th>{{L.name}}</th>-->
+                <!--<th>{{L.phone}}</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="order in cur_orders" ng-click="onSelectOrder(order)" style="cursor: pointer">
+                <td><a href="javascript:;" ng-bind="order.seq" ng-click="onSelectOrder(order)"></a></td>
+                <td ng-bind="order.table_name"></td>
+                <td ng-bind="order.total_price | customCurrency:currency"></td>
+                <td ng-bind="order.status==110 ? L.payment_status_0: L.payment_status_1" class="order_status_{{order.status}}"></td>
+                <td ng-bind="DateFormat(order.create_on,'MM/dd/yyyy HH:mm:ss')"></td>
+                <td ng-bind="ORDER_TYPE.DESC[order.order_type]"></td>
+                <!--<td ng-bind="ORDER_STATUS.DESC[order.status]" class="order_status_{{order.status}}"></td>-->
+                <!--<td ng-bind="DateFormat(order.order_start,'MM/dd/yyyy hh:mm TT')"></td>-->
+                <!--<td ng-bind="order.payment_type != null ? ((order.payment_type ==0 ? 'Paypal(' : 'Credit Card(' )+order.payment_info+')'): 'Not Paid'" ></td>-->
+                <!--<td ng-bind="order.order_type==ORDER_TYPE.TOGO ? order.orderUsername : order.cust_id>0 ? order.orderUsername : '[BIZ]'"></td>-->
+                <!--<td ng-bind="order.phone"></td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--台号-->
+    <div class="col-xs-12" ng-controller="order_tables_controller">
+        <div class="col-xs-12">
+            <span class="pull-left" style="margin:4px;">{{L.total_status}}:</span>
+            <div class="pull-left table_status_300" style="width:100px;text-align: center;margin:2px;padding:2px 10px;border:1px solid #6fb3e0;border-radius:3px;" ng-bind="TABLE_STATUS.DESC[TABLE_STATUS.OPEN]"></div>
+            <!--<div class="pull-left table_status_301" style="width:100px;text-align: center;margin:2px;padding:2px 10px;border:1px solid #6fb3e0;border-radius:3px;" ng-bind="TABLE_STATUS.DESC[TABLE_STATUS.RESERVED]"></div>-->
+            <div class="pull-left table_status_302" style="width:100px;text-align: center;margin:2px;padding:2px 10px;border:1px solid #6fb3e0;border-radius:3px;" ng-bind="TABLE_STATUS.DESC[TABLE_STATUS.SEATED]"></div>
+            <!--<div class="pull-left table_status_303" style="width:100px;text-align: center;margin:2px;padding:2px 10px;border:1px solid #6fb3e0;border-radius:3px;" ng-bind="TABLE_STATUS.DESC[TABLE_STATUS.CLEAN_UP]"></div>-->
+            <div class="pull-right"><button class="btn btn-info btn-small icon-plus" ng-click="onBtnShowNewToGoOrderDialog()"> {{L.to_go}}</button></div>
+        </div>
+        <div class="col-xs-12 hr hr-6"></div>
+        <div class="col-xs-12 list2">
+            <!--<div class="pull-left pointer mp-no-select table_status_{{table.status}}" ng-repeat="table in tables"-->
+                 <!--ng-click="onClickTable(table)"-->
+                 <!--style="padding-top:25px;"-->
+            <!--&gt;-->
+            <div class="pull-left pointer mp-no-select table_status_{{table.status}}" ng-repeat="table in tables"
+                 style="padding-top:25px;"
+            >
+                <div ng-bind="table.name"></div>
+                <div>({{table.seats}})</div>
+                <div ng-bind="TABLE_STATUS.DESC[table.status]"></div>
+            </div>
+        </div>
+        <div class="new_order_form" id="new_order_form">
+            <div class="col-xs-12 bigger-130 text-center" ng-bind="cur_table.name"></div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-4 bigger-130">{{L.of_guests}}:</div>
+            <div class="col-xs-8"><input class="input-mask-number" type="number" ng-model="head_count" ></div>
+            <div class="col-xs-12" ng-show="head_count>cur_table.seats">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-8 orange">{{L.over_max_capacity}} ({{cur_table.seats}})</div>
+            </div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-12 position-absolute" style="bottom:10px;left:0px;">
+                <div class="col-xs-6 text-center"><button class="btn btn-success btn-small" ng-click="onNewOrder()" ng-bind="L.submit">Submit</button></div>
+                <div class="col-xs-6 text-center"><button class="btn btn-default btn-small" ng-click="onCancel()" ng-bind="L.cancel">Cancel</button></div>
+            </div>
+        </div>
+        <div class="new_order_form" id="new_togo_order_form" style="width:545px;height:340px;">
+            <div class="col-xs-4 bigger-130">{{L.delivery_time}}:</div>
+            <div class="col-xs-8">
+                <div class="input-group pull-left" style="width:130px;">
+                <span class="input-group-addon">
+                    <i class="icon-calendar bigger-110"></i>
+                </span>
+                    <input class="date-picker form-control" ng-model="new_togo_order.order_date" type="text" data-date-format="mm/dd/yyyy" style="height:37px;" >
+                </div>
+                <div class="pull-left">
+                    <select style="margin-left:10px;" ng-model="new_togo_order.hour">
+                        <option bindonce ng-repeat="i in range(1,13)" value="{{i}}" bo-bind="i"></option>
+                    </select>
+                    :
+                    <select ng-model="new_togo_order.minute" style="width:47px;">
+                        <option bindonce ng-repeat="obj in [0,15,30,45]" value="{{obj}}" bo-bind="obj"></option>
+                    </select>
+                    <select ng-model="new_togo_order.hour_extend" style="margin-left:10px;">
+                        <option value="0">AM</option>
+                        <option value="12">PM</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-12"><input class="width-100" type="text" placeholder="{{L.customer_name}}" ng-model="new_togo_order.cust_name"></div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-12"><input class="width-100" type="text" placeholder="{{L.phone}}" ng-model="new_togo_order.cust_phone"></div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-12"><input class="width-100" type="text" placeholder="{{L.address}}" ng-model="new_togo_order.cust_address"></div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-12"><input class="width-100" type="text" placeholder="{{L.remark}}" ng-model="new_togo_order.remark"></div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-12 position-absolute" style="bottom:10px;left:0px;">
+                <div class="col-xs-6 text-center"><button class="btn btn-success btn-small" ng-disabled="!(new_togo_order.cust_phone && new_togo_order.cust_name && new_togo_order.cust_address)" ng-click="onNewToGoOrder()" ng-bind="L.submit"></button></div>
+                <div class="col-xs-6 text-center"><button class="btn btn-default btn-small" ng-click="onCancel()" ng-bind="L.cancel"></button></div>
+            </div>
+        </div>
+        <div class="new_order_form" id="reopen_table_form">
+            <div class="col-xs-12 bigger-130 text-center">
+                There is no active order on this table
+                <br>
+                <h3>This table is now re-opened</h3>
+            </div>
+            <div class="col-xs-12 space-6"></div>
+            <div class="col-xs-12 position-absolute text-center" style="bottom:10px;left:0px;">
+                <button class="btn btn-success btn-small" ng-click="onReopenTable()" style="width:100px;">OK</button>
+            </div>
+        </div>
+    </div>
+    <!--订单详情-->
+    <div class="col-xs-12" ng-controller="order_detail_controller">
+        <!-- A.order detail left -->
+        <div class="col-sm-12 col-xs-12" style="border:0px solid red;background-color: beige; padding: 5px;" ng-controller="order_detail_left_controller">
+            <!-- 1.operation -->
+            <div class="col-sm-12 col-xs-12" style="padding-right: 20px">
+                <!-- 2.order details -->
+                <div class="col-xs-12" style="margin-bottom:10px;margin-top: 8px">
+                    <!--<div class="pull-left " style="margin-right: 20px">-->
+                        <!--<button class=" btn btn-info btn-small" ng-click="onBtnConfirmOrder()"-->
+                                <!--ng-disabled="!cur_order.is_can_confirm">{{L.confirm}}-->
+                        <!--</button>-->
+                    <!--</div>-->
+
+                    <!--<div class="pull-left" style="margin-right: 20px">-->
+                        <!--<button class=" btn btn-info btn-small" ng-click="onBtnCancelOrder()"-->
+                                <!--ng-disabled="!cur_order.is_can_cancel">{{L.cancel}}-->
+                        <!--</button>-->
+                    <!--</div>-->
+
+                    <!--<div class="pull-left" style="margin-right: 20px">-->
+                        <!--<button class=" btn btn-info btn-small" ng-click="onBtnComplete()"-->
+                                <!--ng-disabled="!cur_order.is_can_complete">{{L.complete}}-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="pull-left" style="margin-right: 20px">-->
+                        <!--<button class=" btn btn-info btn-small" ng-click="onBtnPrintInvoice()"-->
+                                <!--ng-disabled="!cur_order.is_can_print_invoice">{{L.print_invoice}}-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="pull-left" style="margin-right: 20px">-->
+                        <!--<button class=" btn btn-info btn-small" ng-click="onPaymentOrder()"-->
+                                <!--ng-disabled="cur_order.is_can_payment == 1 || cur_order.is_can_confirm == true">{{L.payment_order}}-->
+                        <!--</button>-->
+                    <!--</div>-->
+
+                    <div class="pull-left " style="margin-right: 20px">
+                        <button class=" btn btn-info btn-small" ng-click="onBtnPrintOrderAll()" ng-disabled="cur_order.status==111 || cur_order.status==101">{{L.order_all_print}}</button>
+                    </div>
+                    <div class="pull-left " style="margin-right: 20px">
+                        <button class=" btn btn-info btn-small" ng-click="onBtnOrderUrgePrint()" ng-disabled="cur_order.status==111 || cur_order.status==101">{{L.order_urge_print}}</button>
+                    </div>
+                    <div class="pull-left " style="margin-right: 20px">
+                        <button class=" btn btn-info btn-small" ng-click="onBtnSendToKitchenPrint()" ng-disabled="cur_order.status==111 || cur_order.status==101">{{L.send_to_kitchen}}</button>
+                    </div>
+                    <div class="pull-left " style="margin-right: 20px">
+                        <button class=" btn btn-info btn-small" ng-click="onPaymentOrder()" ng-disabled="cur_order.status==111 || cur_order.status==101">{{L.payment_order}}</button>
+                    </div>
+                </div>
+                <form name="order_detail">
+                    <div id="order_details1" class="col-xs-12 col-sm-11" style="padding-left: 0px;padding-bottom: 5px">
+                        <div class="col-xs-3 col-sm-2">
+                            <span>{{L.order_noun}}:{{cur_order.seq}}</span>
+                        </div>
+
+                        <div class="col-xs-3 col-sm-2" ng-show="cur_order.order_type==ORDER_TYPE.DINE_IN">
+                            <span>{{L.table}}:</span>
+                            <span ng-if="!cur_order.table_id>0 || cur_order.table_name.length>0" class="width-100" style="border-width:3px;font-size: 17px;color: #ff9a00;cursor: pointer" ng-bind="cur_order && cur_order.table_name ? cur_order.table_name : '[Book One]'" ng-click="onBtnBookTable()" ng-disabled="sub_tab==BOOKTABLE_PAGE || !cur_order.is_can_booktable"></span>
+                            <span ng-if="cur_order.table_id>0 && cur_order.table_name.length==0" class="width-100" type="text" value=""></span>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <span >{{L.type_cap}}:{{ORDER_TYPE.DESC[cur_order.order_type]}}</span>
+                           <!-- <span  value="{{ORDER_TYPE.DESC[cur_order.order_type]}}" id="orderType" readonly></span>-->
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <span>{{L.status}}:{{ORDER_STATUS.DESC[cur_order.status]}}</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <span>{{L.order_time}}:{{DateFormat(cur_order.order_start,'MM/dd/yyyy hh:mm TT')}}</span>
+                        </div>
+                        <!--<div class="col-xs-6" ng-show="cur_order.order_type==ORDER_TYPE.DINE_IN">
+                            <span>{{L.head_count}}</span>
+                            <span><input class="width-100" type="text" value="{{cur_order.people_num}}" readonly></span>
+                        </div>
+                        <div class="col-xs-6">
+                            <span>{{L.customer}}</span>
+                            <span><input class="width-100" type="text" value="{{cur_order.order_type==ORDER_TYPE.TOGO ? cur_order.orderUsername : cur_order.cust_id>0 ? cur_order.orderUsername : '[BIZ]'}}" readonly></span>
+                        </div>
+                        <div class="col-xs-6">
+                            <span>{{L.phone}}</span>
+                            &lt;!&ndash;<span><input class="width-100" type="text" value="{{cur_order.phone}}" disabled></span>&ndash;&gt;
+                            <span>
+                                <span class="width-100" style="border:1px solid #d5d5d5;background-color: #eee;padding-left:4px;height:25px;display: block;">
+                                    <a href="tel:{{cur_order.phone}}">{{cur_order.phone}}</a>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="col-xs-12" ng-show="cur_order.order_type==ORDER_TYPE.TOGO">
+                            <span>{{L.address}}</span>
+                            <span><input class="width-100" type="text" value="{{cur_order.address}}" readonly></span>
+                        </div>
+                        <div class="col-xs-12" style="margin-top: 5px;">
+                            <span>{{L.description}}</span>
+                            <span><input class="width-100" type="text" value="{{cur_order.remark}}" readonly></span>
+                        </div>-->
+                        <!--<div ng-show="isOrderDetailCanUpdate()" class="col-xs-12" style="margin-top: 5px;">-->
+                        <!--<span></span>-->
+                        <!--<span><button class="btn btn-success btn-small">Submit</button></span>-->
+                        <!--</div>-->
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-sm-12 col-xs-12">
+                <!-- 4.order's menu items -->
+                <div id="order_menu_items" class="col-xs-12">
+                    <table class="table table-striped table-bordered table-hover col-xs-12">
+                        <thead>
+                        <tr style="background-color: grey !important;color:white;">
+                            <th>#</th>
+                            <th>{{L.menu_item_instruction}}</th>
+                            <th>{{L.add_dishes_type}}</th>
+                            <th>{{L.quantity_times_price}}</th>
+                            <th>{{L.status}}</th>
+                            <th class="pointer mp-no-select mp-no-content text-center"
+                                ng-class="{'none_selected':order_item_select==NONE_SELECTED,'partial_selected':order_item_select==PARTIAL_SELECTED,'all_selected':order_item_select==ALL_SELECTED}"
+                                ng-click="onClickMenuItemSelectHeader()"
+                            >
+                                {{L.select}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody style="background-color: white;">
+                        <tr ng-hide="!cur_order || cur_order.is_items_loaded"><td colspan="5">Loading...</td></tr>
+                        <tr ng-repeat="item in cur_order.menu_items">
+                            <td ng-bind="$index+1"></td>
+                            <td>
+                                <div>
+                                    <span ng-bind="item.prod_name"></span>
+                                    <span ng-if="item.prod_name_lang!=''">({{item.prod_name_lang}})</span>
+                                </div>
+                                <div style="margin-left:5px;color:grey;" ng-bind="item.remark"></div>
+                            </td>
+                            <th ng-bind="item.prod_extend"></th>
+                            <!--<td ng-bind="item.quantity+'*'+((item.actual_price ? item.actual_price/item.quantity : item.unit_price) | customCurrency:currency)"></td>-->
+                            <td ng-bind="item.quantity+'*'+ (item.unit_price | customCurrency:currency)"></td>
+                            <td ng-bind="ORDER_ITEM_STATUS.DESC[item.status]"></td>
+                            <td class="pointer mp-no-select text-center"
+                                ng-class="{'menu_item_selected':item.selected,'none_selected':!item.selected}"
+                                ng-click="onChooseMenuItem(item)">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 3.operation -->
+                    <div class="col-xs-12 text-center" style="margin-bottom: 8px;">
+                        <div class="pull-right text-right"  style="margin-left: 20px">
+                            <button class=" btn btn-info btn-small" ng-click="onBtnServeMenuItem()"
+                                    ng-disabled="cur_order.status==111 || cur_order.status==101" >{{L.served}}
+                            </button>
+                        </div>
+                        <div class="pull-right text-right"  style="margin-left: 20px">
+                            <button class=" btn btn-info btn-small" ng-click="onBtnDeleteMenuItem()"
+                                    ng-disabled="cur_order.status==111 || cur_order.status==101" >{{L.delete}}
+                            </button>
+                        </div>
+                        <div class="pull-right  text-right"  style="margin-left: 20px">
+                            <button class=" btn btn-info btn-small" ng-click="onBtnModifyMenuItem()"
+                                    ng-disabled="cur_order.status==111 || cur_order.status==101" >[{{L.modify}}]
+                            </button>
+                        </div>
+                        <div class="pull-right text-right" style="margin-left: 20px">
+                            <button class=" btn btn-info btn-small" ng-click="onBtnClickAddMenuItem()"
+                                    ng-disabled="cur_order.status==111 || cur_order.status==101" >[{{L.add}}]
+                            </button>
+                        </div>
+
+
+                        <!--<div class="pull-left" style="width:25%;">-->
+                        <!--<button class=" btn btn-info btn-small" ng-click="onBtnSendToKitchen()"-->
+                        <!--ng-disabled="!cur_order.is_can_send_items_to_kitchen">{{L.send_to_kitchen}}-->
+                        <!--</button>-->
+                        <!--</div>-->
+
+                        <!--<div class="col-xs-4"><button class=" btn btn-info btn-small" ng-click="onBtnConfirmNewMenuItem()" ng-disabled="false">Confirm New</button></div>-->
+                    </div>
+                    <!--<div class="position-relative" style="left:0px;top:0px;width:100%;height:100px;border:1px solid red;">abc</div>-->
+                </div>
+            </div>
+
+            <div class="modal" id="add_checkout"  style="overflow-y:auto;height: auto">
+                <div class="modal-dialog"   style="min-height: 200px;height:auto;overflow: auto;margin-top:100px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class ="bigger-200" style="text-align: center">结账</h4>
+                            <button type="button" class="close"  data-dismiss="modal" aria-hidden="true"  ng-click="onCheckoutCancel()" style="margin-top: -32px">×</button>
+                            <!--<h4 class="modal-title"  style="text-align: left">&nbsp</h4>-->
+                        </div>
+                        <form>
+                            <div class="modal-body"  style="min-height: 150px;height:auto;overflow:  auto">
+                                <!--总金额-->
+                                <div class="form-group col-md-12 col-xs-12">
+                                    <div class="col-md-4 col-xs-4">
+                                        <span class="bigger-200">{{L.order_checkout_01}}:</span>
+                                    </div>
+                                    <div class="col-md-8 col-xs-8">
+                                        <span class="bigger-200">{{total_checkout_money}}</span>
+                                    </div>
+                                </div>
+                                <!--应收-->
+                                <div class="form-group col-md-12 col-xs-12">
+                                    <div class="col-md-4 col-xs-4">
+                                        <span class="bigger-200">{{L.order_checkout_02}}:</span>
+                                    </div>
+                                    <div class="col-md-4 col-xs-4">
+                                        <span class="bigger-200">{{total_should_money}}</span>
+                                    </div>
+                                    <div class="col-md-4 col-xs-4">
+                                        <button class="btn btn-default btn-small" ng-click="onEraseOdd()">{{L.order_checkout_13}}</button>
+                                    </div>
+
+                                </div>
+                                <!--&lt;!&ndash;实收&ndash;&gt;-->
+                                <!--<div class="form-group col-md-12 col-xs-12">-->
+                                    <!--<div class="col-md-4 col-xs-4">-->
+                                        <!--<span class="bigger-200">{{L.order_checkout_05}}:</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-8 col-xs-8">-->
+                                        <!--<span class="bigger-200">{{total_now_order_money}}</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--结账方式-->
+                                <div class="form-group col-md-12 col-xs-12">
+                                    <div class="col-xs-4 bigger-200">{{L.order_checkout_03}}:</div>
+                                    <div class="col-xs-8">
+                                        <select class="bigger-200" id="checkoutSelect" style="width: 90%;height: 45px;">
+                                            <option ng-repeat="checkout in checkoutArr"
+                                                    value="{{checkout.checkout_id}}">{{checkout.checkout_name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--结账金额-->
+                                <div class="form-group col-md-12 col-xs-12">
+                                    <div class="col-xs-4 bigger-200">{{L.order_checkout_04}}:</div>
+                                    <div class="col-xs-8 ">
+                                        <input type="text" id="now_order_money" ng-model="now_order_money" style='font-size:28px'>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer form-group" style="border: none;margin-bottom: 0px">
+                                <div class="col-xs-12 " >
+                                    <div class="col-xs-6 text-center">
+                                        <button class="btn btn-success btn-small" ng-click="addOrderMoney()">{{L.submit}}</button>
+                                    </div>
+                                    <div class="col-xs-6 text-center">
+                                        <button class="btn btn-default btn-small" ng-click="onCheckoutCancel()">{{L.cancel}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="add_eraseOdd"  style="overflow-y:auto;height: auto">
+                <div class="modal-dialog"   style="min-height: 200px;height:auto;overflow: auto;margin-top:100px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class ="bigger-200" style="text-align: center">抹零</h4>
+                            <button type="button" class="close"  data-dismiss="modal" aria-hidden="true"  ng-click="onEraseOddCancel()" style="margin-top: -32px">×</button>
+                        </div>
+                        <form>
+                            <div class="modal-body"  style="min-height: 150px;height:auto;overflow:  auto">
+                                <!--结账金额-->
+                                <div class="form-group col-md-12 col-xs-12">
+                                    <div class="col-xs-4 bigger-200">{{L.order_checkout_13}}:</div>
+                                    <div class="col-xs-8 ">
+                                        <input type="text" id="erase_odd_money" ng-model="erase_odd_money" style='font-size:28px'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer form-group" >
+                                <div class="col-xs-12 " >
+                                    <div class="col-xs-6 text-center">
+                                        <button class="btn btn-success btn-small" ng-click="addEraseOddMoney()">{{L.submit}}</button>
+                                    </div>
+                                    <div class="col-xs-6 text-center">
+                                        <button class="btn btn-default btn-small" ng-click="onEraseOddCancel()">{{L.cancel}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- B.order detail right -->
+        <div class="col-sm-12 col-xs-12" style="border:0px solid red;padding-left:10px;margin-top: 20px">
+            <div ng-show="cur_order.status==110" class="col-xs-12" ng-controller="sub_tab_add_page_controller">
+                <!-- 1.menu types -->
+                <div class="col-xs-12 list1">
+                    <div class="col-xs-2 mp-text-ellipsis overflow-hidden pointer mp-no-select"
+                         bindonce ng-repeat="type in menuTypes" ng-click="onChangeMenuType(type)" ng-if="L.key=='zh-cn'" ng-bind="(type.name.length>0)?type.name:type.name_lang"
+                         style="{{cur_menu_type==type?'background-color:gold;':''}}"
+                            ></div>
+
+                    <div class="col-xs-2 mp-text-ellipsis overflow-hidden pointer mp-no-select"
+                         bindonce ng-repeat="type in menuTypes" ng-click="onChangeMenuType(type)" ng-if="L.key=='en-us'" ng-bind="(type.name_lang.length>0)?type.name_lang:type.name"
+                         style="{{cur_menu_type==type?'background-color:gold;':''}}"
+                    ></div>
+                </div>
+                <div class="col-xs-12 hr hr-10"></div>
+                <!-- 2.items of type -->
+                <div class="col-xs-12 list2">
+                    <div class="col-xs-2 pointer mp-no-select" bindonce ng-repeat="item in cur_menu_type.menuItems"
+                         ng-click="onClickMenuItem(item)"
+                         style="{{cur_menu_item==item?'background-color:navajowhite;':''}}"
+                            >
+                        <div ng-bind="menu_lang_en_us?item.name:item.name_lang"></div>
+                        <div bo-bind="item.price | customCurrency:currency"></div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="sub_tab==MODIFY_PAGE" class="col-xs-12" ng-controller="sub_tab_modify_page_controller">
+                <!-- 1.desc -->
+                <div class="col-xs-12">
+                    {{L.description}}: <input class="width-60" type="text" ng-model="selected_menu_items_desc">
+                    <button class="btn btn-default btn-small icon-arrow-left" type="button"
+                            ng-click="onBackspaceMenuItemDescription()" style="margin-top:-5px;"> {{L.backspace}}
+                    </button>
+                    <button class="btn btn-info btn-small" type="button" ng-click="onConfirmMenuItemDescription()"
+                            style="margin-top:-5px;height:30px;">{{L.confirm}}
+                    </button>
+                </div>
+                <div class="col-xs-12 hr hr-10"></div>
+                <!-- 2.verb & adj -->
+                <div class="col-xs-12 list1">
+                    <div class="col-xs-2 mp-text-ellipsis overflow-hidden pointer mp-no-select"
+                         bindonce ng-repeat="obj in menu_item_desc_opt_list"
+                         ng-click="onClickDescOpt(obj)"
+                         bo-bind="obj"
+                            ></div>
+                    <!--style="{{cur_menu_type==type?'background-color:gold;':''}}"-->
+                </div>
+                <div class="col-xs-12 hr hr-10"></div>
+                <!-- 3.ingredient -->
+                <div class="col-xs-12 list2">
+                    <div class="col-xs-2 pointer mp-no-select" bindonce ng-repeat="obj in menu_item_desc_ingredient_list"
+                         ng-click="onClickDescIngredient(obj)"
+                         bo-bind="obj"
+                            >
+                        <!--style="{{curMenuItem==item?'background-color:navajowhite;':''}}"-->
+                    </div>
+                </div>
+            </div>
+            <div ng-show="sub_tab==BOOKTABLE_PAGE" class="col-xs-12" ng-controller="sub_tab_booktable_page_controller">
+                <div class="col-xs-12">
+                    <span class="pull-left" style="margin:4px;">Table Status:</span>
+                    <div class="pull-left table_status_300" style="width:100px;text-align: center;margin:2px;padding:2px 10px;border:1px solid #6fb3e0;border-radius:3px;" ng-bind="TABLE_STATUS.DESC[TABLE_STATUS.OPEN]"></div>
+                    <div class="pull-left table_status_301" style="width:100px;text-align: center;margin:2px;padding:2px 10px;border:1px solid #6fb3e0;border-radius:3px;" ng-bind="TABLE_STATUS.DESC[TABLE_STATUS.RESERVED]"></div>
+                    <div class="pull-left table_status_302" style="width:100px;text-align: center;margin:2px;padding:2px 10px;border:1px solid #6fb3e0;border-radius:3px;" ng-bind="TABLE_STATUS.DESC[TABLE_STATUS.SEATED]"></div>
+                    <div class="pull-left table_status_303" style="width:100px;text-align: center;margin:2px;padding:2px 10px;border:1px solid #6fb3e0;border-radius:3px;" ng-bind="TABLE_STATUS.DESC[TABLE_STATUS.CLEAN_UP]"></div>
+                </div>
+                <div class="col-xs-12 hr hr-6"></div>
+                <div id="table_list" class="col-xs-12 list2">
+                    <div class="pull-left pointer mp-no-select table_status_{{table.status}}" bindonce ng-repeat="table in tables"
+                         ng-click="onClickTable(table)"
+                         style="padding-top:25px;"
+                            >
+                        <div bo-bind="table.name"></div>
+                        <div>({{table.seats}})</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--历史订单-->
+    <div class="col-xs-12" ng-controller="past_orders_controller">
+        <div class=" mp-disable-box">
+            <div class="mp-boxflex-1" style=" padding: 10px; background-color: #f8f8f8; border: 1px solid #eee; ">
+                <div style="padding:5px 0;">
+                    <span><b>{{L.search_order_choice}}</b></span>
+                    <span class="page-search-item ">
+                        <span>{{L.search_status_order}}</span>
+                        <select ng-model="searchOrderStatus" id="searchOrderStatus">
+                            <option value="-1">{{L.search_status_all}}</option>
+                            <option value="{{ORDER_STATUS.CANCELED}}">{{L.order_status_101}}</option>
+                            <option value="{{ORDER_STATUS.COMPLETED}}">{{L.order_status_104}}</option>
+                        </select>
+                    </span>
+                    <span class="page-search-item" style="margin-left: 20px">
+                        <span>{{L.search_create_time}}</span>
+                        <input type="text" id="searchCreateDate" readonly class="date-range-picker mp-pointer" data-date-format="yyyy-mm-dd">
+                    </span>
+                    <button class="btn btn-info" style="margin-left:10px;padding:0 10px;" ng-click="refreshPastOrders()" >{{L.search}}</button>
+                    <button class="btn btn-default" style="margin-left:10px;padding:0 10px;" ng-click="clearPastOrders()" >{{L.revert}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 mp-display-box">
+            <div class="mp-boxflex-1">
+                <ul class="pagination">
+                    <li ng-class="{'disabled':!hasPreviousPage}">
+                        <a href="javascript:;" ng-click="onBtnPageTo('previous')">
+                            <i class="icon-double-angle-left"></i> {{L.has_previous_page}}
+                        </a>
+                    </li>
+
+                    <li ng-class="{'disabled':!hasNextPage}">
+                        <a href="javascript:;" ng-click="onBtnPageTo('next')">
+                            <i class="icon-double-angle-right"></i> {{L.has_next_page}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div class="page-search-item" style="margin:10px 0;">
+                    <span>{{L.search_page_size}}</span>
+                    <select ng-model="searchPageSize" id="searchPageSize">
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="1000">1000</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-bordered table-hover col-xs-12" mp-sortable="past_orders">
+            <colgroup>
+                <col width=""/>
+     <!--           <col width="14%"/>-->
+                <col width="15%"/>
+                <col width="15%"/>
+                <col width="9%"/>
+                <col width="15%"/>
+                <col width="16%"/>
+                <col width="12%"/>
+                <col width="12%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th data-sorting-column="id">{{L.order_noun}} #</th><!--订单号-->
+                <th >{{L.order_table_no}}</th><!--台号-->
+
+                <th data-sorting-column="total_price">{{L.total_price}}</th><!--总金额-->
+                <th data-sorting-column="status">{{L.order_discount}}</th><!--折扣金额-->
+                <th data-sorting-column="total_price">{{L.order_checkout_money}}</th><!--结账金额-->
+                <th data-sorting-column="status">{{L.order_pay_name}}</th><!--结账方式-->
+
+                <th data-sorting-column="status">{{L.order_state_table}}</th><!--订单状态-->
+                <th data-sorting-column="create_on">{{L.create_time}}</th><!--创建时间-->
+                <!--<th data-sorting-column="order_type">{{L.type_cap}}</th>&lt;!&ndash;堂吃，外卖&ndash;&gt;-->
+
+                <!--<th data-sorting-column="id">{{L.order_noun}} #</th>-->
+             <!--&lt;!&ndash;   <th data-sorting-column="order_start">{{L.order_time}}</th>&ndash;&gt;-->
+                <!--<th data-sorting-column="create_on">{{L.create_time}}</th>-->
+                <!--<th data-sorting-column="order_type">{{L.type_cap}}</th>-->
+                <!--<th data-sorting-column="total_price">{{L.total_price}}</th>-->
+                <!--<th data-sorting-column="status">{{L.operating_status}}</th>-->
+                <!--<th data-sorting-column="pay_state">{{L.payment_status}}</th>-->
+                <!--<th>Payment</th>-->
+                <!--<th>{{L.name}}</th>-->
+                <!--<th>{{L.phone}}</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="order in past_orders">
+                <td><a href="javascript:;" ng-bind="order.seq" ng-click="onSelectOrder(order)"></a></td>
+                <td ng-bind="order.table_name"></td>
+                <td ng-bind="order.total_price | customCurrency:currency"></td>
+                <td ng-bind="order.orderMoneyDiscount | customCurrency:currency"></td>
+                <td ng-bind="order.orderMoney | customCurrency:currency"></td>
+                <td ng-bind="order.checkoutName"></td>
+                <!--<td ng-bind="order.status==110 ? L.payment_status_0: L.payment_status_1" class="order_status_{{order.status}}"></td>-->
+                <td ng-if="order.status==110" ng-bind=L.payment_status_0 class="order_status_110"></td>
+                <td ng-if="order.status==111" ng-bind=L.payment_status_1 class="order_status_111"></td>
+                <td ng-if="order.status==101" ng-bind=L.payment_status_2 class="order_status_101"></td>
+                <td ng-bind="DateFormat(order.create_on,'MM/dd/yyyy HH:mm:ss')"></td>
+                <!--<td ng-bind="ORDER_TYPE.DESC[order.order_type]"></td>-->
+                <!--<td><a href="javascript:;" ng-bind="order.seq" ng-click="onSelectOrder(order)"></a></td>-->
+           <!--&lt;!&ndash;     <td ng-bind="DateFormat(order.order_start,'MM/dd/yyyy hh:mm TT')"></td>&ndash;&gt;-->
+                <!--<td ng-bind="DateFormat(order.create_on,'MM/dd/yyyy HH:mm:ss')"></td>-->
+                <!--<td ng-bind="ORDER_TYPE.DESC[order.order_type]"></td>-->
+                <!--<td ng-bind="order.total_price | customCurrency:currency"></td>-->
+                <!--<td ng-bind="ORDER_STATUS.DESC[order.status]" class="order_status_{{order.status}}"></td>-->
+                <!--<td ng-bind="order.pay_state==1 ? L.payment_status_1: L.payment_status_0"></td>-->
+                <!--<td ng-bind="order.payment_type != null ? ((order.payment_type ==0 ? 'Paypal(' : 'Credit Card(' )+order.payment_info+')'): (order.status== 104 ?'Cash':'Not Paid')" ></td>-->
+                <!--<td ng-bind="order.order_type==ORDER_TYPE.TOGO ? order.orderUsername : order.cust_id>0 ? order.orderUsername : '[BIZ]'"></td>-->
+                <!--<td ng-bind="order.phone"></td>-->
+            </tr>
+
+            <!--<tr>-->
+                <!--<td >{{L.total_money}}</td>-->
+                <!--<td ></td>-->
+                <!--<td >{{totalMoney | customCurrency:currency}}</td>-->
+                <!--<td >{{totalMoneyDiscount | customCurrency:currency}}</td>-->
+                <!--<td >{{totalMoneyCheckout | customCurrency:currency}}</td>-->
+                <!--<td ></td>-->
+                <!--<td ></td>-->
+                <!--<td ></td>-->
+                <!--&lt;!&ndash;<td ></td>&ndash;&gt;-->
+                <!--&lt;!&ndash;<td ></td>&ndash;&gt;-->
+            <!--</tr>-->
+            </tbody>
+        </table>
+    </div>
+    <!--payment-->
+    <div class="col-xs-12" ng-controller="payment_status_controller">
+        <table class="table table-striped table-bordered table-hover col-xs-12" >
+            <colgroup>
+                <col width="20%"/>
+                <col width="20%"/>
+                <col width="20%"/>
+                <col width="20%"/>
+            </colgroup>
+            <thead>
+            <tr>
+
+                <th>Payment Type</th>
+                <th>Amount Paid</th>
+                <th>Status</th>
+                <th>Last updated</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+                <td >Paypal</td>
+                <td >{{paymentStat.paypalSettle.amount}}</td>
+                <td >Settled</td>
+                <td >{{DateFormat(paymentStat.paypalSettle.update_on,'MM/dd/yyyy hh:mm TT')}}</td>
+            </tr>
+            <tr >
+                <td >Paypal</td>
+                <td >{{paymentStat.paypalRefund.amount}}</td>
+                <td >Refund</td>
+                <td >{{DateFormat(paymentStat.paypalRefund.update_on,'MM/dd/yyyy hh:mm TT')}}</td>
+            </tr>
+            <tr >
+                <td >Credit Card</td>
+                <td >{{paymentStat.creditCardSettle.amount}}</td>
+                <td >Settled</td>
+                <td >{{DateFormat(paymentStat.creditCardSettle.update_on,'MM/dd/yyyy hh:mm TT')}}</td>
+            </tr>
+            <tr >
+                <td >Credit Card</td>
+                <td >{{paymentStat.creditCardRefund.amount}}</td>
+                <td >Refund</td>
+                <td >{{DateFormat(paymentStat.creditCardRefund.update_on,'MM/dd/yyyy hh:mm TT')}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--main end-->
+<div class="space-12"></div>
+    <audio id="js-audio-warning">
+        Your browser dose not support audio.
+        <source src="../../media/warning_tone2.ogg" type="audio/ogg">
+        <source src="../../media/warning_tone2.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="space-12"></div>
+    <audio id="call_out">
+        Your browser dose not support audio.
+        <source src="">
+    </audio>
+</div>

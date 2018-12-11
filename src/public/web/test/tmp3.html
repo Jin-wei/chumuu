@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <audio id="audio">
+        <source src="warning.mp3" type="audio/mp3">
+        <source src="warning.wav" type="audio/wav">
+        <source src="warning.ogg" type="audio/ogg">
+    </audio>
+    <button onclick="onTest()">Test</button>
+
+    <script>
+        function onTest() {
+            var audio = document.getElementById('audio');
+            audio.play();
+        }
+        //http://localhost:63342/bizwise/src/public/web/test/tmp2.html
+    </script>
+</body>
+</html>

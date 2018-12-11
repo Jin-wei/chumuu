@@ -1,0 +1,36 @@
+#shop_detail_view {
+  & .page-header{
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  & .page-line {
+    padding:3px 0;
+  }
+
+  & .page-line-label {
+    width:80px;
+    line-height: 31px;
+    height:31px;
+    padding-left:10px;
+  }
+
+  & .page-line-content {
+  }
+
+  & #biz-user-add-update-form .col-xs-2,
+  & #biz-user-add-update-form .col-xs-4,
+  & #biz-user-add-update-form .col-xs-10,
+  & #biz-user-add-update-form .col-xs-6,
+  {
+    padding:0;
+  }
+  & #biz-user-add-update-form .col-xs-2 {
+    text-align: center;
+  }
+  & #biz-user-add-update-form input {
+    width:100%;
+  }
+}

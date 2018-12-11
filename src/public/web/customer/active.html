@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Active User - Chumuu</title>
+
+    <meta name="description" content="404 Error Page"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!--[if !IE]> -->
+    <script src='/assets/js/jquery-2.0.3.min.js'></script>;
+    <script src="/js/lib/ng.1.2.6/angular.min.js"></script>
+    <script src="/js/lib/ng.1.2.6/angular-route.min.js"></script>
+    <script src="/js/lib/bindonce.min.js"></script>
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/assets/js/jquery-2.0.3.min.js'>" + "<" + "/script>");
+    </script>
+    <!-- <![endif]-->
+
+    <!--[if IE]>
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/assets/js/jquery-1.10.2.min.js'>" + "<" + "/script>");
+    </script>
+    <![endif]-->
+
+    <script src="/js/lib/ng.1.2.6/angular.min.js"></script>
+
+    <!-- basic styles -->
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css"/>
+
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css"/>
+    <![endif]-->
+
+    <!-- page specific plugin styles -->
+
+    <!-- ace styles -->
+
+    <link rel="stylesheet" href="/assets/css/ace.min.css"/>
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/assets/css/ace-ie.min.css"/>
+    <![endif]-->
+
+    <!-- inline styles related to this page -->
+
+    <!-- ace settings handler -->
+
+    <script src="/assets/js/ace-extra.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-app="mp_customer">
+
+
+<div class="main-container" id="main-container">
+
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+
+
+        <div class="row" ng-controller="activeController">
+
+
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+
+                        <div class="error-container" ng-show="active==0">
+                            <div class="well">
+                                <h1 class="grey lighter smaller">
+											<span class="red bigger-160">
+												<i class="icon-ban-circle"></i>
+												Account Activation Failed!
+											</span>
+
+                                </h1>
+
+                                <hr/>
+                                <h3 class="lighter smaller">We are sorry for the inconvenience.</h3>
+                                <div>
+                                    <div class="space"></div>
+                                    <h4 class="smaller">Please try one of the following:</h4>
+
+                                    <ul class="list-unstyled spaced inline bigger-110 margin-15">
+                                        <li>
+                                            <i class="icon-hand-right red"></i>
+                                            Try to log in, your account may have been activated already.
+                                        </li>
+
+                                        <li>
+                                            <i class="icon-hand-right red"></i>
+                                            Copy the link from your activation email to a browser and try again.
+                                        </li>
+
+                                        <li>
+                                            <i class="icon-hand-right red"></i>
+                                            Contact us about your problem.
+                                        </li>
+                                    </ul>
+                                </div>
+                                <hr/>
+                                <div class="space"></div>
+
+                                <div class="center">
+
+
+                                    <a href="login.html" class="btn btn-primary">
+                                        <i class="icon-key"></i>
+                                        Login
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="error-container" ng-show="active==1">
+                            <div class="well">
+                                <h1 class="grey lighter smaller">
+											<span class="blue bigger-160">
+												<i class="icon-ok-circle "></i>
+												Active your account success
+											</span>
+
+                                </h1>
+
+                                <hr/>
+                                <h3 class="lighter smaller">We have been set your account to active !</h3>
+                                <div>
+                                    <div class="space"></div>
+                                    <h4 class="smaller">You can try all of the following:</h4>
+
+                                    <ul class="list-unstyled spaced inline bigger-110 margin-15">
+                                        <li>
+                                            <i class="icon-hand-right blue"></i>
+                                            Get the more restaurant information.
+                                        </li>
+
+                                        <li>
+                                            <i class="icon-hand-right blue"></i>
+                                            Get the more dish information nearby.
+                                        </li>
+
+                                        <li>
+                                            <i class="icon-hand-right blue"></i>
+                                            Do comment to you have been gotten dish.
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                                <hr/>
+                                <div class="space"></div>
+
+                                <div class="center">
+
+
+                                    <a href="/" class="btn btn-primary btn-lg">
+                                        <i class="icon-arrow-right"></i>
+                                        Enter
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.page-content -->
+        </div>
+        <!-- /.main-content -->
+
+
+    </div>
+    <!-- /.main-container-inner -->
+
+
+</div>
+<!-- /.main-container -->
+
+<!-- basic scripts -->
+
+<script type="text/javascript">
+    if ("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/typeahead-bs2.min.js"></script>
+
+<!-- page specific plugin scripts -->
+
+<!-- ace scripts -->
+
+<!--<script src="../assets/js/ace-elements.min.js"></script>-->
+<script src="/assets/js/ace.min.js"></script>
+
+<script src="/js/lib/ng.1.2.6/angular-route.min.js"></script>
+<script src="/js/lib/jquery.cookie.js"></script>
+<script src="/js/lib/bindonce.min.js"></script>
+<script src="/customer/js/customer_module.js"></script>
+<script src="./assets/js/jquery.autosize.min.js"></script>
+<script src="./js/lib/unslider.min.js"></script>
+<script src="/customer/js/service.js"></script>
+<script src="/js/util.js"></script>
+<script src="/js/system_config.js"></script>
+<script src="/js/global_function.js"></script>
+<script src="/customer/js/global_function.js"></script>
+<script src="/customer/js/ActiveController.js"></script>
+
+<script type="text/javascript">
+    if(gBrowser.sys_config.statistics_js) {
+        document.write(unescape(gBrowser.sys_config.statistics_js));
+    }
+</script>
+
+<!-- inline scripts related to this page -->
+</body>
+</html>

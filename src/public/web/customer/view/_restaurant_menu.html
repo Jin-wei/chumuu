@@ -1,0 +1,140 @@
+<div id="restaurant_menu_view" class="restaurant_menu_view page-content mp-mobile-marginleft-10px mp-mobile-marginright-10px" style="margin-left:80px;margin-right:80px;">
+
+    <div class="mp-biz-name mp-mobile-margintop-10px mp-mobile-fontsize-18px">
+        <span ng-bind="$mpBizInfo.getItem('name')"></span>
+        <span ng-if="$mpBizInfo.getItem('name_lang')">
+            <span class="mp-mobile-display-none">(</span>
+            <span class="mp-mobile-display-block mp-mobile-margintop-0px" ng-bind="$mpBizInfo.getItem('name_lang')"></span>
+            <span class="mp-mobile-display-none">)</span>
+        </span>
+    </div>
+    <div class="mp-biz-category mp-mobile-margintop-5px mp-mobile-fontsize-12px" ng-bind="$mpBizInfo.getItem('category')"></div>
+    <div class="text-center">
+        <div class="mp-biz-tab mp-mobile-margintop-15px mp-mobile-marginbottom-10px">
+            <div class="" ng-click="navTo('restaurant/'+$mpBizInfo.getItem('bizKey'))">{{L.restaurant}}</div>
+            <div class="mp-biz-current-tab">{{L.menu}}</div>
+        </div>
+    </div>
+    <div class="col-xs-12 mp-lineheight-60px mp-mobile-lineheight-30px">
+        <div class="pull-left mp-orange mp-fontsize-40px mp-mobile-fontsize-16px">{{L.menu}}</div>
+        <!--<div class="pull-right mp-green mp-fontsize-20px mp-mobile-fontsize-16px icon-print
+             mp-lineheight-60px mp-mobile-lineheight-30px mp-pointer" mp-print-menu biz-info="$mpBizInfo">
+            <span class="mp-marginleft-5px mp-mobile-marginleft-2px mp-marginright-10px mp-mobile-marginright-0px mp-mobile-fontsize-12px">{{L.print}} {{L.menu}}</span>
+        </div>-->
+    </div>
+    <div class="col-xs-12 hr mp-nomargin"></div>
+    <div class="col-xs-12 mp-margintop-20px" style="width:100%;overflow: auto;overflow-x: auto;">
+        <table border="0px solid black;" class="mp-menu-type-list">
+            <tr>
+                <td ng-repeat="type in prodTypeArr">
+                    <div class="mp-no-select pointer" ng-class="{'mp-current-menu-type':curMenuType==type}"
+                         style="white-space: nowrap;"
+                         ng-click="onClickMenuType(type)">
+                        <span ng-if="L.key=='en-us' " ng-bind="type.name ? type.name : type.name_lang"></span><br>
+                        <span ng-if="L.key=='zh-cn' " ng-bind="type.name_lang ? type.name_lang : type.name"></span><br>
+                        <span ng-show="type.order_count>0">(<span ng-bind="type.order_count"></span>)</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-xs-12 mp-margintop-20px" style="width:100%;" ng-if="prodLabel.length>0">
+        <div style="width:100%;overflow: auto;" >
+            <table border="0px solid black;" class="mp-menu-type-list" id="mp-menu-type-list" style="display: none">
+                <tr>
+                    <td ng-repeat="label in prodLabel">
+                        <div class="mp-no-select pointer" ng-class="{'mp-current-menu-type':curMenuType==label}"
+                             style="white-space: nowrap;"
+                             ng-click="onClickLabel(label)">
+                            <span ng-if="L.key=='en-us' " ng-bind="label.label_name ? label.label_name : label.label_name_lan"></span><br>
+                            <span ng-if="L.key=='zh-cn' " ng-bind="label.label_name_lan ? label.label_name_lan : label.label_name"></span><br>
+                            <!--<span ng-show="label.order_count>0">(<span ng-bind="label.order_count"></span>)</span>-->
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="screening" style="text-align: right;color: dimgrey;font-size: 16px;cursor:pointer" ng-if="prodLabel.length>0" ng-click="showMenuType()">
+            <span>{{L.screening}} <i class="icon-filter"></i></span>
+        </div>
+    </div>
+
+    <div class="col-xs-12 mp-margintop-20px" style="width:100%;">
+        <div style="width:100%;overflow: auto;" >
+            <button class="call_out"
+                    ng-repeat="callOutitem in callOutAllArr"
+                    ng-click="callOut(callOutitem)">{{callOutitem.title}}</button>
+        </div>
+    </div>
+    <div class="col-xs-12 mp-margintop-40px mp-mobile-margintop-20px  menu_block">
+        <div class="col-xs-12 col-sm-3 mp-menu-item" ng-repeat="item in curMenuType.items">
+            <div class="col-xs-5 col-sm-12 mp-mobile-nopadding">
+                <div class="col-xs-12 position-relative">
+                    <div class="col-xs-12 mp-upholder-70pc mp-mobile-upholder-100pc"></div>
+                    <!--<div class="col-xs-12 mp-menu-item-image position-absolute mp-pointer" style="background-image: url('{{item.img_url_m}}');"
+                         ng-click="toMenuDetail(item.prod_id)navTo('/restaurant/'+$mpBizInfo.getItem('bizKey')+'/menu-item/'+item.prod_id)"
+                            ></div>-->
+                    <div class="col-xs-12 mp-menu-item-image position-absolute mp-pointer" style="background-image: url('{{item.img_url_m}}');"
+                         ng-click="toMenuDetail(item.prod_id)"></div>
+                </div>
+            </div>
+            <div class="col-xs-7 col-sm-12">
+                <div class="col-xs-12">
+                    <div class="mp-text-ellipsis overflow-hidden mp-mobile-fontsize-14px mp-mobile-height-18px" >
+                        {{item.name}}
+                        <span ng-show="item.unitofmeasure!='盘' && item.unitofmeasure!='' && item.unitofmeasure!=undefined">({{item.unitofmeasure}})</span>
+                    </div>
+                    <div class="mp-text-ellipsis overflow-hidden mp-mobile-fontsize-14px mp-mobile-height-18px" style="color:gray;" ng-bind="item.name_lang"></div>
+                </div>
+                <div class="col-xs-12 mp-mobile-paddingright-0px">
+                    <div class="col-xs-12 col-sm-6 mp-mobile-fontsize-14px">
+                        <span ng-if="!item.priceAfterDiscount" ng-bind="item.price | currency: currency"></span>
+                        <span ng-if="item.priceAfterDiscount" style="color:darkorange;" ng-bind="item.priceAfterDiscount | currency: currency"></span>
+                        <span ng-if="item.priceAfterDiscount" class="mp-textdecoration-linethrough" style="color:gray;font-size:12px;" ng-bind="item.price | currency: currency"></span>
+                    </div>
+                    <div class="image-sold-out" ng-if="item.sold_out_flag==1">
+                        <img ng-if="L.key=='zh-cn'" src="../../image/sell-clear-cn.png" alt="中文售完图片">
+                        <img ng-if="L.key=='en-us'" src="../../image/sell-clear-en.png" alt="英文售完图片">
+                    </div>
+                    <div ng-if="$mpBizInfo.getItem('order_status') == 1" class="col-xs-12 col-sm-6 text-right mp-mobile-margintop-0px mp-mobile-height-27px" style="min-height: 50px">
+                        <mp-shopping-cart-type-control ng-if="item.extend.length>0 && item.sold_out_flag==0" prod="item"></mp-shopping-cart-type-control>
+                        <mp-shopping-cart-control ng-if="(item.extend.length==0 || !item.extend) && item.sold_out_flag==0" prod="item"></mp-shopping-cart-control>
+                    </div>
+                </div>
+                <div class="col-xs-12 mp-display-box">
+                    <div class="mp-mobile-display-none">{{L.rating}}</div>
+                    <div class="mp-boxflex-1 text-right mp-mobile-textalign-left"><starrating rating="{{item.avg_rating}}" style="color:darkorange;"></starrating></div>
+                </div>
+            </div>
+            <div class="col-xs-12 mp-display-none mp-mobile-display-block hr " ng-if="!$last"></div>
+        </div>
+    </div>
+    <div class="col-xs-12 mp-display-none mp-mobile-display-block text-right mytable-opt-button" ng-if="$mpMyTable.getData().count>0" style="position: fixed;bottom:0px;z-index:100;margin-left:-10px;">
+        <div class="col-xs-6">{{L.quantity}}:{{$mpMyTable.getData().count}}</div>
+        <div class="col-xs-6" ng-click="navTo('my-table')">{{L.ready_to_place_order}}</div>
+    </div>
+</div>
+
+
+
+<!-- USE 'Asynchronous Loading' version, for IE8 to work
+http://developers.facebook.com/docs/reference/javascript/FB.init/ -->
+
+
+<!--<script type="text/javascript">
+    $(document).ready(function(){
+        $('#share_button').click(function(e){
+            e.preventDefault();
+            FB.ui(
+                    {
+                        method: 'feed',
+                        name: 'A Tru-Menu recommended Dish',
+                        link: window.location.href,
+                        picture: 'http://stg.tru-menu.com/customer/image/Homepage-pic04_n.jpg',
+                        caption: 'Tru-Menu',
+                        description: 'Help you make the right choices for a fine dining experience you won’t regret',
+                        message: ''
+                    });
+        });
+    });
+</script>-->

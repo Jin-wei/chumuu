@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bizwise API document</title>
+  <!--<link href='//fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>-->
+  <link href='css/highlight.default.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+  <script type="text/javascript" src="lib/shred.bundle.js" /></script>  
+  <script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
+  <script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
+  <script src='lib/jquery.wiggle.min.js' type='text/javascript'></script>
+  <script src='lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
+  <script src='lib/handlebars-1.0.0.js' type='text/javascript'></script>
+  <script src='lib/underscore-min.js' type='text/javascript'></script>
+  <script src='lib/backbone-min.js' type='text/javascript'></script>
+  <script src='lib/swagger.js' type='text/javascript'></script>
+  <script src='swagger-ui.js' type='text/javascript'></script>
+  <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
+  <script type="text/javascript">
+    $(function () {
+      window.swaggerUi = new SwaggerUi({
+      //url: "http://petstore.swagger.wordnik.com/api/api-docs",
+      url: "/apidoc/api-docs.json",
+      dom_id: "swagger-ui-container",
+      supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
+      onComplete: function(swaggerApi, swaggerUi){
+        if(console) {
+          console.log("Loaded SwaggerUI")
+        }
+        $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+      },
+      onFailure: function(data) {
+        if(console) {
+          console.log("Unable to Load SwaggerUI");
+          console.log(data);
+        }
+      },
+      docExpansion: "none"
+    });
+
+    $('#input_token').change(function() {
+      var key = $('#input_token')[0].value;
+      console.log("key: " + key);
+      if(key && key.trim() != "") {
+        console.log("added key " + key);
+        //window.authorizations.add("key", new ApiKeyAuthorization("api_key", key, "query"));
+        window.authorizations.add("key", new ApiKeyAuthorization("auth-token", key, "header"));
+      }
+    })
+
+    window.swaggerUi.load();
+    $('#input_token').val('hDI1BqWhQuNTdgma1LxDHLJapC0=pejmK_N-271a5c618bce84e91a1340aa3325ecb98da57de53445d1efc1dc8c68b382ad1c9ca8111f53b1ba29cfc189625819293c');
+        window.authorizations.add("key", new ApiKeyAuthorization("auth-token", $('#input_token').val(), "header"));
+    });
+
+   /* $('#input_token').val('OKnqbX6bycUkYemMuhcokyhq8Rs=8LmYHY0j80ee7489188bfe8e34b2b33efa688f1d8363fdd96ed9a9cdbb842216e48a2a4ece383caa672cc36847a02b6eebe36920');
+    window.authorizations.add("key", new ApiKeyAuthorization("auth-token", $('#input_token').val(), "header"));
+    });*/
+
+  </script>
+</head>
+
+<body>
+<div id="header">
+    <div class="swagger-ui-wrap">
+        <a id="logo" href="#">Bizwise</a>
+        <form id="api_selector">
+
+            <div style="padding-right: 100px;">
+                <a style="font-size: 1.2em;color: white;">Test token value: </a>
+                <input placeholder="" id="input_token" name="baseUrl" type="text" style="width: 500px;">
+            </div>
+
+
+        </form>
+    </div>
+</div>
+<div id="message-bar" class="swagger-ui-wrap">
+  &nbsp;
+</div>
+
+<div id="swagger-ui-container" class="swagger-ui-wrap">
+
+</div>
+
+</body>
+
+</html>

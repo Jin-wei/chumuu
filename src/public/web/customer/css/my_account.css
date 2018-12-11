@@ -1,0 +1,118 @@
+#my_account_view .mp-account-tabs {
+    margin: 20px 0 30px 0;
+}
+
+#my_account_view .mp-account-tabs > span {
+    display: inline-block;
+    float: left;
+}
+
+#my_account_view .mp-account-tabs ul {
+    display: inline-block;
+}
+
+#my_account_view .mp-account-tabs ul > .active {
+    color: orange;
+    -webkit-filter: grayscale(0%);
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0%);
+    filter: url('');
+    filter: none;
+}
+
+#my_account_view .mp-account-tabs li {
+    margin-left: 80px;
+    -webkit-filter: grayscale(100%);
+    -webkit-filter: grayscale(1);
+    filter: grayscale(100%);
+    filter: url('../img/gray.svg#grayscale');
+    filter: gray;
+    text-align: center;
+}
+
+#my_account_view .mp-account-tabs li:nth-child(1) {
+    margin-left: 100px;
+}
+
+#my_account_view .mp-account-tabs li:before {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-image: url('/assets/avatars/avatar.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#setting_view .mp-setting-item {
+    font-size: 20px;
+}
+
+#setting_view .mp-setting-item > div:nth-child(1) {
+    width: 70px;
+    padding-left: 10px;
+    color: rgb(78, 171, 14);
+    text-align: center;
+}
+
+#setting_view .mp-setting-item > div:nth-child(2) {
+    width: 200px;
+}
+
+#setting_view .mp-setting-item > div:nth-child(3) {
+    color: #999;
+}
+
+#setting_view .mp-setting-item > div:nth-child(4) {
+    width: 90px;
+    text-align: right;
+}
+
+#setting_view .is-edit-avatar {
+    cursor: pointer;
+    border: 1px solid green;
+    padding: 1px;
+}
+
+#setting_view hr {
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    #my_account_view .mp-account-tabs li {
+        margin-left: 15px;
+    }
+
+    #my_account_view .mp-account-tabs li:nth-child(1) {
+        margin-left: 40px;
+    }
+
+    #setting_view .mp-setting-item > div:nth-child(1) {
+        width: 40px;
+        padding-left: 0px;
+    }
+
+    #setting_view .mp-setting-item > div:nth-child(2) {
+        width: 72px;
+        font-size: 16px;
+        line-height: 1.9;
+    }
+
+    #setting_view .mp-setting-item > div:nth-child(3) {
+        font-size: 16px;
+    }
+
+    #setting_view .mp-setting-item > div:nth-child(4) {
+        font-size: 23px;
+        padding-right:10px;
+        width:73px;
+    }
+
+    #setting_view .mp-edit-gray-green {
+      height: 27px;
+      font-size: 13px !important;
+      padding-left: 9px !important;
+    }
+}

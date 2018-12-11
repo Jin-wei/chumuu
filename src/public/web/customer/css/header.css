@@ -1,0 +1,42 @@
+
+
+/*
+.mp-header {
+    vertical-align: middle;
+}
+
+.mp-header .current {
+}
+
+.mp-header li{
+    padding: 0px 10px;
+}
+.mp-header a {
+    color: gray;
+}
+.mp-header a:hover {
+    text-decoration: none;
+}
+*/
+
+.mp-nav {
+    vertical-align: middle;
+}
+
+.mp-nav>li>.current {
+    padding-bottom: 3px;
+    border-bottom: 1px solid gray;
+}
+
+.mp-nav>li{
+    padding: 0px 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.mp-nav span {
+    color: gray;
+}
+.mp-nav a:hover {
+    text-decoration: none;
+}
+

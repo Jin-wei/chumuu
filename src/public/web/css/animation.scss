@@ -1,0 +1,135 @@
+@import "util";
+/* key-frames Start */
+
+@mixin SwayAnimation($sel) {
+  #{$sel} {
+    @include multi-browser-support(animation, frame-sway 2.5s infinite ease alternate);
+  }
+
+  @keyframes frame-sway {
+    0% {
+      transform: rotate(-50deg);
+    }
+    100% {
+      transform: rotate(50deg);
+    }
+  }
+
+  @-webkit-keyframes frame-sway {
+    0% {
+      -webkit-transform: rotate(-50deg);
+    }
+    100% {
+      -webkit-transform: rotate(50deg);
+    }
+  }
+
+  @-moz-keyframes frame-sway {
+    0% {
+      -moz-transform: rotate(-50deg);
+    }
+    100% {
+      -moz-transform: rotate(50deg);
+    }
+  }
+
+  @-o-keyframes frame-sway {
+    0% {
+      -o-transform: rotate(-50deg);
+    }
+    100% {
+      -o-transform: rotate(50deg);
+    }
+  }
+
+  @-ms-keyframes frame-sway {
+    0% {
+      -ms-transform: rotate(-50deg);
+    }
+    100% {
+      -ms-transform: rotate(50deg);
+    }
+  }
+}
+
+@include SwayAnimation('.mp-animation-sway');
+
+
+//@import "easy-animation.scss";
+//.pen {
+//  @include ea-animation(pen, 1s, linear);
+//}
+//
+//@include ea-keyframes(pen) {
+//  0% {
+//    opacity: 0;
+//    @include ea-transform(translate(100px, 0));
+//  }
+//  100% {
+//    opacity: 1;
+//    @include ea-transform(translate(0, 0));
+//  }
+//}
+
+//@each $b in $browsers {
+//  @at-root {
+//    #{'@'}-#{$b}-keyframes frame-sway {
+//      0% {
+//        -#{$b}-transform: rotate(-50deg);
+//      }
+//      100% {
+//        -#{$b}-transform: rotate(50deg);
+//      }
+//    }
+//  }
+//}
+
+
+
+//
+//@-webkit-keyframes frame-sway {
+//  0% {
+//    -webkit-transform: rotate(-50deg);
+//  }
+//  100% {
+//    -webkit-transform: rotate(50deg);
+//  }
+//}
+//
+//@-moz-keyframes frame-sway {
+//  0% {
+//    -moz-transform: rotate(-50deg);
+//  }
+//  100% {
+//    -moz-transform: rotate(50deg);
+//  }
+//}
+//
+//@-o-keyframes frame-sway {
+//  0% {
+//    -o-transform: rotate(-50deg);
+//  }
+//  100% {
+//    -o-transform: rotate(50deg);
+//  }
+//}
+//
+//@-ms-keyframes frame-sway {
+//  0% {
+//    -ms-transform: rotate(-50deg);
+//  }
+//  100% {
+//    -ms-transform: rotate(50deg);
+//  }
+//}
+//
+//@keyframes frame-sway {
+//  0% {
+//    transform: rotate(-50deg);
+//  }
+//  100% {
+//    transform: rotate(50deg);
+//  }
+//}
+
+/* key-frames End */

@@ -1,0 +1,1437 @@
+{
+    "apiVersion": "1.0.0",
+    "swaggerVersion": "1.2",
+    "basePath": "http://localhost:8080/api",
+    "resourcePath": "/apidoc/cust.json",
+    "apis": [
+        {
+            "path": "/cust/{custId}/biz",
+            "description": "Get all businesses of a customer",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "listCustBiz",
+                    "type": "CustBiz",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "latitude",
+                            "description": "distance of the search range",
+                            "type": "number",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "longitude",
+                            "description": "longitude of my location",
+                            "type": "number",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                    ],
+                    "summary": "Get a list of businesses of this customer",
+                    "notes": "Only if the customer location is given, the distance to a business will be calculated "
+                }
+            ]
+        },
+        {
+            "path": "/customerInfo",
+            "description": "Get  a customer Information",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getCustomerInfo",
+                    "type": "customerInfo",
+                    "parameters": [
+
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Get current customer information",
+                    "notes": "Add a parameter of token in http request headers "
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/biz/{bizId}/checkin",
+            "description": "Customer check in into a business",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "checkin",
+                    "type": "ActivityId",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "number",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "number",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "check in unsuccesfully"
+                        }
+                    ],
+                    "summary": "Customer check in a business",
+                    "notes": "No request body"
+                }
+            ]
+        },
+        {
+            "path": "/cust",
+            "description": "Customer do sign up",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "addCust",
+                    "type": "signUpResult",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "User object fo sign up",
+                            "type": "UserForSignUp",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Add customer failure"
+                        }
+                    ],
+                    "summary": "Customer do sign up",
+                    "notes": "No request body"
+                }
+            ]
+        },
+        {
+            "path": "/cust/do/login",
+            "description": "Customer do login",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "login",
+                    "type": "customerToken",
+                    "parameters": [
+
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "customer password",
+                            "type": "UserForLogin",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Customer login error"
+                        }
+                    ],
+                    "summary": "Customer do login",
+                    "notes": "No request body"
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}",
+            "description": "Update Customer personal Information",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateCustomerInfo",
+                    "type": "boolean",
+                    "parameters": [
+
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer unique identify",
+                            "type": "Integer",
+                            "required": true
+                        },{
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "customer information",
+                            "type": "CustomerProfile",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Access token error ,the Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Update Customer information",
+                    "notes": "Put token in request headers"
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/changepassword",
+            "description": "Update Customer password",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "changeCustomerPassword",
+                    "type": "boolean",
+                    "parameters": [
+
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer unique identify",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "customer new password",
+                            "type": "CustomerPassword",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Access token error ,the Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Update Customer password",
+                    "notes": "Put token in request headers"
+                }
+            ]
+        },
+        {
+            "path": "/cust/send/activeMail",
+            "description": "Send active email with active url to user",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "sendActiveEmail",
+                    "type": "boolean",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "customer new password",
+                            "type": "RegisteredEmail",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 409,
+                            "message": "This email is not registered with tru-menu."
+                        },
+                        {
+                            "code": 400,
+                            "message": "The email is not correct"
+                        }
+                    ],
+                    "summary": "Update Customer password",
+                    "notes": "Put token in request headers"
+                }
+            ]
+        },
+        {
+            "path": "/cust/send/passwordMail",
+            "description": "Send reset password email with new password to user",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "sendPasswordEmail",
+                    "type": "boolean",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "customer new password",
+                            "type": "RegisteredEmail",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 409,
+                            "message": "This email is not registered with tru-menu."
+                        },
+                        {
+                            "code": 400,
+                            "message": "The email is not correct"
+                        }
+                    ],
+                    "summary": "Update Customer password",
+                    "notes": "Put token in request headers"
+                }
+            ]
+        },
+        {
+            "path": "/cust/{userId}/active",
+            "description": "set customer state to active",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "activeCustomer",
+                    "type": "customerToken",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "userId",
+                            "description": "the user id for active",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "data",
+                            "description": "the code for active",
+                            "type": "String",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 409,
+                            "message": "The active url is unvalid"
+                        },
+                        {
+                            "code": 400,
+                            "message": "The user has been actived"
+                        }
+                    ],
+                    "summary": "Get current customer information",
+                    "notes": "Add a parameter of token in http request headers "
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/favoriteBiz",
+            "description": "Get  the customer favorite biz",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getCustomerFavoriteBiz",
+                    "type": "BusinessInfo",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "the customer id ",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Get current customer favorite biz list information",
+                    "notes": " "
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/favoriteProd",
+            "description": "Get  the customer favorite product",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getCustomerFavoriteProduct",
+                    "type": "ProductDetail",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "the customer id ",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Get current customer favorite product list information",
+                    "notes": " "
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/biz/{bizId}/favorite",
+            "description": "update  the customer favorite business",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "updateCustomerFavoriteBiz",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "the customer id ",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "the business id ",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "customer password",
+                            "type": "favoriteState",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary": "update current customer favorite state of biz ",
+                    "notes": " "
+                }
+            ]
+        }
+        ,
+        {
+            "path": "/cust/{custId}/prod/{productId}/favorite",
+            "description": "Add  the customer favorite product",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "updateCustomerFavoriteProduct",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "the customer id ",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "productId",
+                            "description": "the product id ",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Create relation between customer and product",
+                    "notes": "No request body"
+                }
+            ]
+        }
+        ,
+        {
+            "path": "/cust/{custId}/prod/{productId}/favorite",
+            "description": "remove  the customer favorite product",
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "delCustomerFavoriteProduct",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "the customer id ",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "productId",
+                            "description": "the product id ",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Remove relation between customer and product",
+                    "notes": " "
+                }
+            ]
+        },
+        {
+            "path": "/cust/do/feedback",
+            "description": "getCustFeedback",
+            "operations": [
+                {
+                    "method": "get",
+                    "nickname": "getCustFeedback",
+                    "type": "feedback",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "get the record start position",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "get the record size",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Query feedback in server",
+                    "notes": " "
+                }
+            ]
+        },
+        {
+            "path": "/cust/do/feedback",
+            "description": "Customer add a feedback to server",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "addFeedback",
+                    "type": "boolean",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "Feedback object",
+                            "type": "feedback",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "add feedback unsuccesfully"
+                        }
+                    ],
+                    "summary": "Customer add a feedback to server",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/biz/{bizId}/bizCustRel",
+            "description": "Customer create a  relation with biz ,if not ",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "createBizCustRel",
+                    "type": "boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "the customer id ",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "the business id ",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "create relation unsuccesfully"
+                        }
+                    ],
+                    "summary": "Customer add a relation with biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/loginEmail",
+            "description": "Customer change account email  ",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateLoginEmail",
+                    "type": "boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "the customer id ",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the old email ,the new email and login password",
+                            "type": "NewAccountEmail",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "create relation not successful"
+                        }
+                    ],
+                    "summary": "Customer update login account",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/{custId}/avatar",
+            "description":"upload a image for customer user",
+            "operations":[
+                {
+                    "method":"POST",
+                    "nickname":"uploadCustUserAvatar",
+                    "type":"imageId",
+                    "consumes":[
+                        "multipart/form-data"
+                    ],
+                    "parameters":[
+                        {
+                            "paramType":"path",
+                            "name":"custId",
+                            "description":"id of a customer user",
+                            "type":"integer",
+                            "required":true
+                        },
+                        {
+                            "name":"image",
+                            "description":"image to upload",
+                            "required":true,
+                            "type":"File",
+                            "paramType":"body",
+                            "allowMultiple":false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code":500,
+                            "message":"Error to upload a image"
+                        }
+                    ],
+                    "summary":"upload a new image for a biz user ",
+                    "notes":"Request content type is multipart/form-data. This rest client will give error when submit request, but you can try use POSTMAN. "
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/contact",
+            "description": "Customer add a contact info",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "addCustContact",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType":"path",
+                            "name":"custId",
+                            "description":"id of a customer user",
+                            "type":"integer",
+                            "required":true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "Customer add a contact info",
+                            "type": "ContactInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Add customer failure"
+                        }
+                    ],
+                    "summary": "Customer add contact info",
+                    "notes": "Need token"
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/contact/{contactId}",
+            "description": "Customer update a contact info",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateCustContact",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType":"path",
+                            "name":"custId",
+                            "description":"id of a customer user",
+                            "type":"integer",
+                            "required":true
+                        },
+                        {
+                            "paramType":"path",
+                            "name":"contactId",
+                            "description":"id of a contact",
+                            "type":"integer",
+                            "required":true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "Customer  a contact info",
+                            "type": "ContactInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "update customer failure"
+                        }
+                    ],
+                    "summary": "Customer update contact info",
+                    "notes": "Need token"
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/contact",
+            "description": "Customer get contact info",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getCustContact",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType":"path",
+                            "name":"custId",
+                            "description":"id of a customer user",
+                            "type":"integer",
+                            "required":true
+                        },
+                        {
+                            "paramType":"query",
+                            "name":"contactId",
+                            "description":"id of a contact",
+                            "type":"integer",
+                            "required":false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "get customer failure"
+                        }
+                    ],
+                    "summary": "Customer get contact info",
+                    "notes": "Need token"
+                }
+            ]
+        },
+        {
+            "path": "/cust/{custId}/contact/{contactId}",
+            "description": "Customer delete a contact info",
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "delCustContact",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType":"path",
+                            "name":"custId",
+                            "description":"id of a customer user",
+                            "type":"integer",
+                            "required":true
+                        },
+                        {
+                            "paramType":"path",
+                            "name":"contactId",
+                            "description":"id of a contact",
+                            "type":"integer",
+                            "required":true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "delete customer failure"
+                        }
+                    ],
+                    "summary": "Customer delete contact info",
+                    "notes": "Need token"
+                }
+            ]
+        },
+        {
+            "path": "/wechat/user/{openId}/bizwiseToken",
+            "description": "Customer create a bizwise token by openid",
+            "operations": [
+                {
+                    "method": "get",
+                    "nickname": "getBizwiseToken",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType":"path",
+                            "name":"openId",
+                            "description":"id of a customer user",
+                            "type":"integer",
+                            "required":true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "get customer bizwise access token"
+                        }
+                    ],
+                    "summary": "get customer bizwise access token",
+                    "notes": "Need token"
+                }
+            ]
+        }
+    ],
+
+    "models": {
+        "ContactInfo" : {
+            "id": "ContactInfo",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "contact id"
+                },
+                "cust_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "the customer id"
+                },
+                "receiver": {
+                    "type": "String",
+                    "required": false,
+                    "description": "contact receiver name"
+                },
+                "phone": {
+                    "type": "String",
+                    "required": false,
+                    "description": "receiver phone"
+                },
+                "address": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the receiver address"
+                },
+                "zipcode": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the zipcode of contact address"
+                }
+            }
+        },
+        "CustBiz": {
+            "id": "CustBiz",
+            "properties": {
+                "biz_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "unique identifier for the business"
+                },
+                "name": {
+                    "type": "string",
+                    "required": true,
+                    "description": "name of the business"
+                },
+                "address": {
+                    "type": "string",
+                    "required": true,
+                    "description": "address of the business"
+                },
+                "city": {
+                    "type": "string",
+                    "required": true,
+                    "description": "city of the business"
+                },
+                "state": {
+                    "type": "string",
+                    "required": true,
+                    "description": "state of the business"
+                },
+                "zipcode": {
+                    "type": "string",
+                    "required": true,
+                    "description": "zip code of the business"
+                },
+                "latitude": {
+                    "type": "string",
+                    "required": true,
+                    "description": "latitude of the business"
+                },
+                "longitude": {
+                    "type": "number",
+                    "required": true,
+                    "description": "longitude of the business"
+                },
+                "phone_no": {
+                    "type": "string",
+                    "required": true,
+                    "description": "phone number of the business"
+                },
+                "owner_name": {
+                    "type": "string",
+                    "required": true,
+                    "description": "owner name of the business"
+                },
+                "opened_date": {
+                    "type": "date",
+                    "required": true,
+                    "description": "open date of the business"
+                },
+                "category": {
+                    "type": "string",
+                    "required": false,
+                    "description": "catagory of the business"
+                },
+                "note": {
+                    "type": "string",
+                    "required": false,
+                    "description": "additional notes of the business"
+                },
+                "total_points_earned": {
+                    "type": "integer",
+                    "required": false,
+                    "description": "total point up to date this customer earned in the business"
+                },
+                "total_points_redempted": {
+                    "type": "integer",
+                    "required": false,
+                    "description": "total point up to date this customer redempted in the business"
+                },
+                "points_balance": {
+                    "type": "integer",
+                    "required": false,
+                    "description": "point balance this customer in the business"
+                },
+                "loyalty_level": {
+                    "type": "integer",
+                    "required": true,
+                    "description": "loyalty level of this customer in the business"
+                },
+                "rel_created_on": {
+                    "type": "date",
+                    "required": true,
+                    "description": "the date of this customer start to related to this business"
+                },
+                "rel_updated_on": {
+                    "type": "date",
+                    "required": true,
+                    "description": "the update date of this customer relationship to business"
+                },
+                "to_coupon_count": {
+                    "type": "integer",
+                    "required": false,
+                    "description": "the count of coupon this customer received from this business"
+                }
+            }
+        },
+        "customerToken" :{
+            "id" : "customerToken",
+            "properties": {
+                "customerId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "unique identifier for this customer"
+                },
+                "accessToken": {
+                    "type": "String",
+                    "required": true,
+                    "description": "access token use for call api  created by web server"
+                },
+                "active": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "The state of the current user , 0 is not active ,1 is active"
+                }
+            }
+        },
+        "signUpResult" :{
+            "id" : "signUpResult",
+            "properties": {
+                "customerId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "unique identifier for this customer"
+                },
+                "success": {
+                    "type": "boolean",
+                    "required": true,
+                    "description": "Add user success"
+                },
+                "activeEmail": {
+                    "type": "Boolean",
+                    "required": true,
+                    "description": "The result of send active email "
+                }
+            }
+        },
+        "customerInfo":{
+            "id": "customerInfo",
+            "properties": {
+                "customer_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "unique identifier for the customer"
+                },
+                "username": {
+                    "type": "String",
+                    "required": true,
+                    "description": "unique user nick name for the customer"
+                },
+                "email": {
+                    "type": "String",
+                    "required": true,
+                    "description": "unique user email ,use for login"
+                },
+                "total_points_earned": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "The points of customer total got"
+                },
+                "couponCount": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "The coupon count that customer has send"
+                },
+                "bizCount": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "The business count of customer check in"
+                }
+            }
+
+        },
+        "UserForLogin" : {
+            "id" : "UserForLogin",
+            "properties" : {
+                "user" :{
+                    "type": "String",
+                    "required": true,
+                    "description": "customer registered email"
+                },
+                "password" : {
+                    "type": "String",
+                    "required": true,
+                    "description": "customer password"
+                }
+            }
+        },
+        "ActivityId": {
+            "id": "ActivityId",
+            "properties": {
+                "activity_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "unique identifier for this activity"
+                }
+            }
+        },
+        "UserForSignUp" : {
+            "id" : "UserForSignUp",
+            "properties" : {
+
+                "username" : {
+                    "description": "customer nick name",
+                    "type": "String",
+                    "required": false
+                },
+                "password" : {
+                    "description": "customer password",
+                    "type": "String",
+                    "required": true
+                },
+                "first_name" :{
+                    "description": "customer first name",
+                    "type": "String",
+                    "required": false
+                },
+                "last_name" : {
+                    "description": "customer last name",
+                    "type": "String",
+                    "required": false
+                },
+                "email" : {
+                    "description": "customer unique email for login",
+                    "type": "String",
+                    "required": true
+                },
+                "phone_no" : {
+                    "description": "customer unique phone number ",
+                    "type": "String",
+                    "required": false
+                }
+            }
+        },
+        "CustomerProfile" :{
+            "id" : "CustomerProfile",
+            "properties" : {
+
+                "username" : {
+                    "type": "String",
+                    "required": false
+                },
+                "firstName" : {
+                    "type": "String",
+                    "required": false
+                },
+                "lastName" : {
+                    "type": "String",
+                    "required": false
+                },
+                "phoneNo" : {
+                    "type": "String",
+                    "required": false
+                },
+                "gender" : {
+                    "type": "Integer",
+                    "required": false
+                },
+                "address" : {
+                    "type": "String",
+                    "required": false
+                },
+                "city" : {
+                    "type": "String",
+                    "required": false
+                },
+                "state" : {
+                    "type": "String",
+                    "required": false
+                },
+                "zipcode" : {
+                    "type": "String",
+                    "required": false
+                }
+            }
+        },
+        "CustomerPassword" : {
+            "id" : "CustomerPassword",
+            "properties" : {
+                "password" : {
+                    "type": "String",
+                    "required": true,
+                    "description": "customer password"
+                },
+                "newPassword" : {
+                    "type": "String",
+                    "required": true,
+                    "description": "customer new password"
+                }
+            }
+        },
+        "RegisteredEmail" : {
+            "id" : "RegisteredEmail",
+            "properties" : {
+                "email" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "Customer registered email"
+                }
+            }
+        },
+        "BusinessInfo":{
+            "id" : "BusinessInfo",
+            "properties" : {
+                "name": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"name of Business "
+                },
+                "address" : {
+                    "description": "address of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "city" :{
+                    "description": "city of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "state" : {
+                    "description": "state of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "zipcode" : {
+                    "description": "zipcode of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "latitude": {
+                    "type":"String",
+                    "required" :false,
+                    "description":"latitude of Business "
+                },
+                "longitude" : {
+                    "description": "longitude of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "phone_no" :{
+                    "description": "phone_no of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "opened_date" : {
+                    "description": "state of a Business",
+                    "type": "Date",
+                    "required": false
+                },
+                "owner_name" : {
+                    "description": "owner_name of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "category" : {
+                    "description": "category of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "note" : {
+                    "description": "note of a Business",
+                    "type": "String",
+                    "required": false
+                }
+            }
+        },
+        "ProductDetail":{
+            "id" : "ProductDetail",
+            "properties" : {
+                "prod_id": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the dish product unique identify "
+                },
+                "productName": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the dish product name"
+                },
+                "type": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the business defined type that the product belong to"
+                },
+                "price": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"The price of the dish"
+                },
+                "img_url": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the url of the dish image"
+                },
+                "biz_id": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the business unique identify of the dish"
+                },
+                "updated_on": {
+                    "type":"Date",
+                    "required" :true,
+                    "description":"the dish last update time"
+                },
+                "promotion_id": {
+                    "type":"Integer",
+                    "required" :false,
+                    "description":"the promotion unique identify ,if the dish has promotion"
+                },
+                "promotionName": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the promotion name ,if the dish has promotion"
+                },
+                "discount_pct": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the promotion discount value ,if the dish has promotion"
+                },
+                "name_lang": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"name with language of product "
+                },
+                "description" : {
+                    "description": "description of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "description_lang" : {
+                    "description": "description with language of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "type_id" :{
+                    "description": "type id of a product",
+                    "type": "Integer",
+                    "required": false
+                },
+                "price" : {
+                    "description": "price of a product",
+                    "type": "Float",
+                    "required": false
+                },
+                "note" : {
+                    "description": "note of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "options" : {
+                    "description": "options of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "calorie" :{
+                    "description": "The calorie size of a product",
+                    "type": "Integer",
+                    "required": false
+                },
+                "spiciness" :{
+                    "description": "The Spiciness degree of a product",
+                    "type": "Integer",
+                    "required": false
+                },
+                "ingredient" : {
+                    "options": "Ingredient of a product",
+                    "type": "String",
+                    "required": false
+                }
+            }
+        },
+        "favoriteState": {
+            "id": "favoriteState",
+            "properties": {
+                "favorite": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "the state of favorite biz 1 favorite and o not"
+                }
+            }
+        },
+        "feedback": {
+            "id": "feedback",
+            "properties": {
+
+                "contactEmail": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the email of customer , allow null"
+                },
+                "contactPhone": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the phone of customer , allow null"
+                },
+                "content": {
+                    "type": "String",
+                    "required": true,
+                    "description": "the main content of feedback , length less 1000"
+                }
+
+            }
+        },
+        "NewAccountEmail" :{
+            "id" : "NewAccountEmail",
+            "properties": {
+
+                "email": {
+                    "type": "String",
+                    "required": true,
+                    "description": "User old account email"
+                },
+                "newEmail": {
+                    "type": "String",
+                    "required": true,
+                    "description": "User new account email"
+                },
+                "password": {
+                    "type": "String",
+                    "required": true,
+                    "description": "User login password for validation"
+                }
+            }
+        }
+
+    }
+
+
+
+}
+

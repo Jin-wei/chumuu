@@ -1,0 +1,99 @@
+#restaurant_view {
+    font-size: 12pt;
+}
+
+#restaurant_view .header {
+    background-color: green;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px;
+    margin: 0px;
+    color: white;
+    font-size: 15pt;
+    position: fixed;
+    z-index: 100;
+}
+#restaurant_view .bizInfo {
+    margin-top: 40px;
+}
+#restaurant_view .btns {
+    margin-top: 10px;
+    vertical-align: bottom;
+    vertical-align: text-bottom;
+}
+#restaurant_view .openBtn {
+    font-size:13px;
+    width: 100px;
+    height: 30px;
+    line-height: 2px;
+    border-width: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#restaurant_view .checkinBtn {
+    margin-top: 3px;
+    font-size:13px;
+    width: 100px;
+    height: 30px;
+    line-height: 2px;
+    border-width: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#restaurant_view .col-xs-12 {
+    padding: 0px;
+}
+#restaurant_view .address_phone {
+    border-top:1px solid #AADD00;
+    border-bottom:1px solid #AADD00;
+    margin:3px 0px;
+    padding: 0px;
+    text-align: center;
+    font-size:10pt;
+}
+#restaurant_view .address_phone .address {
+    height: 40px;
+    line-height: 40px;
+}
+#restaurant_view .address_phone .phone {
+    border-left:1px solid #AADD00;
+    line-height: 40px;
+}
+#restaurant_view .bizImg {
+    width:100%;
+    max-width:180px;
+    padding: 2px;
+    border:1px solid #EEEEEE;
+    border-right:2px solid #DDDDDD;
+    border-bottom:2px solid #DDDDDD;
+}
+#restaurant_view .fa-map-marker, #restaurant_view .fa-phone-square {
+    font-size:13pt;
+}
+#restaurant_view .filter {
+    height: 40px;
+    line-height: 40px;
+    border-bottom:1px solid #AADD00;
+}
+#restaurant_view .filterLeft {
+    text-align: left;
+}
+#restaurant_view .filterRight {
+    text-align: right;
+}
+#restaurant_view .menuType {
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    font-size:14pt;
+    padding-left:20px;
+    margin-bottom: 5px;
+    border-top:1px solid #AADD00;
+    border-bottom:1px solid #AADD00;
+}
+#restaurant_view .menuItemName {
+    width:120px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

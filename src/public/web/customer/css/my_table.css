@@ -1,0 +1,111 @@
+#my_table_view mp-shopping-cart-control>img{
+    width:30px;
+    height:30px;
+}
+
+#my_table_view .mytable-opt-button {
+    border-top:1px solid #ff9e20;
+}
+#my_table_view .mytable-opt-button>div{
+    height:40px;
+    line-height:40px;
+    text-align: center;
+    background-color: #fca532;
+    font-size: 18px;
+    color: white;
+}
+#my_table_view .mytable-opt-button>div:nth-child(1){
+    border-right:1px solid lightgray;
+}
+#my_table_view .mytable-opt-button>div:hover{
+    background-color: #ff9e20;
+    cursor: pointer;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+    .dining-table{
+        width: 100%;
+        height: 242px;
+        background: url("../image/table.png") no-repeat;
+        background-size: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .food{
+        width: 80px;
+        height: 60px;
+        border-radius: 40px/30px;
+        -moz-border-radius:40px/30px;
+        -webkit-border-radius:40px/30px;
+        background: #fce7cc;
+    }
+
+    .food0{
+        position: absolute;
+        top: 23%;
+        left: 11%;
+        overflow: hidden;
+    }
+    .food1{
+        position: absolute;
+        top: 8%;
+        left: 39%;
+        overflow: hidden;
+    }
+    .food2{
+        position: absolute;
+        top: 23%;
+        left: 67%;
+        overflow: hidden;
+    }
+    .food3{
+        position: absolute;
+        top: 55%;
+        left: 11%;
+        overflow: hidden;
+    }
+    .food4{
+        position: absolute;
+        top: 69%;
+        left: 39%;
+        overflow: hidden;
+    }
+    .food5{
+        position: absolute;
+        top: 55%;
+        left: 67%;
+        overflow: hidden;
+    }
+    .dining-table img{
+
+        width: 100%;
+        position: absolute;
+        top: -16%;
+    }
+
+    .tabble-show{
+        display: none;
+    }
+
+    .tabble-btn{
+       float: right;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .tabble-box{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 376px) {
+    .dining-table{
+        height: 218px;
+
+    }
+}

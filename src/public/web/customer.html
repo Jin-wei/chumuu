@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html bindonce="L" lang="en" nng-app="mp_customer" ng-controller="indexController"   class="ng-cloak" ng-cloak>
+<head>
+    <meta charset="utf-8" />
+    <title>@@customerWebTitle</title>
+
+    <meta name="description" content="{{googleSEO.descriptionContent}}">
+    <meta name="keywords" content="{{googleSEO.keywordsContend}}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="fragment" content="!">
+
+    <!-- build:js /js/mp-g.jq-ng.js -->
+    <!--endbuild-->
+    <!--<script src="./js/lib/angular_1.3.0.js"></script>-->
+
+    <!-- basic styles -->
+    <!-- build:css /css/mp-g.bs-ace-jqui.css -->
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/jquery-ui-1.10.3.full.min.css" />
+    <link rel="stylesheet" href="./assets/css/chosen.css" />
+    <link rel="stylesheet" href="./css/lib/chosen-spinner.css" />
+    <link rel="stylesheet" href="./css/lib/jquery.autocomplete.css" />
+    <link rel="stylesheet" href="./assets/css/ace.min.css" />
+    <!-- endbuild -->
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css" />
+
+    <!--backward compatibility-->
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="./assets/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="./assets/css/ace-ie.min.css" />
+    <![endif]-->
+
+    <!-- build:css /css/mp-g.mp.css -->
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/animation.css" />
+    <link rel="stylesheet" href="./customer/css/index.css" />
+    <link rel="stylesheet" href="./customer/css/register.css" />
+    <link rel="stylesheet" href="./customer/css/restaurant.css" />
+    <link rel="stylesheet" href="./customer/css/restaurant_menu.css" />
+    <link rel="stylesheet" href="./customer/css/top_dish.css" />
+    <link rel="stylesheet" href="./customer/css/menu_item.css" />
+    <link rel="stylesheet" href="./customer/css/my_favorite.css" />
+    <link rel="stylesheet" href="./customer/css/restaurant_comment.css" />
+    <link rel="stylesheet" href="./customer/css/search_result.css" />
+    <link rel="stylesheet" href="./customer/css/my_order.css" />
+    <link rel="stylesheet" href="./customer/css/deal.css" />
+    <link rel="stylesheet" href="./customer/css/checkout_order.css" />
+    <link rel="stylesheet" href="./customer/css/header.css" />
+    <link rel="stylesheet" href="./customer/css/payment.css" />
+    <link rel="stylesheet" href="./customer/css/my_account.css" />
+    <link rel="stylesheet" href="./customer/css/my_table.css" />
+    <link rel="stylesheet" href="./customer/css/forgot_password.css" />
+    <!-- put responsive.css after all css files -->
+    <link rel="stylesheet" href="./css/responsive.css" />
+    <!-- endbuild -->
+
+    <link rel="shortcut icon" href="./image/chuMenu-favicon.ico"/>
+    <base href="/">
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css">
+    <link rel="stylesheet" href="./customer/css/home.css">
+
+</head>
+
+<body class="mp" ng-controller="indexController">
+    <div class="customer-main"  style="display: none">
+        <div  class="col-xs-12 mp-mobile-no-borderbottom" style="border-bottom: 1px solid #e8e8e8;">
+            <div class="position-relative mp-display-box mp-mobile-display-block" style="border-bottom: 1px solid #ddd;">
+                <div class="mp-display-box mp-boxflex-1 mp-mobile-paddingleft-15px mp-mobile-paddingright-15px" style="padding:0px 40px;display:flex">
+                    <div>
+                        <table class="mp-mobile-height-50px" style="height:80px;">
+                            <tr>
+                                <td>
+                                    <!--<img class="mp-mobile-display-none" src="customer/image/logo_2.png">-->
+                                    <img class="mp-pointer mp-mobile-height-29px"  src="./image/chuMenu_logo.png" ng-click="navTo('/')" style="max-height:60px">
+                                    <!--<br>-->
+                                    <!--<span class="mp-arial mp-mobile-display-none" style="font-size:14px;color:#f99033;margin-top:10px;">CHOWHOUND WORLD</span>-->
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="mp-boxflex-1" ng-hide="gCurPath=='/home'">
+                        <table class="width-100" style="max-width:560px;">
+                            <tr>
+                                <td class="mp-mobile-height-50px mp-mobile-paddingleft-10px mp-mobile-paddingright-10px" style="padding-left:30px;height:80px;">
+                                    <div class="mp-display-box mp-no-select mp-pointer mp-mobile-height-25px" style="height:32px;width:84%">
+                                        <div class="mp-boxflex-1" style="border:1px solid #c3c3c3;border-right:0px;padding-left:10px;border-top-left-radius: 20px;border-bottom-left-radius: 20px">
+                                            <input id="searchText" class="mp width-100 mp-mobile-height-23px mp-text-ellipsis overflow-hidden"
+                                                   style="height:30px;color:#c3c3c3;font-size:14px;border:0px;border-top-left-radius: 20px;border-bottom-left-radius: 20px"
+                                                   placeholder={{L.search_box_text}}>
+                                        </div>
+                                        <div class="mp-mobile-width-50px mp-mobile-lineheight-25px" ng-click="onGlobalSearch()" style="width:110px;background-color:#ff9e20;height:auto;line-height:32px;border-bottom-right-radius: 20px;border-top-right-radius: 20px;
+                                    color:white;font-size:16px;text-align: center;">
+                                            <span class="mp-mobile-display-none">{{L.search}} </span><span class="icon-search"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div  class="mp-mobile-menu mp-display-header-none p-mobile-header-display-block" ng-click="onBtnToggleMobileNav()" style="position: absolute;right: 16px">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <ul  class="mp position-absolute width-100 mp-mobile-nav" ng-show="isMobileNavDisplay" ng-click="onClickMobileNav()">
+                        <li class="mp-mobile-nav-item mp-pointer" ng-click="navTo('/')">
+                            <span class="icon-home"></span>
+                            <span ng-bind="L.home"></span>
+                        </li>
+                        <li class="mp-mobile-nav-item mp-pointer" ng-click="navTo('/deal')"  ng-if="gCurPath !=='/home'">
+                            <span class="icon-tags"></span>
+                            <span ng-bind="L.deals"></span>
+                        </li>
+                        <li class="mp-mobile-nav-item mp-pointer" ng-click="navTo('my-table')"  ng-if="gCurPath !=='/home'">
+                            <span class="icon-shopping-cart"></span>
+                            <span ng-bind="L.my_table"></span>
+                        </li>
+                        <li class="mp-mobile-nav-item mp-pointer" ng-show="isLogin" ng-click="navTo('my-orders')"  ng-if="gCurPath !=='/home'">
+                            <span class="icon-list-ul"></span>
+                            <span ng-bind="L.my_orders"></span>
+                        </li>
+                        <li  class="mp-mobile-nav-item mp-pointer" ng-show="!isLogin && gCurPath!=='/' && gCurPath!=='/home'" ng-click="onSignin()"  ng-if="gCurPath !=='/home'">
+                            <span class="icon-user"></span>
+                            <span ng-bind="L.sign_in_out"></span>
+                        </li>
+                        <li class="mp-mobile-nav-item mp-pointer" ng-show="isLogin" ng-click="navTo('my-account')"  ng-if="gCurPath !=='/home'">
+                            <span class="icon-user"></span>
+                            <span ng-bind="L.my_account"></span>
+                        </li>
+                        <li class="mp-mobile-nav-item mp-pointer" ng-show="isLogin" ng-click="onLogout()"  ng-if="gCurPath !=='/home'">
+                            <span class="icon-retweet"></span>
+                            <span ng-bind="L.logout"></span>
+                        </li>
+                        <!--<li class="mp-mobile-nav-item mp-pointer" ng-click="navTo('contact_us')">-->
+                        <!--<span class="icon-phone"></span>-->
+                        <!--<span ng-bind="L.contact_us"></span>-->
+                        <!--</li>-->
+                        <!--<li class="mp-mobile-nav-item mp-pointer" ng-click="navTo('terms')">-->
+                        <!--<span class="icon-file-alt"></span>-->
+                        <!--<span ng-bind="L.terms"></span>-->
+                        <!--</li>-->
+                        <!--<li class="mp-mobile-nav-item mp-pointer" ng-click="navTo('privacy_policy')">-->
+                        <!--<span class="icon-file"></span>-->
+                        <!--<span ng-bind="L.privacy_policy"></span>-->
+                        <!--</li>-->
+                        <!--<li class="mp-mobile-nav-item mp-pointer" ng-click="navTo('feedback')">-->
+                        <!--<span class="icon-comment-alt"></span>-->
+                        <!--<span ng-bind="L.feedbacks"></span>-->
+                        <!--</li>-->
+                        <!--<li class="mp-mobile-nav-item mp-pointer" ng-click="onChangeLanguage()">-->
+                        <!--<span class="icon-retweet"></span>-->
+                        <!--<span>-->
+                        <!--<span ng-class="{'mp-orange':L.key==='en-us'}">English</span> / <span ng-class="{'mp-orange':L.key==='zh-cn'}">中文</span>-->
+                        <!--</span>-->
+                        <!--</li>-->
+                    </ul>
+                </div>
+                <div ng-show="gCurPath!=='/' && gCurPath!=='/home'" class="mp-mobile-display-none mp-mobile-lineheight-50px mp-mobile-paddingright-0px mp-mobile-position-fixed mp-mobile-bottom-0px mp-mobile-width-100pc" style="font-size:16px;line-height:80px;padding-right:40px;z-index:100;">
+                    <ul class="mp-nav mp-arial mp-nomargin mp-mobile-texttransform-none" style="text-transform: uppercase;font-size:16px;color:#132030;">
+                        <li class="mp" ng-class="{'current':gCurPath==='/top-dish-old'}">
+                            <span class="mp-pointer mp-no-select" ng-class="{'current':gCurPath==='/top-dish-old'}" ng-bind="L.home" ng-click="navTo('/')"></span>
+                        </li>
+                        <li class="mp" ng-class="{'current':gCurPath==='/deal'}">
+                            <span class="mp-mobile-display-block mp-text-ellipsis overflow-hidden mp-pointer mp-no-select" ng-class="{'current':gCurPath==='/deal'}" ng-bind="L.deals" ng-click="navTo('deal')"></span>
+                        </li>
+                        <li class="mp" ng-show="isLogin" ng-class="{'current':gCurPath==='/my-orders'}">
+                            <span class="mp-mobile-display-block mp-text-ellipsis overflow-hidden mp-pointer mp-no-select" ng-class="{'current':gCurPath==='/my-orders'}" ng-bind="L.my_orders" ng-click="navTo('my-orders')"></span>
+                        </li>
+                        <li class="mp mp-mobile-display-none" ng-show="!isLogin">
+                            <span class="mp-mobile-display-block mp-text-ellipsis overflow-hidden mp-pointer mp-no-select" ng-bind="L.sign_in_out" ng-click="onSignin()" style="color:#ccc;"></span>
+                        </li>
+                        <li class="mp mp-mobile-display-none" ng-show="isLogin">
+                        <span class="mp-mobile-display-block mp-text-ellipsis overflow-hidden mp-pointer mp-no-select position-relative" style="text-transform: none;color:RGB(26,135,0);" ng-click="onClickUserOnNav()">
+                            <img src="/image/icon/icon_user_orange.png">
+                            {{$mpCustomer.getItem('first_name') ? $mpCustomer.getItem('first_name') : $mpCustomer.getItem('username')}}
+                            <div ng-show="showUserOptionsOnNav" class="mp-nav-user-options" style="position: absolute; right: -20px; top: 32px; border: 1px solid green; z-index: 999; width: 150px; border-radius: 9px; background-color: white;line-height: 1;">
+                                <div class="col-xs-12 mp-popup-arrow">
+                                    <div style="position: relative;left:1px;"></div>
+                                </div>
+                                <ul class="mp col-xs-12" ng-click="onClickActionNav($event)">
+                                    <li class="mp width-100" style="height:40px;line-height:40px;display:block;" ng-click="navTo('my-account')" ng-bind="L.my_account"></li>
+                                    <li class="mp width-100" style="height:40px;line-height:40px;display:block;" ng-click="onLogout()" ng-bind="L.logout"></li>
+                                </ul>
+                            </div>
+                        </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mp-display-none mp-mobile-display-block">
+                    <div ng-show="$mpMyTable.getData().count>0" class="position-absolute" style="top:4px;right:4px;background-color: red;width:10px;height:10px;border-radius: 10px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <ng-view></ng-view>
+        </div>
+        <div class="col-xs-12" ng-show="gCurPath!=='/' && gCurPath!=='/home'">
+            <div class="mp-footer col-xs-12" style="margin-top:-12px;">
+                <div class="col-xs-12 hr "></div>
+                <ul class="col-xs-12 mp">
+                    <li><a  target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=123456789&site=qq&menu=yes" ng-bind="L.Agency_recruitment">Agency recruitment</a></li>
+                    <!--<li><a href="javascript:;" ng-click="navTo('contact-us')" ng-bind="L.contact_us">Contact Us</a></li>-->
+                    <li><a href="javascript:;" ng-click="navTo('terms')" ng-bind="L.terms">Terms</a></li>
+                    <li ><a href="javascript:;" ng-click="navTo('privacy-policy')" ng-bind="L.privacy_policy">Privacy Policy</a></li>
+                    <!--<li><a href="javascript:;" ng-click="navTo('feedback')" style="color:#5eb70e;" ng-bind="L.feedbacks">Feedbacks</a></li>-->
+                    <li><a href="javascript:;" ng-click="onChangeLanguage()" style="color:#f15a29;" ng-bind="L.next_lang"></a></li>
+                </ul>
+                <div class="col-xs-12 space-10"></div>
+                <div class="col-xs-12" id="copyright"> {{isCN ? '© 2017 美森博多利（大连）科技有限公司 版权所有 辽ICP备14014383号-1' : 'Copyright © 2017 Mission Public Inc.'}}</div>
+            </div>
+            <!--<ng-include src="'view/_footer.html'"></ng-include>-->
+        </div>
+        <!--浮动栏-->
+        <div class="mp-side-bar mp-pointer">
+            <div><i class="iconfont icon-kongxinjiantou"  onclick="{$('html,body').animate({'scrollTop':0},300);}" style="position: absolute;top: 0;left: 1px"></i></div>
+            <div ng-if="gCurPath !=='/home'">
+                <i class="iconfont icon-cart" ng-click="navTo('my-table')" style="position: absolute;top: 6px;left: 6px;"></i>
+                <div ng-show="$mpMyTable.getData().count>0" ng-bind="$mpMyTable.getData().count"></div>
+            </div>
+            <div ng-if="gCurPath =='/home'">
+                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=123456789&site=qq&menu=yes">
+                    <i class="iconfont icon-kefu1"  style="position: absolute;top: 6px;left: 6px;"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <div id="dialog-confirm" class="hide">
+            <!--<div class="alert alert-info bigger-110"> {{L.delete_box_text_3}} </div>-->
+            <div class="space-6"></div>
+            <p class="bigger-110 bolder center grey">
+                <i class="icon-hand-right blue bigger-120"></i> {{L.are_you_sure}}
+            </p>
+        </div>
+
+        <div id="dialog-alipay" class="hide">
+            <div class="space-6"></div>
+            <div class="space-6"></div>
+            <p class="bigger-110 bolder center grey">请您及时对订单完成支付</p>
+        </div>
+        <img class="mp-pointer mp-mobile-height-29px"  src="./image/logo200.png" style="display: none">
+
+    </div>
+<script type="text/javascript">
+    if("ontouchend" in document) document.write("<script src='./assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+    if("ontouchend" in document) document.write("<script src='./assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src='./assets/js/jquery-2.0.3.min.js'></script>
+<script src="./js/lib/ng.1.2.6/angular.min.js"></script>
+<script src="./js/lib/ng.1.2.6/angular-route.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+<script src="./assets/js/typeahead-bs2.min.js"></script>
+<script src="./assets/js/jquery-ui-1.10.3.full.min.js"></script>
+<script src="./assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="./assets/js/chosen.jquery.min.js"></script>
+<script src="./assets/js/jquery.autosize.min.js"></script>
+<script src="./assets/js/ace-elements.min.js"></script>
+<script src="./assets/js/ace.min.js"></script>
+<!-- ace settings handler -->
+<script src="./assets/js/ace-extra.min.js"></script>
+<script src="./assets/js/date-time/daterangepicker.min.js"></script>
+<script src="./js/lib/jquery.form.min.js"></script>
+<script src="./js/lib/bindonce.min.js"></script>
+<script src="./js/lib/jquery.cookie.min.js"></script>
+<script src="./js/lib/jquery.event.move.min.js"></script>
+<script src="./js/lib/jquery.event.swipe.min.js"></script>
+<script src="./js/lib/unslider.min.js"></script>
+<script src="./js/lib/promise.min.js"></script>
+<script src="./js/lib/jquery.autocomplete.min.js"></script>
+<script src="./js/lib/lodash.min.js"></script>
+<!--<script src="js/lib/jquery.pin.js"></script>-->
+<script src="./js/lib/jquery.qrcode.min.js"></script>
+<script src="./js/lib/moment.min.js"></script>
+<script src="./js/lib/angulartics.min.js"></script>
+<script src="./js/lib/angulartics-ga.min.js"></script>
+<script src="./js/lib/promise-6.1.0.js"></script>
+<script src="./assets/js/js-sha1/src/sha1.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+
+
+    <!-- build:js /js/mp-g.mp.js -->
+<script src="./js/util.js"></script>
+<script src="./js/system_config.js"></script>
+<script src="./js/global_function.js"></script>
+<script src="./customer/js/i18n/en_us.js"></script>
+<script src="./customer/js/i18n/zh_tw.js"></script>
+<script src="./customer/js/i18n/zh_cn.js"></script>
+<script src="./customer/js/customer_module.js"></script>
+<!-- directive has to after customer_module.js-->
+<script src="./js/service.js"></script>
+<script src="./js/directive.js"></script>
+<script src="./customer/js/config.js"></script>
+<script src="./customer/js/service.js"></script>
+<script src="./customer/js/directive.js"></script>
+<script src="./customer/js/filter.js"></script>
+<script src="./customer/js/global_function.js"></script>
+<script src="./customer/js/index_controller.js"></script>
+<script src="./customer/js/restaurant_list_controller.js"></script>
+<script src="./customer/js/restaurant_menu_controller.js"></script>
+<script src="./customer/js/restaurant_comment_controller.js"></script>
+<script src="./customer/js/menu_item_controller.js"></script>
+<script src="./customer/js/top_dish_controller.js"></script>
+<script src="./customer/js/loginController.js"></script>
+<script src="./customer/js/restaurant_controller.js"></script>
+<script src="./customer/js/myFavoriteController.js"></script>
+<script src="./customer/js/my_table_controller.js"></script>
+<script src="./js/aboutus_controller.js"></script>
+<script src="./js/contactus_controller.js"></script>
+<script src="./js/terms_controller.js"></script>
+<script src="./js/privacy_policy_controller.js"></script>
+<script src="./js/feedback_controller.js"></script>
+<script src="./js/page404_controller.js"></script>
+<script src="./customer/js/search_result_controller.js"></script>
+<script src="./customer/js/deal_controller.js"></script>
+<script src="./customer/js/setting_controller.js"></script>
+<script src="./customer/js/checkout_order_controller.js"></script>
+<script src="./customer/js/checkout_order_success_controller.js"></script>
+<script src="./customer/js/my_account_controller.js"></script>
+<script src="./customer/js/my_order_detail_controller.js"></script>
+
+<script src="./customer/js/my_orders_controller.js"></script>
+<script src="./customer/js/my_past_orders_controller.js"></script>
+<script src="./customer/js/payment_controller.js"></script>
+<script src="./customer/js/alipay_controller.js"></script>
+<script src="./customer/js/register_controller.js"></script>
+<script src="./customer/js/forgot_password_controller.js"></script>
+<script src="./customer/js/customer_index_controller.js"></script>
+<script src="./customer/js/search_menu_name.js"></script>
+
+<script src="./customer/js/home2_controller.js"></script>
+<script src="./customer/js/wxpay_controller.js"></script>
+
+<!-- endbuild -->
+
+<script>
+    if(gBrowser.core.firefox) {
+        document.write('<style>.mp-display-box>div:not(.mp-display-none) { display: inline-block; }<\/style>');
+    }
+    if(!gBrowser.sys_config.no_braintree) document.write('<script src="https://js.braintreegateway.com/v2/braintree.js"><\/script>');
+    //gBrowser is inited by global_function.js, so the code below must be after global_function.js
+    if(gBrowser.iPad) document.write('<link rel="stylesheet" href="./css/responsive-pad.css" />');
+    /*if(gBrowser.sys_config.map_js) document.write(unescape(gBrowser.sys_config.map_js));*/
+   /* if(gBrowser.sys_config.statistics_js) document.write(unescape(gBrowser.sys_config.statistics_js));*/
+    app.requires.push('angulartics', 'angulartics.google.analytics');
+    angular.bootstrap(window.document,['mp_customer']);
+    ( function($) {
+        g_loading.show();
+        window.setTimeout(function () {
+            $('.customer-main').show();
+            g_loading.hide();
+        },1000)
+        $(document).ready( function() {
+        } );
+    } ) ( jQuery );
+
+</script>
+
+</body>
+</html>

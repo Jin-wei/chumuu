@@ -1,0 +1,143 @@
+/*#search_result_view .col-xs-12 {
+    padding: 0px;
+}*/
+
+
+#search_result_view .menuItemText {
+    width: 240px;
+    line-height: 18px;
+    word-break:keep-all;
+    /*overflow:hidden;*/
+    /*text-overflow:ellipsis;*/
+    /*white-space:nowrap;*/
+    opacity: 0.8;
+    background-color: #EEE;
+    color: darkslateblue;
+}
+#search_result_view .menuItemName {
+    display:inline-block;
+    width:240px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    word-break: keep-all;
+    white-space:nowrap;
+}
+
+#search_result_view .menuItem {
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+}
+
+#search_result_view .menuItemImg {
+    width: 240px;
+    padding: 10px 0px 0px 0px;
+    font-size:12pt;
+}
+
+#search_result_view .menuItemImg:hover{
+    cursor: pointer;
+    /*-webkit-transform:scale(1.1) rotate(3deg);*/
+    /*-moz-transform:scale(1.1) rotate(3deg);*/
+    /*-o-transform:scale(1.1) rotate(3deg);*/
+    /*-ms-transform: scale(1.1) rotate(3deg);*/
+    /*transform: scale(1.1) rotate(3deg);*/
+    /*animation:rotate 0.1s;*/
+    /*-webkit-animation:rotate 0.1s;*/
+    /*-webkit-animation-direction:alternate;*/
+    /*opacity: 1;*/
+    /*position: static;*/
+}
+
+.search_result_view .mp-items-search-result {
+    padding: 5px 10px;
+}
+
+.search_result_view .mp-items-search-result>div:nth-child(1){
+    border: 1px solid #eee;
+    border-bottom: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 5px;
+}
+.search_result_view .mp-items-search-result>div:nth-child(2){
+    border: 1px solid #eee;
+    border-top: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.search_result_view .mp-items-search-result>div:nth-child(2)>div:nth-child(0){
+    /*background-image: url('/image/visa1.png');*/
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.search_result_view .mp-items-search-result>div:nth-child(2)>div:nth-child(1){
+    font-size:18px;
+    padding: 0px 20px;
+}
+.search_result_view .mp-items-search-result>div:nth-child(2)>div:nth-child(1)>div{
+    height:36px;
+}
+.search_result_view .mp-items-search-result>div:nth-child(2)>div:nth-child(2){
+    padding: 5px 20px;
+    font-size:16px;
+}
+.search_result_view .mp-items-search-result>div:nth-child(2)>div:nth-child(3){
+    border-top: 1px solid #eee;
+    font-size:14px;
+    color:#323131;
+    padding: 10px 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .search_result_view .mp-items-search-result {
+        padding: 5px 10px;
+    }
+
+    .search_result_view .mp-items-search-result>div:nth-child(1){
+        border: 0px;
+    }
+    .search_result_view .mp-items-search-result>div:nth-child(2){
+        border: 0px;
+        padding-top: 5px;
+    }
+    .search_result_view .mp-items-search-result>div:nth-child(2)>div:nth-child(0){
+        /*background-image: url('/image/visa1.png');*/
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .search_result_view .mp-items-search-result>div:nth-child(2)>div:nth-child(1){
+        font-size:14px;
+        padding: 0px 8px;
+    }
+    .search_result_view .mp-item-level-deal>div:nth-child(2)>div:nth-child(2){
+        padding: 5px 8px 0px 8px;
+        font-size:12px;
+    }
+    .search_result_view .mp-item-level-deal>div:nth-child(2)>div:nth-child(3){
+        border-top: 0px;
+        font-size:12px;
+        padding: 5px 8px;
+    }
+}
+
+@-webkit-keyframes rotate {
+    0%      {
+        -webkit-transform:scale(1) rotate(0deg);
+    }
+    100%    {
+        -webkit-transform:scale(1.1) rotate(3deg);
+    }
+}
+#search_result_view .menuItemImg {
+    position: relative;
+}
+#search_result_view .price-disable {
+    text-decoration: line-through;
+}
+#search_result_view .fromBizName {
+    width: 230px;
+    word-break:keep-all;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}

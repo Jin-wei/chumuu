@@ -1,0 +1,99 @@
+<div id="menu_type_view" class="page-content row">
+    <div class="col-xs-12  widget-container-span ui-sortable">
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h4 class="lighter">
+                    <i class="icon-star orange"></i>
+                    {{L.menu_type}}
+                </h4>
+                <div class="widget-toolbar">
+                    <div id="dialog-confirm" class="hide">
+                        <div class="alert alert-info bigger-110"> This item will be permanently deleted and cannot be recovered. </div>
+                        <div class="space-6"></div>
+                        <p class="bigger-110 bolder center grey">
+                            <i class="icon-hand-right blue bigger-120"></i> Are you sure?
+                        </p>
+                    </div><!-- #dialog-confirm -->
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <div class="space-6"></div>
+                    <div class="menu_type_new_div col-xs-12">
+                        <span class="col-xs-12 col-sm-3 menu_type_new_title" ng-bind="L.create_new_menu_type"></span>
+                        <span class="col-xs-12 col-sm-3"><input type="text" ng-init="menuTypeNew={'name':'','name_lang':''}" ng-model="menuTypeNew.name" placeholder="name"/></span>
+                        <span class="col-xs-12 col-sm-3"><input type="text" ng-model="menuTypeNew.name_lang" placeholder="name lang"/></span>
+                        <span class="icon-plus-sign purple col-xs-2" ng-click="onMenuTypeAdd(menuTypeNew)"></span>
+                    </div>
+                    <div class="space-6"></div>
+                    <div class="col-xs-12">
+                        <div class="d col-xs-12" style="max-width: 100%;">
+                            <ol class="dd-list col-xs-12">
+                                <li class="dd-item">
+                                    <div class="dd-handle dd2-handle btn-info">
+                                        <!--<span class="icon-ok-circle pointer confirm_order_btn" title="Confirm the sequence" ng-click="onMenuTypeUpdateDisplayOrder()"></span>-->
+                                    </div>
+                                    <div class="dd2-content btn-info">
+                                        <div class="col-xs-5" style="padding-top:9px;">
+                                            <b ng-bind="L.name"></b>
+                                            <input class="menu_type_search_input" type="text" ng-model="search.name" placeholder="name filter"/>
+                                        </div>
+                                        <div class="col-xs-4" style="padding-top:9px;">
+                                            <b ng-bind="L.name_lang"></b>
+                                            <input class="menu_type_search_input" type="text" ng-model="search.name_lang" placeholder="name_lang filter" />
+                                        </div>
+                                        <div class="col-xs-3" style="padding-top:4px;">
+                                            <button class="btn btn-default" ng-show="!isChangingSequence" style="padding:0px" ng-click="onChangingSequence()" ng-bind="L.change_sequence"></button>
+                                            <span class="icon-ok-circle pointer confirm_order_btn " ng-show="isChangingSequence" title="Confirm the sequence" ng-click="onMenuTypeUpdateDisplayOrder()"></span>
+                                            <span class="icon-remove-circle pointer confirm_order_btn " style="margin-left:30px;" ng-show="isChangingSequence" title="Cancel" ng-click="onCancel()"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="dd col-xs-12" style="max-width: 100%;">
+                            <ol class="dd-list col-xs-12">
+                                <li class="dd-item" data-id="{{$index}}" ng-repeat="menuType in menuTypes | filter:search" >
+                                    <div class="dd-handle dd2-handle" title="drag and drop to change sequence">
+                                        <i ng-show="isChangingSequence" class="normal-icon icon-resize-vertical blue bigger-130"></i>
+                                        {{$index+1}}
+                                    </div>
+                                    <!--<div class="dd-handle dd2-handle menuTypeIndex" title="drag and drop to change sequence">-->
+                                        <!--{{$index+1}}-->
+                                    <!--</div>-->
+                                    <div class="dd2-content">
+                                        <div class="col-xs-5" style="padding-top:9px;">
+                                            <span ng-hide="menuType.isEdit">{{menuType.name}}</span>
+                                            <input type="text" ng-show="menuType.isEdit" ng-model="menuTypeInputs[$index].name"/>
+                                        </div>
+                                        <div class="col-xs-4" style="padding-top:9px;">
+                                            <span ng-hide="menuType.isEdit">{{menuType.name_lang}}</span>
+                                            <input type="text" ng-show="menuType.isEdit" ng-model="menuTypeInputs[$index].name_lang"/>
+                                        </div>
+                                        <div class="col-xs-3" style="padding-top:7px;">
+                                            <div class="menu_type_operations" onmouseover="jQuery(this).addClass('ui-state-hover');" onmouseout="jQuery(this).removeClass('ui-state-hover')">
+                                                <span ng-hide="menuType.isEdit" class="ui-icon-pencil icon-pencil" ng-click="menuType.isEdit=true"></span>
+                                                <span ng-hide="menuType.isEdit" class="ui-icon-trash icon-trash" ng-click="onMenuTypeDelete(menuType,$index)"></span>
+                                                <span ng-show="menuType.isEdit" class="ui-icon-disk icon-ok" ng-click="onMenuTypeSave(menuType,menuTypeInputs[$index])"></span>
+                                                <span ng-show="menuType.isEdit" class="ui-icon-cancel icon-remove" ng-click="menuType.isEdit=false"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+
+                    <div class="space-12"></div>
+                </div>
+                <!-- /widget-main -->
+            </div>
+            <!-- /widget-body -->
+        </div>
+        <!-- /widget-box -->
+    </div>
+</div>

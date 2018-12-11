@@ -1,0 +1,115 @@
+* {
+    padding:0;
+    margin:0;
+    outline: none;
+    font-family: Arial;
+}
+*:focus {
+    outline: none;
+}
+.mp-pullleft {
+    float:left;
+}
+.mp-pullright {
+    float:right;
+}
+.mp-clear {
+    clear:both;
+}
+.mp-clear:after {
+    content:'';
+    clear:both;
+}
+.mp-display-box {
+    display:-moz-box; /* Firefox */
+    display:-webkit-box; /* Safari and Chrome */
+    display:box;
+}
+.mp-box-flex-1 {
+    -o-box-flex:1.0; /* Opera */
+    -moz-box-flex:1.0; /* Firefox */
+    -webkit-box-flex:1.0; /* Safari 和 Chrome */
+    box-flex:1.0;
+}
+mp-hr {
+    display: block;
+    width:100%;
+    border-top: 1px solid;
+}
+
+.mp-show {
+    display: block !important;
+}
+.mp-mask {
+    opacity: 0.4;
+    display: none;
+    background-color: black;
+    position: fixed;
+    left:-10px;
+    top:-10px;
+    width:5000px;
+    height:5000px;
+    z-index: 999;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+.text-center {
+    text-align: center;
+}
+.mp-dialog {
+    display: none;
+    position: fixed;
+    top: 90px;
+    left: 50px;
+    width: 200px;
+    border: 1px solid rgb(249, 242, 236);
+    border-radius: 3px;
+    background-color: white;
+    font-size: 10px;
+    box-shadow: 0 2px 5px;
+    z-index:1000;
+}
+.mp-dialog-header {
+    padding: 10px 0;
+  text-align: center;
+  font-size: 16px;
+    border-bottom: 1px solid;
+}
+.mp-dialog-content {
+}
+.mp-dialog-footer {
+    border-top: 1px solid;
+}
+
+.mp-bg-color-1 {
+    background-color: #f8f3f0;
+}
+.mp-bg-color-2 {
+    background-color: #f0e7e4;
+}
+.mp-bg-color-3 {
+    background-color: #e8d6ce;
+}
+.mp-bg-color-4 {
+    background-color: #dbb4a2;
+}
+.mp-bg-color-5 {
+    background-color: #cda08c;
+}
+
+.mp-color-1 {
+    color: #dbb4a2;
+}
+.mp-color-2 {
+    color: #b2988e;
+}
+.mp-color-3 {
+    color: #c8723d;
+}
+.mp-color-4 {
+    color: #855846;
+}

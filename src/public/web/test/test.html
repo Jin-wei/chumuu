@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../assets/js/jquery-2.0.3.min.js"></script>
+    <script src="../js/lib/angular_1.3.0.js"></script>
+    <script src="../js/lib/ng.1.2.6/angular-cookies.js"></script>
+</head>
+<body ng-app="test">
+
+<script>
+    var app = angular.module('test',['ng']);
+</script>
+<script src="../js/service.js"></script>
+<script src="../customer/js/service.js"></script>
+<script src="../business/js/service.js"></script>
+
+<script>
+    var injector = angular.injector(['test','ng','ngCookies','ngLocale','ngElement']);
+    var $mpCustomerFavoriteBusiness = injector.get('$mpCustomerFavoriteBusiness');
+    $mpCustomerFavoriteBusiness.init().then(function(){
+        console.log('$mpCustomerFavoriteBusiness',$mpCustomerFavoriteBusiness.getData());
+    });
+//    injector.invoke('$mpCustomerFavoriteBusiness',['$mpCustomerFavoriteBusiness',function($mpCustomerFavoriteBusiness){
+//        $mpCustomerFavoriteBusiness.init().then(function(){
+//            console.log('$mpCustomerFavoriteBusiness',$mpCustomerFavoriteBusiness.getData());
+//        });
+//    }]);
+</script>
+
+</body>
+</html>

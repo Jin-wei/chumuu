@@ -1,0 +1,62 @@
+<div id="contact_us_view" class="page-content mp-mobile-marginleft-10px mp-mobile-marginright-10px" style="margin-left:80px;margin-right:80px;">
+    <div class="col-xs-12 mp-title-green mp-mobile-margintop-20px mp-mobile-marginbottom-10px mp-mobile-fontsize-20px" ng-bind="L.contact_us"> </div>
+    <div class="col-xs-12 mp-mobile-nopadding  mp-mobile-fontsize-14px" style="padding:0 100px;font-size:18px;color:#858585;max-width:800px;">
+        <div ng-if="!isCN">
+            <div class="title">
+                {{L.food_lovers}}
+            </div>
+            <div class="text">
+                {{L.food_lovers_statement_1}}
+            </div>
+            <div class="text">
+                <a href="mailto:cust@tru-menu.com">cust@chumuu.com</a>
+            </div>
+
+            <div class="text">
+                {{L.food_lovers_statement_2}}
+            </div>
+            <p>&nbsp;</p>
+            <div class="title">
+                {{L.business_owners}}
+            </div>
+            <div class="text">
+                {{L.business_owners_statement_1}}
+            </div>
+            <div class="text">
+                <a href="mailto:biz@tru-menu.com">biz@chumuu.com</a>
+            </div>
+            <div class="text">
+                {{L.business_owners_statement_2}} (855) 984-1861.
+            </div>
+        </div>
+
+        <div ng-if="isCN">
+            <div class="text">
+                {{L.food_lovers_statement_1}}
+            </div>
+            <div class="text">
+                <a href="mailto:cust@tru-menu.com">info@missionpublic.com</a>
+            </div>
+            <div class="text">
+                {{L.business_owners_statement_2}} 15841196356.
+            </div>
+            <div class="">
+                {{L.address}}：辽宁省大连市黄河路557号708室
+            </div>
+            <div class="text">
+                {{L.food_lovers_statement_2}}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #contact_us_view .title {
+            font-size: 20px;
+            margin-bottom:10px;
+            color: #5db834;
+        }
+        #contact_us_view .text {
+            line-height:30px;
+        }
+    </style>
+</div>

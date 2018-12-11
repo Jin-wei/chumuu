@@ -1,0 +1,53 @@
+#myfavorite_view .bizItem {
+    border: 1px solid #EEE;
+    padding:1px;
+    margin-bottom: 10px;
+}
+#myfavorite_view .prodItem {
+    border: 1px solid #EEE;
+    padding:1px;
+    margin-bottom: 10px;
+}
+
+#myfavorite_view .bizName {
+    font-size:12pt;
+    font-weight:bold;
+}
+#myfavorite_view .bizRating {
+    font-size:12pt;
+    font-weight:bold;
+    margin:5px 0px;
+}
+#myfavorite_view .bizAddress {
+    font-size:11pt;
+}
+#myfavorite_view .bizPhone {
+    font-size:11pt;
+}
+#myfavorite_view .bizAddress .icon-home,
+#myfavorite_view .bizPhone .icon-phone
+{
+    font-size:14pt;
+    color: green;
+    margin-right:3px;
+}
+
+
+
+#myfavorite_view .prodName {
+    font-size:12pt;
+    font-weight:bold;
+}
+#myfavorite_view .prodNameLang {
+    font-size:12pt;
+}
+#myfavorite_view .prodPrice {
+    font-size:12pt;
+}
+#myfavorite_view .prodBizName {
+    font-size:12pt;
+    font-weight:bold;
+}
+#myfavorite_view .prodRating {
+    font-size:12pt;
+}

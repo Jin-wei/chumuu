@@ -1,0 +1,13 @@
+#login-box,#forgot-box,#signup-box {
+    position: static;
+    width: 100%;
+}
+
+#forgot-box,#signup-box {
+    display: none;
+}
+
+.login-copyright {
+    width:100%;
+    text-align: center;
+}

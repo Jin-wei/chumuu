@@ -1,0 +1,220 @@
+<div id="my_order_view" class="page-content mp-mobile-marginleft-10px mp-mobile-marginright-10px" style="margin-left:134px;margin-right:134px;">
+
+    <div class="col-xs-12 text-center">
+        <div class="mp-biz-tab mp-no-select" style="margin-bottom: 20px;">
+            <div ng-class="{'mp-biz-current-tab':tab==='today'}" ng-click="tab='today'">{{L.order_status_100}} {{L.orders}}</div>
+            <div ng-class="{'mp-biz-current-tab':tab==='past'}" ng-click="tab='past'">{{L.history}} {{L.orders}}</div>
+        </div>
+    </div>
+    <div class="col-xs-12" ng-switch on="tab">
+        <div ng-switch-when="today">
+            <div class="col-xs-12 page-order-item" ng-repeat="item in todayOrders">
+                <div class="col-xs-12">
+                    <span ng-bind="Const.ORDER_TYPE.DESC[item.order_type]"></span>
+                    <span ng-bind="DateFormat(item.order_start, dateTimeFormat)" style="margin-left:50px;"></span>
+                    <span class="pull-right mp-mobile-display-none" style="margin-left:50px;" ng-bind="Const.ORDER_STATUS.DESC[item.status]"></span>
+                    <span class="pull-right mp-mobile-display-none" bo-bind="item.seq"></span>
+                </div>
+                <div class="col-xs-12 mp-display-box mp-mobile-display-block" style="padding:20px 10px 20px 10px;border-bottom:1px solid #eee;">
+                    <div class="page-order-box-part-2" style=" -webkit-box-ordinal-group: 2; -moz-box-ordinal-group: 2; -ms-flex-order: 2; -webkit-order: 2; order: 2; ">
+                        <table class="mp-mobile-height-auto mp-mobile-width-100pc" style="width:220px;height:180px;">
+                            <tr class=" mp-mobile-fontsize-20px" style="font-size:30px;">
+                                <td>
+                                    <span class="mp-display-none mp-mobile-display-inline-block" bo-bind="item.seq"></span>
+                                </td>
+                                <td>
+                                    <span class="mp-display-none mp-mobile-display-inline-block" style="color:darkorange;" ng-bind="Const.ORDER_STATUS.DESC[item.status]"></span>
+                                </td>
+                                <td>
+                                    <span class="" ng-bind="item.total_price | customCurrency:currency" style="color:darkorange;"></span>
+                                </td>
+                                <td>
+                                    <span class="icon-circle-arrow-right mp-pointer green mp-fontsize-40px mp-mobile-fontsize-28px" ng-click="navTo('/my-order-detail/'+item.id+'?tab=today')"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="mp-display-box mp-boxflex-1">
+                        <div class="mp-mobile-width-100px" style="width:180px;">
+                            <img class="mp-pointer" style="width:100%;" ng-src="{{item.bizInfo.img_url_m}}"
+                                 ng-click="navTo('/restaurant/'+item.bizInfo.bizKey)"/>
+                        </div>
+                        <div class="mp-boxflex-1 mp-mobile-paddingleft-0px mp-mobile-nopadding mp-mobile-paddingleft-10px" style="padding:4px 30px 0px 20px;">
+                            <a href="javascript:;" class=" mp-mobile-fontsize-15px" ng-click="navTo('/restaurant/'+item.bizInfo.bizKey)" title="{{item.bizInfo.name}}" style="font-size:24px;color:#575555;" ng-bind="item.bizInfo.name"> </a>
+                            <div>
+                                <div>
+                                    <span class="icon-home mp-display-inline-block" style="width:20px;font-size:20px;color:#9e9e9e;margin-right:6px;"></span>
+                                    <a class="mp-pointer mp-text-ellipsis overflow-hidden mp-mobile-fontsize-12px"
+                                       style="color:#1086ff;font-size:22px;" onclick="javascript:;" ng-bind="item.bizInfo.address"
+                                       ng-click="onOpenBizMapNavigator(item.bizInfo)"></a>
+                                </div>
+                                <div>
+                                    <span class="icon-phone mp-display-inline-block" style="width:20px;font-size:20px;color:#9e9e9e;margin-right:6px;"></span>
+                                        <span ng-repeat="phone in item.bizInfo.phoneArr">
+                                            <a href="tel:{{phone}}" class="mp-text-ellipsis overflow-hidden mp-mobile-fontsize-12px" style="color:#1086ff;font-size:22px;" ng-bind="phone"></a>
+                                            <span ng-if="!$last" style="margin-right:10px;">,</span>
+                                        </span>
+                                </div>
+                                <div ng-show="!_.isUndefined(item.bizInfo.distance) || true">
+                                        <span class="icon-map-marker mp-display-inline-block"
+                                              style="width:20px;font-size:20px;color:#9e9e9e;margin-right:6px;"></span>
+                                    <span ng-if="disName == 'mile'" class=" mp-mobile-fontsize-12px" style="color:grey;font-size:22px;">{{item.distance | number:2}} {{L.miles}}</span>
+                                    <span ng-if="disName == 'km'" class="mp-mobile-fontsize-12px" style="color:grey;font-size:22px;" >{{item.distance | number:2}} {{L.km}}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <starrating class="mp-mobile-fontsize-13px" style="color:darkorange;font-size:24px;" rating="{{item.bizInfo.extraRating.avgRatingForStar}}"></starrating>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div ng-switch-when="future">-->
+            <!--<div class="col-xs-12 page-order-item" ng-repeat="item in futureOrders">-->
+                <!--<div class="col-xs-12" style="background-color: orange;">-->
+                    <!--<span ng-bind="Const.ORDER_TYPE.DESC[item.order_type]"></span>-->
+                    <!--<span ng-bind="DateFormat(item.order_start,'MM/d/yyyy h:mm TT')" style="margin-left:50px;"></span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-12 mp-display-box mp-mobile-display-block" style="padding:20px 10px 20px 10px;border-bottom:1px solid #eee;">-->
+                    <!--<div class="mp-mobile-width-100pc" style="width:180px;">-->
+                        <!--<img class="mp-pointer mp-mobile-height-200px" style="width:100%;" ng-src="{{item.bizInfo.img_url_m}}"-->
+                             <!--ng-click="navTo('/restaurant/'+item.bizInfo.bizKey)"/>-->
+                    <!--</div>-->
+                    <!--<div class="mp-boxflex-1 mp-mobile-paddingleft-0px" style="padding:4px 30px 0px 20px;">-->
+                        <!--<a href="javascript:;" class=" mp-mobile-fontsize-15px" ng-click="navTo('/restaurant/'+item.bizInfo.bizKey)" title="{{item.bizInfo.name}}" style="font-size:24px;color:#575555;" ng-bind="item.bizInfo.name"> </a>-->
+                        <!--<div>-->
+                            <!--<div>-->
+                                <!--<span class="icon-home mp-display-inline-block" style="width:20px;font-size:20px;color:#9e9e9e;margin-right:6px;"></span>-->
+                                <!--<a class="mp-pointer mp-text-ellipsis overflow-hidden mp-mobile-fontsize-15px"-->
+                                   <!--style="color:#1086ff;font-size:22px;" onclick="javascript:;" ng-bind="item.bizInfo.address"-->
+                                   <!--ng-click="onOpenBizMapNavigator(item.bizInfo)"></a>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<span class="icon-phone mp-display-inline-block" style="width:20px;font-size:20px;color:#9e9e9e;margin-right:6px;"></span>-->
+                                        <!--<span ng-repeat="phone in item.bizInfo.phoneArr">-->
+                                            <!--<a href="tel:{{phone}}" class="mp-text-ellipsis overflow-hidden mp-mobile-fontsize-15px" style="color:#1086ff;font-size:22px;" ng-bind="phone"></a>-->
+                                            <!--<span ng-if="!$last" style="margin-right:10px;">,</span>-->
+                                        <!--</span>-->
+                            <!--</div>-->
+                            <!--<div ng-show="!_.isUndefined(item.bizInfo.distance) || true">-->
+                                        <!--<span class="icon-map-marker mp-display-inline-block"-->
+                                              <!--style="width:20px;font-size:20px;color:#9e9e9e;margin-right:6px;"></span>-->
+                                <!--<span class=" mp-mobile-fontsize-15px" style="color:grey;font-size:22px;">{{21.2 | number:2}} miles</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<starrating class="mp-mobile-fontsize-20px" style="color:darkorange;font-size:24px;" rating="{{item.bizInfo.extraRating.avgRatingForStar}}"></starrating>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<table class="mp-mobile-height-auto" style="width:220px;height:180px;">-->
+                            <!--<tr>-->
+                                <!--<td>-->
+                                    <!--<span ng-bind="item.total_price | currency" style="color:darkorange;font-size:30px;"></span>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--<span class="icon-circle-arrow-right mp-pointer green mp-fontsize-40px" ng-click="navTo('/my_order_detail/'+item.id+'?tab=future')"></span>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div ng-switch-when="past">
+            <div class="col-xs-12" bindonce ng-repeat="item in pastOrders">
+                <div class="col-xs-12 page-past-order-item" ng-class="{'mp-order-past-order-opened':item.open}">
+                    <div class="icon-caret-{{item.open?'down':'right'}} mp-pointer" ng-click="onToggleOrder(item)"></div>
+                    <div class="" bo-bind="item.seq"></div>
+                    <div class="" bo-bind="DateFormat(item.order_start,'{{dateTimeFormat}}')"></div>
+                    <div class="mp-mobile-display-none mp-text-ellipsis overflow-hidden" bo-bind="item.name"></div>
+                    <div class="mp-mobile-display-none mp-text-ellipsis overflow-hidden">
+                        <span  ng-show="item.name_lang!=null"  bo-bind="item.name_lang"></span>
+                    </div>
+                    <div class="mp-mobile-display-none " bo-bind="item.total_price | customCurrency:currency"></div>
+                    <div class="mp-mobile-display-none " bo-bind="Const.ORDER_TYPE.DESC[item.order_type]"></div>
+                    <div class="mp-mobile-display-none " bo-bind="Const.ORDER_STATUS.DESC[item.status]"></div>
+                </div>
+                <div class="col-xs-12 mp-order-past-order-detail mp-display-box mp-mobile-display-block" ng-if="item.open">
+                    <div class="mp-display-none mp-mobile-display-block mp-text-ellipsis overflow-hidden" bo-bind="item.name" style="color: rgb(137,190,58); text-align: center; padding-bottom: 6px; "></div>
+                    <div class="mp-display-none mp-mobile-display-block mp-text-ellipsis overflow-hidden"  style=" border-bottom: 1px solid rgb(137,190,58); color: rgb(137,190,58); text-align: center; padding-bottom: 6px; ">
+                        <span ng-show="item.name_lang!=null" bo-bind="item.name_lang"></span>
+                    </div>
+                    <div class="col-xs-12 mp-display-none mp-mobile-display-block " style=" padding: 5px 0px; border-bottom: 1px solid rgb(137,190,58); color: rgb(137,190,58); text-align: center; margin-bottom: 10px; ">
+                        <div class="col-xs-4 text-center" bo-bind="item.total_price | ccustomCurrency:currency"></div>
+                        <div class="col-xs-4 text-center" bo-bind="Const.ORDER_TYPE.DESC[item.order_type]"></div>
+                        <div class="col-xs-4 text-center" bo-bind="Const.ORDER_STATUS.DESC[item.status]"></div>
+                    </div>
+
+                    <div class="mp-order-past-order-base-info mp-clear">
+                        <div class="mp-display-box page-past-order-bizinfo">
+                            <div><img width="130px" ng-src="{{item.bizInfo.img_url_m}}"></div>
+                            <div class="mp-boxflex-1">
+                                <div ng-bind="item.name"></div>
+                                <div class="mp-display-box">
+                                    <div class="icon-home page-order-icon"></div>
+                                    <div class="mp-boxflex-1 mp-text-ellipsis overflow-hidden">
+                                        <a href="javascript:;" ng-click="onOpenBizMapNavigator(item.bizInfo)" ng-bind="item.bizInfo.address"></a>
+                                    </div>
+                                </div>
+                                <div class="mp-display-box">
+                                    <div class="icon-phone page-order-icon"></div>
+                                    <div class="mp-boxflex-1 mp-text-ellipsis overflow-hidden">
+                                        <a href="tel:{{item.bizInfo.phoneArr[0]}}" ng-bind="item.bizInfo.phoneArr[0]"></a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <starrating style="color:darkorange;font-size:24px;" rating="{{item.bizInfo.extraRating.avgRatingForStar}}"></starrating>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mp-mobile-margintop-10px mp-mobile-marginbottom-10px">
+                        <div class="mp-display-box page-payment-type">
+                            <div>{{L.payment_method}}</div>
+                            <div class="mp-boxflex-1 text-center" ng-bind="item.paymentTypeText"></div>
+                        </div>
+                        <div class="page-payment-info" ng-bind="item.payment_info"></div>
+                        <hr class="mp-mobile-margintop-10px mp-mobile-marginbottom-10px">
+                        <div class="mp-display-box">
+                            <div ng-bind="L.discount"></div>
+                            <div class="mp-boxflex-1 mp-under-dashline"></div>
+                            <div ng-bind="item.total_discount | customCurrency:currency"></div>
+                        </div>
+                        <div ng-if="!isCN" class="mp-display-box">
+                            <div ng-bind="L.sales_tax"></div> (<div bo-bind="(item.total_tax/item.actual_price)*100 | number:3"></div>%)
+                            <div class="mp-boxflex-1 mp-under-dashline"></div>
+                            <div ng-bind="item.total_tax | customCurrency:currency"></div>
+                        </div>
+                        <hr class="mp-mobile-margintop-10px mp-mobile-marginbottom-10px">
+                        <!--<div>Want the same order again?</div>-->
+                        <!--<div><button>Re-Order</button></div>-->
+                    </div>
+                    <div class="mp-boxflex-1 mp-mobile-nopadding" style="padding:0 15px;">
+                        <div class="" bindonce ng-repeat="subItem in item.items">
+                            <div class="mp-display-box page-order-items">
+                                <div class="mp-boxflex-1 page-sub-item-left" >
+                                    <div ng-bind="subItem.prod_name"></div>
+                                    <div ng-bind="subItem.prod_name_lang"></div>
+                                    <div ng-if="subItem.prod_extend!=null" ng-bind="'('+subItem.prod_extend+')'"></div>
+                                    <div ng-if="subItem.remark" ng-bind="'Special Instruction:'"></div>
+                                    <div ng-bind="subItem.remark"></div>
+                                </div>
+                                <div class="page-sub-item-right">
+                                    <table><tr><td>
+                                        <div ng-bind="subItem.quantity"></div>
+                                        <div ng-bind="subItem.actual_price | customCurrency:currency"></div>
+                                    </td></tr></table>
+                                </div>
+                            </div>
+                            <div class="hr mp-nomargin"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+    </div>
+</div>

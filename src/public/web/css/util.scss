@@ -1,0 +1,27 @@
+//support css3 for cross browsers
+$browsers: o, moz, webkit, khtml, ms;
+@mixin multi-browser-support($key, $value) {
+  @each $browser in $browsers {
+    -#{$browser}-#{$key}: $value;
+  }
+  flex: $value; //#{$key} -> flex
+}
+
+@mixin multi-browser-support2($x, $y) {
+  @each $browser in $browsers {
+    #{$x}: -#{$browser}-#{$y};
+  }
+  #{$x}: flex; //#{$y} -> flex
+}
+
+@mixin multi-bowser-support-keyframes() {
+  @-ms-keyframes frame-sway {
+    0% {
+      -ms-transform: rotate(-50deg);
+    }
+    100% {
+      -ms-transform: rotate(50deg);
+    }
+  }
+}
+

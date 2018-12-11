@@ -1,0 +1,271 @@
+<div id="order_view" class="page-content row position-relative">
+<mp-tab class="col-xs-12" ng-model="order_tabs"></mp-tab>
+<!--<div class='pull-right position-absolute' style="border:0px solid grey;height:30px;top:12px;right:22px;">-->
+<!--<span ng-show="order_tabs.cur_tab_index==1">-->
+<!--<label class="mp-switch">-->
+<!--<input ng-model="menu_lang_switch" class="ace ace-switch ace-switch-5" type="checkbox" ng-click="onClickMenuLangSwitch()" />-->
+<!--<span class="lbl lbl_active"></span>-->
+<!--</label>-->
+<!--{{L.menu_lang_switch}}-->
+<!--</span>-->
+<!--<span >-->
+<!--<label>-->
+<!--<input name="switch-field-1" class="ace ace-switch ace-switch-7" type="checkbox" ng-model="sound_alert_switch">-->
+<!--<span class="lbl lbl_active"></span>-->
+<!--</label>-->
+<!--Sound Alert-->
+<!--</span>-->
+<!--</div>-->
+<!--<div ng-show="pending_count>0" class="col-xs-12" style="margin-top: 10px; color: red; font-weight: bold; font-size: 11pt; background: cornsilk; padding: 5px;">-->
+<!--{{pending_alert_message}}-->
+<!--</div>-->
+<div id="order_tab" class="col-xs-12" style="padding-top:10px;">
+<div class="" ng-controller="cur_orders_controller">
+
+    <div class=" mp-disable-box">
+        <div class="mp-boxflex-1" style=" padding: 10px; background-color: #f8f8f8; border: 1px solid #eee; ">
+            <div style="padding:5px 0;">
+                <span><b>筛选:</b></span>
+                <span class="page-search-item">
+                    <span>状态:</span>
+                    <select ng-model="searchStatus">
+                        <option value="-1">=全部=</option>
+                        <option value="{{OrderConst.ORDER_STATUS.PENDING}}">待确认</option>
+                        <option value="{{OrderConst.ORDER_STATUS.CONFIRMED}}">已确认</option>
+                        <option value="{{OrderConst.ORDER_STATUS.PROGRESS}}">进行中</option>
+                        <option value="{{OrderConst.ORDER_STATUS.CANCELED}}">已取消</option>
+                        <option value="{{OrderConst.ORDER_STATUS.COMPLETED}}">已完成</option>
+                    </select>
+                </span>
+                <span class="page-search-item">
+                    <span>类型:</span>
+                    <select ng-model="searchGift">
+                        <option value="-1">=全部=</option>
+                        <option value="0">已下单</option>
+                        <option value="1">未消费</option>
+                    </select>
+                </span>
+                <span class="page-search-item">
+                    <span>下单时间:</span>
+                    <input type="text" id="searchCreateDate" readonly class="date-range-picker mp-pointer" data-date-format="yyyy-mm-dd">
+                </span>
+                <span class="page-search-item">
+                    <span>配送时间:</span>
+                    <input type="text" id="searchOrderDate" readonly class="date-range-picker mp-pointer" data-date-format="yyyy-mm-dd">
+                </span>
+
+            </div>
+            <div style="padding:5px 0;">
+                <span><b>排序:</b></span>
+                <span class="page-search-item">
+                    <span>时间:</span>
+                    <select ng-model="searchOrderByCreate">
+                        <option value="createDesc">下单时间-倒序</option>
+                        <option value="createAsc">下单时间-正序</option>
+                        <option value="orderDesc">配送时间-倒序</option>
+                        <option value="orderAsc">配送时间-正序</option>
+                    </select>
+                </span>
+            </div>
+            <div style="padding:5px 0;">
+                <button class="btn btn-info" style="margin-left:10px;padding:0 10px;" ng-click="onBtnSearch()">查询</button>
+            </div>
+        </div>
+        <div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 mp-display-box">
+        <div class="mp-boxflex-1">
+            <ul class="pagination">
+                <li ng-class="{'disabled':!hasPreviousPage}">
+                    <a href="javascript:;" ng-click="onBtnPageTo('previous')">
+                        <i class="icon-double-angle-left"></i> 上一页
+                    </a>
+                </li>
+
+                <li ng-class="{'disabled':!hasNextPage}">
+                    <a href="javascript:;" ng-click="onBtnPageTo('next')">
+                        <i class="icon-double-angle-right"></i> 下一页
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div class="page-search-item" style="margin:10px 0;">
+                <span>每页显示条数:</span>
+                <select ng-model="searchPageSize">
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="1000">1000</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <table id="orders" class="table table-striped table-bordered table-hover table-tr-link col-xs-12" mp-sortable="orders">
+        <!--<colgroup>-->
+        <!--<col width=""/>-->
+        <!--<col width="14%"/>-->
+        <!--<col width="15%"/>-->
+        <!--<col width="8%"/>-->
+        <!--<col width="9%"/>-->
+        <!--<col width="8%"/>-->
+        <!--<col width="16%"/>-->
+        <!--<col width="12%"/>-->
+        <!--<col width="12%"/>-->
+        <!--</colgroup>-->
+        <thead>
+        <tr>
+            <th class="sortable" data-sorting-column="id">订单 #</th>
+            <th class="sortable" data-sorting-column="seq">商户订单号 #</th>
+            <th class="sortable" data-sorting-column="order_start">下单时间</th>
+            <th class="sortable" data-sorting-column="create_on">配送时间</th>
+            <th class="sortable" data-sorting-column="status">状态</th>
+            <th class="sortable" data-sorting-column="b_name">商家</th>
+            <th >商家电话</th>
+            <th class="sortable" data-sorting-column="b_city">城市</th>
+            <th class="sortable" data-sorting-column="username">客户</th>
+            <th >客户电话</th>
+            <th class="sortable" data-sorting-column="address">收货地址</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="mp-pointer" ng-click="showDetail(order)" ng-repeat="order in orders">
+            <td ng-bind="order.id"><a href="javascript:;" ng-bind="order.id" ng-click="onSelectOrder(order)"></a></td>
+            <td ng-bind="order.seq"></td>
+            <td ng-bind="order.createOn"></td>
+            <td ng-bind="order.orderStart"></td>
+            <td ng-bind="OrderConst.ORDER_STATUS.DESC[order.status]" class="order_status_{{order.status}}"></td>
+            <td ng-bind="order.b_name"></td>
+            <td ng-bind="order.b_phone_no"></td>
+            <td ng-bind="order.b_city"></td>
+            <td ng-bind="order.username"></td>
+            <td ng-bind="order.phone"></td>
+            <td ng-bind="order.address"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="col-xs-12 mp-display-box">
+        <div class="mp-boxflex-1">
+            <ul class="pagination">
+                <li ng-class="{'disabled':!hasPreviousPage}">
+                    <a href="javascript:;" ng-click="onBtnPageTo('previous')">
+                        <i class="icon-double-angle-left"></i> 上一页
+                    </a>
+                </li>
+
+                <li ng-class="{'disabled':!hasNextPage}">
+                    <a href="javascript:;" ng-click="onBtnPageTo('next')">
+                        <i class="icon-double-angle-right"></i> 下一页
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div ng-controller="order_detail_controller">
+    <div class="col-xs-12" style="  padding: 10px 0px; background-color: #fafafa; border: 1px solid #eee;">
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">商家</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.b_name" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">城市</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.b_city" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">商家电话</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.b_phone_no" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">客户</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.username" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">电话</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.phone" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">总价</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.total_price" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">创建时间</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.createOn" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">预定时间</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.orderStart" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">地址</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.address" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">纬度</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.lat" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">经度</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.lon" type="text" class="width-100" >
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+            <div class="page-line-label">操作备注</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input readonly ng-model="order.op_remark" type="text" class="width-100" >
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12" style="margin-top:20px;font-size:15px;">商品: <span style="margin-left:30px;font-size:13px;color:gray;">[订单号: {{order.id}}]</span></div>
+    <table id="order_items" class="table table-striped table-bordered table-hover col-xs-12">
+        <!--<colgroup>-->
+        <!--<col width="5%"/>-->
+        <!--<col width="35%"/>-->
+        <!--<col width=""/>-->
+        <!--<col width="8%"/>-->
+        <!--<col width="10%"/>-->
+        <!--<col width="10%"/>-->
+        <!--</colgroup>-->
+        <tbody>
+        <tr ng-repeat="item in order.orderItems">
+            <td ng-bind="item.prod_name"></td>
+            <td ng-bind="item.quantity + ' * ' + item.unit_price"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+<div class="space-12"></div>
+<audio id="js-audio-warning">
+    Your browser dose not support audio.
+    <source src="../../media/warning.mp3" type="audio/mp3">
+    <source src="../../media/warning.ogg" type="audio/ogg">
+    <source src="../../media/warning.wav" type="audio/wav">
+</audio>
+</div>

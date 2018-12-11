@@ -1,0 +1,110 @@
+<div id="checkout_order_view" class="page-content mp-mobile-marginleft-10px mp-mobile-marginright-10px" style="margin-left:80px;margin-right:80px;">
+    <div class="col-xs-12 mp-mobile-fontsize-18px" style="font-size:24px;color:#232323;margin:10px 0 8px 0">
+        <a href="javascript:;" style="color:#1086ff;text-transform: uppercase;" ng-click="navTo('my-table')">{{L.my_table}}</a>
+        &gt;
+        {{L.checkout}}
+    </div>
+    <div class="col-xs-12 hr mp-nomargin"></div>
+    <div class="col-xs-12">
+        <form class="col-xs-12 mp-form-validation checkout_form" name="orderForm" novalidate>
+            <div class="col-xs-12 mp-checkout-guestinfo">
+                <div class="col-xs-12 mp-checkout-title-green mp-mobile-fontsize-20px mp-mobile-marginbottom-0px">{{L.guest_info}}</div>
+                <div class="col-xs-12" style="margin-top:8px;">
+                    <div class="col-xs-12 mp-display-box mp-checkout-labelline mp-mobile-fontsize-15px">
+                        <div>{{L.email}}</div>
+                        <div class="mp-boxflex-1"><input type="text" class="width-100 mp-mobile-fontsize-15px mp-mobile-height-30px" style="padding-left:20px;" readonly ng-model="guest_info.email" ></div>
+                    </div>
+                    <div class="col-xs-12 mp-display-box mp-checkout-labelline mp-mobile-fontsize-15px">
+                        <div>{{L.name}}*</div>
+                        <div class="mp-boxflex-1"><input type="text" class="width-100 mp-mobile-fontsize-15px mp-mobile-height-30px mp-edit-gray-green mp" ng-model="guest_info.name" required placeholder="required"></div>
+                    </div>
+                    <div class="col-xs-12 mp-display-box mp-checkout-labelline mp-mobile-fontsize-15px">
+                        <div>{{L.phone}}*</div>
+                        <div class="mp-boxflex-1"><input type="text" class="width-100 mp-mobile-fontsize-15px mp-mobile-height-30px mp-edit-gray-green mp" ng-model="guest_info.phone" mp-reformat-phone-number required ng-minlength={{phoneLength}} ng-maxlength={{phoneLength}} placeholder="required"></div>
+                    </div>
+                    <div class="col-xs-12 mp-display-box mp-checkout-labelline mp-mobile-fontsize-15px">
+                        <div></div>
+                        <div class="mp-boxflex-1 mp-mobile-height-auto mp-mobile-lineheight-20px" style="color:#ff3e00;">{{L.phone_num_reminder}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 hr"></div>
+
+            <div class="col-xs-12 mp-checkout-order-option">
+                <div class="col-xs-12  mp-checkout-title-green mp-mobile-fontsize-20px">{{L.service_instructions}}</div>
+                <div class="col-xs-12 mp-display-box mp-checkout-labelline">
+                    <div>{{L.order_type}}</div>
+                    <div class="mp-boxflex-1">
+                        <label>
+                            <input name="place_type" ng-model="order_type" type="radio" value="{{Const.ORDER_TYPE.DINE_IN}}" class="ace" />
+                            <span class="lbl mp-checkout-green" style="font-size:18px;color:#858585;"> {{Const.ORDER_TYPE.DESC[Const.ORDER_TYPE.DINE_IN]}}</span>
+                        </label>
+                        <label style="margin-left:10px;">
+                            <input name="place_type" ng-model="order_type" type="radio" value="{{Const.ORDER_TYPE.TOGO}}" class="ace" />
+                            <span class="lbl mp-checkout-green" style="font-size:18px;color:#858585;"> {{Const.ORDER_TYPE.DESC[Const.ORDER_TYPE.TOGO]}}</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-12 mp-display-box mp-checkout-labelline">
+                    <div>{{L.dining_date}} *</div>
+                    <div class="mp-boxflex-1 mp-checkout-labelline">
+                        <div class="input-group pull-left" style="width:200px;margin-right: 12px;">
+                                <span class="input-group-addon">
+                                    <i class="icon-calendar"></i>
+                                </span>
+                            <input class="checkout-order-date-picker form-control" ng-model="start_date" type="text" style="">
+                        </div>
+                        <div class="col-xs-12 mp-display-none mp-mobile-display-block space-6"></div>
+                        <div ng-show="bizOpen" class="pull-left">
+                            <select style="margin-left:10px;" ng-model="order_hour">
+                                <option bindonce ng-repeat="hour in valid_operate_hours_of_chosen" mp-repeat-directive-finish="validHoursFinished()" value="{{hour.value}}" bo-bind="hour.exp"></option>
+                            </select>
+                        </div>
+                        <div ng-show="!bizOpen" class="close_state" style="padding-top:5px">{{L.close_now}}</div>
+                    </div>
+                </div>
+                <div class="col-xs-12 mp-display-box mp-checkout-labelline">
+                    <div>{{L.of_guests}}</div>
+                    <div class="mp-boxflex-1"><input class="mp-edit-gray-green mp-mobile-fontsize-15px mp-mobile-height-30px" type="number" ng-model="peopleNum" required min=1 max=100 style="height:40px;font-size:18px;color:#858585;width:200px;background-color: #f8f8f8;"></div>
+                </div>
+                <div class="col-xs-12 mp-display-box mp-checkout-labelline">
+                    <div>{{L.notes}}</div>
+                    <div class="col-xs-12 mp-boxflex-1" style="height:auto;line-height: auto;">
+                        <textarea class="autosize-transition form-control mp-edit-gray-green mp-mobile-fontsize-15px" ng-model="remark" ng-maxlength="500" placeholder="{{L.check_out_order_notes_placeholder}}..." style="font-size:18px;color:#bbbaba;background-color: #f8f8f8;"></textarea>
+                    </div>
+                </div>
+                <div class="col-xs-12 mp-display-box mp-checkout-labelline mp-mobile-fontsize-15px">
+                    <div></div>
+                    <div class="mp-boxflex-1 mp-mobile-height-auto mp-mobile-lineheight-20px" style="color:#ff3e00;">{{L.check_out_order_reminder}}</div>
+                </div>
+            </div>
+            <div class="col-xs-12 center">
+                <div class="col-xs-6 text-center">
+                    <button class="btn btn-default nopadding" style="width:100px;" ng-click="navTo('my-table')">{{L.view_order}}</button>
+                </div>
+                <div class="col-xs-6 text-center">
+                    <button class="btn btn-success nopadding" type="submit" style="width:100px;" ng-disabled="!orderForm.$valid || !bizOpen" ng-click="onConfirm(orderForm.$valid)">{{L.place_order}}</button>
+                </div>
+            </div>
+
+        </form>
+
+        <div id="dialog-confirm-favorite-undoOrder" class="hide">
+            <div class="alert alert-info"> {{L.delete_box_text_1}} </div>
+            <div class="space-6"></div>
+            <p class="bolder center grey">
+                <i class="icon-hand-right blue"></i> {{L.are_you_sure}}
+            </p>
+        </div>
+
+        <div id="dialog-confirm-favorite-removeAll" class="hide">
+            <div class="alert alert-info"> {{L.delete_box_text_4}} </div>
+            <div class="space-6"></div>
+            <p class="bolder center grey">
+                <i class="icon-hand-right blue"></i> {{L.are_you_sure}}
+            </p>
+        </div><!-- #dialog-confirm -->
+
+    </div>
+</div>

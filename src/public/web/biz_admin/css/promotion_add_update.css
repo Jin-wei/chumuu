@@ -1,0 +1,88 @@
+
+#promotion_add_update_view .col-xs-12,
+#promotion_add_update_view .col-xs-11,
+#promotion_add_update_view .col-xs-10,
+#promotion_add_update_view .col-xs-6,
+#promotion_add_update_view .col-xs-1,
+#promotion_add_update_view .col-sm-10,
+#promotion_add_update_view .col-sm-6
+{
+    padding: 0px;
+}
+
+#promotion_add_update_view .promotionAddUpdateForm {
+    padding: 0px;
+}
+#promotion_add_update_view .promotionAddUpdateForm>.myitem>.col-xs-12 input[type='text'],
+#promotion_add_update_view .promotionAddUpdateForm>.myitem>.col-xs-12 input[type='select'],
+#promotion_add_update_view .promotionAddUpdateForm>.myitem>.col-xs-12 textarea,
+#promotion_add_update_view .promotionAddUpdateForm>.myitem>.col-xs-12 select {
+    width: 100%;
+    margin: 2px 0px;
+}
+
+#promotion_add_update_view .promotionAddUpdateForm>.myitem {
+    margin-bottom: 5px;
+    padding: 0px;
+    line-height: 30px;
+}
+
+#promotion_add_update_view .myitem>.center {
+    padding: 0px;
+}
+
+#promotion_add_update_view .widget-toolbar .promotion-delete-btn{
+    width: 90px;
+    height: 30px;
+    line-height: 2px;
+    border-width: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#promotion_add_update_view .chosen-container-single .chosen-search:after,#promotion_add_update_view .chosen-container-single b:before{
+}
+#promotion_add_update_view .chosen-container-single {
+    text-align: left;
+}
+#promotion_add_update_view .chosen-container-single .select{
+}
+#promotion_add_update_view .chosen-container-single .chosen-search input[type="text"] {
+}
+#promotion_add_update_view .search-choice-close {
+    display: none;
+}
+#promotion_add_update_view .discount-radio {
+    margin:0px;
+    padding:0px;
+    display: inline-block;
+}
+#promotion_add_update_view .discount-radio .lbl{
+    line-height: 23px;
+    min-height: 30px;
+}
+#promotion_add_update_view .col-xs-12 .row_title {
+    background-color: #EEE;
+    margin: 2px 0px;
+    border: 0px;
+    border-left: 5px solid white;
+    border-right: 5px solid white;
+}
+#promotion_add_update_view .input-group {
+    margin: 2px 0px;
+}
+#promotion_add_update_view .date-picker {
+    margin: 0px !important;
+}
+#promotion_add_update_view .weekly-repeat-item {
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    text-align: center !important;
+    font-family: Arial;
+    cursor: pointer;
+    background-color: #EEE;
+    border: 1px solid #DDD;
+}
+#promotion_add_update_view .chosen-container {
+    width:100% !important;
+}

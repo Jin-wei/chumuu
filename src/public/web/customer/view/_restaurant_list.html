@@ -1,0 +1,60 @@
+<div id="restaurant_list_view" class="page-content">
+    <div class="col-xs-12  widget-container-span ui-sortable">
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h4 class="lighter">
+                    <span>Restaurant List</span>
+                </h4>
+                <div class="widget-toolbar" >
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <div class="col-xs-12 col-sm-6">
+                        <div id="googleMap" style="width:100%;height:380px;margin-top:5px;border:1px solid black;"></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="col-xs-12" style="margin:5px 0px;">
+                            Distance:
+                            <select ng-model="distance" ng-init="distance=0.5">
+                                <option value="0.5">0.5km</option>
+                                <option value="1">1km</option>
+                                <option value="3">3km</option>
+                                <option value="5">5km</option>
+                                <option value="10">10km</option>
+                            </select>
+                            <button class="btn" ng-click="searchNearby()" style="height:30px;line-height: 0.5;">Search Nearby</button>
+                        </div>
+                        <div class="col-xs-12" style="max-height:340px;overflow-y: auto;">
+                            <table id="" class="table table-striped table-bordered table-hover col-xs-12">
+                                <colgroup>
+                                    <col width=""/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>Result</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="biz in bizArray" ng-mouseenter="showInfoWindow($index)" ng-mouseleave="hideInfoWindow($index)">
+                                    <td><a href="#/restaurant/{{biz.biz_id}}"  ng-bind="biz.name"></a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xs-12" ng-show="noresult" style="font-size:11pt;font-weight:bold;">
+                            No result, click on map to set/change your position, then research.
+                        </div>
+                    </div>
+                </div><!-- /widget-main -->
+            </div><!-- /widget-body -->
+        </div><!-- /widget-box -->
+    </div>
+
+    <div class="col-xs-12 space-6"></div>
+</div>
+<script>
+    //init google map after 'googleMap' loaded
+    InitGoogleMap('googleMap');
+</script>

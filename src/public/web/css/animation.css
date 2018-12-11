@@ -1,0 +1,37 @@
+/* key-frames Start */
+.mp-animation-sway {
+  -o-animation: frame-sway 2.5s infinite ease alternate;
+  -moz-animation: frame-sway 2.5s infinite ease alternate;
+  -webkit-animation: frame-sway 2.5s infinite ease alternate;
+  -khtml-animation: frame-sway 2.5s infinite ease alternate;
+  -ms-animation: frame-sway 2.5s infinite ease alternate;
+  flex: frame-sway 2.5s infinite ease alternate; }
+
+@keyframes frame-sway {
+  0% {
+    transform: rotate(-50deg); }
+  100% {
+    transform: rotate(50deg); } }
+@-webkit-keyframes frame-sway {
+  0% {
+    -webkit-transform: rotate(-50deg); }
+  100% {
+    -webkit-transform: rotate(50deg); } }
+@-moz-keyframes frame-sway {
+  0% {
+    -moz-transform: rotate(-50deg); }
+  100% {
+    -moz-transform: rotate(50deg); } }
+@-o-keyframes frame-sway {
+  0% {
+    -o-transform: rotate(-50deg); }
+  100% {
+    -o-transform: rotate(50deg); } }
+@-ms-keyframes frame-sway {
+  0% {
+    -ms-transform: rotate(-50deg); }
+  100% {
+    -ms-transform: rotate(50deg); } }
+/* key-frames End */
+
+/*# sourceMappingURL=animation.css.map */

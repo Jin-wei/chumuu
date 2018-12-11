@@ -1,0 +1,140 @@
+<div id="order_view" class="page-content row position-relative">
+    <div class="top-link">
+        <ol class="breadcrumb">
+            <li><a href="#">{{L.home}}</a></li>
+            <li class="active">{{L.current_tabel}}</li>
+        </ol>
+    </div>
+    <div class="row col-xs-12">
+        <div class="col-xs-10" style="padding-left: 10px">
+            <div ng-show="pending_count>0" class="col-xs-12"
+                 style="color: #ff9a00; font-size: 15pt; padding: 5px;">
+                {{pending_alert_message}}
+            </div>
+        </div>
+        <div class='col-xs-2' style="text-align: right;height: 34px;font-size: 16px">
+            <span ng-show="order_tabs.cur_tab_index==1">
+                <label class="mp-switch">
+                    <input ng-model="menu_lang_switch" class="ace ace-switch ace-switch-5" type="checkbox"
+                           ng-click="onClickMenuLangSwitch()"/>
+                    <span class="lbl lbl_active"></span>
+                </label>
+                {{L.menu_lang_switch}}
+            </span>
+            <span>
+                <label>
+                    <input name="switch-field-1" class="ace ace-switch ace-switch-7" type="checkbox"
+                           ng-model="sound_alert_switch">
+                    <span class="lbl lbl_active"></span>
+                </label>
+                <span ng-if="!isMobile">Sound Alert</span>
+            </span>
+            <!--<button ng-click="testaudio()">test</button>-->
+        </div>
+    </div>
+
+
+    <div id="order_tab" class="col-xs-12">
+        <div class="col-xs-12">
+            <table class="table table-striped table-hover col-xs-12" mp-sortable="cur_orders">
+                <colgroup>
+                    <col width=""/>
+                    <!--  <col width="14%"/>-->
+                    <col width="20%"/>
+                    <col width="20%"/>
+                    <col width="20%"/>
+                    <col width="20%"/>
+                    <!--<col width="18%"/>
+                    <col width="18%"/>-->
+                </colgroup>
+                <thead>
+                <tr>
+                    <th data-sorting-column="id">{{L.order_noun}} #</th>
+                    <!--<th data-sorting-column="order_start">{{L.order_time}}</th>-->
+                    <th data-sorting-column="create_on">{{L.create_time}}</th>
+                    <!--<th data-sorting-column="order_type">{{L.type_cap}}</th>-->
+                    <th data-sorting-column="total_price">{{L.total_price}}</th>
+                    <th data-sorting-column="table_name">{{L.table_name}}</th>
+                    <th data-sorting-column="status">{{L.operating_status}}</th>
+                    <th>{{L.payment_status}}</th>
+                    <!--<th>Payment</th>
+                    <th>{{L.name}}</th>
+                    <th>{{L.phone}}</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="order in cur_orders" ng-click="toSelectOrder(order)" class="order_{{order.status}}" style="cursor: pointer">
+                    <td><a href="javascript:;" ng-bind="order.seq"></a></td>
+                    <!--<td ng-bind="DateFormat(order.order_start,'MM/dd/yyyy hh:mm TT')"></td>-->
+                    <td ng-bind="DateFormat(order.create_on,'MM/dd/yyyy HH:mm:ss')"></td>
+                    <!--<td ng-bind="ORDER_TYPE.DESC[order.order_type]"></td>-->
+                    <td ng-bind="order.total_price | customCurrency:currency"></td>
+                    <td ng-bind="order.table_name!=null?order.table_name:''"></td>
+                    <td ng-bind="ORDER_STATUS.DESC[order.status]" class="order_status_color_{{order.status}}"></td>
+                    <td ng-bind="order.pay_state==1 ? L.payment_status_1: L.payment_status_0"></td>
+                    <!--<td ng-bind="order.payment_type != null ? ((order.payment_type ==0 ? 'Paypal(' : 'Credit Card(' )+order.payment_info+')'): 'Not Paid'" ></td>
+                    <td ng-bind="order.order_type==ORDER_TYPE.TOGO ? order.orderUsername : order.cust_id>0 ? order.orderUsername : '[BIZ]'"></td>
+                    <td ng-bind="order.phone"></td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+<div class="space-12"></div>
+    <audio id="js-audio-warning">
+        Your browser dose not support audio.
+        <source src="../../media/warning_tone2.ogg" type="audio/ogg">
+        <source src="../../media/warning_tone2.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="space-12"></div>
+    <audio id="call_out">
+        Your browser dose not support audio.
+        <source src="">
+    </audio>
+</div>
+
+<style>
+    .main-content{
+        margin-left: 0;
+    }
+    .top-link .breadcrumb{
+        font-size: 18px;
+        margin-left: 0;
+    }
+    .table thead tr{
+        background-image: none;
+        background: #ffffff;
+        color: #707070;
+        font-size: 16px;
+        border-bottom:2px solid #ddd;
+    }
+    .table tbody tr{
+        font-size: 16px;
+    }
+    .table>thead>tr>th {
+        vertical-align: bottom;
+        border-bottom: 3px solid #ddd;
+    }
+    .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th, #order_view .table-hover>tbody>.order_100:hover>td, .table-hover>tbody>.order_100r:hover>th{
+        background: #dff0d8;
+    }
+    #order_view .order_status_color_100{
+        color:#cf0017;
+
+    }
+    #order_view .order_status_color_102{
+        color:#6fb56f;
+    }
+    .table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td{
+        padding: 10px;
+    }
+    .order_100{
+        background-color: #f2dede;
+    }
+    #order_view .table-striped>tbody>.order_100>td{
+        background-color: #f2dede;
+    }
+</style>
+

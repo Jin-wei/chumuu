@@ -1,0 +1,54 @@
+<div class="type_div" ng-if="prod.extend.length>0">
+    <span ng-click="showTypeModal()" ng-class="{true: 'chocie_type_en',false: 'chocie_type'}[L.key=='en-us']">{{L.choice_taste}}</span> <span
+        class="type-red-color" ng-if="count>0">{{count}}</span>
+</div>
+
+<div class="modal fade " id="AddModal{{prod.prod_id}}" style="overflow-y:scroll">
+    <div class="modal-dialog"   style="min-height: 200px;height:auto;overflow: auto">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close choice_taste_close"  data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" ng-if="prod.name" style="text-align: left">{{prod.name}}</h4>
+                <h4 class="modal-title" ng-if="prod.productName"  style="text-align: left">{{prod.productName}}</h4>
+            </div>
+            <form  id="formB">
+                <div class="modal-body"  style="min-height: 150px;height:auto;overflow:  auto">
+                    <div class="form-group col-md-12 col-xs-12" ng-repeat="extend in prod.extend">
+                        <div style="text-align: left">
+                            <p class="mp-text-ellipsis overflow-hidden mp-mobile-fontsize-14px mp-mobile-height-18px">{{extend.extend_name}}</p>
+                            <div class="muti-choice">
+                                <span class="choose-attr" ng-class="{true: 'selected',false: 'unselected'}[detail.selected]" ng-repeat="detail in  extend.itemArr" ng-click="changeExtend(detail)">{{detail.extend_name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer form-group" style="border: none;margin-bottom: 0px">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="col-md-9 col-xs-6" style="text-align: left">
+                            <span class="muti-price" ng-bind="prod.price+extendPrice | customCurrency:currency"></span>
+                            <span class="muti-type-footer">({{extendName}})</span>
+                            <p></p>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <div  class="col-xs-12 col-sm-12 text-right mp-mobile-margintop-0px mp-mobile-height-27px" style="float:right">
+                                <div style="align-items: center;text-align: right">
+                                    <i class="mp-shopping-cart-reduce-button mp-pointer iconfont icon-shandiao" data-action="-1" ng-show="detailCount>0"
+                                       style="font-size: 46px;color: #fcb232"></i>
+                                    <!--<i class="mp-shopping-cart-reduce-button mp-pointer iconfont icon-shandiao" data-action="0" ng-show="detailCount==0"
+                                       style="font-size: 46px;color: #fcb232"></i>-->
+                                    <span class="mp-shopping-cart-count2" ng-bind="detailCount" ng-show="detailCount>0"></span>
+                                    <i class="mp-shopping-cart-add-button mp-pointer iconfont icon-tianjia" data-action="1"
+                                       style="font-size:46px;color:#fcb232"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12" style="text-align: left">
+                        <span class="muti-type-detail">{{L.price_detail}}:{{L.old_price}}:{{prod.price | customCurrency:currency}}&nbsp;&nbsp;</span>
+                        <span class="muti-type-detail" ng-repeat="extend in extendIdArray">{{extend.name}}:{{extend.price  | customCurrency:currency}}&nbsp;&nbsp;</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

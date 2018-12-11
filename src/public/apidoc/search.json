@@ -1,0 +1,413 @@
+{
+    "apiVersion":"1.0.0",
+    "swaggerVersion":"1.2",
+    "basePath":"http://localhost:8080/api",
+    "resourcePath":"/apidoc/search.json",
+    "apis":[
+        {
+            "path":"/cust/do/searchProd",
+            "description":"Get product by key word",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"searchProductByKeyWord",
+                    "type":"prodInfo",
+                    "parameters":[
+                        {
+                            "paramType": "query",
+                            "name": "name",
+                            "description": "product key word",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "from",
+                            "description": "ths start position of the record in index",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "the count of the search",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "lat",
+                            "description": "the lat of the searcher location",
+                            "type": "float",
+                            "required": false
+                        },{
+                            "paramType": "query",
+                            "name": "lon",
+                            "description": "the lon of the searcher location",
+                            "type": "float",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "the distance start number",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "end",
+                            "description": "the distance end number",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get all promotion of the business",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/do/searchBiz",
+            "description":"Get biz by key word",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizByKeyWord",
+                    "type":"bizInfo",
+                    "parameters":[
+                        {
+                            "paramType": "query",
+                            "name": "name",
+                            "description": "biz key word",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "from",
+                            "description": "ths start position of the record in index",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "the count of the search",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "lat",
+                            "description": "the lat of the searcher location",
+                            "type": "float",
+                            "required": false
+                        },{
+                            "paramType": "query",
+                            "name": "lon",
+                            "description": "the lon of the searcher location",
+                            "type": "float",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "the distance start number",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "end",
+                            "description": "the distance end number",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get all promotion of the product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/do/searchBizTip",
+            "description":"Get biz by key word for tip",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizByKeyWordTip",
+                    "type":"bizInfo",
+                    "parameters":[
+                        {
+                            "paramType": "query",
+                            "name": "name",
+                            "description": "biz key word",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "from",
+                            "description": "ths start position of the record in index",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "the count of the search",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get all promotion of the product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/do/searchProdTip",
+            "description":"Get product by key word for tip",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizByKeyWordTip",
+                    "type":"prodInfo",
+                    "parameters":[
+                        {
+                            "paramType": "query",
+                            "name": "name",
+                            "description": "biz key word",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "from",
+                            "description": "ths start position of the record in index",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "the count of the search",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get all promotion of the product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/do/searchBizLike",
+            "description":"Get similar biz by key word",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getLikeBizByKeyWord",
+                    "type":"bizInfo",
+                    "parameters":[
+                        {
+                            "paramType": "query",
+                            "name": "name",
+                            "description": "biz key word",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "from",
+                            "description": "ths start position of the record in index",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "the count of the search",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get all promotion of the product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/cust/do/searchProdLike",
+            "description":"Get similar product by key word",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getLikeProdByKeyWord",
+                    "type":"bizInfo",
+                    "parameters":[
+                        {
+                            "paramType": "query",
+                            "name": "name",
+                            "description": "prod key word",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "from",
+                            "description": "ths start position of the record in index",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "the count of the search",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+                    ],
+                    "summary":"Get all promotion of the product",
+                    "notes": ""
+                }
+            ]
+        }
+
+    ],
+
+    "models":{
+        "promotionInfo" : {
+            "id" : "promotionInfo",
+            "properties" : {
+                "name" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "Promotion name"
+                },
+                "promotion_id" : {
+                    "type" : "Integer" ,
+                    "required" : false,
+                    "description" : "Promotion id"
+                },
+                "biz_id" : {
+                    "type" : "Integer" ,
+                    "required" : true,
+                    "description" : "the business of promotion id"
+                },
+                "prod_id" : {
+                    "type" : "Integer" ,
+                    "required" : false,
+                    "description" : "the product id with promotion info"
+                },
+                "description" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "The description of promotion"
+                },
+                "discount_pct" : {
+                    "type" : "Integer" ,
+                    "required" : false,
+                    "description" : "The discount pct of business"
+                },
+                "discount_amount" : {
+                    "type" : "Float" ,
+                    "required" : false,
+                    "description" : "The discount  amount of business"
+                },
+                "start_date" : {
+                    "type" : "Integer" ,
+                    "required" : false,
+                    "description" : "The start date of promotion"
+                },
+                "end_date" : {
+                    "type" : "Integer" ,
+                    "required" : false,
+                    "description" : "The end date of promotion"
+                },
+                "active" : {
+                    "type" : "Integer" ,
+                    "required" : true,
+                    "description" : "The state of promotion"
+                }
+                ,
+                "create_on" : {
+                    "type" : "Date" ,
+                    "required" : false,
+                    "description" : "The created date time of promotion"
+                },
+                "update_on" : {
+                    "type" : "Date" ,
+                    "required" : false,
+                    "description" : "The last updated date time of promotion"
+                },
+                "img_url" : {
+                    "type" : "String" ,
+                    "required" : false,
+                    "description" : "The image of promotion"
+                }
+            }
+        }
+    }
+}

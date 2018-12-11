@@ -1,0 +1,62 @@
+<div id="feedback_view" class="page-content">
+    <div class="page-header">
+        <span class="mp-page-header-title">{{L.feedbacks}}</span>
+    </div>
+    <div class="row">
+        <p>
+            {{L.feedback_statement}}
+        </p>
+        <div class="col-xs-12 space-8"></div>
+        <form name="form" novalidate>
+            <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-3" style="font-family:Arial;text-align: right;font-size:14pt;font-weight:bold;">
+                    {{L.email + ':'}}
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <input ng-model="feedback.contactEmail" name="email"  type="email" style="width:100%;" ng-blur="email_blur=true" ng-focus="email_blur=false"/>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <span style="font-size:14pt;" ng-show="form.email.$invalid && form.email.$dirty && email_blur">
+                        <span class="icon-remove-circle red"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-12 space-8"></div>
+            <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-3" style="font-family:Arial;text-align: right;font-size:14pt;font-weight:bold;">
+                    {{L.phone + ':'}}
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <input ng-model="feedback.contactPhone" type="text" style="width:100%;"/>
+                </div>
+            </div>
+            <div class="col-xs-12 space-8"></div>
+            <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-3" style="font-family:Arial;text-align: right;font-size:14pt;font-weight:bold;">
+                    {{L.comments + ':'}}
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <textarea name="content" ng-model="feedback.content" required ng-maxlength="1000" style="width:100%;height:100px;"></textarea>
+                    <br>
+                    <span ng-show="form.content.$error.maxlength">1000 characters limited</span>
+                </div>
+            </div>
+            <div class="col-xs-12 space-8"></div>
+            <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-3"> </div>
+                <div class="col-xs-12 col-sm-6">
+                    <button class="btn btn-success" ng-disabled="form.$invalid" ng-click="onSubmit()">{{L.submit}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <style>
+        #feedback_view .row p {
+            text-indent: 2em;
+            font-size:11pt;
+            margin:10px auto;
+            max-width: 800px;
+            font-family: Arial !important;
+        }
+    </style>
+</div>

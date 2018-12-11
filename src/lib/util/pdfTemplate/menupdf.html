@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- basic styles -->
+    <link href="{{urlRoot}}/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="{{urlRoot}}/assets/css/font-awesome.min.css" />-->
+    <style type="text/css" media="screen,print">
+        * {
+            font-family: Arial, Helvetica, sans-serif !important;
+            /*overflow: visible !important;*/
+        }
+        .row > .col-xs-4 {
+            /*
+            we can't use width:33.333%, we can't get right height of DIV in that case
+            so we have to give a specific width
+            */
+            /* move this config to .row  2014-12-25 */
+            /*width:364px;*/
+            /*width: 33.333%;*/
+            padding:0px 18px;
+            /*border:1px solid grey;*/
+        }
+        .col-xs-12,
+        .col-xs-10,
+        .col-xs-2
+        {
+            padding:0px;
+        }
+        .menu_order {
+            width:10%;
+            float:left;
+            height: 100%;
+        }
+        .menu_spiciness {
+            display: inline-block;
+            width:5%;
+            float:left;
+            height: 100%;
+        }
+        .menu_price {
+            width:13%;
+            float:right;
+            height: 100%;
+        }
+        .menu_name {
+            width:70%;
+            float:left;
+        }
+        .item {
+            padding: {{page.item_padding}};
+            margin: {{page.item_margin}};
+            display: inline-block;
+            width:100%;
+        }
+        .item:after {
+            content:'';
+            clear: both;
+        }
+        .small_font {
+            font-size: {{page.small_font}};
+            /*min-height: 13px;*/
+            /*line-height: 20px;*/
+            position: relative;
+        }
+        .big_font {
+            font-size: {{page.big_font}};
+            /*font-weight:bold;*/
+            /*height: auto;*/
+            /*min-height: 26px;*/
+        }
+        .biz_font {
+            font-size: {{page.biz_font}};
+        }
+        .odd {
+            background-color: #F5F5F5;
+        }
+        .text_center {
+            text-align: center;
+        }
+        .red {
+            color: #BB0011;
+        }
+        .row {
+            /*
+                specific width & height 2014-12-25
+            */
+            width:{{page.row_width}};
+            height: {{page.row_height}};
+            /*width: 1580px;*/
+            /*height: 920px;*/
+            overflow: hidden;
+            /*border: 1px solid green;*/
+        }
+        .page-breaker {
+            display: block;
+            page-break-after: always;
+        }
+        #qrcode {
+            width:129px;
+            margin: 0px auto;
+        }
+    </style>
+</head>
+
+<body>
+<div id="container" class="container">
+    <div style="display:none;height:0px;">
+        {{#each type}}
+        {{#if prods}}
+        <div class="red item big_font text_center" style="padding-top:10px;">{{name_lang}} {{name}}</div>
+        {{#each prods}}
+        <div class="item small_font {{#if pdfOdd}}odd{{/if}}">
+            <span class="menu_order">{{pdfOrderCode}}</span>
+            <span class="menu_spiciness">
+                {{#if spiciness}}
+                <img width="10px" height="12px" src="{{../../../../urlRoot}}/image/spiciness.png" />
+                {{else}}
+                &nbsp;
+                {{/if}}
+            </span>
+            <span class="menu_name">{{name_lang}} {{name}}</span>
+            <span class="menu_price">${{price}}</span>
+        </div>
+        {{/each}}
+        {{/if}}
+        {{/each}}
+    </div>
+    <div class="row" style="overflow: hidden !important;">
+        <div class="col1 col-xs-4" style="text-align: center;">
+            <div class="big_font red" style="font-size:15pt;">{{biz.name_lang}}</div>
+            <div class="big_font red" style="font-size:16pt;">{{biz.name}}</div>
+            <br>
+            <div class="small_font">{{biz.address}}</div>
+            <div class="small_font">{{biz.city}}, {{biz.state}} {{biz.zipcode}}</div>
+            {{#each biz.phones}}
+            <div class="small_font"><b>{{this}}</b></div>
+            {{/each}}
+            {{#if biz.hours_display}}
+            <div class="small_font"><b>Hours of Operation</b></div>
+            {{#each biz.hours_display}}
+            <div class="small_font">{{this}}</div>
+            {{/each}}
+            {{/if}}
+            <br>
+            <div id="qrcode"></div>
+            <br>
+            <div class="small_font" style="color:grey">(Scan the QR Code above to view our online Menu!)</div>
+            <br>
+            <img id="js-map" style="width:300px;height:240px;border:1px solid grey;" src="" />
+        </div>
+        <div class="col2 col-xs-4">
+        </div>
+        <div class="col3 col-xs-4">
+        </div>
+    </div>
+    <div class="page-breaker"></div>
+</div>
+</body>
+<script src="{{urlRoot}}/assets/js/qrcode.min.js"></script>
+<script src="{{urlRoot}}/assets/js/jquery-2.0.3.min.js"></script>
+<script src="{{urlRoot}}/js/lib/jquery.cookie.js"></script>
+<script type="text/javascript">
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: "{{urlRoot}}/#/restaurant/{{biz.biz_unique_name}}",
+        width: 128,
+        height: 128,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+    var bizStaticMapUrl = '';
+    if ('{{page.map}}'=='gaode') {
+        bizStaticMapUrl = 'http://restapi.amap.com/v3/staticmap?location={{biz.longitude}},{{biz.latitude}}&zoom=16&size=300*240&markers=mid,,A:{{biz.longitude}},{{biz.latitude}}&key=58c19c77dbbc919ab1455f4fac9a058a';
+    }
+    else {
+        bizStaticMapUrl = 'http://maps.google.com/maps/api/staticmap?center={{biz.latitude}},{{biz.longitude}}&zoom=12&size=300x240&maptype=roadmap&markers={{biz.latitude}},{{biz.longitude}}';
+    }
+    $('#js-map').attr('src',bizStaticMapUrl);
+
+    /**
+     * @description
+     * we have three columns per page, fill them one by one
+     * */
+    var items = $('.item');
+    var container = $('#container');
+    var content = '';
+    var colIndex = 2;
+    //curRow = current page
+    var curRow = $($('.row').get(0));
+    //curCol = current column we should fill menu into there.
+    var curCol = $(curRow.children('div')[colIndex-1]);
+    //fetch all menu items and insert them into right columns
+    for(var i=0;i<items.length;++i) {
+        var item = $(items[i]);
+        curCol.append(item);
+        //if current column is full, we need to move to next column
+        if(curCol.height()> curRow.height()) {
+            //remove the last menu item, re-insert it to new column
+            curCol.children('.item').last().remove();
+            colIndex++;
+            if(colIndex>3)
+                colIndex = 1;
+            //we need a new page(curRow) here
+            if(colIndex==1) {
+                curRow = $('<div>');
+                curRow.addClass('row');
+                //add 3 empty column
+                for(var j=1;j<=3;++j) {
+                    var col = $('<div>');
+                    col.addClass('col'+j+' col-xs-4');
+                    curRow.append(col);
+                }
+                container.append(curRow);
+                //add page breaker to start a new page by force
+                var breaker = $('<div>');
+                breaker.addClass('page-breaker');
+                container.append(breaker);
+            }
+            //insert menu item into new column
+            curCol = $(curRow.children('div')[colIndex-1]);
+            curCol.append(item);
+        }
+    }
+//    var cols = $('.col-xs-4');
+//    var width_str = $(cols[0]).css('width');
+//    var width = $(cols[0]).width();
+//    document.write('<br>========================'+width_str);
+//    $('.col-xs-4').width(width);
+</script>
+</html>
+

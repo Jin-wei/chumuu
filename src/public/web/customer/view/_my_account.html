@@ -1,0 +1,411 @@
+<div id="my_account_view" class="page-content mp-mobile-marginleft-10px mp-mobile-marginright-10px" style="margin-left:134px;margin-right:134px;">
+
+    <div class="col-xs-12 mp-account-tabs mp-mobile-margintop-10px mp-mobile-marginbottom-5px">
+        <span>
+            <img class="mp-round-border" width="50px" ng-src="{{$mpCustomer.getItem('avatar')}}">
+        </span>
+        <span class="position-relative">
+            <mp-tab class="position-relative" ng-model="tabs" style="z-index:1;"></mp-tab>
+            <div class="position-absolute width-100" style="top:25px;border-top:1px solid orange;z-index:0;"></div>
+        </span>
+    </div>
+
+    <div id="js-account-tab" class="col-xs-12" style="margin-top:10px;">
+        <div id="myfavorite_view" class="row" ng-controller="myFavoriteController">
+            <div class="tabbable">
+                <ul class="nav nav-tabs mp-nav-tabs" id="myTab">
+                    <li bindonce ng-class="{'active':tab.active}" ng-repeat="tab in tabs">
+                        <a data-toggle="tab" href="javascript:;" ng-click="changeTab(tab)">
+                            <!--<i class="orange {{tab.icon}} bigger-110"></i>-->
+                            <span bo-bind="tab.name"></span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="col-xs-12 0tab-content" style="padding-top:10px;">
+                    <div class="col-xs-12 tab-pane in active" ng-show="tabs[0].active">
+                        <div class="col-xs-12 mp-display-box mp-mobile-paddingtop-10px mp-mobile-paddingleft-5px mp-mobile-paddingright-5px" style="padding:20px 0 20px 0;border-bottom:1px solid #eee;" ng-repeat="item in $mpCustomerFavoriteBusiness.getData()">
+                            <div class="mp-mobile-width-100px" style="width:180px;">
+                                <img class="mp-pointer" style="width:100%;" ng-src="{{item.img_url_m}}"
+                                     ng-click="navTo('/restaurant/'+item.bizKey)"/>
+                            </div>
+                            <div class="mp-boxflex-1" style="padding:5px;">
+                                <a href="javascript:;" class=" mp-mobile-fontsize-13px" ng-click="navTo('/restaurant/'+item.bizKey)" title="{{item.name}}" style="font-size:24px;color:#575555;" ng-bind="item.name"> </a>
+                                <div>
+                                    <div>
+                                        <span class="icon-home mp-display-inline-block" style="width:20px;font-size:20px;color:#9e9e9e;margin-right:6px;"></span>
+                                        <a class="mp-pointer mp-text-ellipsis overflow-hidden mp-mobile-fontsize-13px"
+                                           style="color:#1086ff;font-size:22px;" onclick="javascript:;" ng-bind="item.address"
+                                           ng-click="onOpenBizMapNavigator(item)"></a>
+                                    </div>
+                                    <div>
+                                        <span class="icon-phone mp-display-inline-block" style="width:20px;font-size:20px;color:#9e9e9e;margin-right:6px;"></span>
+                                        <span ng-repeat="phone in item.phoneArr">
+                                            <a href="tel:{{phone}}" class="mp-text-ellipsis overflow-hidden mp-mobile-fontsize-13px" style="color:#1086ff;font-size:22px;" ng-bind="phone"></a>
+                                            <span ng-if="!$last" style="margin-right:10px;">,</span>
+                                        </span>
+                                    </div>
+                                    <div ng-show="!_.isUndefined(item.distance) || true">
+                                        <span class="icon-map-marker mp-display-inline-block"
+                                              style="width:20px;font-size:20px;color:#9e9e9e;margin-right:6px;"></span>
+                                        <span class=" mp-mobile-fontsize-13px" style="color:grey;font-size:22px;">{{item.distance | number:2}} miles</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <starrating class="mp-mobile-fontsize-16px" style="color:darkorange;font-size:24px;" rating="{{item.commentRating.avg_service}}"></starrating>
+                                    <button class="mp btn btn-danger btn-sm pull-right mp-display-none mp-mobile-display-inline-block mp-mobile-nopadding" ng-click="undoFavoriteBiz(item)">
+                                        <span class=" icon-trash" style=""></span>
+                                        {{L.remove}}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mp-mobile-display-none">
+                                <table style="height:180px;">
+                                    <tr><td>
+                                        <button style="" class="mp btn btn-danger" ng-click="undoFavoriteBiz(item)">
+                                            <span class=" icon-trash" style="margin-right:10px;"></span>
+                                            {{L.remove}}
+                                        </button>
+                                    </td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane in active" ng-show="tabs[1].active">
+                        <div class="col-xs-12 mp-display-box" style="padding:20px 0 20px 0;border-bottom:1px solid #eee;" ng-repeat="item in $mpCustomerFavoriteMenuItems.getData()">
+                            <div class="mp-mobile-width-100px" style="width:180px;">
+                                <img class="mp-pointer" style="width:100%;" ng-src="{{item.img_url_m}}"
+                                     ng-click="navTo('/restaurant/'+item.bizKey)"/>
+                            </div>
+                            <div class="mp-boxflex-1" style="padding:5px;">
+                                <a href="javascript:;" class=" mp-mobile-fontsize-13px" ng-click="navTo('/restaurant/'+item.bizKey+'/menu_item/'+item.prod_id)" title="{{item.name}}" style="font-size:24px;color:#575555;" ng-bind="item.name+' '+item.name_lang"> </a>
+                                <div style="font-size:14px;margin-top:4px;">
+                                    <div class="" style="">
+                                        <a class="mp-pointer mp-text-ellipsis overflow-hidden mp-mobile-fontsize-13px"
+                                           style="color:#1086ff;font-size:22px;" onclick="javascript:;" ng-bind="item.biz_name"
+                                           ng-click="navTo('/restaurant/'+item.bizKey)"></a>
+                                    </div>
+                                </div>
+                                <div class="" style="">
+                                    <span ng-bind="item.biz_name_lang"></span>
+                                </div>
+                                <div class="" style="">
+                                    <starrating class="mp-mobile-fontsize-16px" style="color:darkorange;font-size:24px;" rating="{{item.commentRating.avg_rating}}"></starrating>
+                                    <button class="mp btn btn-danger btn-sm pull-right mp-display-none mp-mobile-display-inline-block mp-mobile-nopadding" ng-click="undoFavoriteProd(item)">
+                                        <span class=" icon-trash" style=""></span>
+                                        {{L.remove}}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mp-mobile-display-none">
+                                <table style="height:180px;">
+                                    <tr><td>
+                                        <button style="" class="mp btn btn-danger" ng-click="undoFavoriteProd(item)">
+                                            <span class=" icon-trash" style="margin-right:10px;"></span>
+                                            {{L.remove}}
+                                        </button>
+                                    </td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- /span -->
+        </div>
+
+        <div id="setting_view" class="row" ng-controller="settingController">
+        <div class="tabbable">
+        <ul class="nav nav-tabs mp-nav-tabs" id="myTab">
+            <li  bindonce ng-class="{'active':tab.active}" ng-repeat="tab in tabs">
+                <a data-toggle="tab" href="javascript:;" ng-click="changeTab(tab)">
+                    <!--<i class="green {{tab.icon}} bigger-110"></i>-->
+                    <span ng-bind="tab.name"></span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="col-xs-12 0tab-content" style="padding-top:10px;">
+        <div class="col-xs-12 tab-pane in active" ng-show="tabs[0].active">
+            <div ng-if="!isCN">
+                <div class="mp-setting-item mp-display-box">
+                    <div><span class="icon-envelope"></span></div>
+                    <div>{{L.email}}</div>
+                    <div class="mp-boxflex-1" ng-bind="$mpCustomer.getItem('email')"></div>
+                    <div></div>
+                </div>
+                <hr>
+            </div>
+            <div class="mp-setting-item mp-display-box">
+                <div><span class="icon-picture"></span></div>
+                <div>{{L.avatar}}</div>
+                <div class="mp-boxflex-1">
+                    <form id="js-setting-avatar">
+                        <img class="mp-round-border mp-file-upload" ng-class="{'is-edit-avatar':isEditAvatar}" width="50px" height="50px" ng-src="{{$mpCustomer.getItem('avatar')}}">
+                        <input name="image" type="file" max_size="10M" style="display: none;" >
+                    </form>
+                </div>
+                <div class="mp-no-select">
+                    <span ng-show="!isEditAvatar" class="mp-pointer icon-edit green" ng-click="onEdit('Avatar')"></span>
+                    <span ng-show="isEditAvatar" class="icon-ok green mp-pointer" style="font-size:27px;" ng-click="onOK('Avatar',uploadAvatar)"></span>
+                    <span ng-show="isEditAvatar" class="icon-remove red mp-pointer mp-mobile-marginleft-5px" style="font-size:27px;margin-left:20px;" ng-click="onCancel('Avatar',cancelUploadAvatar)"></span>
+                </div>
+            </div>
+            <hr>
+            <div class="mp-setting-item mp-display-box">
+                <div><span class="icon-user"></span></div>
+                <div>{{L.username}}</div>
+                <div class="mp-boxflex-1">
+                    <div ng-show="!isEditUsername">
+                        <span ng-bind="$mpCustomer.getItem('username')"></span>
+                    </div>
+                    <div ng-show="isEditUsername">
+                        <input class="mp-edit-gray-green mp" type="text" style="width:90%;max-width:400px;" ng-model="custNewInfo.username">
+                    </div>
+                </div>
+                <div class="mp-no-select">
+                    <span ng-show="!isEditUsername" class="mp-pointer icon-edit green" ng-click="onEdit('Username')"></span>
+                    <span ng-show="isEditUsername" class="icon-ok green mp-pointer" style="font-size:27px;" ng-click="onOK('Username',updateUsername)"></span>
+                    <span ng-show="isEditUsername" class="icon-remove red mp-pointer mp-mobile-marginleft-5px" style="font-size:27px;margin-left:20px;" ng-click="onCancel('Username')"></span>
+                </div>
+            </div>
+            <hr>
+            <div class="mp-setting-item mp-display-box">
+                <div><span class="icon-user"></span></div>
+                <div>{{L.name}}</div>
+                <div class="mp-boxflex-1">
+                    <div ng-show="!isEditName">
+                        <span ng-if="!isCN" ng-bind="$mpCustomer.getItem('first_name')"></span>
+                        <span ng-bind="$mpCustomer.getItem('last_name')" style="margin-left:8px;"></span>
+                        <span ng-if="isCN" ng-bind="$mpCustomer.getItem('first_name')"></span>
+                    </div>
+                    <div class="mp-mobile-fontsize-14px" ng-show="isEditName">
+                        <div ng-if="!isCN" class="col-xs-12 col-sm-6">
+                            <div>{{L.first_name}}</div>
+                            <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="custNewInfo.first_name">
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div>{{L.last_name}}</div>
+                            <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="custNewInfo.last_name">
+                        </div>
+                        <div ng-if="isCN" class="col-xs-12 col-sm-6">
+                            <div>{{L.first_name}}</div>
+                            <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="custNewInfo.first_name">
+                        </div>
+                    </div>
+                </div>
+                <div class="mp-no-select">
+                    <span ng-show="!isEditName" class="mp-pointer icon-edit green" ng-click="onEdit('Name')"></span>
+                    <span ng-show="isEditName" class="icon-ok green mp-pointer" style="font-size:27px;" ng-click="onOK('Name',updateName)"></span>
+                    <span ng-show="isEditName" class="icon-remove red mp-pointer mp-mobile-marginleft-5px" style="font-size:27px;margin-left:20px;" ng-click="onCancel('Name')"></span>
+                </div>
+            </div>
+            <div ng-if="!isCN">
+                <hr>
+                <div class="mp-setting-item mp-display-box">
+                    <div><span class="icon-phone"></span></div>
+                    <div>{{L.phone}}</div>
+                    <div class="mp-boxflex-1">
+                        <div ng-show="!isEditPhone">
+                            <span ng-bind="$mpCustomer.getItem('phone_no')"></span>
+                        </div>
+                        <div ng-show="isEditPhone">
+                            <input class="mp-edit-gray-green mp" type="text" style="width:90%;max-width:400px;" mp-reformat-phone-number ng-model="custNewInfo.phone_no">
+                        </div>
+                    </div>
+                    <div class="mp-no-select">
+                        <span ng-show="!isEditPhone" class="mp-pointer icon-edit green" ng-click="onEdit('Phone')"></span>
+                        <span ng-show="isEditPhone" class="icon-ok green mp-pointer" style="font-size:27px;" ng-click="onOK('Phone',updatePhone)"></span>
+                        <span ng-show="isEditPhone" class="icon-remove red mp-pointer mp-mobile-marginleft-5px" style="font-size:27px;margin-left:20px;" ng-click="onCancel('Phone')"></span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="mp-setting-item mp-display-box">
+                <div><span class="icon-book"></span></div>
+                <div>{{L.address}}</div>
+                <div class="mp-boxflex-1">
+                    <div ng-show="!isEditAddress">
+                        <span ng-if="!isCN" ng-bind="$mpCustomer.getItem('address')"></span>
+                        <span ng-if="!isCN" ng-bind="$mpCustomer.getItem('city')"></span>
+                        <span ng-bind="$mpCustomer.getItem('state')"></span>
+                        <span ng-if="isCN" ng-bind="$mpCustomer.getItem('city')"></span>
+                        <span ng-if="isCN" ng-bind="$mpCustomer.getItem('address')"></span>
+                        <span ng-bind="$mpCustomer.getItem('zipcode')"></span>
+                    </div>
+                    <div class="mp-mobile-fontsize-14px" ng-show="isEditAddress">
+                        <div ng-if="!isCN">
+                            {{L.street_address}}
+                            <div>
+                                <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="custNewInfo.address">
+                            </div>
+                        </div>
+                        <div ng-if="!isCN">
+                            {{L.city}}
+                            <div>
+                                <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="custNewInfo.city">
+                            </div>
+                        </div>
+                        <div>
+                            {{isCN ? L.province : L.state}}
+                            <div>
+                                <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="custNewInfo.state">
+                            </div>
+                        </div>
+                        <div ng-if="isCN">
+                            {{L.city}}
+                            <div>
+                                <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="custNewInfo.city">
+                            </div>
+                        </div>
+                        <div ng-if="isCN">
+                            {{L.street_address}}
+                            <div>
+                                <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="custNewInfo.address">
+                            </div>
+                        </div>
+                        <div>
+                            {{L.zip_code}}
+                            <div>
+                                <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="custNewInfo.zipcode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mp-no-select">
+                    <span ng-show="!isEditAddress" class="mp-pointer icon-edit green" ng-click="onEdit('Address')"></span>
+                    <span ng-show="isEditAddress" class="icon-ok green mp-pointer" style="font-size:27px;" ng-click="onOK('Address',updateAddress)"></span>
+                    <span ng-show="isEditAddress" class="icon-remove red mp-pointer mp-mobile-marginleft-5px" style="font-size:27px;margin-left:20px;" ng-click="onCancel('Address')"></span>
+                </div>
+            </div>
+            <hr>
+            <div class="space-4"></div>
+        </div>
+
+
+        <div class="col-xs-12 tab-pane in active" ng-show="tabs[1].active">
+            <form class="mp-form-validation" name="changePasswordForm" novalidate>
+                <div class="mp-setting-item mp-display-box">
+                    <div><span class="icon-lock"></span></div>
+                    <div>{{L.password}}</div>
+                    <div class="mp-boxflex-1">
+                        <div class="mp-mobile-fontsize-14px" ng-show="isEditPassword">
+                            <div class="col-xs-12 col-sm-4">
+                                {{L.current}}
+                                <div>
+                                    <input class="mp-edit-gray-green mp" type="password" name="currentPass" style="width:90%;" ng-model="passInfo.current" required>
+                                    <span ng-show="changePasswordForm.currentPass.$invalid && changePasswordForm.currentPass.$dirty">
+                                        <span ng-show="changePasswordForm.currentPass.$error.required" class="label label-danger label-xlg " style="width: auto;">
+                                                <i class="icon-warning-sign  bigger-130"></i>
+                                                {{L.change_password_warning_text_1}}</span>
+                                     </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                                {{L.new}}
+                                <div>
+                                    <input class="mp-edit-gray-green mp" type="password" name="newPass" style="width:90%;" ng-model="passInfo.new" required required ng-minlength=6 ng-maxlength=15>
+                                    <span ng-show="changePasswordForm.newPass.$invalid && changePasswordForm.newPass.$dirty">
+                                        <span ng-show="changePasswordForm.newPass.$invalid" class="label label-danger label-xlg " style="width: auto;">
+                                            <i class="icon-warning-sign  bigger-130"></i>
+                                            {{L.change_password_warning_text_2}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                                {{L.retype_new}}
+                                <div>
+                                    <input class="mp-edit-gray-green mp" type="password" name="reNewPass" style="width:90%;" ng-model="passInfo.renew" required ng-minlength=6 ng-maxlength=15>
+                                    <span ng-show="changePasswordForm.reNewPass.$invalid && changePasswordForm.reNewPass.$dirty">
+                                        <span ng-show="changePasswordForm.reNewPass.$invalid" class="label label-danger label-xlg " style="width: auto;">
+                                            <i class="icon-warning-sign  bigger-130"></i>
+                                            {{L.change_password_warning_text_2}}</span>
+                                    </span>
+                                    <span ng-show="changePasswordForm.reNewPass.$valid && passInfo.new != passInfo.renew" class="label label-danger label-xlg " style="width: auto;">
+                                        <i class="icon-warning-sign  bigger-130"></i>
+                                        {{L.change_password_warning_text_3}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mp-no-select">
+                        <span ng-show="!isEditPassword" class="mp-pointer icon-edit green" ng-click="onEdit('Password')"></span>
+                        <span ng-show="isEditPassword" class="icon-ok green mp-pointer" style="font-size:27px;" ng-click="onOK('Password',updatePassword)"></span>
+                        <span ng-show="isEditPassword" class="icon-remove red mp-pointer mp-mobile-marginleft-5px" style="font-size:27px;margin-left:20px" ng-click="onCancel('Password')"></span>
+                    </div>
+                </div>
+            </form>
+            <div ng-if="!isCN">
+                <hr>
+                <form class=" mp-form-validation" name="changeEmailForm" novalidate>
+                    <div class="mp-setting-item mp-display-box">
+                        <div><span class="icon-envelope"></span></div>
+                        <div>{{L.email}}</div>
+                        <div class="mp-boxflex-1">
+                            <div class="mp-mobile-fontsize-14px" ng-show="isEditEmail">
+                                <div>
+                                    {{L.current}}
+                                    <div>
+                                        <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="emailInfo.current">
+                                    </div>
+                                </div>
+                                <div>
+                                    {{L.new}}
+                                    <div>
+                                        <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="emailInfo.new">
+                                    </div>
+                                </div>
+                                <div>
+                                    {{L.retype_new}}
+                                    <div>
+                                        <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="emailInfo.renew">
+                                    </div>
+                                </div>
+                                <div>
+                                    {{L.password}}
+                                    <div>
+                                        <input class="mp-edit-gray-green mp" type="text" style="width:90%;" ng-model="emailInfo.pwd">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mp-no-select">
+                            <span ng-show="!isEditEmail" class="mp-pointer icon-edit green" ng-click="onEdit('Email')"></span>
+                            <span ng-show="isEditEmail" class="icon-ok green mp-pointer" style="font-size:27px;" ng-click="onOK('Email',updateEmail)"></span>
+                            <span ng-show="isEditEmail" class="icon-remove red mp-pointe mp-mobile-marginleft-5px" style="font-size:27px;margin-left:20px" ng-click="onCancel('Email')"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+        </div>
+        <style>
+            #setting_view .row p {
+                text-indent: 2em;
+                font-size:11pt;
+                margin:10px auto;
+                max-width: 800px;
+                font-family: Arial !important;
+            }
+        </style>
+        </div>
+    </div>
+
+    <!--<div id="dialog-confirm-favorite-undoBiz" class="hide">-->
+        <!--<div class="alert alert-info bigger-110"> {{L.delete_box_text_1}} </div>-->
+        <!--<div class="space-6"></div>-->
+        <!--<p class="bigger-110 bolder center grey">-->
+            <!--<i class="icon-hand-right blue bigger-120"></i> {{L.are_you_sure}}-->
+        <!--</p>-->
+    <!--</div>-->
+
+    <!--<div id="dialog-confirm-favorite-removeAll" class="hide">-->
+        <!--<div class="alert alert-info bigger-110"> {{L.delete_box_text_4}} </div>-->
+        <!--<div class="space-6"></div>-->
+        <!--<p class="bigger-110 bolder center grey">-->
+            <!--<i class="icon-hand-right blue bigger-120"></i> {{L.are_you_sure}}-->
+        <!--</p>-->
+    <!--</div>&lt;!&ndash; #dialog-confirm &ndash;&gt;-->
+
+</div>

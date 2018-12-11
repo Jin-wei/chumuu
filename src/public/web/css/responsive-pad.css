@@ -1,0 +1,22 @@
+/* cover style on ipad vertical */
+@media only screen and (max-width: 800px) and (min-width: 550px) {
+
+    .mp-pad-vertical-minheight-260px {
+        min-height: 260px !important;
+    }
+
+    .mp-pad-vertical-height-140px {
+        height: 140px !important;
+    }
+    .mp-pad-vertical-height-260px {
+        height: 260px !important;
+    }
+
+    .mp-pad-paddingbottom-140px {
+        padding-bottom: 140px !important;
+    }
+    .mp-pad-paddingbottom-260px {
+        padding-bottom: 260px !important;
+    }
+}
+/* responsive end */

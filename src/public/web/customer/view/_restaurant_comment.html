@@ -1,0 +1,229 @@
+<div id="restaurant_comment_view" class="page-content mp-mobile-marginleft-10px mp-mobile-marginright-10px"
+     style="margin-left:80px;margin-right:80px;">
+    <div class="mp-biz-name mp-mobile-margintop-10px mp-mobile-fontsize-18px">
+        <a href="javascript:;" ng-click="navTo('/restaurant/'+bizKey)">
+            <span ng-bind="$mpBizInfo.getItem('name')"></span>
+            <span class="mp-mobile-display-none">(</span>
+            <span class="mp-mobile-display-block mp-mobile-margintop-0px" ng-bind="$mpBizInfo.getItem('name_lang')"></span>
+            <span class="mp-mobile-display-none">)</span>
+        </a>
+    </div>
+    <div class="mp-biz-category mp-mobile-margintop-5px mp-mobile-fontsize-12px"
+         ng-bind="$mpBizInfo.getItem('category')"></div>
+    <div class="mp-biz-address text-center mp-mobile-margintop-10px" style="margin:10px 0 0 0;">
+        <div class="mp-mobile-float-left mp-mobile-width-50pc mp-display-inline-block mp-text-ellipsis overflow-hidden mp-mobile-paddingright-5px text-right">
+            <img class="mp-marginright-5px mp-mobile-width-20px" src="/image/icon/icon_home_green.png">
+            <a class=" mp-fontsize-17px mp-mobile-fontsize-12px" href="javascript:;"
+               ng-click="onOpenBizMapNavigator($mpBizInfo.getData())" ng-bind="$mpBizInfo.getItem('address')"></a>
+        </div>
+        <div class="mp-mobile-display-none mp-display-inline-block" style="margin:0 0 0 60px"></div>
+        <div class="mp-mobile-float-left  mp-mobile-width-50pc mp-display-inline-block mp-text-ellipsis overflow-hidden mp-mobile-display-box">
+            <img class="mp-mobile-display-block mp-marginright-5px mp-mobile-width-20px mp-mobile-height-20px"
+                 src="/image/icon/icon_phone_green.png">
+
+            <div class="mp-mobile-boxflex-1 mp-display-inline-block">
+                <a class="mp-mobile-marginright-0px mp-mobile-display-block text-left mp-fontsize-17px mp-mobile-fontsize-12px"
+                   href="tel:{{phone}}" ng-repeat="phone in $mpBizInfo.getItem('phoneArr')" ng-bind="phone"
+                   style="margin-right:10px;"></a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12 page-box page-main-info mp-margintop-20px">
+        <div class="page-title">
+            <span>{{L.truMenuRating}}</span><span style="margin-left:20px;color:darkorange;"
+                                             ng-bind="($mpBizInfo.getItem('extraRating').avg_rating || 0) | number:0"></span>
+        </div>
+        <div class="hr"></div>
+        <div class="page-star">
+            <div class="pull-left">
+                <span class="">{{L.food}}</span>
+                <starrating class="mp-mobile-fontsize-13px"
+                            rating="{{$mpBizInfo.getItem('extraRating').avg_food}}"></starrating>
+            </div>
+            <div class="pull-right">
+                <span class="">{{L.price}}</span>
+                <starrating class="mp-mobile-fontsize-13px"
+                            rating="{{$mpBizInfo.getItem('extraRating').avg_price}}"></starrating>
+            </div>
+            <div class="text-center">
+                <span class="">{{L.service}}</span>
+                <starrating class="mp-mobile-fontsize-13px"
+                            rating="{{$mpBizInfo.getItem('extraRating').avg_service}}"></starrating>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 mp-mobile-margintop-20px"
+         style="border:1px solid #d4d4d4;border-radius: 5px;margin-top:40px;padding:10px;">
+        <div class="col-xs-12 mp-mobile-fontsize-20px" style="font-size:25px;" ng-bind="L.review_this_rest"></div>
+        <div class="col-xs-12 hr mp-margintop-5px  mp-marginbottom-5px"></div>
+        <div class="col-xs-12 page-main-info">
+            <div class="page-star">
+                <div class="pull-left">
+                    <span class="mp-mobile-fontsize-10px">{{L.food}}</span>
+                    <starratingeditor class="mp-mobile-fontsize-16px" ng-model="starFood"></starratingeditor>
+                </div>
+                <div class="pull-right">
+                    <span class="mp-mobile-fontsize-10px">{{L.price}}</span>
+                    <starratingeditor class="mp-mobile-fontsize-16px" ng-model="starPrice"></starratingeditor>
+                </div>
+                <div class="text-center">
+                    <span class="mp-mobile-fontsize-10px">{{L.service}}</span>
+                    <starratingeditor class="mp-mobile-fontsize-16px" ng-model="starService"></starratingeditor>
+                </div>
+            </div>
+
+            <div ng-show="isLogin" id="commentBox" class="col-xs-12">
+                <form class="mp-form-validation" name="commentForm" novalidate style="margin:20px 0;">
+                    <textarea id="commentContent" class="autosize-transition form-control" ng-model="comment.comment"
+                              required ng-maxlength="500" placeholder='{{L.review_box_text}}'></textarea>
+                </form>
+                <div class="col-xs-12 mp-margintop-20px mp-mobile-margintop-5px">
+                    <!--<button class="btn btn-default btn-sm" ng-bind="L.reset"></button>-->
+                    <button class="btn btn-sm" ng-class="{'btn-success':isLogin,'btn-default':!isLogin }"
+                            ng-disabled="!isLogin" ng-click="onAddComment(commentForm.$valid)"
+                            ng-bind="L.submit"></button>
+                </div>
+            </div>
+
+            <div ng-show="!isLogin" class="mp-mobile-fontsize-13px mp-mobile-height-80px mp-mobile-lineheight-90px"
+                 style="border:1px solid #dedede;background-color: #f8f8f8;height:100px;
+                    line-height: 100px;color:#bfbfbf;font-size:24px;text-align: center;">
+                <a href="javascript:;" ng-click="jumpToLogin()">{{L.login_first}}</a>
+            </div>
+        </div>
+        <!--<div class="col-xs-12 mp-margintop-20px">
+            <!--<button class="btn btn-default btn-sm" ng-bind="L.reset"></button>-->
+        <!--<button class="btn btn-sm" ng-class="{'btn-success':isLogin,'btn-default':!isLogin }" ng-disabled="!isLogin " ng-click="submitComment(commentForm.$valid)" ng-bind="L.submit"></button>
+    </div>-->
+    </div>
+
+    <div class="col-xs-12 mp-mobile-margintop-20px mp-mobile-fontsize-20px" style="margin-top:40px;font-size:25px;"
+         ng-bind="L.reviews"></div>
+    <div ng-if="$mpBizComment.getData().length==0" class="col-xs-12 mp-margintop-20px mp-menu-item-comment mp-mobile-paddingleft-10px
+            mp-mobile-paddingright-10px mp-mobile-paddingtop-10px mp-mobile-paddingbottom-10px">
+        <div class="col-xs-12 mp-mobile-fontsize-14px mp-gray" style="margin:20px;">
+            {{L.no_reviews_yet}}
+        </div>
+    </div>
+    <div class="col-xs-12 mp-margintop-20px mp-menu-item-comment mp-mobile-paddingleft-10px
+            mp-mobile-paddingright-10px mp-mobile-paddingtop-10px mp-mobile-paddingbottom-10px"
+         ng-repeat="comment in $mpBizComment.getData()">
+        <div class="page-star page-comment-star">
+            <div class="col-xs-4 text-left">
+                <span class="mp-mobile-fontsize-10px">{{L.food}}</span>
+                <starrating class="mp-mobile-fontsize-13px"
+                            rating="{{comment.food_quality}}"></starrating>
+            </div>
+            <div class="col-xs-4 text-center">
+                <span class="text-left">
+                    <span class="mp-mobile-fontsize-10px">{{L.service}}</span>
+                    <starrating class="mp-mobile-fontsize-13px"
+                                rating="{{comment.service_level}}"></starrating>
+                </span>
+            </div>
+            <div class="col-xs-4 text-right">
+                <span class="text-left">
+                    <span class="mp-mobile-fontsize-10px">{{L.price}}</span>
+                    <starrating class="mp-mobile-fontsize-13px"
+                            rating="{{comment.price_level}}"></starrating>
+                </span>
+            </div>
+        </div>
+        <div class="col-xs-12 mp-mobile-fontsize-14px mp-mobile-paddingleft-10px mp-mobile-paddingright-10px" style="padding:20px;" ng-bind="comment.comment"></div>
+        <div class="col-xs-12 mp-display-box mp-mobile-fontsize-14px">
+            <div class="mp-gray" ng-bind="DateFormat(comment.createtime, dateFormat)"></div>
+            <div class="mp-boxflex-1 text-right">
+                <span ng-bind="comment.fullName"></span>
+                /
+                <span class="mp-gray" ng-bind="comment.fullAddress"> </span>
+                <span class="commentItemOpt mp-mobile-pullright"
+                      ng-if="comment.cust_id==$mpCustomer.getItem('customer_id')"><a href="javascript:;"
+                                                                                     ng-click="onDeleteComment(comment,$index)">{{L.delete}}</a></span>
+            </div>
+        </div>
+    </div>
+    <!--<div class="page-box mp-margintop-20px">-->
+    <!--<div class="page-title">-->
+    <!--<span>TruMenu Rating</span><span style="margin-left:20px;color:darkorange;" ng-bind="$mpBizInfo.getItem('extraRating').avg_rating | number:0"></span>-->
+    <!--</div>-->
+    <!--<div class="hr"></div>-->
+    <!--<div class="page-star">-->
+    <!--<div class="pull-left">-->
+    <!--<span class="mp-mobile-fontsize-10px">Food</span>-->
+    <!--<starrating class="mp-mobile-fontsize-13px" rating="{{$mpBizInfo.getItem('extraRating').avg_food}}"></starrating>-->
+    <!--</div>-->
+    <!--<div class="pull-right">-->
+    <!--<span class="mp-mobile-fontsize-10px">Price</span>-->
+    <!--<starrating class="mp-mobile-fontsize-13px" rating="{{$mpBizInfo.getItem('extraRating').avg_price}}"></starrating>-->
+    <!--</div>-->
+    <!--<div class="text-center">-->
+    <!--<span class="mp-mobile-fontsize-10px">Service</span>-->
+    <!--<starrating class="mp-mobile-fontsize-13px" rating="{{$mpBizInfo.getItem('extraRating').avg_service}}"></starrating>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="page-box mp-clear mp-margintop-20px">-->
+    <!--<div class="page-title">-->
+    <!--Review this Restaurant-->
+    <!--</div>-->
+    <!--<div class="hr"></div>-->
+    <!--<div class="page-star">-->
+    <!--<div class="pull-left">-->
+    <!--<span class="mp-mobile-fontsize-10px">Food</span>-->
+    <!--<starrating class="mp-mobile-fontsize-13px" rating="{{$mpBizInfo.getItem('extraRating').avg_food}}"></starrating>-->
+    <!--</div>-->
+    <!--<div class="pull-right">-->
+    <!--<span class="mp-mobile-fontsize-10px">Price</span>-->
+    <!--<starrating class="mp-mobile-fontsize-13px" rating="{{$mpBizInfo.getItem('extraRating').avg_price}}"></starrating>-->
+    <!--</div>-->
+    <!--<div class="text-center">-->
+    <!--<span class="mp-mobile-fontsize-10px">Service</span>-->
+    <!--<starrating class="mp-mobile-fontsize-13px" rating="{{$mpBizInfo.getItem('extraRating').avg_service}}"></starrating>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div style="padding:20px 0;">-->
+    <!--<textarea ng-if="isLogin" class="autosize-transition form-control mp-edit-gray-green mp-mobile-fontsize-15px" placeholder="Enter your comment here..."></textarea>-->
+
+    <!--<div ng-if="!isLogin" class="mp-mobile-fontsize-13px mp-mobile-height-80px mp-mobile-lineheight-90px" style="border:1px solid #dedede;background-color: #f8f8f8;height:100px;-->
+    <!--line-height: 100px;color:#bfbfbf;font-size:24px;text-align: center;">-->
+    <!--<a href="javascript:;" ng-click="navTo('login')">Wanna make comments, please login first</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div>-->
+    <!--<button class="btn btn-success btn-sm" ng-bind="L.submit"></button>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="page-title mp-margintop-20px">-->
+    <!--Review this Restaurant-->
+    <!--</div>-->
+    <!--<div class="page-box mp-margintop-5px">-->
+    <!--<div class="page-star">-->
+    <!--<div class="pull-left">-->
+    <!--<span class="mp-mobile-fontsize-10px">Food</span>-->
+    <!--<starrating class="mp-mobile-fontsize-13px" rating="{{$mpBizInfo.getItem('extraRating').avg_food}}"></starrating>-->
+    <!--</div>-->
+    <!--<div class="pull-right">-->
+    <!--<span class="mp-mobile-fontsize-10px">Price</span>-->
+    <!--<starrating class="mp-mobile-fontsize-13px" rating="{{$mpBizInfo.getItem('extraRating').avg_price}}"></starrating>-->
+    <!--</div>-->
+    <!--<div class="text-center">-->
+    <!--<span class="mp-mobile-fontsize-10px">Service</span>-->
+    <!--<starrating class="mp-mobile-fontsize-13px" rating="{{$mpBizInfo.getItem('extraRating').avg_service}}"></starrating>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="mp-clear">-->
+    <!--<div>content</div>-->
+    <!--</div>-->
+    <!--<div class="mp-clear mp-display-box">-->
+    <!--<div class="">11/22/3333</div>-->
+    <!--<div class="mp-boxflex-1 text-right">dd USA</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <div class="col-xs-12 space-6"></div>
+</div>

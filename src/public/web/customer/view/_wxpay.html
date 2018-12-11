@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>微信支付</title>
+</head>
+<script>
+</script>
+<body>
+
+<div id="checkout_order_success_view" class="page-content">
+    <div class="col-xs-12 mp-mobile-paddingright-10px mp-mobile-paddingleft-10px text-center" style="padding: 0 200px;font-size:12pt;">
+        <div class="col-xs-12 bolder mp-mobile-margintop-10px mp-mobile-fontsize-20px" style="font-size:34px;color:#67ab3f;margin-top:30px;">
+            {{L.order_success_text_1}}
+        </div>
+        <div class="col-xs-12 mp-mobile-margintop-5px mp-mobile-fontsize-16px" style="font-size:26px;color:#232323;margin-top:15px;">
+            {{L.order_num}}: {{orderId || 0}}
+        </div>
+        <div ng-hide="true">
+            <div class="col-xs-12 mp-display-box">
+                <div class="mp-boxflex-1"></div>
+                <div class="hr mp-mobile-margintop-5px" style="width:100%;max-width:600px;margin:17px auto 0 auto;"></div>
+                <div class="mp-boxflex-1"></div>
+            </div>
+            <div class="col-xs-12 bolder mp-mobile-fontsize-17px mp-mobile-margintop-5px" style="color:#232323;font-size:20px;margin-top:17px;">
+                {{L.order_success_text_2}}
+            </div>
+            <div class="col-xs-12 mp-mobile-fontsize-14px mp-mobile-margintop-5px" style="font-size: 18px;color:#232323;margin-top:10px;">
+                {{L.order_success_text_3}} <span style="color:#67ab3f;font-weight: bold;">{{L.verifications}}</span> {{L.order_success_text_4}}
+                <span style="color:#67ab3f;font-weight: bold;">{{L.phone_num}}</span>
+            </div>
+        </div>
+        <div class="col-xs-12 space-10"></div>
+        <div ng-if="order_date" class="col-xs-12">
+            {{L.order_success_text_5}}
+        </div>
+
+        <div class="col-xs-12 space-6"></div>
+        <div class="col-xs-12 bolder">
+            {{order_date}}
+        </div>
+        <div class="col-xs-12 space-6"></div>
+        <div class="col-xs-12 mp-mobile-margintop-20px" style="margin-top:40px;">
+            <button class="btn btn-sm mp-mobile-width-280px mp-mobile-height-33px mp-mobile-fontsize-13px" style="background-color:rgb(253,166,22) !important;
+            border-color:rgb(253,166,22) !important;text-shadow: 0 0 0 !important;
+            width:460px;height:50px;font-size:20px;border-radius: 5px;"
+                    ng-click="onBtnGoToHome()">{{L.order_success_text_7}}</button>
+        </div>
+        <div class="col-xs-12 mp-mobile-margintop-20px" style="margin-top:40px;">
+            <button class="btn btn-sm mp-mobile-width-280px mp-mobile-height-33px mp-mobile-fontsize-13px"  style="width:460px;height:50px;font-size:20px;border-radius: 5px;"
+                    ng-click="onBtnGoToFeedback()">{{L.order_success_text_6}}</button>
+        </div>
+        <div class="col-xs-12 space-6"></div>
+    </div>
+</div>
+
+
+</body>
+</html>

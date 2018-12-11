@@ -1,0 +1,75 @@
+#checkout_order_view .mp-checkout-labelline>div {
+    height:40px;
+    line-height:40px;
+}
+#checkout_order_view .mp-checkout-labelline>div:nth-child(1) {
+    width: 80px;
+}
+#checkout_order_view .mp-checkout-labelline {
+    padding-right: 10px;
+    margin-bottom: 20px;
+    font-size:18px;
+}
+
+#checkout_order_view .mp-checkout-order-option .mp-checkout-labelline>div:nth-child(1) {
+    width: 160px;
+}
+#checkout_order_view .mp-checkout-guestinfo input {
+    max-width:560px;
+    height:40px;
+    font-size:18px;
+    color:#858585;
+}
+#checkout_order_view .mp-checkout-title-green {
+    font-size:24px;
+    color:#5db834;
+    margin: 10px 0 8px 0;
+}
+
+#checkout_order_view .checkout-order-date-picker {
+    height:40px;
+    color:#858585;
+    font-size:18px;
+}
+/* for mobile */
+@media only screen and (max-width: 600px) {
+    #checkout_order_view .mp-checkout-labelline>div {
+        height:auto;
+        line-height:25px;
+    }
+    #checkout_order_view .mp-checkout-labelline>div:nth-child(1) {
+        width: 80px;
+    }
+    #checkout_order_view .mp-checkout-labelline {
+        padding-right: 10px;
+        margin-bottom: 5px;
+        font-size:15px;
+    }
+
+    #checkout_order_view .mp-checkout-order-option .mp-checkout-labelline>div:nth-child(1) {
+        width: 100px;
+        font-size:15px
+    }
+    #checkout_order_view .mp-checkout-guestinfo input {
+        max-width:560px;
+        height:40px;
+        font-size:18px;
+        color:#858585;
+    }
+    #checkout_order_view .mp-checkout-title-green {
+        font-size:24px;
+        color:#5db834;
+        margin: 10px 0 8px 0;
+    }
+
+    #checkout_order_view .checkout-order-date-picker {
+        height:30px;
+        font-size:15px;
+    }
+    #checkout_order_view .mp-checkout-green {
+        font-size:15px !important;
+    }
+    #checkout_order_view .input-group-addon {
+        padding: 6px 8px;
+    }
+}

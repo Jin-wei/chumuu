@@ -1,0 +1,280 @@
+<div id="setting_view" class="page-content">
+    <div class="page-header">
+        <span class="mp-page-header-title">{{L.setting}}</span>
+    </div>
+    <div class="row">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li  bindonce ng-class="{'active':tab.active}" ng-repeat="tab in tabs">
+                    <a data-toggle="tab" href="javascript:;" ng-click="changeTab(tab)">
+                        <i class="green {{tab.icon}} bigger-110"></i>
+                        <span bo-bind="tab.name"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="col-xs-12 0tab-content" style="padding-top:10px;">
+                <div class="col-xs-12 tab-pane in active" ng-show="tabs[0].active">
+                    <div>
+                        <label>
+                            <i class="icon-user"></i><span style="margin-left: 6px;">{{L.username}}</span>
+                        </label>
+
+                        <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"
+                             onmouseover="jQuery(this).addClass('ui-state-hover');"
+                             onmouseout="jQuery(this).removeClass('ui-state-hover')">
+                                    <span class="ui-icon ui-icon-pencil" style="width:auto;" id="editUsernameDiv"
+                                          ng-click="editUsername()">{{L.edit}}</span>
+                        </div>
+
+                        <div>
+
+                            <lable style="color:black;font-size: 14px;" ng-if="edit.username">{{custInfo.username}}</lable>
+                            <input class="form-control input-mask-phone" type="text" ng-if="!edit.username"
+                                   ng-model="custInfo.username">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div>
+                        <label>
+                            <i class="icon-user"></i><span style="margin-left: 6px;">{{L.customer_name}}</span>
+                        </label>
+
+                        <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"
+                             onmouseover="jQuery(this).addClass('ui-state-hover');"
+                             onmouseout="jQuery(this).removeClass('ui-state-hover')">
+                                    <span class="ui-icon ui-icon-pencil" style="width:auto;" id="editNameDiv"
+                                          ng-click="editName()">{{L.edit}}</span>
+                        </div>
+
+                        <div ng-if="!edit.name">
+                            <lable style="color:black;font-size: 14px;">{{custInfo.first_name}}</lable>
+                            <lable style="color:black;font-size: 14px;">{{custInfo.last_name}}</lable>
+                        </div>
+
+                        <div ng-if="edit.name">
+                            <div>
+                                <lable style="color:black;font-size: 14px;" ng-if="edit.name">{{L.first_name}}</lable>
+                                <input class="form-control input-mask-phone" type="text" ng-if="edit.name"
+                                        ng-model="custInfo.first_name">
+                            </div>
+
+                            <div>
+                                <lable style="color:black;font-size: 14px;" ng-if="edit.name">{{L.last_name}}</lable>
+                                <input class="form-control input-mask-phone" type="text" ng-if="edit.name"
+                                        ng-model="custInfo.last_name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div>
+                        <label>
+                            <i class="icon-phone"></i><span style="margin-left: 6px;">{{L.phone}}</span>
+                        </label>
+
+                        <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"
+                            onmouseover="jQuery(this).addClass('ui-state-hover');"
+                            onmouseout="jQuery(this).removeClass('ui-state-hover')">
+                                    <span class="ui-icon ui-icon-pencil" style="width:auto;" id="editPhoneDiv"
+                                        ng-click="editPhone()">{{L.edit}}</span>
+                        </div>
+
+                        <div>
+                            <lable style="color:black;font-size: 14px;" ng-if="edit.phone">{{custInfo.phone_no}}</lable>
+                            <input class="form-control input-mask-phone" type="text" ng-if="!edit.phone"
+                                ng-model="custInfo.phone_no">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div>
+                        <label>
+                            <i class="icon-home"></i><span style="margin-left: 6px;">{{L.address}}</span>
+                        </label>
+
+                        <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"
+                             onmouseover="jQuery(this).addClass('ui-state-hover');"
+                             onmouseout="jQuery(this).removeClass('ui-state-hover')">
+                                    <span class="ui-icon ui-icon-pencil" style="width:auto;" id="editAddressDiv"
+                                          ng-click="editAddress()">{{L.edit}}</span>
+                        </div>
+
+                        <div ng-if="!edit.address">
+                            <span ng-if="custInfo.address != '' && custInfo.address != null" style="color:black;font-size: 14px;">{{custInfo.address+", "}}</span>
+                            <span ng-if="custInfo.city != '' && custInfo.city != null" style="color:black;font-size: 14px;">{{custInfo.city+", "}}</span>
+                            <span ng-if="custInfo.state != '' && custInfo.state != null" style="color:black;font-size: 14px;">{{custInfo.state+", "}}</span>
+                            <span ng-if="custInfo.zipcode != '' && custInfo.zipcode != null" style="color:black;font-size: 14px;">{{custInfo.zipcode}}</span>
+                        </div>
+
+                        <div ng-if="edit.address">
+
+                            <div >
+                                <lable style="color:black;font-size: 14px;" ng-if="edit.address">{{L.street_address}}</lable>
+                                <input class="form-control input-mask-phone" type="text" ng-if="edit.address"
+                                        ng-model="custInfo.address">
+                            </div>
+
+                            <div>
+                                <lable style="color:black;font-size: 14px;" ng-if="edit.address">{{L.city}}</lable>
+                                <input class="form-control input-mask-phone" type="text" ng-if="edit.address"
+                                        ng-model="custInfo.city">
+                            </div>
+
+                            <div>
+                                <lable style="color:black;font-size: 14px;" ng-if="edit.address">{{L.state}}</lable>
+                                <input class="form-control input-mask-phone" type="text" ng-if="edit.address"
+                                        ng-model="custInfo.state">
+                            </div>
+
+                            <div>
+                                <lable style="color:black;font-size: 14px;" ng-if="edit.address">{{L.zip_code}}</lable>
+                                <input class="form-control input-mask-phone" type="text" ng-if="edit.address"
+                                        ng-model="custInfo.zipcode">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                </div>
+
+
+                <div class="col-xs-12 tab-pane in active" ng-show="tabs[1].active">
+                    <form name="changePasswordForm" novalidate>
+                        <div>
+                            <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"
+                                 onmouseover="jQuery(this).addClass('ui-state-hover');"
+                                 onmouseout="jQuery(this).removeClass('ui-state-hover')">
+                                <span ng-hide="edit.password" class="ui-icon ui-icon-pencil" style="width:auto;" ng-click="edit.password=true">{{L.edit}}</span>
+                                <!--<span ng-show="edit.password" class="ui-icon-disk icon-ok" ng-click="onPasswordChange(changePasswordForm.$invalid)">Save</span>
+                                <span ng-show="edit.password" class="ui-icon-cancel icon-remove" ng-click="edit.password=false">Cancel</span>-->
+                            </div>
+
+                            <label>
+                                <i class="icon-lock"></i><span style="margin-left: 6px;">{{L.password}}</span>
+                            </label>
+
+                            <div class="space-6"></div>
+
+                            <div ng-if="edit.password">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-sm-2">
+                                        <span>{{L.current}}</span>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4">
+
+
+                                    <label class="block clearfix">
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="password" class="form-control" required ng-model="passInfo.current" name="currentPass" ng-focus="changePasswordForm_current_blur=false" ng-blur="changePasswordForm_current_blur=true" placeholder={{L.password}}>
+
+                                        </span>
+
+                                        <span ng-show="changePasswordForm.currentPass.$invalid && changePasswordForm.currentPass.$dirty && changePasswordForm_current_blur">
+                                             <span ng-show="changePasswordForm.currentPass.$error.required" class="label label-danger label-xlg " style="width: auto;">
+                                                <i class="icon-warning-sign  bigger-130"></i>
+                                                {{L.change_password_warning_text_1}}</span>
+                                        </span>
+                                    </label>
+
+                                    <div class="space"></div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-sm-2">
+                                        <span>{{L.new}}</span>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4">
+
+
+                                        <label class="block clearfix">
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="password" class="form-control" ng-model="passInfo.new" name="newPass" ng-focus="changePasswordForm_new_blur=false" ng-blur="changePasswordForm_new_blur=true"  required ng-minlength=6 ng-maxlength=15 placeholder={{L.password}}>
+
+                                        </span>
+
+                                        <span ng-show="changePasswordForm.newPass.$invalid && changePasswordForm.newPass.$dirty && changePasswordForm_new_blur">
+                                            <span ng-show="changePasswordForm.newPass.$invalid" class="label label-danger label-xlg " style="width: auto;">
+                                                <i class="icon-warning-sign  bigger-130"></i>
+                                                {{L.change_password_warning_text_2}}</span>
+                                        </span>
+                                        </label>
+
+                                        <div class="space"></div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-sm-2">
+                                        <span>{{L.retype_new}}</span>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4">
+
+
+                                        <label class="block clearfix">
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="password" class="form-control" ng-model="passInfo.retypeNew" name="reNewPass" ng-focus="changePasswordForm_reNew_blur=false" ng-blur="changePasswordForm_reNew_blur=true"  required ng-minlength=6 ng-maxlength=15 placeholder={{L.password}}>
+
+                                        </span>
+
+                                        <span ng-show="changePasswordForm.reNewPass.$invalid && changePasswordForm.reNewPass.$dirty && changePasswordForm_reNew_blur">
+                                            <span ng-show="changePasswordForm.reNewPass.$invalid" class="label label-danger label-xlg " style="width: auto;">
+                                                <i class="icon-warning-sign  bigger-130"></i>
+                                                {{L.change_password_warning_text_2}}</span>
+                                        </span>
+
+                                        <span ng-show="changePasswordForm.reNewPass.$valid && passInfo.new != passInfo.retypeNew" class="label label-danger label-xlg " style="width: auto;">
+                                                <i class="icon-warning-sign  bigger-130"></i>
+                                                {{L.change_password_warning_text_3}}</span>
+                                        </label>
+
+                                        <div class="space"></div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="clearfix">
+                                    <button type="button" class="width-30 pull-left btn btn-sm btn-success" ng-disabled="changePasswordForm.$invalid || passInfo.new != passInfo.retypeNew" ng-click="onPasswordChange()">
+                                        <i class="icon-ok"></i>
+                                        {{L.save}}
+                                    </button>
+
+                                    <button type="button" class="width-30 pull-right btn btn-sm" ng-click="edit.password=false">
+                                        {{L.cancel}}
+                                        <i class="icon-remove icon-on-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-12 tab-pane in active" ng-show="tabs[2].active">
+                    Choose the map :
+                    <select ng-model="map" ng-change="onMapChange()">
+                        <option value="gaode">高德地图</option>
+                        <option value="google">Google Map</option>
+                    </select>
+                     ,it will be used all over on Chumuu.
+                </div>
+            </div>
+        </div>
+    <style>
+        #setting_view .row p {
+            text-indent: 2em;
+            font-size:11pt;
+            margin:10px auto;
+            max-width: 800px;
+            font-family: Arial !important;
+        }
+    </style>
+    </div>
+</div>

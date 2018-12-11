@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>订单详情</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/coffee_confirm_order.css">
+    <script src='../assets/js/jquery-2.0.3.min.js'></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="./js/config.js"></script>
+    <script src="./js/util.js"></script>
+    <script src="/js/lib/jquery.cookie.min.js"></script>
+    <script>
+        var userInfo = getCookieAsObject('userInfo');//LocalStoreUtil.getAsObject('userInfo');
+        if(!userInfo) {
+            var wxOpenData = getCookieAsObject('wxOpenData');//LocalStoreUtil.getAsObject('wxOpenData');
+            if(!wxOpenData) {
+                var code = getParameter('code');
+                if(code) {
+                    var url = "/api/wechat/user?code=";
+                    url = url + code;
+                    var data = $.ajax({
+                        url:url,
+                        type:'get',
+                        async: false
+                    });
+                    wxOpenData = data.responseJSON;
+                    alert('wxOpenData='+data.responseText);
+                    setCookie('wxOpenData',wxOpenData);
+                    //LocalStoreUtil.set('wxOpenData',wxOpenData);
+                }
+                else {
+                    alert('获取CODE参数失败');
+                }
+            }
+            if(wxOpenData) {
+                var data = $.ajax({
+                    url:'/api/wechat/user/'+wxOpenData.openid+'/bizwiseToken',
+                    type:'get',
+                    async: false
+                });
+                alert('userInfo1='+data.responseText);
+                userInfo = data.responseJSON;
+                userInfo.openData = wxOpenData;
+                userInfo.openId = wxOpenData.openid;
+                setCookie('userInfo',userInfo);
+                //LocalStoreUtil.set('userInfo',userInfo);
+            }
+            else {
+                alert('获取用户OpenData失败');
+            }
+        }
+        alert('userInfo2='+JSON.stringify(userInfo));
+
+    </script>
+</head>
+
+<body>
+
+<div class="page-box page-user mp-display-box">
+    <div><div class="page-user-avatar"></div></div>
+    <div class="mp-box-flex-1">
+        <div id="js-user-name">咖啡香 Coffee & Sweet</div>
+        <div>
+            <span id="js-user-phone">13801234567</span>
+            <br>
+            <span id="js-user-address">黄河路数控大厦</span>
+        </div>
+    </div>
+    <div> &gt; </div>
+</div>
+
+<div class="page-box page-delivery-time">
+    <div class="page-title mp-display-box">
+        <div class="page-title-name mp-box-flex-1">送达时间</div>
+        <div id="js-order-time" class="page-title-more">
+            请选择预约时间 &gt;
+        </div>
+    </div>
+</div>
+
+<div class="page-box page-wechat-pay">
+    <div class="page-title mp-display-box">
+        <div class="page-title-icon"></div>
+        <div class="page-title-name mp-box-flex-1">
+            <div>微信支付</div>
+            <!--<div>返红包</div>-->
+        </div>
+        <div class="page-title-more">
+            <input type="checkbox" >
+        </div>
+    </div>
+</div>
+
+<!--<div class="page-box page-order">-->
+    <!--<div class="page-title mp-display-box">-->
+        <!--<div class="page-title-name">使用红包</div>-->
+        <!--<div class="mp-box-flex-1" style="font-size:10px;color:rgb(202, 168, 155);padding-left:10px;">满1杯减10元 (6月4日过期)</div>-->
+        <!--<div class="page-title-more">-->
+             <!--&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="page-sub-content">-->
+        <!--<div class="mp-display-box">-->
+            <!--<div>使用兑换券</div>-->
+            <!--<div class="mp-box-flex-1">-->
+                <!--<input class="page-code" placeholder="请输入兑换码">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="page-box page-price">
+    <div class="page-title mp-display-box">
+        <div>商品金额</div>
+        <div class="mp-box-flex-1">￥<span id="js-total-price">0.00</span></div>
+    </div>
+    <div class="page-title mp-display-box">
+        <div>服务费</div>
+        <div class="mp-box-flex-1">￥<span id="js-service-price">0.00</span></div>
+    </div>
+    <div class="page-title mp-display-box">
+        <div>优惠</div>
+        <div class="mp-box-flex-1">-￥<span id="js-discount">0.00</span></div>
+    </div>
+</div>
+
+<div class="page-footer mp-display-box">
+    <div class="mp-box-flex-1"><span id="js-total-count">0</span>份 ￥<span id="js-actual-total-price">0.00</span></div>
+    <div></div>
+    <div><span class="page-btn-ok" onclick="onConfirmOrder()">确认下单</span></div>
+</div>
+
+<div id="js-order-time-ctrl" style="display: none;">
+    <div class="page-order-time-item">请选择预约时间</div>
+    <label class="page-order-time-item mp-display-box">
+        <div class="mp-box-flex-1">尽快送达</div>
+        <div><input name="order-time" value="-1" type="radio" ></div>
+    </label>
+</div>
+
+<script>
+    var $orderTimerCtrl = $('#js-order-time-ctrl');
+    $('#js-order-time').click(function(){
+        $orderTimerCtrl.toggleClass('mp-show');
+    });
+
+    var html = '\
+                <label class="page-order-time-item mp-display-box">\
+                    <div class="mp-box-flex-1">#time#</div>\
+                    <div><input name="order-time" value="#value#" type="radio" ></div>\
+                </label>\
+            ';
+    var arr = ['12:00','13:30','14:00','14:30','15:00','15:30','16:00'];
+    for(var i=0;i<arr.length-1;++i) {
+        var htmlText = html.replace('#time#',arr[i]+'-'+arr[i+1]);
+        htmlText = htmlText.replace('#value#',i);
+        $orderTimerCtrl.append($(htmlText));
+    }
+
+    var order = getCookieAsObject('order');//LocalStoreUtil.getAsObject('order');
+    console.log('order',order);
+    if(!order || !order.prods || order.prods.length<1) {
+        //shopping cart is empty
+        alert('没有查到订单信息');
+    }
+    else {
+        var servicePrice = 2;
+        var discount = 10;
+
+        $('#js-user-name').text('');
+        $('#js-user-phone').text('');
+        $('#js-user-address').text('');
+
+        $("#js-total-price").text(order.totalPrice);
+        $("#js-service-price").text(servicePrice);
+        $("#js-discount").text(discount);
+        $("#js-total-count").text(order.totalCount);
+        $("#js-actual-total-price").text(order.totalPrice+servicePrice-discount);
+    }
+
+    function onConfirmOrder() {
+        alert('confirm order');
+        var params = {
+            username:'coffee_name '+userInfo.customerId,
+            phone: '123 '+userInfo.customerId,
+            address: 'address '+userInfo.customerId,
+            orderStart: '2015-06-20 14:15:00',
+            orderType: 0,
+            peopleNum : 1,
+            bizId: order.bizId,
+            status: 100,
+            itemArray: [],
+            remark: order.remark
+        };
+        for(var i in order.prods) {
+            var prod = order.prods[i];
+            params.itemArray.push({
+                prodId: prod.prod_id,
+                quantity: prod.count,
+                remark: '',
+                status: 201
+            });
+        }
+        params.parentId = 2;
+        alert(JSON.stringify(params));
+        $.ajax({
+            url:'/api/cust/'+userInfo.customerId+'/order',
+            type:'post',
+            contentType:'application/json',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(GC.tokenName,userInfo.accessToken);
+                //xhr.setRequestHeader('customer-token','r50IcssB8TP79VQGARU0CwGv0zQ=U7oOHKlP86871e2e5f11164253818b51b5ba12f822b5f3364510d6de805c26e70fdbef5093267667b042331abda025fdb6e1723d');
+//                xhr.setRequestHeader('customer-token','NxjvOg7bueAP51EexNMUuyTDWOo=a2dkXlWJ5a062f97aaa813f0e296f29064e6e528506751bab8f6d835ea13260753f6c0b4a5122c489358b88b90c402e3eaeb0f5f');
+            },
+            data: JSON.stringify(params),
+            success: function(data) {
+                var id = data.orderId;
+                var orderInfo = data.orderInfo;
+                alert('创建订单成功,id='+id);
+                if(isObject(data))
+                    alert(JSON.stringify(data));
+                else
+                    alert(data);
+
+                params = {
+                    orderId:id,
+                    openId:userInfo.openId,
+                    totalPrice:orderInfo.actualPrice
+                };
+                alert(JSON.stringify(params));
+                $.ajax({
+                    url:'/api/wechat/payment',
+                    type:'post',
+                    contentType:'application/json',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(GC.tokenName,userInfo.accessToken);
+                    },
+                    data: JSON.stringify(params),
+                    success: function(data) {
+                        if(isObject(data))
+                            alert(JSON.stringify(data));
+                        else
+                            alert(data);
+                        WechatPay(data);
+                    },
+                    error: function(error) {
+                        alert(error);
+                    }
+                });
+            },
+            error: function(data) {
+                alert('创建订单失败');
+                if(isObject(data))
+                    alert(JSON.stringify(data));
+                else
+                    alert(data);
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>

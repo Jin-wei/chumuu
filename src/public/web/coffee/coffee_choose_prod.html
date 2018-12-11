@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>请选择</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/coffee_choose_prod.css">
+    <script src='../assets/js/jquery-2.0.3.min.js'></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=1"></script>
+    <script>
+//        function getParameter(param) {
+//            var reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)", "i");
+//            var r = window.location.search.substr(1).match(reg);
+//            if (r != null)
+//                return unescape(r[2]);
+//            return null;
+//        }
+//        var configData = {
+//            timestamp: getParameter('ts'),
+//            nonceStr: getParameter('nc'),
+//            signature: getParameter('sn')
+//        };
+//        //alert(configData.timestamp);
+//        //alert(configData.nonceStr);
+//        //alert(configData.signature);
+//        wx.config({
+//            debug: true,
+//            appId: 'wx34703ff7ed8e4f68',
+//            timestamp: 143321583,
+//            nonceStr: '903197631',
+//            signature: '362c4254f3415a681d6e78bf80cb9d7a5845722b',
+//            jsApiList: ['openLocation', 'getLocation']
+//        });
+//        wx.ready(function () {
+//            console.log('idd');
+//            wx.getLocation({
+//                success: function (res) {
+//                    alert(res);
+//                },
+//                failure: function (res) {
+//                    alert("failed" + res);
+//                }
+//            });
+//        });
+//        wx.error(function (res) {
+//            console.log('wx.error',res);
+//            alert(JSON.stringify(res));
+//        });
+//
+//        var geocoder = new soso.maps.Geocoder();
+//
+//        function codeAddress() {
+//            var address = "辽宁省大连市沙河口区黄河路547号";
+//            geocoder.geocode({'address': address}, function (results, status) {
+//                if (status == soso.maps.GeocoderStatus.OK) {
+//                    console.log(results.location.lat,results.location.lng);
+//                } else {
+//                    alert("检索没有结果，原因: " + status);
+//                }
+//            });
+//        }
+////        codeAddress();
+    </script>
+</head>
+
+<body>
+<div class="page-header">
+    星巴克
+</div>
+<div class="page-content mp-display-box">
+    <div class="page-menu"> </div>
+    <div class="page-prod mp-box-flex-1">
+        <div class="page-prod-box">
+            <div class="page-prod-title">焦糖玛奇朵 (热)</div>
+            <div class="page-prod-item mp-display-box">
+                <div>中杯 360ml</div>
+                <div>$31</div>
+                <div class="mp-display-box">
+                    <div class="page-btn-reduce">-</div>
+                    <div class="page-prod-count">2</div>
+                    <div class="page-btn-add">+</div>
+                </div>
+            </div>
+            <div class="page-prod-item mp-display-box">
+                <div>大杯 360ml</div>
+                <div>$31</div>
+                <div class="mp-display-box">
+                    <div class="page-btn-reduce">-</div>
+                    <div class="page-prod-count">2</div>
+                    <div class="page-btn-add">+</div>
+                </div>
+            </div>
+            <div class="page-prod-item mp-display-box">
+                <div>超大杯 360ml</div>
+                <div>$31</div>
+                <div class="mp-display-box">
+                    <div class="page-btn-reduce">-</div>
+                    <div class="page-prod-count">2</div>
+                    <div class="page-btn-add">+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-footer mp-display-box">
+    <div>5份 $159.00</div>
+    <div>购买须知</div>
+    <div>
+        <span class="page-btn-ok">选好了</span>
+    </div>
+</div>
+<script>
+    var menus = [];
+    var names = ['热咖啡', '冰咖啡', '星冰乐', '茶和冰茶', '巧克力', '新品上市'];
+    for(var i in names) {
+        menus.push({name:names[i],count:i});
+    }
+    var menuHtml = '\
+            <div>\
+                #name#\
+                <div class="page-selected-prod-count"></div>\
+            </div>\
+            ';
+    var $menu = $('.page-menu');
+    for(var i in menus) {
+        var html = menuHtml.replace('#name#',menus[i].name);
+        var $html = $(html);
+        i==0 && $html.addClass('page-cur-menu') && $html.find('.page-selected-prod-count').html(3);
+        $menu.append($html);
+    }
+</script>
+</body>
+</html>

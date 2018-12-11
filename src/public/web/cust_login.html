@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Login Page - TruMenu</title>
+
+    <meta name="description" content="User login page"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- build:js /js/mp-g-cl.jq-ng.js -->
+    <!--endbuild-->
+
+    <!-- basic styles -->
+    <!-- build:css /css/mp-g-cl.bs-ace-mp.css -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/assets/css/ace.min.css"/>
+    <link rel="stylesheet" href="/assets/css/ace-rtl.min.css"/>
+    <link rel="stylesheet" href="/customer/css/login.css"/>
+    <!--endbuild-->
+
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css"/>
+</head>
+
+<body class="login-layout" ng-app="mp_customer">
+<div id="fb-root"></div>
+<!--<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=814884431855774&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=814884431855774&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>-->
+<div class="main-container">
+<div class="main-content">
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1">
+<div class="login-container">
+<div class="center">
+    <h1>
+        <a href="/customer.html"  style="padding:0px;">
+            <img src="/image/logo_small.png">
+            <span class="red">Tru</span>
+            <span class="white">Menu</span>
+        </a>
+    </h1>
+    <br>
+</div>
+
+<div class="space-6"></div>
+<div>
+<div class="position-relative" ng-controller="loginIndexController">
+    <div id="login-box" class="login-box visible widget-box no-border" ng-controller="loginController">
+        <div class="widget-body">
+            <div class="widget-main">
+                <h4 class="header blue lighter bigger">
+                    <i class="icon-coffee green"></i>
+                    {{L.please_enter_your_info}}
+                </h4>
+
+                <div class="space-6"></div>
+
+                <form name="loginForm" novalidate>
+                    <fieldset>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="email" class="form-control login-form" name="email" required ng-model="user" ng-focus="loginForm_email_blur=false" ng-blur="loginForm_email_blur=true" placeholder={{L.email}}>
+                                <i class="icon-envelope"></i>
+                            </span>
+                            <span ng-show="loginForm.email.$invalid && loginForm.email.$dirty && loginForm_email_blur">
+                                <span ng-show="loginForm.email.$error.email" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.email_warning_text_1}}
+                                </span>
+                                <span ng-show="loginForm.email.$error.required" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.email_warning_text_2}}
+                                </span>
+                            </span>
+                        </label>
+
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="password" class="form-control login-form" ng-model="password" name="password" ng-focus="loginForm_pwd_blur=false" ng-blur="loginForm_pwd_blur=true"  required ng-minlength=2 ng-maxlength=15 placeholder={{L.password}}>
+                                <i class="icon-lock " style="padding-right: 7px;"></i>
+                            </span>
+                            <span ng-show="loginForm.password.$invalid && loginForm.password.$dirty && loginForm_pwd_blur">
+                                <span ng-show="loginForm.password.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.password_warning_text}}</span>
+                            </span>
+                        </label>
+
+                        <div class="space"></div>
+
+                        <div class="clearfix">
+                            <button id="loginBtn" type="button" class="btn btn-primary btn-block" ng-disabled="loginForm.$invalid" ng-click="doLogin()">
+                                <i class="icon-key"></i>
+                                {{L.login}}
+                            </button>
+                        </div>
+
+                        <div class="space-4"></div>
+                    </fieldset>
+                </form>
+
+                <div class="social-or-login center">
+                    <span class="bigger-110">{{L.or_login}}</span>
+                </div>
+
+                <div class="social-login center">
+
+                    <div class="fb-login-button" scope="public_profile,email" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" onlogin="checkLoginState('login');"></div>
+                </div>
+            </div>
+            <!-- /widget-main -->
+
+            <div class="toolbar clearfix">
+                <div>
+                    <a href="#" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
+                        <i class="icon-arrow-left"></i>
+                        {{L.forgot_pwd}}
+                    </a>
+                </div>
+
+                <div>
+                    <a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
+                        {{L.register}}
+                        <i class="icon-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /widget-body -->
+    </div>
+    <!-- /login-box -->
+
+    <div id="forgot-box" class="forgot-box widget-box no-border" ng-controller="forgetPasswordController">
+        <div class="widget-body">
+            <div class="widget-main">
+                <h4 class="header red lighter bigger">
+                    <i class="icon-key"></i>
+                    {{L.retrieve_pwd}}
+                </h4>
+
+                <div class="space-6"></div>
+                <p>
+                    {{L.enter_your_email}}
+                </p>
+
+                <form name="forgetForm" novalidate>
+                    <fieldset>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="email" name="email" class="form-control" ng-focus="forgetPasswordForm_email_blur=false" ng-blur="forgetPasswordForm_email_blur=true" required ng-model="email" placeholder={{L.email}}>
+                                <i class="icon-envelope"></i>
+                            </span>
+                            <span ng-show="forgetForm.email.$invalid && forgetForm.email.$dirty && forgetPasswordForm_email_blur">
+                                <span ng-show="forgetForm.email.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.email_warning_text_1}}
+                                </span>
+                            </span>
+                        </label>
+
+                        <div class="clearfix">
+                            <button type="button" class="btn btn-sm btn-danger btn-block" id="sendEmailBtn" ng-disabled="forgetForm.$invalid"
+                                    ng-click="sendResetPasswordEmail()">
+                                <i class="icon-lightbulb"></i>
+                                {{L.send}}
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <!-- /widget-main -->
+
+            <div class="toolbar center">
+                <a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+                    {{L.back_to_login}}
+                    <i class="icon-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- /widget-body -->
+    </div>
+    <!-- /forgot-box -->
+
+    <div id="signup-box" class="signup-box widget-box no-border" ng-controller="signUpController">
+        <div class="widget-body">
+            <div class="widget-main">
+                <h4 class="header green lighter bigger">
+                    <i class="icon-group blue"></i>
+                    {{L.new_user_registration}}
+                </h4>
+
+                <div class="space-6"></div>
+                <p> {{L.enter_your_details}} </p>
+
+                <form name="signUpForm" novalidate>
+                    <fieldset>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="email" class="form-control" ng-model="regEmail" ng-focus="signUpForm_email_blur=false" ng-blur="signUpForm_email_blur=true"  name="regEmail" required  placeholder={{L.email}}>
+                                <i class="icon-envelope"></i>
+                            </span>
+                            <span ng-show="signUpForm.regEmail.$invalid && signUpForm.regEmail.$dirty && signUpForm_email_blur">
+                                <span ng-show="signUpForm.regEmail.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.email_warning_text_1}}
+                                </span>
+                            </span>
+                        </label>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="password" class="form-control" name="newPassword" ng-focus="signUpForm_pwd_blur=false" ng-blur="signUpForm_pwd_blur=true"  required ng-minlength="6" ng-maxlength="15" ng-model="newPassword" placeholder={{L.password}}>
+                                <i class="icon-lock" style="padding-right: 7px;"></i>
+                            </span>
+                            <span ng-show="signUpForm.newPassword.$invalid && signUpForm.newPassword.$dirty && signUpForm_pwd_blur">
+                                <span ng-show="signUpForm.newPassword.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.password_warning_text}}
+                                </span>
+                            </span>
+                        </label>
+
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="text" class="form-control" name="firstName" ng-maxlength="20" ng-model="firstName" placeholder={{L.first_name}}>
+                                <i class="icon-user "></i>
+                            </span>
+                            <span ng-show="signUpForm.firstName.$invalid && signUpForm.firstName.$dirty">
+                                <span ng-show="signUpForm.firstName.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.first_name_warning_text}}
+                                </span>
+                            </span>
+                        </label>
+
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="text" class="form-control" name="lastName" ng-maxlength="20" ng-model="lastName" placeholder={{L.last_name}}>
+                                <i class="icon-user "></i>
+                            </span>
+                            <span ng-show="signUpForm.lastName.$invalid && signUpForm.lastName.$dirty">
+                                <span ng-show="signUpForm.lastName.$invalid" class="label label-danger label-xlg " style="width: 100%;">
+                                    <i class="icon-warning-sign  bigger-130"></i>
+                                    {{L.last_name_warning_text}}
+                                </span>
+                            </span>
+                        </label>
+
+                        <!--<label class="block">
+                            <input type="checkbox" class="ace"/>
+                                <span class="lbl">
+                                    I accept the
+                                    <a href="#">User Agreement</a>
+                                </span>
+                        </label>-->
+
+                        <div class="space-24"></div>
+
+                        <div class="clearfix">
+                            <button type="reset" class="width-30 pull-left btn btn-sm">
+                                <i class="icon-refresh"></i>
+                                {{L.reset}}
+                            </button>
+
+                            <button type="button" class="width-65 pull-right btn btn-sm btn-success"
+                                id="signUpBtn"    ng-disabled="signUpForm.$invalid" ng-click="doSignUp()">
+                                {{L.register}}
+                                <i class="icon-arrow-right icon-on-right"></i>
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="social-or-login center">
+                    <span class="bigger-110">{{L.or_sign_up}}</span>
+                </div>
+
+                <div class="social-login center">
+
+                    <div class="fb-login-button" scope="public_profile,email" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" onlogin="checkLoginState('signup');"></div>
+                </div>
+            </div>
+
+            <div class="toolbar center">
+                <a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+                    <i class="icon-arrow-left"></i>
+                    {{L.back_to_login}}
+                </a>
+            </div>
+        </div>
+        <!-- /widget-body -->
+    </div>
+    <!-- /signup-box -->
+    <div class="login-copyright">
+        <h4 class="blue" style="">&copy; Mission Public Inc. 2015</h4>
+
+        <h3><a href="javascript:;" ng-click="onChangeLanguage()">{{L.next_lang}}</a></h3>
+    </div>
+</div>
+<!-- /position-relative -->
+</div>
+
+</div>
+
+</div>
+<!-- /.row -->
+</div>
+
+</div>
+
+</div>
+
+<!-- /.main-container -->
+
+<!-- basic scripts -->
+
+<script type="text/javascript">
+    if ("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    if ("ontouchend" in document) document.write("<script src='/assets/js/jquery-2.0.3.min.js'>" + "<" + "/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+
+<script type="text/javascript">
+    function show_box(id) {
+        jQuery('.widget-box.visible').removeClass('visible');
+        jQuery('#' + id).addClass('visible');
+        angular.element(".widget-box").css("display","none");
+        angular.element("#"+id).css("display","block");
+    }
+</script>
+<script type="text/javascript">
+// This is called with the results from from FB.getLoginStatus().
+function statusChangeCallback(response,action) {
+console.log('statusChangeCallback');
+console.log(response);
+console.log(action);
+// The response object is returned with a status field that lets the
+// app know the current login status of the person.
+// Full docs on the response object can be found in the documentation
+// for FB.getLoginStatus().
+if (response.status === 'connected') {
+// Logged into your app and Facebook.
+    console.log('connected');
+    console.dir(response);
+    var token= response.authResponse.accessToken;
+    if('login'==action){
+        var scope = angular.element($("#login-box")).scope();
+        scope.$apply(function(){
+        scope.fbToken =token;
+        //console.log('token========'+scope.fbToken);
+        scope.doLogin();
+        })
+    }
+    else{
+        console.log('action = sign up');
+        var scope = angular.element($("#signup-box")).scope();
+        scope.$apply(function(){
+            console.log('apply doSignup()');
+            scope.fbToken =token;
+            console.log(scope.fbToken);
+            //console.log('token========'+scope.fbToken);
+            scope.doSignUp();
+        })
+    }
+} else if (response.status === 'not_authorized') {
+// The person is logged into Facebook, but not your app.
+//document.getElementById('status').innerHTML = 'Please log ' +
+//'into this app.';
+} else {
+// The person is not logged into Facebook, so we're not sure if
+// they are logged into this app or not.
+//document.getElementById('status').innerHTML = 'Please log ' +
+//'into Facebook.';
+}
+}
+
+// This function is called when someone finishes with the Login
+// Button.  See the onlogin handler attached to it in the sample
+// code below.
+function checkLoginState(action) {
+FB.getLoginStatus(function(response) {
+statusChangeCallback(response,action);
+});
+}
+
+window.fbAsyncInit = function() {
+FB.init({
+appId      : '814884431855774',
+cookie     : true,  // enable cookies to allow the server to access
+// the session
+xfbml      : true,  // parse social plugins on this page
+version    : 'v2.0' // use version 2.0
+});
+
+// Now that we've initialized the JavaScript SDK, we call
+// FB.getLoginStatus().  This function gets the state of the
+// person visiting this page and can return one of three states to
+// the callback you provide.  They can be:
+//
+// 1. Logged into your app ('connected')
+// 2. Logged into Facebook, but not your app ('not_authorized')
+// 3. Not logged into Facebook and can't tell if they are logged into
+//    your app or not.
+//
+// These three cases are handled in the callback function.
+
+//FB.getLoginStatus(function(response) {
+//    statusChangeCallback(response);
+//});
+
+};
+</script>
+
+<!-- build:js /js/mp-g-cl.mp.js -->
+<script src='/assets/js/jquery-2.0.3.min.js'></script>;
+<script src="/js/lib/ng.1.2.6/angular.min.js"></script>
+<script src="/js/lib/ng.1.2.6/angular-route.min.js"></script>
+<script src="/js/lib/jquery.cookie.js"></script>
+<script src="/js/lib/bindonce.min.js"></script>
+<script src="/js/lib/lodash.min.js"></script>
+<script src="/js/util.js"></script>
+<script src="/js/system_config.js"></script>
+<script src="/js/global_function.js"></script>
+<script src="/customer/js/i18n/en_us.js"></script>
+<script src="/customer/js/i18n/zh_cn.js"></script>
+<script src="/customer/js/customer_module.js"></script>
+<script src="/customer/js/service.js"></script>
+<script src="/customer/js/global_function.js"></script>
+<script src="/customer/js/loginController.js"></script>
+<script src="/customer/js/loginIndexController.js"></script>
+<!--endbuild-->
+
+<!--[if lt IE 9]>
+<script src="/assets/js/html5shiv.js"></script>
+<script src="/assets/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+    /*if(gBrowser.sys_config.statistics_js) {
+        document.write(unescape(gBrowser.sys_config.statistics_js));
+    }*/
+</script>
+</body>
+</html>

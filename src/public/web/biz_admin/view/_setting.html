@@ -1,0 +1,117 @@
+<div id="setting_view" class="page-content row">
+<mp-tab class="col-xs-12" ng-model="tabs"></mp-tab>
+<div class="col-xs-12" id="setting_tab" style="margin-top:10px;">
+<div class="col-xs-12">
+    <form name="changePasswordForm" novalidate>
+        <div>
+            <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"
+                 onmouseover="jQuery(this).addClass('ui-state-hover');"
+                 onmouseout="jQuery(this).removeClass('ui-state-hover')">
+                <span ng-hide="edit.password" class="ui-icon ui-icon-pencil" style="width:auto;" ng-click="edit.password=true">{{L.edit}}</span>
+            </div>
+
+            <label>
+                <i class="icon-lock"></i><span style="margin-left: 6px;">{{L.password}}</span>
+            </label>
+
+            <div class="space-6"></div>
+
+            <div ng-if="edit.password">
+                <div class="col-xs-12">
+                    <div class="col-xs-12 col-sm-2">
+                        <span>{{L.current}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+
+
+                        <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" class="form-control" required ng-model="passInfo.current" name="currentPass" ng-focus="changePasswordForm_current_blur=false" ng-blur="changePasswordForm_current_blur=true" placeholder={{L.password}}>
+
+                                    </span>
+
+                                    <span ng-show="changePasswordForm.currentPass.$invalid && changePasswordForm.currentPass.$dirty && changePasswordForm_current_blur">
+                                         <span ng-show="changePasswordForm.currentPass.$error.required" class="label label-danger label-xlg " style="width: auto;">
+                                            <i class="icon-warning-sign  bigger-130"></i>
+                                            {{L.change_password_warning_text_1}}</span>
+                                    </span>
+                        </label>
+
+                        <div class="space"></div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    <div class="col-xs-12 col-sm-2">
+                        <span>{{L.new}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+
+
+                        <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" class="form-control" ng-model="passInfo.new" name="newPass" ng-focus="changePasswordForm_new_blur=false" ng-blur="changePasswordForm_new_blur=true"  required ng-minlength=6 ng-maxlength=15 placeholder={{L.password}}>
+
+                                    </span>
+
+                                    <span ng-show="changePasswordForm.newPass.$invalid && changePasswordForm.newPass.$dirty && changePasswordForm_new_blur">
+                                        <span ng-show="changePasswordForm.newPass.$invalid" class="label label-danger label-xlg " style="width: auto;">
+                                            <i class="icon-warning-sign  bigger-130"></i>
+                                            {{L.change_password_warning_text_2}}</span>
+                                    </span>
+                        </label>
+
+                        <div class="space"></div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    <div class="col-xs-12 col-sm-2">
+                        <span>{{L.retype_new}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+
+
+                        <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" class="form-control" ng-model="passInfo.retypeNew" name="reNewPass" ng-focus="changePasswordForm_reNew_blur=false" ng-blur="changePasswordForm_reNew_blur=true"  required ng-minlength=6 ng-maxlength=15 placeholder={{L.password}}>
+
+                                    </span>
+
+                                    <span ng-show="changePasswordForm.reNewPass.$invalid && changePasswordForm.reNewPass.$dirty && changePasswordForm_reNew_blur">
+                                        <span ng-show="changePasswordForm.reNewPass.$invalid" class="label label-danger label-xlg " style="width: auto;">
+                                            <i class="icon-warning-sign  bigger-130"></i>
+                                            {{L.change_password_warning_text_2}}</span>
+                                    </span>
+
+                                    <span ng-show="changePasswordForm.reNewPass.$valid && passInfo.new != passInfo.retypeNew" class="label label-danger label-xlg " style="width: auto;">
+                                            <i class="icon-warning-sign  bigger-130"></i>
+                                            {{L.change_password_warning_text_3}}</span>
+                        </label>
+
+                        <div class="space"></div>
+
+
+                    </div>
+                </div>
+
+                <div class="clearfix">
+                    <button type="button" class="width-30 pull-left btn btn-sm btn-success" ng-disabled="changePasswordForm.$invalid || passInfo.new != passInfo.retypeNew || passInfo.current == passInfo.new" ng-click="onPasswordChange()">
+                        <i class="icon-ok"></i>
+                        {{L.save}}
+                    </button>
+
+                    <button type="button" class="width-30 pull-right btn btn-sm" ng-click="edit.password=false">
+                        {{L.cancel}}
+                        <i class="icon-remove icon-on-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>

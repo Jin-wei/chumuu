@@ -1,0 +1,214 @@
+<div id="menu_item_view" class="restaurant_menu_view page-content mp-mobile-marginleft-10px mp-mobile-marginright-10px" style="margin-left:80px;margin-right:80px;">
+    <div class="mp-biz-name mp-mobile-margintop-10px mp-mobile-fontsize-18px">
+        <a href="javascript:;" ng-click="navTo('/restaurant/'+bizKey)">
+            <span ng-bind="$mpBizInfo.getItem('name')"></span>
+            <span class="mp-mobile-display-none">(</span>
+            <span class="mp-mobile-display-block mp-mobile-margintop-0px" ng-bind="$mpBizInfo.getItem('name_lang')"></span>
+            <span class="mp-mobile-display-none">)</span>
+        </a>
+    </div>
+    <div class="mp-biz-category mp-mobile-margintop-5px mp-mobile-fontsize-12px mp-mobile-display-none" ng-bind="$mpBizInfo.getItem('category')"></div>
+    <div class="mp-biz-address text-center mp-mobile-margintop-10px mp-mobile-display-none" style="margin:10px 0 0 0;">
+        <div class="mp-mobile-float-left mp-mobile-width-50pc mp-display-inline-block mp-text-ellipsis overflow-hidden mp-mobile-paddingright-5px text-right">
+            <img class="mp-marginright-5px mp-mobile-width-20px" src="/image/icon/icon_home_green.png">
+            <a class=" mp-fontsize-17px mp-mobile-fontsize-12px" href="javascript:;" ng-click="onOpenBizMapNavigator($mpBizInfo.getData())" ng-bind="$mpBizInfo.getItem('address')"></a>
+        </div>
+        <div class="mp-mobile-display-none mp-display-inline-block" style="margin:0 0 0 60px"></div>
+        <div class="mp-mobile-float-left  mp-mobile-width-50pc mp-display-inline-block mp-text-ellipsis overflow-hidden mp-mobile-display-box">
+            <img class="mp-mobile-display-block mp-marginright-5px mp-mobile-width-20px mp-mobile-height-20px" src="/image/icon/icon_phone_green.png">
+            <div class="mp-mobile-boxflex-1 mp-display-inline-block">
+                <a class="mp-mobile-marginright-0px mp-mobile-display-block text-left mp-fontsize-17px mp-mobile-fontsize-12px" href="tel:{{phone}}" ng-repeat="phone in $mpBizInfo.getItem('phoneArr')" ng-bind="phone" style="margin-right:10px;"></a>
+            </div>
+        </div>
+    </div>
+    <div class="mp-type-tab mp-menu-type-list text-center mp-display-none mp-mobile-display-block mp-mobile-fontsize-18px mp-fontsize-14px">
+        <div ng-if="L.key=='en-us'" ng-click="backToCurrentType()" ng-bind="menuItem.type"></div>
+        <div ng-if="L.key=='zh-cn'" ng-click="backToCurrentType()" ng-bind="menuItem.type_lang"></div>
+    </div>
+    <hr class="mp-display-none mp-mobile-display-block">
+    <div class="pull-left mp-display-none mp-mobile-display-block" style="font-size: 16px">
+        <a href="javascript:;" ng-click="backToCurrentType()" target="_self">
+            <span class="fa fa-reply mp-pointer" style="color:#cccccc;"  ></span>
+        </a>
+        <span ng-bind="menuItem.productName" style="color:#232323;"></span>
+            <span class="" ng-show="menuItem.name_lang" style="color:#9e9e9e;">
+                (<span ng-bind="menuItem.name_lang"></span>)
+            </span>
+    </div>
+    <div class="mp-mobile-margintop-10px mp-mobile-display-none" style="margin:30px 0 0 0;">
+        <div class="pull-left mp-mobile-fontsize-18px mp-fontsize-24px">
+            <a href="javascript:;" style="color:#1086ff;text-transform: uppercase;" ng-if="L.key=='en-us'" ng-click="backToCurrentType()" ng-bind="menuItem.type"></a>
+            <a href="javascript:;" style="color:#1086ff;text-transform: uppercase;" ng-if="L.key=='zh-cn'" ng-click="backToCurrentType()" ng-bind="menuItem.type_lang"></a>
+
+            <span ng-bind="menuItem.productName" style="color:#232323;"></span>
+            <span class="" ng-show="menuItem.name_lang" style="color:#9e9e9e;">
+                (<span ng-bind="menuItem.name_lang"></span>)
+            </span>
+        </div>
+        <div class="pull-right mp-mobile-fontsize-13px" style="font-size: 24px;color: #1086ff;">
+            {{L.share_to}}
+            <mp-face-book-share class="fa-facebook-square mp-pointer" style="font-size: 150%;margin-left:15px;" id="share_button" fbshare="FBshare_dataObj" ng-if="FBshare_dataObj && currency != '¥'"></mp-face-book-share>
+            <mp-we-chat-share class="fa-weixin green bigger-150 mp-pointer" style="margin-left:25px;"></mp-we-chat-share>
+            <!--<img src="/image/icon/icon_facebook.png"> <img src="/image/icon/icon_wechat.png">-->
+        </div>
+        <div class="col-xs-12 hr mp-nomargin"></div>
+    </div>
+    <div class="col-xs-12" style="margin:20px 0 0 0;">
+        <div class="col-xs-12 col-sm-7 position-relative">
+            <div class="col-xs-12 mp-upholder-70pc"></div>
+            <div class="col-xs-12 mp-menu-item-image position-absolute mp-pointer" style="background-image: url('{{menuItem.img_url_l}}');" ></div>
+        </div>
+        <div class="col-xs-12 col-sm-5 mp-mobile-paddingleft-0px" style="padding-left:10px;">
+            <!--<div class="col-xs-12 mp-display-none mp-mobile-display-block" style="font-size:17px;height:35px;line-height: 35px;" ng-bind="menuItem.productName"> </div>
+            <div class="col-xs-12 mp-display-none mp-mobile-display-block mp-gray" style="font-size:17px;" ng-bind="menuItem.name_lang"> </div>-->
+            <div class="col-xs-12 mp-display-box">
+                <div class="mp-menu-item-label"  ng-bind="L.price"></div>
+                <div class="mp-boxflex-1 mp-menu-item-value">
+                    <span ng-if="!menuItem.priceAfterDiscount" class="" ng-bind="menuItem.price | currency: currency"></span>
+                    <span ng-if="menuItem.priceAfterDiscount" class="mp-orange" ng-bind="menuItem.priceAfterDiscount | currency: currency"></span>
+                    <span ng-if="menuItem.priceAfterDiscount" class="mp-textdecoration-linethrough" style="color:gray;font-size:12px;" ng-bind="menuItem.price | currency: currency"></span>
+                </div>
+            </div>
+            <div class="col-xs-12 mp-display-box">
+                <div class="mp-menu-item-label"  ng-bind="L.rating"></div>
+                <div class="mp-boxflex-1 mp-menu-item-value">
+                    <starrating rating="{{$mpMenuItemRating.getItem('avg_rating')}}"></starrating>
+                    <span ng-if="$mpMenuItemRating.getItem('total_count')>0" class="mp-gray">(<span ng-bind="$mpMenuItemRating.getItem('total_count')"></span>)</span>
+                </div>
+            </div>
+            <div class="col-xs-12 mp-display-box">
+                <div class="mp-menu-item-label"  ng-bind="L.likes"></div>
+                <div class="mp-boxflex-1 mp-menu-item-value">
+                    <img src="/image/icon/icon_like.png" ng-click="onToggleFavoriteProd()">
+                    <span ng-if="$mpMenuItemComment.getData().length" class="mp-gray">(<span ng-bind="$mpMenuItemComment.getData().length"></span>)</span>
+                </div>
+            </div>
+            <div class="col-xs-12 mp-display-box">
+                <div class="mp-menu-item-label"  ng-bind="L.menu_type"></div>
+                <div class="mp-boxflex-1 mp-menu-item-value mp-gray">
+                    <span ng-bind="menuItem.type"></span>
+                    <span ng-if="menuItem.type_lang" class="">(<span ng-bind="menuItem.type_lang"></span>)</span>
+                </div>
+            </div>
+            <div class="col-xs-12 mp-display-box">
+                <div class="mp-menu-item-label"  ng-bind="L.spiciness_scale"></div>
+                <div class="mp-boxflex-1 mp-menu-item-value">
+                    <img ng-if="menuItem.spiciness>0" src="/image/icon/icon_spiciness.png" mp-repeat="{{menuItem.spiciness}}">
+                </div>
+            </div>
+            <div class="col-xs-12 mp-display-box">
+                <div class="mp-menu-item-label"  ng-bind="L.calorie + '(' + L.estimated + ')'"></div>
+                <div class="mp-boxflex-1 mp-menu-item-value" ng-bind="menuItem.calorie"></div>
+            </div>
+            <div class="col-xs-12 mp-display-box" ng-show="menuItem.unitofmeasure!='盘' && menuItem.unitofmeasure!=''  && menuItem.unitofmeasure!=undefined">
+                <div class="mp-menu-item-label"  ng-bind="L.unit_ofmeasure"></div>
+                <div class="mp-boxflex-1 mp-menu-item-value" ng-bind="menuItem.unitofmeasure"></div>
+            </div>
+            <div class="col-xs-12 mp-display-box">
+                <div class="mp-menu-item-label"  ng-bind="L.ingredients"></div>
+                <div class="mp-boxflex-1 mp-menu-item-value mp-gray" ng-bind="menuItem.ingredient"></div>
+            </div>
+            <div class="col-xs-12" >
+                <div class="mp-menu-item-label"  ng-bind="L.introduction"></div>
+                <div class="mp-boxflex-1 mp-menu-item-value mp-gray" style="text-indent:2em;" ng-if="isCN" ng-bind="L.key == 'zh-cn' ?  ( menuItem.description ?  menuItem.description :  menuItem.description_lang) : ( menuItem.description_lang ?  menuItem.description_lang :  menuItem.description) "></div>
+                <div class="mp-boxflex-1 mp-menu-item-value mp-gray" style="text-indent:2em;" ng-if="!isCN" ng-bind="L.key == 'zh-cn' ?  ( menuItem.description_lang ?  menuItem.description_lang :  menuItem.description) : ( menuItem.description ?  menuItem.description :  menuItem.description_lang) "></div>
+            </div>
+            <div class="col-xs-12">
+                <div class="mp-display-none mp-mobile-display-block pull-left" style="font-size:24px;color:#1086ff;">
+                    <mp-face-book-share class="fa-facebook-square mp-pointer" style="font-size: 150%" id="share_button" fbshare="FBshare_dataObj" ng-if="FBshare_dataObj && currency != '¥'"></mp-face-book-share>
+                    <mp-we-chat-share class="fa-weixin green bigger-150 mp-pointer" style="margin-left:25px;"></mp-we-chat-share>
+                </div>
+                <mp-shopping-cart-control ng-if="$mpBizInfo.getItem('order_status') == 1 && menuItem.extend.length==0" class="pull-right" prod="menuItem"  style="margin-top:9px;"></mp-shopping-cart-control>
+                <mp-shopping-cart-type-control class="pull-right" prod="menuItem" ng-if="$mpBizInfo.getItem('order_status') == 1 && menuItem.extend.length>0"></mp-shopping-cart-type-control>
+            </div>
+        </div>
+    </div>
+    <div class="clear" style="clear: both"></div>
+    <div class="col-xs-12 mp-mobile-margintop-20px" style="border:1px solid #d4d4d4;border-radius: 5px;margin-top:40px;padding:10px;">
+        <div class="col-xs-12 mp-mobile-fontsize-20px" style="font-size:25px;" ng-bind="L.review_this_item"></div>
+        <div class="col-xs-12 hr mp-margintop-5px  mp-marginbottom-5px"></div>
+        <div class="col-xs-12">
+            <starratingeditor ng-model="star" class="mp-fontsize-24px mp-margintop-10px mp-marginbottom-10px mp-display-block"></starratingeditor>
+            <div ng-show="isLogin" id="commentBox" class="col-xs-12">
+                <form class="mp-form-validation" name="commentForm" novalidate>
+                    <textarea id="commentContent" class="autosize-transition form-control" ng-model="comment.comment" required ng-maxlength="500" placeholder='{{L.review_box_text}}'></textarea>
+                </form>
+                <div class="col-xs-12 mp-margintop-20px">
+                    <!--<button class="btn btn-default btn-sm" ng-bind="L.reset"></button>-->
+                    <button class="btn btn-sm" ng-class="{'btn-success':isLogin,'btn-default':!isLogin }" ng-disabled="!isLogin" ng-click="submitComment(commentForm.$valid)" ng-bind="L.submit"></button>
+                </div>
+            </div>
+
+            <div ng-show="!isLogin" class="mp-mobile-fontsize-13px mp-mobile-height-80px mp-mobile-lineheight-90px" style="border:1px solid #dedede;background-color: #f8f8f8;height:100px;
+                    line-height: 100px;color:#bfbfbf;font-size:24px;text-align: center;">
+                <a href="javascript:;" ng-click="jumpToLogin()">{{L.login_first}}</a>
+            </div>
+        </div>
+        <!--<div class="col-xs-12 mp-margintop-20px">
+            <!--<button class="btn btn-default btn-sm" ng-bind="L.reset"></button>-->
+            <!--<button class="btn btn-sm" ng-class="{'btn-success':isLogin,'btn-default':!isLogin }" ng-disabled="!isLogin " ng-click="submitComment(commentForm.$valid)" ng-bind="L.submit"></button>
+        </div>-->
+    </div>
+    <div class="clear" style="clear: both"></div>
+    <div class="col-xs-12 mp-mobile-margintop-20px mp-mobile-fontsize-20px" style="margin-top:40px;font-size:25px;" ng-bind="L.reviews"></div>
+    <div ng-if="$mpMenuItemComment.getData().length==0" class="col-xs-12 mp-margintop-20px mp-menu-item-comment mp-mobile-paddingleft-10px
+            mp-mobile-paddingright-10px mp-mobile-paddingtop-10px mp-mobile-paddingbottom-10px" >
+        <div class="col-xs-12 mp-mobile-fontsize-14px mp-gray" style="margin:20px;" >
+            {{L.no_reviews_yet}}
+        </div>
+    </div>
+    <div class="col-xs-12 mp-margintop-20px mp-menu-item-comment mp-mobile-paddingleft-10px
+            mp-mobile-paddingright-10px mp-mobile-paddingtop-10px mp-mobile-paddingbottom-10px"
+         ng-repeat="comment in $mpMenuItemComment.getData()">
+        <starrating rating="{{comment.rating}}" class="col-xs-12 mp-display-block mp-fontsize-24px mp-mobile-fontsize-17px"></starrating>
+        <div class="col-xs-12 mp-mobile-fontsize-14px" style="margin:20px;" ng-bind="comment.comment"></div>
+        <div class="col-xs-12 mp-display-box mp-mobile-fontsize-14px">
+            <div class="mp-gray" ng-bind="DateFormat(comment.createTime, dateFormat)"></div>
+            <div class="mp-boxflex-1 text-right">
+                <span ng-bind="comment.fullName"></span>
+                /
+                <span class="mp-gray" ng-bind="comment.fullAddress"> </span>
+                <span class="commentItemOpt mp-mobile-pullright" ng-if="comment.cust_id==$mpCustomer.getItem('customer_id')"><a href="javascript:;" ng-click="deleteComment(comment,$index)">{{L.delete}}</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- USE 'Asynchronous Loading' version, for IE8 to work
+http://developers.facebook.com/docs/reference/javascript/FB.init/ -->
+
+<!--<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId  : '814884431855774',
+            status : true, // check login status
+            cookie : true, // enable cookies to allow the server to access the session
+            xfbml  : true  // parse XFBML
+        });
+    };
+
+    (function() {
+        var e = document.createElement('script');
+        e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+        e.async = true;
+        document.getElementById('fb-root').appendChild(e);
+    }());
+</script>
+
+<!--<script type="text/javascript">
+    $(document).ready(function(){
+        $('#share_button').click(function(e){
+            e.preventDefault();
+            FB.ui(
+                    {
+                        method: 'feed',
+                        name: 'A Tru-Menu recommended Dish',
+                        link: window.location.href,
+                        picture: 'http://stg.tru-menu.com/customer/image/Homepage-pic04_n.jpg',
+                        caption: 'Tru-Menu',
+                        description: 'Help you make the right choices for a fine dining experience you won’t regret',
+                        message: ''
+                    });
+        });
+    });
+</script>-->

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>换地址</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/coffee_location.css">
+    <script src='/assets/js/jquery-2.0.3.min.js'></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+    <script src="/coffee/js/config.js"></script>
+    <script src="/coffee/js/util.js"></script>
+    <script>
+
+//        SetWeChatConfig({jsApiList:['openLocation','getLocation']});
+
+        var curLocation = {};
+        var gAddress = '';
+        var gStreet = '';
+
+//        wx.ready(function () {
+//            wx.getLocation({
+//                success: function (res) {
+//                    console.log('should get prods here',res.latitude,res.longitude);
+//                    curLocation.latitude = res.latitude;
+//                    curLocation.longitude = res.longitude;
+//                    //bind click event after get current location
+//                    $('.page-confirm').click(onClickConfirm);
+//                },
+//                failure: function (res) {
+//                    alert("定位失败");
+//                }
+//            });
+//        });
+
+        var geocoderForLocation = new qq.maps.Geocoder( {
+            complete : function(result){
+                var location = result.detail.location;
+//                alert('should get prods here 2 : '+location.lat+' * '+location.lng);
+                gStreet = result.detail.addressComponents.street;
+                console.log('should get prods here',location.lat,location.lng);
+
+                SearchBiz({
+                            latitude: location.lat,
+                            longitude: location.lng
+                        },
+                        function(data){
+                            if(data && data.length>0) {
+                                var minDistance = GC.minSearchDistance+1;
+                                var biz_id = 0;
+                                for(var i=0;i<data.length;++i) {
+                                    var distance = GetDistance(data[i].latitude,data[i].longitude,location.lat,location.lng);
+                                    if(distance<minDistance) {
+                                        minDistance = distance;
+                                        biz_id = data[i].biz_id;
+                                    }
+                                }
+                                window.location.href = 'coffee_give.html?method=order&address='+encodeURIComponent(gStreet)+'&bizId='+biz_id;
+                            }
+                            else {
+                                alert('抱歉,附近没有商家,请切换地址重试');
+                            }
+                        },
+                        function(XMLHttpRequest, textStatus, errorThrown) {
+                            console.log('search biz error');
+                            alert('搜索商家失败, 请重试');
+                        });
+            },
+            error: function() {
+                alert("查询不到经纬度,请输入具体地址");
+            }
+        });
+
+    </script>
+</head>
+
+<body>
+
+<div class="page-get-cur-location">
+    <span></span>
+    <span id="js-cur-location">获取当前位置</span>
+</div>
+
+<div class="page-title">输入地址</div>
+<div class="page-box">
+    <div id="page-select-city">
+        <span id="js-selected-city">请选择所在城市</span>
+        <div id="page-city" style="display: none;">
+            <div value="北京市">北京</div>
+            <div value="上海市">上海</div>
+            <div value="辽宁省大连市">大连</div>
+            <div value="香港市">香港</div>
+            <div value="广东省深圳市">深圳</div>
+            <div value="广东省">广州</div>
+            <div value="福建省珠海市">珠海</div>
+        </div>
+    </div>
+    <div class="page-input-location"><input id="js-address_detail" placeholder="请输入地址, 例如XX区XX路XX号"></div>
+    <div class="page-confirm">确认</div>
+</div>
+
+<div class="page-title">历史地址</div>
+<div class="page-box">
+    <div class="page-location-item">辽宁省大连市沙河口区黄河路数控大厦547号</div>
+    <div class="page-location-item">辽宁省大连市沙河口区黄河路数控大厦547号</div>
+    <div class="page-location-item">辽宁省大连市沙河口区黄河路数控大厦547号</div>
+</div>
+
+<script>
+    var city = $('#page-city');
+    var winWidth = $('body').width();
+    city.css({left:(winWidth-city.width())/2});
+    $('#page-select-city').click(function(){
+        city.toggleClass("mp-show");
+    });
+
+    var city_address = null;
+    city.children().click(function(){
+        city_address = $(this).attr('value');
+        $('#js-selected-city').text(this.innerHTML);
+    });
+
+    function onClickConfirm() {
+        if(!city_address) {
+            alert("请选择城市");
+            return false;
+        }
+        gAddress = city_address + $('#js-address_detail').val();
+
+        geocoderForLocation.getLocation(gAddress);
+    }
+    $('.page-confirm').click(onClickConfirm);
+
+    $('#js-cur-location').click(function(){
+        window.location.href = 'coffee_order.html';
+    });
+
+</script>
+</body>
+</html>

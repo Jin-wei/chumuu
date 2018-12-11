@@ -1,0 +1,2459 @@
+{
+    "apiVersion": "1.0.0",
+    "swaggerVersion": "1.2",
+    "basePath": "http://localhost:8080/api",
+    "resourcePath": "/apidoc/biz.json",
+
+    "apis": [
+        {
+            "path": "/biz",
+            "description": "Get a list of business based on search cirteria",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "listBiz",
+                    "type": "biz",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "latitude",
+                            "description": "latitude of my location",
+                            "type": "number",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "longitude",
+                            "description": "longitude of my location",
+                            "type": "number",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "distance",
+                            "description": "distance of the search range",
+                            "type": "number",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "list record start in db",
+                            "type": "number",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "biz info list size",
+                            "type": "number",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Businesses cannot be found"
+                        }
+                    ],
+                    "summary": "Get a list of business based on search criteria",
+                    "notes": ""
+                }
+            ]
+        },
+
+        {
+            "path": "/biz/{bizId}",
+            "description": "Get a business by id",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizById",
+                    "type": "biz",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "unique id of a business",
+                            "type": "number",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "latitude",
+                            "description": "latitude of my location",
+                            "type": "number",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "longitude",
+                            "description": "longitude of my location",
+                            "type": "number",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Businesses cannot be found"
+                        }
+                    ],
+                    "summary": "Get a business by unique id",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/image",
+            "description": "upload a image for a business",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "uploadBizImage",
+                    "type": "imageId",
+                    "consumes": [
+                        "multipart/form-data"
+                    ],
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "name": "image",
+                            "description": "image to upload",
+                            "required": true,
+                            "type": "File",
+                            "paramType": "body",
+                            "allowMultiple": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "Error to upload a image"
+                        }
+                    ],
+                    "summary": "upload a new image for a business ",
+                    "notes": "Request content type is multipart/form-data. This rest client will give error when submit request, but you can try use POSTMAN.  If this business has image, it will be replaced by the newly uploaded image."
+                }
+            ]
+        },
+        {
+            "path": "/biz",
+            "description": "create a new business with image",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "createNewBiz",
+                    "type": "Integer",
+                    "consumes": [
+                        "multipart/form-data"
+                    ],
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "business information",
+                            "type": "BusinessInfo",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "image",
+                            "description": "Image of a Business",
+                            "type": "File",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "Error to upload a image"
+                        }
+                    ],
+                    "summary": "create a new business with image",
+                    "notes": "Request content type is multipart/form-data. This rest client will give error when submit request, but you can try use POSTMAN.  If this business has image, it will be replaced by the newly uploaded image."
+                }
+            ]
+        },
+        {
+            "path": "/bizHard",
+            "description": "update a new business hard info without image",
+            "operations": [
+                {
+                    "method": "put",
+                    "nickname": "updateBizHard",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "business information",
+                            "type": "BusinessInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "Error to upload a image"
+                        }
+                    ],
+                    "summary": "create a new business with image",
+                    "notes": "Request content type is multipart/form-data. This rest client will give error when submit request, but you can try use POSTMAN.  If this business has image, it will be replaced by the newly uploaded image."
+                }
+            ]
+        },
+        {
+            "path": "/biz",
+            "description": "update a  business base info without image",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateBizBaseInfo",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "business base information",
+                            "type": "BusinessBaseInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+
+                    ],
+                    "summary": "update a  business base info without image",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/bizUser",
+            "description": "create a new biz user with email",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "addBizUser",
+                    "type": "signUpResult",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "biz user email and password",
+                            "type": "BizUserInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "The email is not correct"
+                        }
+                    ],
+                    "summary": "Add biz user before create business",
+                    "notes": "Add biz user need a unique email and password"
+                }
+            ]
+        },
+        {
+            "path": "/bizUserInfo/{bizId}",
+            "description": "Get a biz user info by userId",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizUserById",
+                    "type": "biz",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "unique id of a business user",
+                            "type": "number",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Business user info cannot be found"
+                        }
+                    ],
+                    "summary": "Get a biz user info by user id",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/bizUser/{userId}/active",
+            "description": "set biz user state to active",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "activeBizUser",
+                    "type": "BizUserToken",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "userId",
+                            "description": "the userId to active",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "data",
+                            "description": "the code for active",
+                            "type": "String",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 409,
+                            "message": "The active url is unvalid"
+                        },
+                        {
+                            "code": 400,
+                            "message": "The user has been actived"
+                        }
+                    ],
+                    "summary": "Active biz user ",
+                    "notes": "Active biz user need active url in email"
+                }
+            ]
+        },
+        {
+            "path": "/bizUser/send/activeMail",
+            "description": "Send active email with active url to biz user",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "sendActiveEmail",
+                    "type": "boolean",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "Biz user email for login",
+                            "type": "RegisteredEmail",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 409,
+                            "message": "The email is not registered"
+                        },
+                        {
+                            "code": 400,
+                            "message": "The email is not correct"
+                        }
+                    ],
+                    "summary": "Send a active email to new biz user",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/bizUser/send/passwordMail",
+            "description": "Send reset password email with new password to biz user",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "sendPasswordEmail",
+                    "type": "boolean",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "reset new password",
+                            "type": "RegisteredEmail",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 409,
+                            "message": "The email is not registered"
+                        },
+                        {
+                            "code": 400,
+                            "message": "The email is not correct"
+                        }
+                    ],
+                    "summary": "Reset Biz user password",
+                    "notes": "Send a email to biz user with new password"
+                }
+            ]
+        },
+        {
+            "path": "/bizUser/do/login",
+            "description": "Biz user do login",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "login",
+                    "type": "BizUserToken",
+                    "parameters": [
+
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "biz user email and password",
+                            "type": "BizUserLogin",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "The password you entered is incorrect."
+                        },
+                        {
+                            "code": 400,
+                            "message": "The user is not registered"
+                        }
+                    ],
+                    "summary": "Biz user do login",
+                    "notes": "No request body"
+                }
+            ]
+        },
+        {
+            "path": "/bizUser/{userId}/changePassword",
+            "description": "Biz user change password",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "changePassword",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "userId",
+                            "description": "biz user id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "biz user origin password and new password",
+                            "type": "BizUserPassword",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "The Origin Password is not correct"
+                        },
+                        {
+                            "code": 401,
+                            "message": "Access token error ,the Api can't be accessed"
+                        },
+                        {
+                            "code": 409,
+                            "message": "The email is not registered"
+                        }
+                    ],
+                    "summary": "Biz user change password",
+                    "notes": "Need correct origin password"
+                }
+            ]
+        },
+        {
+            "path": "/bizApp",
+            "description": "Biz user add application for open business",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "addApplication",
+                    "type": "AddApplicationResult",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "userId",
+                            "description": "biz user id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "The application info ",
+                            "type": "BizUserApplication",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Access token error ,the Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Biz user add application",
+                    "notes": "Need many properties"
+                }
+            ]
+        },
+        {
+            "path": "/bizApp",
+            "description": "get application of the biz user",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getApplication",
+                    "type": "BizUserApplication",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "userId",
+                            "description": "biz user id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Access token error ,the Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Biz user query application",
+                    "notes": "Need token in request headers"
+                }
+            ]
+        },
+        {
+            "path": "/bizApp/{appId}",
+            "description": "update application of the biz user",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateApplication",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "userId",
+                            "description": "biz user id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "appId",
+                            "description": "biz user application id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "The application info ",
+                            "type": "BizUserApplication",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Access token error ,the Api can't be accessed"
+                        }
+                    ],
+                    "summary": "Biz user update application",
+                    "notes": "Need token in request headers"
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/customerCount",
+            "description":"get a business active customer relation count",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getCustomerCount",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get a business active customer count",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/totalClickCount",
+            "description":"get a business all product click count",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizTotalClickCount",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get a business all product click count",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/lastCustCount",
+            "description":"get a business yesterday check in count",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizLastCheckIn",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get a business yesterday check in count",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/lastClickCount",
+            "description":"get a business yesterday all product click count",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizLastClickCount",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get a business yesterday all product click count",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/topClickProd/{size}",
+            "description":"get a business top size click product",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizTopClickProd",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "size",
+                            "description": "get top product info size",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get a business top size click product info list",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/topPointCust/{size}",
+            "description":"get a business top size earned point customer",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizTopPointCust",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "size",
+                            "description": "get top customer info size",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get a business top size earned point info list",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/cust",
+            "description":"get a business active customer relation list",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getCustomerList",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get a business  customer list",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/ratBizComment",
+            "description":"get a  biz comment count and average rating",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizCommentRating",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a product ",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The System inner error"
+                        }
+                    ],
+                    "summary":"get a biz comment count and average rating",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/bizComment",
+            "description":"get a  biz comments  state is 1",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizComment",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a product ",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The System inner error"
+                        }
+                    ],
+                    "summary":"get a biz all comments",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{custId}/custBizComment",
+            "description":"get a  customer biz comments  ",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getCustomerBizComment",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "id of a customer ",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary":"get a customer all biz comments",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{custId}/biz/{bizId}/comment",
+            "description":"create a  customer comments  ",
+            "operations":[
+                {
+                    "method":"POST",
+                    "nickname":"createCustomerComment",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "id of a customer ",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a product ",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "comment detail information",
+                            "type": "BizCommentInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary":"create a biz comments by customer",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{custId}/bizComment/{id}/",
+            "description":"Delete a biz comment",
+
+            "operations":[
+                {
+                    "method":"DELETE",
+                    "nickname":"deleteBizComment",
+                    "type":"boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "id of a customer",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "description": "id of the comment",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary":"Delete a biz comment",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/favoriteCount/",
+            "description":"get a biz favorite count",
+
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizFavoriteCount",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a biz",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The System internal error"
+                        }
+                    ],
+                    "summary":"get a biz favorite count",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{uniqueName}/uniqueName",
+            "description": "Get the id of business by unique name",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizIdByUniqueName",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "uniqueName",
+                            "description": "biz unique name",
+                            "type": "String",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Businesses cannot be found"
+                        }
+                    ],
+                    "summary": "Get the id of business by unique name",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/bizUser/{bizId}",
+            "description": "Get the info of biz user",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizUserInfo",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "BizUser cannot be found"
+                        }
+                    ],
+                    "summary": "Get the info of biz user",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/dayClick/{size}",
+            "description": "Get the day click stat info of the biz",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizDayClickStat",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "size",
+                            "description": "records size",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "Get the day click stat info of the biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/weekClick/{size}",
+            "description": "Get the week click stat info of the biz",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizWeekClickStat",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "size",
+                            "description": "records size",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "Get the week click stat info of the biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/monthClick/{size}",
+            "description": "Get the month click stat info of the biz",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizMonthClickStat",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "size",
+                            "description": "records size",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "Get the month click stat info of the biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/taxRate",
+            "description": "Get the tax rate of the state that the biz location",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getTaxByBiz",
+                    "type": "Float",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "Get the tax rate of the biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/bizImg",
+            "description": "Get the biz image in server",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizImg",
+                    "type": "BizImage",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "Get the image of the biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/bizImg",
+            "description": "Add a biz image in server",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "addBizImg",
+                    "type": "BizImage",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "name": "image",
+                            "description": "image to upload",
+                            "required": true,
+                            "type": "File",
+                            "paramType": "body",
+                            "allowMultiple": false
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "biz image info",
+                            "type": "BizImage",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "add the image of the biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/bizImg/{imgId}",
+            "description": "update the  image  ,set it to default ",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "getBizImg",
+                    "type": "boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "imgId",
+                            "description": "image id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "update the image of the biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/bizImg/{imgId}",
+            "description": "delete the  image  ,set it to default ",
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "delBizImg",
+                    "type": "boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "imgId",
+                            "description": "image id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "delete the image of the biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/allFavorCust",
+            "description": "get  the  biz  all favorite customer info ",
+            "operations": [
+                {
+                    "method": "get",
+                    "nickname": "queryBizFavorCust",
+                    "type": "customr",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "record start position",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "record size",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "get the customer info of favorite biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/bizUser",
+            "description": "update a  business user profile info without image",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateBizUserInfo",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "business user information",
+                            "type": "BusinessUserInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+
+                    ],
+                    "summary": "update a  business user profile info without image",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/orderStatus/{orderStatus}",
+            "description": "update a  business order status",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateBizOrderStatus",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "orderStatus",
+                            "description": "order status , 1 open,0 close",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+
+                    ],
+                    "summary": "update a  business orderStatus",
+                    "notes": ""
+                }
+            ]
+        },{
+            "path": "/biz/{bizId}/bizImg/{imgId}/update",
+            "description": "update a image for a business",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateBizImage",
+                    "type": "String",
+                    "consumes": [
+                        "multipart/form-data"
+                    ],
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "imgId",
+                            "description": "id of a business image",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "name": "image",
+                            "description": "image to upload",
+                            "required": true,
+                            "type": "File",
+                            "paramType": "body",
+                            "allowMultiple": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "Error to upload a image"
+                        }
+                    ],
+                    "summary": "update a new image for a business ",
+                    "notes": "Request content type is multipart/form-data. "
+                }
+            ]
+        },{
+            "path": "/biz/{bizId}/cust/{custId}/custComment",
+            "description": "update a  business customer relation comment ",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateBizCustomerComment",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": " biz customer relation comment ",
+                            "type": "RelCommentInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+
+                    ],
+                    "summary": "update a  business customer relation comment",
+                    "notes": ""
+                }
+            ]
+        },{
+            "path": "/biz/{bizId}/printer",
+            "description": "create a  business printer ",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "createBizPrinter",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": " biz printer info",
+                            "type": "PrinterInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+
+                    ],
+                    "summary": "create a  business printer",
+                    "notes": ""
+                }
+            ]
+        },{
+            "path": "/biz/{bizId}/printer/{printerId}",
+            "description": "update a  business printer ",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateBizPrinter",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "printerId",
+                            "description": "printer id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": " biz printer info",
+                            "type": "PrinterInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+
+                    ],
+                    "summary": "update a  business printer",
+                    "notes": ""
+                }
+            ]
+        },{
+            "path": "/biz/{bizId}/printer",
+            "description": "get all  business printer ",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizPrinter",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "type",
+                            "description": "biz printer type",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "printerId",
+                            "description": "biz printer id",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+
+                    ],
+                    "summary": "get business printer",
+                    "notes": ""
+                }
+            ]
+        },{
+            "path": "/biz/{bizId}/printer/{printerId}",
+            "description": "delete a  business printer ",
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "delBizPrinter",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "printerId",
+                            "description": "biz printer id",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+
+                    ],
+                    "summary": "delete business printer",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/cust/{custId}/bizCustRel",
+            "description": "get a  business relation customer info ",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizCustomerRel",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "customer id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal Error"
+                        },
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        }
+
+                    ],
+                    "summary": "get business customer relation",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/bizUser/do/mLogin",
+            "description": "Biz user do login by mobile",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "mobileLogin",
+                    "type": "BizUserToken",
+                    "parameters": [
+
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "biz user email and password and device token",
+                            "type": "BizUserLogin",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "The password you entered is incorrect."
+                        },
+                        {
+                            "code": 400,
+                            "message": "The user is not registered"
+                        }
+                    ],
+                    "summary": "Biz user do login by mobile",
+                    "notes": "No request body"
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/mLoginOut",
+            "description": "Biz user do logOut by mobile",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "mobileLoginOut",
+                    "type": "BizUserToken",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "biz user device token",
+                            "type": "DeviceToken",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal error."
+                        }
+                    ],
+                    "summary": "Biz user do login out by mobile",
+                    "notes": "No request body"
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/mobileSound/{sound}",
+            "description": "Biz user set sound on or off by mobile",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateMobileSound",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "Integer",
+                            "required": true
+                        },{
+                            "paramType": "path",
+                            "name": "sound",
+                            "description": "sound type",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "biz user device token",
+                            "type": "DeviceToken",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Internal error."
+                        }
+                    ],
+                    "summary": "Biz user turn  mobile sound on or off",
+                    "notes": "No request body"
+                }
+            ]
+        },
+        {
+            "path":"/biz/{userId}/avatar",
+            "description":"upload a image for biz user",
+            "operations":[
+                {
+                    "method":"POST",
+                    "nickname":"uploadBizUserAvatar",
+                    "type":"imageId",
+                    "consumes":[
+                        "multipart/form-data"
+                    ],
+                    "parameters":[
+                        {
+                            "paramType":"path",
+                            "name":"userId",
+                            "description":"id of a business user",
+                            "type":"integer",
+                            "required":true
+                        },
+                        {
+                            "name":"image",
+                            "description":"image to upload",
+                            "required":true,
+                            "type":"File",
+                            "paramType":"body",
+                            "allowMultiple":false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code":500,
+                            "message":"Error to upload a image"
+                        }
+                    ],
+                    "summary":"upload a new image for a biz user ",
+                    "notes":"Request content type is multipart/form-data. This rest client will give error when submit request, but you can try use POSTMAN. "
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/parent/{parentId}",
+            "description": "update business parent ",
+            "operations": [
+                {
+                    "method": "put",
+                    "nickname": "setBizParent",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType":"path",
+                            "name":"bizId",
+                            "description":"id of a business ",
+                            "type":"integer",
+                            "required":true
+                        },
+                        {
+                            "paramType":"path",
+                            "name":"parentId",
+                            "description":"id of a parent business ",
+                            "type":"integer",
+                            "required":true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "Error to upload a image"
+                        }
+                    ],
+                    "summary": "set business parent ",
+                    "notes": "parent id should be a business id "
+                }
+            ]
+        }
+    ],
+    "models":{
+        "BusinessInfo":{
+            "id" : "BusinessInfo",
+            "properties" : {
+                "name": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"name of Business "
+                },
+                "address" : {
+                    "description": "address of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "city" :{
+                    "description": "city of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "state" : {
+                    "description": "state of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "zipcode" : {
+                    "description": "zipcode of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "latitude": {
+                    "type":"String",
+                    "required" :false,
+                    "description":"latitude of Business "
+                },
+                "longitude" : {
+                    "description": "longitude of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "phone_no" :{
+                    "description": "phone_no of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "opened_date" : {
+                    "description": "state of a Business",
+                    "type": "Date",
+                    "required": false
+                },
+                "owner_name" : {
+                    "description": "owner_name of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "category" : {
+                    "description": "category of a Business",
+                    "type": "String",
+                    "required": false
+                },
+                "note" : {
+                    "description": "note of a Business",
+                    "type": "String",
+                    "required": false
+                }
+            }
+        },
+        "BizUserInfo":{
+            "id" : "BizUserInfo",
+            "properties" : {
+                "email": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the unique email for register"
+                },
+                "password" : {
+                    "description": "the biz user password for login",
+                    "type": "String",
+                    "required": true
+                },
+                "username" :{
+                    "description": "the unique user name",
+                    "type": "String",
+                    "required": true
+                },
+                "first_name" : {
+                    "description": "the first name of biz user",
+                    "type": "String",
+                    "required": true
+                },
+                "last_name" : {
+                    "description": "the last name of biz user",
+                    "type": "String",
+                    "required": true
+                },
+                "phone_num": {
+                    "type":"String",
+                    "required" :false,
+                    "description":"the mobile number of biz user"
+                }
+            }
+        },
+        "SignUpResult":{
+            "id" : "SignUpResult",
+            "properties" : {
+                "success": {
+                    "type":"Boolean",
+                    "required" :false,
+                    "description":"the result of sign up"
+                },
+                "bizUserId" : {
+                    "description": "the id of biz user",
+                    "type": "Number",
+                    "required": true
+                }
+            }
+        },
+        "BizUserToken":{
+            "id" : "BizUserToken",
+            "properties" : {
+                "userId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": true,
+                    "description": "unique identifier for this biz user"
+                },
+                "accessToken": {
+                    "type": "String",
+                    "required": true,
+                    "description": "access token use for call api  created by web server"
+                },
+                "bizId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "required": false,
+                    "description": "the business id of the biz user ,if it is exist"
+                },
+                "active": {
+                    "type": "integer",
+                    "required": false,
+                    "description": "0 is not active , 1 is active"
+                }
+            }
+        },
+        "RegisteredEmail" : {
+            "id" : "RegisteredEmail",
+            "properties" : {
+                "email" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "Biz user registered email"
+                }
+            }
+        },
+        "RegisteredEmail" : {
+            "id" : "RegisteredEmail",
+            "properties" : {
+                "email" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "Biz user registered email"
+                }
+            }
+        },
+        "BizUserLogin" : {
+            "id" : "BizUserLogin",
+            "properties" : {
+                "user" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "Biz user registered email"
+                },
+                "password" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "Biz user password for login"
+                },
+                "deviceToken":{
+                    "type" : "String" ,
+                    "required" : false,
+                    "description" : "Biz user mobile device info for login"
+                }
+            }
+        },
+        "BizUserPassword" : {
+            "id" : "BizUserPassword",
+            "properties" : {
+                "password" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "Biz user origin password"
+                },
+                "newPassword" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "Biz user new password"
+                }
+            }
+        },
+        "BizUserApplication" : {
+            "id" : "BizUserApplication",
+            "properties" : {
+                "bizName" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "Business name"
+                },
+                "address" : {
+                    "type" : "String" ,
+                    "required" : false,
+                    "description" : "Business address"
+                },
+                "city" : {
+                    "type" : "String" ,
+                    "required" : false,
+                    "description" : "The city of business"
+                },
+                "country" : {
+                    "type" : "String" ,
+                    "required" : false,
+                    "description" : "The country of business"
+                },
+                "state" : {
+                    "type" : "String" ,
+                    "required" : false,
+                    "description" : "The state of business"
+                },
+                "zipcode" : {
+                    "type" : "String" ,
+                    "required" : false,
+                    "description" : "The zipcode of business location"
+                },
+                "latitude" : {
+                    "type" : "Float" ,
+                    "required" : false,
+                    "description" : "The latitude of business location"
+                },
+                "longitude" : {
+                    "type" : "Float" ,
+                    "required" : false,
+                    "description" : "The longitude of business location"
+                },
+                "phone_num" : {
+                    "type" : "String" ,
+                    "required" : false,
+                    "description" : "Business phone number"
+                },
+                "category" : {
+                    "type" : "String" ,
+                    "required" : false,
+                    "description" : "The category of business"
+                }
+            }
+        },
+        "AddApplicationResult" : {
+            "id" : "AddApplicationResult",
+            "properties" : {
+                "success" : {
+                    "type" : "Boolean" ,
+                    "required" : true,
+                    "description" : "True is add success ,false is add failure"
+                },
+                "applyId" : {
+                    "type" : "Integer" ,
+                    "required" : true,
+                    "description" : "The id of application"
+                }
+            }
+        },
+        "BusinessBaseInfo":{
+            "id" : "BusinessBaseInfo",
+            "properties" : {
+                "phoneNo": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"phone number of Business "
+                },
+                "category" : {
+                    "description": "category of a Business",
+                    "type": "String",
+                    "required": true
+                },
+                "cashOnly" :{
+                    "description": "If case is payment only or not",
+                    "type": "Integer",
+                    "required": true
+                },
+                "reservations" : {
+                    "description": "If reservation is supplied only or not",
+                    "type": "Integer",
+                    "required": true
+                },
+                "wifi" : {
+                    "description": "The business have wifi or not",
+                    "type": "Integer",
+                    "required": true
+                },
+                "hours": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"Json format for operation time"
+                },
+                "parking" : {
+                    "description": "The business have free parking or not",
+                    "type": "Integer",
+                    "required": true
+                },
+                "seatOutDoor" :{
+                    "description": "The business have seat out door or not",
+                    "type": "Integer",
+                    "required": true
+                },
+                "privateRoom" : {
+                    "description": "The business have private room or not",
+                    "type": "Integer",
+                    "required": true
+                },
+                "desc" : {
+                    "description": "The description of business ,within 500 chars",
+                    "type": "String",
+                    "required": true
+                },
+                "bizId" : {
+                    "description": "the business id",
+                    "type": "Integer",
+                    "required": true
+                }
+            }
+        },
+        "RelCustomerInfo" : {
+            "id" : "RelCustomerInfo",
+            "properties" : {
+                "customer_id" : {
+                    "type" : "Integer" ,
+                    "required" : true,
+                    "description" : "customer user id"
+                },
+                "username" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "customer user name"
+                },
+                "first_name" : {
+                    "type" : "String" ,
+                    "required" : false,
+                    "description" : "customer first name"
+                },
+                "last_name" : {
+                    "type" : "String" ,
+                    "required" : true,
+                    "description" : "customer last name"
+                },
+                "created_on" : {
+                    "type" : "Date" ,
+                    "required" : false,
+                    "description" : "customer sign up date"
+                },
+                "updated_on" : {
+                    "type" : "Date" ,
+                    "required" : false,
+                    "description" : "customer last update info date "
+                }
+                ,
+                "rel_created_on" : {
+                    "type" : "Date" ,
+                    "required" : false,
+                    "description" : "customer do check in date"
+                },
+                "rel_updated_on" : {
+                    "type" : "Date" ,
+                    "required" : false,
+                    "description" : "customer update relation date "
+                },
+                "rel_active" : {
+                    "type" : "Integer" ,
+                    "required" : true,
+                    "description" : "customer and business relation state "
+                },
+                "total_points_earned" : {
+                    "type" : "Integer" ,
+                    "required" : false,
+                    "description" : "customer earned points size"
+                },
+                "total_points_redempted" : {
+                    "type" : "Integer" ,
+                    "required" : false,
+                    "description" : "customer redempted points size"
+                },
+                "points_balance" : {
+                    "type" : "Integer" ,
+                    "required" : false,
+                    "description" : "customer the balance of point balance"
+                },
+                "loyalty_level" : {
+                    "type" : "Integer" ,
+                    "required" : false,
+                    "description" : "customer the loyal level"
+                }
+
+
+            }
+        },
+        "BizCommentInfo": {
+            "id": "BizCommentInfo",
+            "properties": {
+                "comment": {
+                    "type": "String",
+                    "required": true,
+                    "description": "the comment context  "
+                },
+                "priceLevel": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "the biz price rating"
+                },
+                "serviceLevel": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "the biz service rating"
+                },
+                "foodQuality": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "the biz food quality rating"
+                }
+            }
+        },
+        "BizImage": {
+            "id": "BizImage",
+            "properties": {
+                "id": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the image id  "
+                },
+                "biz_id": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the biz id"
+                },
+                "img_url": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the biz image url"
+                },
+                "des": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the biz image description"
+                },
+                "flag": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the biz image flag ,1 is default"
+                }
+            }
+        },
+        "RelCommentInfo" :{
+            "id": "RelCommentInfo",
+            "properties": {
+                "comment": {
+                    "type": "String",
+                    "required": true,
+                    "description": "the comment string  "
+                }
+            }
+        },
+
+        "PrinterInfo" : {
+            "id" : "PrinterInfo",
+            "properties": {
+                "id": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the printer id "
+                },
+                "bizId": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the business id "
+                },
+                "type": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "the printer type "
+                },
+                "name": {
+                    "type": "String",
+                    "required": true,
+                    "description": "the printer name "
+                },
+                "ip": {
+                    "type": "String",
+                    "required": true,
+                    "description": "the printer ip "
+                },
+                "local": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the printer location "
+                },
+                "remark": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the printer remark "
+                }
+            }
+        },
+        "DeviceToken" : {
+            "id" : "DeviceToken",
+            "properties": {
+
+                "deviceToken": {
+                    "type": "String",
+                    "required": true,
+                    "description": "the mobile device token "
+                }
+            }
+        }
+    }
+}

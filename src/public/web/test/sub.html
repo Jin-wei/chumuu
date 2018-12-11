@@ -1,0 +1,33 @@
+<style>
+
+p.box {
+  width: 300px;
+  border: solid 1px black;
+  padding: 20px;
+    color:red;
+}
+
+p.box:before {
+  content: "#";
+  border: solid 1px black;
+  padding: 2px;
+  margin: 0 10px 0 0;
+}
+</style>
+
+<link rel="stylesheet" href="test.css" />
+	<div>
+	I am new div
+	<input placeholder="321312" />
+	</div>
+<p class="box">Other content.</p>
+
+<div ng-controller="MyController">
+    <input ng-model="input_test" />
+    <div>{{input_test}}</div>
+    <input type="button" ng-click="click()" value="button"/>
+</div>
+
+<script type="text/javascript"  defer="defer">
+    alert("I am sub html");
+</script>

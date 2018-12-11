@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mp_admin" ng-controller="indexController" class="ng-cloak" ng-cloak>
+<head>
+    <meta charset="utf-8" />
+    <title>{{L.admin_title}}</title>
+    <meta name="description" content="Tru-Menu Business offers cloud based restaurant management with menu, promotions, customers, analytics, mobile POS and on line ordering">
+    <meta name="keywords" content="Tru-Menu,restaurant mobile POS, restaurant CRM, restaurant print menu service, restaurant on line ordering">
+
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- build:js js/mp-g-admin.jq-ng.js -->
+
+    <!--endbuild-->
+
+    <!-- basic styles -->
+    <!-- build:css css/mp-g-admin.bs-ace-jqui.css -->
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./assets/css/bootstrap-editable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/jquery-ui-1.10.3.full.min.css" />
+    <link rel="stylesheet" href="./assets/css/jquery.gritter.css" />
+    <link rel="stylesheet" href="./assets/css/ace-fonts.css" />
+    <link rel="stylesheet" href="./assets/css/chosen.css" />
+    <link rel="stylesheet" href="./assets/css/ace.min.css" />
+    <link rel="stylesheet" href="./assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="./assets/css/ace-skins.min.css" />
+    <link rel="stylesheet" href="./assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="./css/lib/chosen-spinner.css" />
+    <!--endbuild-->
+
+    <link rel="stylesheet" href="./assets/css/font-awesome.min.css" />
+
+    <!-- build:css css/mp-g-admin.mp.css -->
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./biz_admin/css/index.css" />
+    <link rel="stylesheet" href="./biz_admin/css/menu.css" />
+    <link rel="stylesheet" href="./biz_admin/css/profile.css" />
+    <link rel="stylesheet" href="./biz_admin/css/order.css" />
+    <link rel="stylesheet" href="./biz_admin/css/shop.css" />
+    <link rel="stylesheet" href="./biz_admin/css/shop_detail.css" />
+    <link rel="stylesheet" href="./biz_admin/css/shop_add_update.css" />
+    <link rel="stylesheet" href="./biz_admin/css/invoice.css" />
+    <link rel="stylesheet" href="./biz_admin/css/setting.css" />
+    <!--endbuild-->
+
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="./assets/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="./assets/css/ace-ie.min.css" />
+    <![endif]-->
+
+    <link rel="shortcut icon" href="./image/chuMenu-favicon.ico"/>
+</head>
+
+<body>
+
+
+<div class="navbar navbar-default" id="navbar">
+    <script type="text/javascript">
+        try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+    </script>
+
+    <div class="navbar-container" id="navbar-container" style="padding-top:0px;padding-bottom: 0px;">
+        <div class="navbar-header pull-left">
+            <a href="#" class="navbar-brand" style="padding:0px;">
+                <img src="./image/chuMenu_bk_logo.png" height="38px" style="margin-top: 4px;float: left"/>
+                <small>
+                    <!--<img ng-if="currency != '¥'" src="image/logo_small.png" height="46px" />-->
+                    <span style="display: inline-block;padding: 11px 0 0 5px;float: left;">{{L.app_name}}</span>
+                </small>
+            </a><!-- /.brand -->
+        </div><!-- /.navbar-header -->
+        <div class="navbar-header pull-right" role="navigation">
+            <ul class="nav ace-nav">
+                <li class="">
+                    <a class="btn-logout" href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">
+                        <!--<img class="nav-user-photo" ng-src="http://graph.facebook.com/ {{custInfo.fb_id}}/picture" alt="Jason's Photo" />-->
+        <span class="user-info">
+            <small>{{L.welcome}},</small>
+            {{$mpUser.getItem('name')}}
+        </span>
+                        <i class="icon-caret-down"></i>
+                    </a>
+                    <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                        <li>
+                            <a href="javascript:;" ng-click="onChangeLanguage()">
+                                <i class="icon-globe"></i>
+                                {{L.next_lang}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="$mpUser.logout()">
+                                <i class="icon-off"></i>
+                                {{L.logout}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul><!-- /.ace-nav -->
+        </div><!-- /.navbar-header -->
+        <div ng-if="false" class="navbar-header pull-right mp-mobile-nodisplay">
+            <span id="headerBizName">{{g_bizName}}</span>
+        </div>
+    </div><!-- /.container -->
+</div>
+
+<div class="main-container mp-mobile-paddingbottom-240px mp-pad-paddingbottom-140px" id="main-container">
+    <script type="text/javascript">
+        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+    </script>
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+
+        <div class="sidebar" id="sidebar" >
+            <script type="text/javascript">
+                try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+            </script>
+            <div class="space-2"></div>
+            <ul class="nav nav-list" >
+                <!--<li class="active">-->
+                <!--<a href="#/profile">--
+                    <!--<i class="icon-home"></i>-->
+                <!--<span class="menu-text"> 商家 </span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <li class="active">
+                    <a href="#/shop">
+                        <i class="icon-th"></i>
+                        <span class="menu-text"> {{L.business}} </span>
+                    </a>
+                </li>
+                <!--<li>
+                    <a href="#/menu">
+                        <i class="icon-food"></i>
+                        <span class="menu-text"> {{L.menu_menu_item}} </span>
+                    </a>
+                </li>-->
+                <li>
+                    <a href="#/order">
+                        <i class="icon-shopping-cart"></i>
+                        <span class="menu-text"> {{L.menu_order}} </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/inuseqrcode">
+                        <i class="icon-tag"></i>
+                        <span class="menu-text"> {{L.in_use_menu_qrcode}} </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/unuseqrcode">
+                        <i class="icon-tag"></i>
+                        <span class="menu-text"> {{L.un_use_menu_qrcode}} </span>
+                    </a>
+                </li>
+                <!--<li>
+                    <a href="#/complaint">
+                        <i class="icon-comment"></i>
+                        <span class="menu-text">{{L.complaint}}</span>
+                    </a>
+                </li>-->
+                <!--<li>
+                    <a href="#/invoice">
+                        <i class="icon-credit-card"></i>
+                        <span class="menu-text"> {{L.invoice}} </span>
+                    </a>
+                </li>
+                <!--<li>
+                    <a href="#/promotion">
+                        <i class="icon-bookmark"></i>
+                        <span class="menu-text">优惠</span>
+                    </a>
+                </li>
+                <!--<li>-->
+                <!--<a href="#/customer">-->
+                <!--<i class="icon-group"></i>-->
+                <!--<span class="menu-text"> {{L.menu_customer}} </span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li >-->
+                <!--<a href="#/promotion">-->
+                <!--<i class="icon-gift"></i>-->
+                <!--<span class="menu-text"> {{L.menu_promotion}} </span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li >-->
+                <!--<a href="#/insight">-->
+                <!--<i class="icon-bar-chart"></i>-->
+                <!--<span class="menu-text"> {{L.menu_insight}} </span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <li>
+                    <a href="#/setting">
+                        <i class="icon-cog"></i>
+                        <span class="menu-text"> {{L.setting}} </span>
+                    </a>
+                </li>
+                <!--<li>
+                    <a href="#/add_coffee_business">
+                        <i class="icon-cog"></i>
+                        Add Business
+                    </a>
+                </li>-->
+                <!--<li>
+                    <a href="#/multi_coffee_business">
+                        <i class="icon-home"></i>
+                        <span class="menu-text"> Multi Business </span>
+                    </a>
+                </li>-->
+            </ul><!-- /.nav-list -->
+
+            <div class="sidebar-collapse" id="sidebar-collapse">
+                <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+            </div>
+
+            <script type="text/javascript">
+                try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+            </script>
+        </div>
+
+        <div class="main-content">
+            <div id="ngViewDiv" ng-view ></div>
+        </div>
+
+    </div><!-- /.main-container-inner -->
+
+    <!--<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">-->
+    <!--<i class="icon-double-angle-up icon-only bigger-110"></i>-->
+    <!--</a>-->
+
+    <div id="dialog-confirm" class="hide">
+        <!--<div class="alert alert-info bigger-110"> {{L.delete_box_text_2}} </div>-->
+        <div class="space-6"></div>
+        <p class="bigger-110 bolder center grey">
+            <i class="icon-hand-right blue bigger-120"></i> {{L.are_you_sure}}
+        </p>
+    </div><!-- #dialog-confirm -->
+</div><!-- /.main-container -->
+
+<!--<div class="mp-mobile-height-240px mp-pad-vertical-height-140px mp-mobile-paddingleft-10px mp-mobile-padding-right-10px" id="footer" style="">-->
+<!--<div class="col-xs-12" style="text-align:center;">-->
+<!--<span class="footerItem mp-mobile-display-block"><a href="#/about-us">{{L.aboutus}}</a></span>-->
+<!--<span class="footerItem mp-mobile-display-block"><a href="#/contact-us">{{L.contactus}}</a></span>-->
+<!--<span class="footerItem mp-mobile-display-block"><a href="#/terms">{{L.terms}}</a></span>-->
+<!--<span class="footerItem mp-mobile-display-block"><a href="#/privacy-policy">{{L.policy}}</a></span>-->
+<!--<span ng-if="displayChangeLanguage" class="footerItem mp-mobile-display-block"><a href="javascript:;" ng-click="onChangeLanguage()">{{L.next_lang}}</a></span>-->
+<!--</div>-->
+<!--<div class="col-xs-12" style="text-align: center;">-->
+<!--<div class="" style="margin:10px auto;border-top:2px solid white; width:80%"></div>-->
+<!--</div>-->
+<!--<div id="copyright" class="col-xs-12">-->
+<!--<span>Copyright (c) 2015  Mission Public Inc.</span>-->
+<!--</div>-->
+<!--</div>-->
+
+<!-- basic scripts -->
+
+<div class="mp-btn-simple mp-mobile-opacity-90" id="mp-go-back-top">
+    <span class="icon-arrow-up" onclick="{$('body').animate({'scrollTop':0},300);}"> Top</span>
+</div>
+
+
+<script type="text/javascript">
+    if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+    if ("ontouchend" in document) document.write("<script src='/assets/js/jquery-2.0.3.min.js'>" + "<" + "/script>");
+</script>
+<script src="assets/js/jquery-2.0.3.min.js"></script>
+<script src="js/lib/ng.1.2.6/angular.min.js"></script>
+<script src="js/lib/ng.1.2.6/angular-route.min.js"></script>
+<script src="js/lib/ng.1.2.6/angular-cookies.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+<script src="./assets/js/x-editable/bootstrap-editable.min.js"></script>
+<script src="./assets/js/x-editable/ace-editable.min.js"></script>
+<script src="./assets/js/typeahead-bs2.min.js"></script>
+<script src="./assets/js/jquery.nestable.min.js"></script>
+<script src="./assets/js/jquery-ui-1.10.3.full.min.js"></script>
+<script src="./assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="./assets/js/jquery.slimscroll.min.js"></script>
+<script src="./assets/js/jquery.easy-pie-chart.min.js"></script>
+<script src="./assets/js/jquery.sparkline.min.js"></script>
+<script src="./assets/js/jquery.maskedinput.min.js"></script>
+<script src="./assets/js/jquery.gritter.min.js"></script>
+<script src="./assets/js/chosen.jquery.min.js"></script>
+<script src="./assets/js/bootbox.min.js"></script>
+<script src="./assets/js/ace-extra.min.js"></script>
+<script src="./assets/js/ace-elements.min.js"></script>
+<script src="./assets/js/ace.min.js"></script>
+<!--<script src="js/lib/jquery.dragsort-0.5.2.min.js"></script>-->
+<script src="./assets/js/date-time/moment.min.js"></script>
+<script src="./assets/js/uncompressed/date-time/daterangepicker.js"></script>
+<script src="./assets/js/jqGrid/jquery.jqGrid.min.js"></script>
+<script src="./assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+<script src="./assets/js/fuelux/fuelux.spinner.min.js"></script>
+<script src="./js/lib/charts/highcharts.js"></script>
+<script src="./js/lib/charts/modules/exporting.js"></script>
+<script src="./js/lib/jquery.form.js"></script>
+<script src="./js/lib/bindonce.js"></script>
+<script src="./js/lib/ng-infinite-scroll.js"></script>
+<script src="./js/lib/angular-chosen.js"></script>
+<script src="./js/lib/jquery.cookie.js"></script>
+<script src="./js/lib/lodash.min.js"></script>
+<script src="./js/lib/Sortable.js"></script>
+<script src="./js/lib/ng-sortable.js"></script>
+<script src="./js/lib/jquery.qrcode.min.js"></script>
+
+<!--<script src="/js/lib/moment.min.js"></script>-->
+<!--Must be after angular.js-->
+<script src="js/lib/ui-bootstrap-tpls-0.11.0.js"></script>
+
+<!--build:js js/mp-g-admin.mp.js-->
+<script src="./biz_admin/js/admin_module.js"></script>
+<script src="./js/util.js"></script>
+<script src="./js/service.js"></script>
+<script src="./js/system_config.js"></script>
+<script src="./js/global_function.js"></script>
+<script src="./js/directive.js"></script>
+
+<script src="./biz_admin/js/config.js"></script>
+<script src="./biz_admin/js/const.js"></script>
+<script src="./biz_admin/js/service.js"></script>
+<script src="./biz_admin/js/directive.js"></script>
+<script src="./biz_admin/js/global_function.js"></script>
+<script src="./biz_admin/js/i18n/en_us.js"></script>
+<script src="./biz_admin/js/i18n/zh_cn.js"></script>
+<script src="./biz_admin/js/index_controller.js"></script>
+<script src="./biz_admin/js/order_controller.js"></script>
+<script src="./biz_admin/js/setting_controller.js"></script>
+<script src="./biz_admin/js/invoice_controller.js"></script>
+<script src="./biz_admin/js/shop_controller.js"></script>
+<script src="./biz_admin/js/shop_detail_controller.js"></script>
+<script src="./biz_admin/js/shop_add_update_controller.js"></script>
+<script src="./biz_admin/js/qrcode_controller.js"></script>
+<script src="./biz_admin/js/unuse_qrcode_controller.js"></script>
+<script src="./js/printer/StarWebPrintBuilder.js"></script>
+<script src="./js/printer/StarWebPrintTrader.js"></script>
+<script src="./js/printer/printerService.js"></script>
+
+<!--endbuild-->
+
+<!--[if lte IE 8]>
+<script src="./assets/js/excanvas.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+<script src="./assets/js/html5shiv.js"></script>
+<script src="./assets/js/respond.min.js"></script>
+<![endif]-->
+
+<script>
+    app.requires['ng-sortable'] || app.requires.push('ng-sortable');
+    //gBrowser is inited by global_function.js, so the code below must be after global_function.js
+    //    if(gBrowser.iPad) {
+    document.write('<link rel="stylesheet" href="css/responsive-pad.css" />');
+    //    }
+    /*if(gBrowser.sys_config.statistics_js) {
+        document.write(unescape(gBrowser.sys_config.statistics_js));
+    }*/
+    if(gBrowser.sys_config.map_js) document.write(unescape(gBrowser.sys_config.map_js));
+</script>
+
+</body>
+</html>

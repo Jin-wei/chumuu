@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Login Page - TruMenu Business</title>
+
+    <meta name="description" content="User login page"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- build:js ../js/mp-g-bl.jq-ng.js -->
+    <script src='../assets/js/jquery-2.0.3.min.js'></script>
+    <script src="../js/lib/ng.1.2.6/angular.min.js"></script>
+    <script src="../js/lib/ng.1.2.6/angular-cookies.js"></script>
+    <script src="../js/lib/ng.1.2.6/angular-route.min.js"></script>
+    <script src="../js/lib/ng-infinite-scroll.js"></script>
+    <script src="../js/lib/angular-chosen.js"></script>
+    <script src="../js/lib/jquery.cookie.js"></script>
+    <script src="../js/lib/bindonce.min.js"></script>
+    <!--endbuild-->
+
+    <!-- basic styles -->
+    <!-- build:css ../css/mp-g-bl.bs-ace-mp.css -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../assets/css/ace.min.css"/>
+    <link rel="stylesheet" href="../assets/css/ace-rtl.min.css"/>
+    <!--<link rel="stylesheet" href="css/login.css"/>-->
+    <link rel="stylesheet" href="../css/common.css"/>
+    <link rel="stylesheet" href="css/login_new.css"/>
+    <!--endbuild-->
+
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css"/>
+</head>
+
+<body class="mp-body" ng-app="mp_business" style="background-color: white;padding:10px 30px;">
+<div class="mp-header col-xs-12" style="">
+    <div class="pull-left">
+        <img class="pull-left" src="image/logo_new.png">
+        <span class="pull-left orange1" style="font-size:50px;line-height: 108px;height:108px;margin-left:30px;">TruMenu Business</span>
+    </div>
+    <div class="pull-right orange1" style="font-size:24px;line-height: 108px;height:108px;margin-right:20px;">English/中文</div>
+</div>
+<div class="col-xs-12 space-6"></div>
+<div class="mp-container col-xs-12 mp-display-box">
+    <div class="mp-box-flex-1" style="margin-right:30px;max-width: 800px;">
+        <div><img src="image/login_slider_1.png"></div>
+        <div>
+            <div style="background-color: #5eb70e;height:80px;">
+                <div>Private Customer</div>
+                <div>The first two menu & Professional</div>
+            </div>
+            <div>
+                <div>
+                    <img src="image/icon_menu.png">
+                    <img src="image/icon_camera.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="position-relative" id="login-box">
+        <div style="color:#5d5d5d;font-size:20px;margin:30px 0px 20px 0px;">Please Enter Your Information</div>
+        <div>
+            <input class="login-input" style="background-image: url('image/icon_user.png');" placeholder="Username">
+        </div>
+        <div class="space-6"></div>
+        <div>
+            <input class="login-input" style="background-image: url('image/icon_lock.png'); " placeholder="Password">
+        </div>
+        <div style="width:300px;margin:20px auto 0px auto;text-align: left;">
+            <label class="mp">
+                <input class="mp login" type="checkbox" style="">
+                <span class="lbl" style=""></span>
+            </label>
+            <span style="color: #606060;font-size:14px;margin-left:15px;height:46px;line-height: 46px;">Remember me?</span>
+            <button class="pull-right login-btn" style="">Login</button>
+        </div>
+        <div class="position-absolute" style="bottom: 0px;width:100%;height:60px;line-height:60px;background-color: #f7f7f7;border-radius: 0px 0px 10px 10px;border-top:1px solid #b3b3b3;">
+            <div class="pull-left"><a href="#" style="color:#545454;font-size:14px;margin-left:30px;">Forgot Password</a></div>
+            <div class="pull-right"><a href="#" style="color:#545454;font-size:14px;margin-right:30px;">Register</a></div>
+        </div>
+    </div>
+</div>
+<div class="mp-footer col-xs-12">
+    <ul>
+        <li><a href="#/aboutus">About Us</a></li>
+        <li><a href="#/aboutus">Contact Us</a></li>
+        <li><a href="#/aboutus">Terms</a></li>
+        <li><a href="#/aboutus">Privacy Policy</a></li>
+        <li><a href="#/aboutus">Feedbacks</a></li>
+    </ul>
+    <div class="hr"></div>
+    <div> &copy; Mission Public Inc. 2015 </div>
+</div>
+
+<!-- basic scripts -->
+
+<script type="text/javascript">
+    if ("ontouchend" in document) document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+
+<script type="text/javascript">
+    function show_box(id) {
+        jQuery('.widget-box.visible').removeClass('visible');
+        jQuery('#' + id).addClass('visible');
+        angular.element(".widget-box").css("display","none");
+        angular.element("#"+id).css("display","block");
+    }
+</script>
+
+<!-- build:js ../js/mp-g-bl.mp.js -->
+<script src="js/i18n/en_us.js"></script>
+<script src="js/i18n/zh_cn.js"></script>
+<script src="js/business_module.js"></script>
+<script src="js/service.js"></script>
+<script src="../js/system_config.js"></script>
+<script src="../js/global_function.js"></script>
+<script src="js/global_function.js"></script>
+<script src="js/login_controller.js"></script>
+<script src="js/loginIndexController.js"></script>
+<!--endbuild-->
+
+<!--[if lt IE 9]>
+<script src="../assets/js/html5shiv.js"></script>
+<script src="../assets/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+    if(gBrowser.sys_config.statistics_js) {
+        document.write(unescape(gBrowser.sys_config.statistics_js));
+    }
+</script>
+</body>
+</html>

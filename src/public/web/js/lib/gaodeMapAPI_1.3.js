@@ -1,0 +1,7 @@
+/**
+ * Created by md on 14-9-24.
+ */
+(function(config){var v2=window.v2=window.v2||{version_:"1.3.2!!"},server=config[2].split(",")[0],src=server+"/theme/v"+config[4]+"/style.css";if(document.getElementsByTagName("head")[0]){var link=document.createElement("link");link.setAttribute("rel","stylesheet");link.setAttribute("type","text/css");link.setAttribute("href",src);document.getElementsByTagName("head")[0].appendChild(link)}else document.write("<link rel='stylesheet' href='"+src+"'/>");
+    function getScript(a){var b=document;if(b.body&&config[5]){var c=b.createElement("script");c.charset="utf-8";c.src=a;b.body.appendChild(c)}else document.write("<script src='"+a+"' type='text/javascript'>\x3c/script>")}var loadScriptTime=(new Date).getTime();v2.__load__=function(a){a(config,loadScriptTime);delete v2.__load__;window.v2=null};try{if(window.localStorage){var sto=window.localStorage._AMap_main;sto&&(sto=JSON.parse(sto),sto.version===v2.version_?(eval(sto.script),v2.loaded=!0):window.localStorage.removeItem("_AMap_main"))}}catch(e$$12){}
+    v2.loaded||getScript(server+"/maps/main?v="+config[4]+"&key="+config[0]);
+})(["224229e6022eb83252408bd73ca0be39",[121.44344,38.812,121.800935,39.000818],"http://webapi.amap.com",1,"1.3"])

@@ -1,0 +1,6 @@
+p.box {
+    width: 300px;
+    border: solid 1px black;
+    padding: 20px;
+    color:#0000ff;
+}

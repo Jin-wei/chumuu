@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- basic styles -->
+    <link href="{{urlRoot}}/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{urlRoot}}/assets/css/font-awesome.min.css" />
+    <style type="text/css" media="screen,print">
+        *{
+           font-family: Arial;
+        }
+        .text_right {
+            text-align: right;
+        }
+        .text_center {
+            text-align: center;
+        }
+        .biz_title {
+            text-align: center;
+            font-weight:bold;
+            ont-size:15pt;
+        }
+        .text_right_bold {
+            text-align: right;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="biz_title">
+                {{myTable.bizName}}
+                {{#if myTable.bizNameLang}}
+                ({{myTable.bizNameLang}})
+                {{/if}}
+            </div>
+        </div>
+        <hr class="col-xs-12" style="height:2px;border-width:0;color:gray;background-color:gray" />
+        {{#if myTable.prods}}
+            {{#each myTable.prods}}
+                <div class="col-xs-12 row">
+                    <div class="col-xs-6" style="font-weight:bold;">
+                        {{qty}} {{n}}
+                        {{#if nl}}
+                        ({{nl}})
+                        {{/if}}
+                    </div>
+                    <div class="col-xs-3" style="text-align: right;">
+                         {{qty}} x ${{pc}}
+                    </div>
+                    <div class="col-xs-3"> </div>
+                    </div>
+                    {{#if desc}}
+                        <div class="col-xs-12 row">
+                            <div class="col-xs-6">
+                            {{desc}}
+                            </div>
+                        </div>
+                    {{/if}}
+
+            {{/each}}
+        {{/if}}
+        <br/>
+        <div class="col-xs-12 row">
+            <div class="col-xs-6 text_right">
+                Sub Total
+            </div>
+            <div class="col-xs-3 text_right">
+                ${{myTable.actualPrice}}
+            </div>
+            <div class="col-xs-3"> </div>
+        </div>
+        <div class="col-xs-12 row">
+            <div class="col-xs-6 text_right">
+                Sales Tax({{myTable.taxRate}}%)
+            </div>
+            <div class="col-xs-3 text_right">
+                ${{myTable.totalTax}}
+            </div>
+            <div class="col-xs-3"> </div>
+            </div>
+        <div class="col-xs-12 row">
+            <div class="col-xs-6 text_right">
+                Total
+            </div>
+            <div class="col-xs-3 text_right">
+                ${{myTable.totalPrice}}
+            </div>
+            <div class="col-xs-3"> </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--<script src="{{urlRoot}}/assets/js/qrcode.min.js"></script>-->
+<!--<script type="text/javascript">-->
+    <!--var qrcode = new QRCode(document.getElementById("qrcode"), {-->
+        <!--text: "http://tru-menu.com",-->
+        <!--width: 128,-->
+        <!--height: 128,-->
+        <!--colorDark : "#000000",-->
+        <!--colorLight : "#ffffff",-->
+        <!--correctLevel : QRCode.CorrectLevel.H-->
+    <!--});-->
+<!--</script>-->
+</html>

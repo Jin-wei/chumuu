@@ -1,0 +1,81 @@
+#setting_view .col-xs-12,
+#setting_view .col-xs-4,
+#setting_view .col-xs-3,
+#setting_view .col-xs-2,
+#setting_view .col-xs-8
+{
+    padding: 0px;
+}
+
+#setting_view .btn {
+    padding: 0px;
+}
+
+#setting_view #function_module>div>label {
+    margin-left:20px;
+    width:100px;
+    display: inline-block;
+}
+#setting_view #function_module>div>span {
+}
+
+#setting_view .biz-table {
+    width:100px;
+    height:100px;
+    /*line-height:100px;*/
+    border:1px solid #6fb3e0;
+    background-color: floralwhite;
+    border-radius:5px;
+    text-align: center;
+    margin:0px 10px 10px 0px;
+}
+
+#setting_view .biz-table>div:nth-child(1) {
+    margin-top:25px;
+}
+
+#setting_view #edit_table {
+    max-width:350px;
+}
+#setting_view #edit_table>div {
+    max-width: 300px;
+    height: 35px;
+    line-height: 35px;
+}
+#setting_view #edit_table>div>span:nth-child(1) {
+    width: 80px;
+    text-align: right;
+}
+#setting_view #edit_table>div>span:nth-child(2) {
+    padding-left: 85px;
+    width: 100%;
+}
+
+#setting_view #add_update_form {
+    background-color: #eee;
+    padding:30px;
+    border: 1px solid grey;
+    display: none;
+    position: fixed;
+    width: 400px;
+    height: 250px;
+    left: 400px;
+    top: 100px;
+    z-index:2000;
+}
+#setting_view .table_type_sign {
+    width: 100px;
+    text-align: center;
+    background-color: floralwhite;
+    margin: 2px;
+    padding: 2px 0px;
+    border: 1px solid #6fb3e0;
+    border-radius: 3px;
+}
+
+#setting_view #printer_add_update_form {
+    height:310px;
+}
+#setting_view #printer_add_update_form input {
+    width:100%;
+}

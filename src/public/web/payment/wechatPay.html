@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src='/assets/js/jquery-2.0.3.min.js'></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<script>
+    function getParameter(param) {
+        var reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return unescape(r[2]);
+        return null;
+    }
+    var code = getParameter('code');
+    alert(code);
+    url ="/api/wechat/payment";
+    var data = $.ajax({
+        url:url,
+        type:'get',
+        async: false
+    });
+    var paymentConfig = data.responseJSON;
+    function onBridgeReady(){
+
+        var jsParams = {
+            "appId" : paymentConfig.appId,
+            "timeStamp": paymentConfig.timeStamp+"",
+            "nonceStr" : paymentConfig.nonceStr,
+            "package" : "prepay_id="+paymentConfig.prepayId,
+            "signType" : "MD5",
+            "paySign" : paymentConfig.sign
+        }
+        alert(JSON.stringify(jsParams));
+        WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',jsParams ,
+                function(res){
+                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                        alert("ok");
+                    }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+                        alert("cancel")
+                    }else if(res.err_msg == "get_brand_wcpay_request:fail"){
+                        alert("failed")
+                    }else{
+                        alert("error");
+                    }
+                }
+        );
+    }
+    function callPayment(){
+        /*if (typeof WeixinJSBridge == "undefined"){
+            alert("WeixinJsBridge is null");
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        }else{
+            onBridgeReady();
+        }*/
+        onBridgeReady();
+    }
+
+
+
+</script>
+<body>
+<button onclick="callPayment()">Test payment</button>
+<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8c637901f2bca3ae&redirect_uri=http%3A%2F%2Fm.yipincaidan.com%2Fpayment%2FwechatPay.html?data=dddferedfererdfe&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect">Test url</a>
+<img src="/coffee/image/qrcode.jpg"/>
+<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8c637901f2bca3ae&redirect_uri=http%3A%2F%2Fm.yipincaidan.com%2Fapi%2Fwechat%2FADEs2389j2%2Freceive&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect">Test url</a>
+
+</body>
+</html>

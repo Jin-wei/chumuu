@@ -1,0 +1,148 @@
+<div id="search_result_view" class="search_result_view page-content" >
+    <div class="col-xs-12">
+        <div class="col-xs-12 mp-mobile-height-200px" id="googleMap" style="width:100%;height:380px;margin:5px 0px;border:1px solid black;"></div>
+        <div class="col-xs-12 col-sm-6">
+            <span class="mp-btn-simple" id="js-find-location" style="padding:3px 15px;color:green;border-color:green;" ng-click="findMyLocation()">
+                <span class="icon-location-arrow" ng-class="{'mp-animation-sway':isFindlocation}"></span>
+            </span>
+            <span class="" style="font-size:9pt;margin-left:5px;" ng-show="geoLocation"> ({{geoLocation}})</span>
+        </div>
+        <span class="col-xs-12 col-sm-6" style="line-height: 24px;">
+            <span ng-if="disName == 'mile'" class="pull-left" style="display: inline-block;width:120px;">{{L.distance}} : {{distance | number}} {{L.miles}}</span>
+            <span ng-if="disName == 'km'" class="pull-left" style="display: inline-block;width:120px;">{{L.distance}} : {{distance | number}} {{L.km}}</span>
+            <span class="pull-left help-block" id="input-size-slider" style="margin:9px 15px 0px 15px;"></span>
+            <span class="pull-left mp-btn-simple " style="padding:0px 15px;color:green;border-color:green;" ng-click="research()">
+                <span class="icon-refresh" ng-class="{'icon-spin':isResearching}" ></span>
+            </span>
+        </span>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="col-xs-12 space-12"></div>
+        <div class="col-xs-12">
+            <span class="Arial " style="font-size:15pt;color:green;">{{L.biz_with}} "{{searchText}}"</span>
+            <span class="grey" style="margin-left:20px;">({{bizes.length}}) {{L.results}}</span>
+        </div>
+        <div class="col-xs-12 hr nomargin"></div>
+        <div bindonce class="col-xs-12 col-sm-6 col-md-4" ng-repeat="biz in bizes" style="">
+            <div class="col-xs-5 mp-mobile-padding-left-0px">
+                <img class="mp-pointer" style="width:100%;" bo-src-i="/api/image/{{biz.img_url}}/m" ng-click="navTo('/restaurant/'+biz.bizKey)"/>
+            </div>
+            <div class="col-xs-7 mp-mobile-paddingright-0px  mp-mobile-fontsize-14px" style="padding:0px 30px 0px 20px;font-size:16px;">
+                <div class="Arial bolder mp-text-ellipsis overflow-hidden mp-mobile-text-ellipsis-disable" bo-bind="biz.name" title="{{biz.name}}"></div>
+                <div class="Arial bolder overflow-hidden" bo-bind="biz.name_lang"></div>
+                <div class="mp-display-box">
+                    <span class="icon-home mp-display-block" style="width:20px;font-size:18px;color:#a7a7a7;margin-right:6px;"></span>
+                    <!--<a class="mp-pointer mp-display-block mp-boxflex-1 mp-text-ellipsis overflow-hidden mp-mobile-display-none" style="color:#1086ff;" onclick="javascript:;" bo-bind="biz.address + ' ' +biz.city +','+biz.state" ng-click="onOpenBizMapNavigator(biz)"></a>-->
+                    <a class="mp-pointer mp-display-block mp-boxflex-1 mp-text-ellipsis overflow-hidden" style="color:#1086ff;" onclick="javascript:;" bo-bind="biz.city +', '+biz.state" ng-click="onOpenBizMapNavigator(biz)"></a>
+                </div>
+                <div class="mp-display-box" style="">
+                    <span class="icon-phone mp-display-block" style="width:20px;font-size:18px;color:#a7a7a7;margin-right:6px;"></span>
+                    <a href="tel:{{biz.phoneNo}}"  class="mp-display-block mp-boxflex-1 mp-text-ellipsis overflow-hidden" style="color:#1086ff;" bo-bind="biz.phoneNo"></a>
+                </div>
+                <div class="mp-display-box" ng-show="!_.isUndefined(item.distance)">
+                    <span class="icon-map-marker mp-display-inline-block" style="width:20px;font-size:18px;color:#a7a7a7;margin-right:6px;"></span>
+                    <span ng-if="disName=='mile'" class="" style="color:grey;" >{{biz.distance | number}} {{L.miles}}</span>
+                    <span ng-if="disName=='km'" class="" style="color:grey;" >{{biz.distance | number}} {{L.km}}</span>
+                </div>
+                <div class="mp-display-box" style="">
+                    <starrating style="display: inline-block;color:orange;font-size:22px;" class="mp-mobile-fontsize-18px commentItemStar" rating="{{biz.commentRating.avg_ratingForStar}}"></starrating>
+                </div>
+            </div>
+        </div>
+        <div ng-if="false" bindonce class="col-xs-12 col-sm-3 menuItem"
+             ng-repeat="biz in bizes" >
+            <div class="menuItemImg">
+                <img width="240px" height="200px" bo-src-i="/image/{{biz.img_url}}/m" ng-click="showBusiness(biz)"/>
+            </div>
+            <div style="font-size:12pt;">
+                <div class="col-xs-12" style="height:25px;"><b class="Arial menuItemName" title="{{biz.name}}">{{biz.name}}</b></div>
+                <div class="col-xs-12" style="height:25px;"><span class="Arial" title="{{biz.name_lang}}">{{biz.name_lang}}</span></div>
+                <div class="col-xs-12" style="height:25px;"><span class="Arial" title="{{biz.category}}">{{biz.category}}</span></div>
+                <div ng-if="disName=='mile'" class="col-xs-12" >
+                    {{L.distance}} : {{menuItem.distance | number}} {{L.miles}}
+                </div>
+                <div ng-if="disName=='km'" class="col-xs-12" >
+                    {{L.distance}} : {{menuItem.distance | number}} {{L.km}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-12 space-12"></div>
+        <div class="col-xs-12">
+            <span class="Arial " style="font-size:15pt;color:green;">{{L.menu_item_with}} "{{searchText}}"</span>
+            <span class="grey" style="margin-left:20px;">({{menuItems.length}}) {{L.results}}</span>
+        </div>
+        <div class="col-xs-12 hr nomargin"></div>
+        <div class="col-xs-12 mp-margintop-0px mp-mobile-margintop-0px">
+            <div bindonce class="col-xs-12 col-sm-6 col-md-3 mp-items-search-result" ng-repeat="menuItem in menuItems">
+                <div class="col-xs-5 col-sm-12 mp-mobile-nopadding">
+                    <div class="col-xs-12 position-relative">
+                        <div class="col-xs-12 mp-upholder-70pc mp-mobile-upholder-100pc"></div>
+                        <div class="col-xs-12 mp-menu-item-image position-absolute mp-pointer" style="background-image: url('{{menuItem.img_url_m}}');"
+                             ng-click="navTo('/restaurant/'+menuItem.biz_id+'/menu-item/'+menuItem.prod_id)"
+                                ></div>
+                    </div>
+                    <div class="skew-label" style="top:10px;right:0px;" ng-if="menuItem.promotions">Discount</div>
+                </div>
+                <div class="col-xs-7 col-sm-12">
+                    <!--<div class="Arial bolder" bo-bind="menuItem.name"></div>-->
+                    <div class="col-xs-12">
+                        <div class="mp-text-ellipsis overflow-hidden mp-mobile-fontsize-14px mp-mobile-height-18px" bo-bind="menuItem.name" title="{{menuItem.name}}"></div>
+                        <div class="mp-text-ellipsis overflow-hidden mp-mobile-fontsize-14px mp-mobile-height-18px" bo-bind="menuItem.name_lang"></div>
+                    </div>
+                    <div class="col-xs-12 mp-mobile-paddingright-0px">
+                        <div class="col-xs-12 mp-mobile-fontsize-14px">
+                            <div ng-if="menuItem.priceAfterDiscount">
+                                <span class="mp-mobile-fontsize-18px" style="color:darkorange;font-size: 20px" ng-bind="menuItem.priceAfterDiscount | currency: currency"></span>
+                                <span class="mp-mobile-fontsize-14px mp-textdecoration-linethrough" style="color:gray;" ng-bind="menuItem.price | currency: currency"></span> |
+                                <span ng-if="menuItem.discount_amount>0" ng-bind="menuItem.discount_amount | currency: currency"></span>
+                                            <span ng-if="menuItem.discount_pct>0">
+                                                <span ng-bind="menuItem.discount_pct"></span> %
+                                            </span> off
+                            </div>
+                            <span ng-if="!menuItem.priceAfterDiscount" class="mp-mobile-fontsize-16px" ng-bind="menuItem.price | currency: currency"></span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 mp-mobile-fontsize-14px mp-mobile-paddingright-0px">
+                        <div class="col-xs-12 col-sm-6">
+                            <starrating style="display: inline-block;color:green;font-size:14pt;" class="commentItemStar" rating="{{menuItem.commentRating.avg_rating}}"></starrating>
+                            ( <span bo-bind="menuItem.commentRating.total_count"></span> )
+                        </div>
+                        <div class="col-xs-12 col-sm-6" style="font-size:16px;">
+                            <span class="icon-map-marker mp-display-inline-block" style="width:20px;font-size:18px;color:#a7a7a7;margin-right:6px;"></span>
+                            <span ng-if="disName=='mile'" class="" style="color:grey;" > {{menuItem.distance | number}} {{L.miles}}</span>
+                            <span ng-if="disName=='km'" class="" style="color:grey;" > {{menuItem.distance | number}} {{L.km}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 mp-display-none mp-mobile-display-block hr " ng-if="!$last"></div>
+            </div>
+        </div>
+        <div ng-if="false" bindonce class="col-xs-12 col-sm-3 menuItem"
+             ng-repeat="menuItem in menuItems" >
+            <div class="menuItemImg">
+                <img width="240px" height="200px" bo-src-i="{{menuItem.img_url_m}}" ng-click="showMenuItem(menuItem)"/>
+            </div>
+            <div style="font-size:12pt;">
+                <div class="col-xs-12" style="height:25px;"><b class="Arial menuItemName" title="{{menuItem.name}}">{{menuItem.name}}</b></div>
+                <div class="col-xs-12" style="height:25px;"><b class="Arial" title="{{menuItem.name_lang}}">{{menuItem.name_lang}}</b></div>
+                <div class="col-xs-12" >
+                    <div class="col-xs-6" style="padding:0px;height:35px;line-height:35px;">{{menuItem.price | currency: currency}}</div>
+                </div>
+                <div class="col-xs-12" >
+                </div>
+                <div class="col-xs-12 fromBizName" style="height:25px;">from <a href="#/restaurant/{{menuItem.biz_id}}"><b class="Arial" title="{{menuItem.biz_name}}">{{menuItem.biz_name}}</b></a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 space-6"></div>
+</div>
+
+<script>
+    FireAfterGoogleResourceLoad({fn:function(){
+        InitMap("googleMap");
+    }, args:[]});
+</script>

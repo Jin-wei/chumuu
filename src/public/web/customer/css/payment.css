@@ -1,0 +1,40 @@
+#payment_view .mp-payment-prod {
+    font-size:18px;
+    color:#232323;
+    margin-top: 8px;
+}
+
+#payment_view .mp-payment-optionline {
+    font-size:18px;
+    margin-top:30px;
+}
+#payment_view .mp-payment-optionline>span {
+    display: inline-block;
+}
+#payment_view .mp-payment-optionline>span:nth-child(1) {
+    width:200px;
+}
+#payment_view .mp-payment-optionline>span:nth-child(2)>input {
+    width:260px;
+}
+
+/* for mobile */
+@media only screen and (max-width: 600px) {
+    #payment_view .mp-title-green-2 {
+        margin-top:10px !important;
+        font-size: 20px !important;
+    }
+    #payment_view .hr {
+        margin: 3px 0 !important;
+    }
+    #payment_view .mp-payment-prod {
+        font-size: 15px;
+    }
+    #payment_view .mp-payment-optionline {
+        font-size:15px;
+        margin-top:10px;
+    }
+    #payment_view .mp-edit-gray-green {
+        height:30px;
+    }
+}

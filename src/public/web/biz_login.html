@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mp_business" ng-controller="loginIndexController">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Login Page - TruMenu Business</title>
+    <!--<title ng-if="sys_config.currency =='¥'">登陆页面 - 厨目云端商业 </title>-->
+
+    <meta name="description" content="User login page"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!--endbuild-->
+
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css"/>
+    <!-- basic styles -->
+    <!-- build:css /css/mp-g-bl.bs-ace-mp.css -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/assets/css/ace.min.css"/>
+    <link rel="stylesheet" href="/assets/css/ace-rtl.min.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <link rel="stylesheet" href="/css/common_new_2.css"/>
+    <link rel="stylesheet" href="/business/css/login_new_2.css"/>
+    <!--endbuild-->
+    <!--<link rel="stylesheet" href="css/login.css"/>-->
+
+
+
+    <!--<link ng-if="currency !='¥'" rel="shortcut icon" href="./image/logo-favicon.ico"/>-->
+    <link rel="shortcut icon" href="./image/chuMenu-favicon.ico"/>
+
+</head>
+
+<body class="mp-body" style="background-color: white;">
+<div class="mp-header col-xs-12">
+    <div class="pull-left mp-mobile-nomargin" style="margin-left:100px;height:100px;line-height: 100px;">
+        <img class="" width="70px" height="70px" src="./image/chuMenu_logo.png" style="margin-top:-15px;">
+        <span class="orange1 mp-mobile-margin-left-0px mp-mobile-fontsize-24px" style="font-size:40px;margin-left:20px;">{{L.TruMenu_business}}</span>
+    </div>
+    <div class="pull-right orange1 mp-mobile-margin-right-0px mp-mobile-fontsize-16px" style="font-size:24px;margin-right:100px;"><a href="javascript:;" ng-click="onChangeLanguage()">{{L.next_lang}}</a></div>
+</div>
+<div class="mp-container col-xs-12">
+    <div class="col-xs-12 position-relative" style="height:500px;">
+        <div class="position-relative width-100" style="height:inherit;overflow: hidden;">
+            <img class="position-absolute" src="./business/image/login/1.jpg" style="top:0;left:0;width:100%;min-width: 1024px;">
+        </div>
+        <div class="position-absolute" style="color:white;top:30px;right:130px;">
+            <div style="font-size:30px;">{{L.login_to_your}}</div>
+            <div style="font-size:24px;">{{L.restaurant}}</div>
+        </div>
+        <div class="position-absolute" id="login-box" ng-controller="loginController" style="background-image: url('./business/image/login/login_box_border.png');">
+            <form ng-submit="onLogin()">
+                <div style="padding:0px 20px;">
+                    <div style="color:#5d5d5d;font-size:16px;margin:30px 0px 20px 0px;">{{L.please_enter_your_info}}</div>
+                    <div>
+                        <input class="login-input" id="userId" ng-model="user" style="background-image: url('./business/image/login/icon_user.png');" autofocus placeholder="{{L.user_name}}">
+                    </div>
+                    <div class="space-6"></div>
+                    <div>
+                        <input class="login-input" id="passWord" type="password" ng-model="password" style="border-radius:4px !important;background-image: url('./business/image/login/icon_lock.png'); " placeholder="{{L.password}}">
+                    </div>
+                    <div class="mp-no-select" style="margin:20px auto 0px auto;text-align: left;">
+                        <label class="mp">
+                        <input id="remember-me" class="mp"  type="checkbox" checked>
+                        <span class="lbl" style=""></span>
+                        <span style="color: #606060;font-size:10px;margin-left:5px;line-height: 46px;">{{L.remember_me}}</span>
+                       </label>
+                        <button class="pull-right login-btn" ng-disabled="!user || !password" type="submit" style="background-image: url('./business/image/login/login_btn.png');">{{L.login}}</button>
+                    </div>
+                </div>
+            </form>
+            <div class="position-absolute" style="bottom: 0px;width:100%;height:50px;line-height:50px;background-color: #f7f7f7;border-radius: 0px 0px 10px 10px;border-top:1px solid #b3b3b3;">
+                <div class="pull-left"><a href="#" style="color:#545454;font-size:12px;margin-left:20px;">{{L.forgot_pwd}}</a></div>
+                <div class="pull-right"><a href="#" style="color:#545454;font-size:12px;margin-right:23px;">{{L.sign_up}}</a></div>
+            </div>
+        </div>
+        <div class="position-absolute" style="top: 437px; right: 54px; color: white; opacity: 0.9; font-size: 16px;">
+            {{L.sign_up_caption}}
+        </div>
+    </div>
+
+    <div class="col-xs-12 text-center" style="margin-top:60px;">
+        <div class="width-60" style="margin:0px auto;font: 24px GothamRounded;color: #ed2218;">{{L.biz_intro_text_1}}</div>
+
+        <div class="width-60" style="margin:20px auto 0px auto;font: 12px Ebrima;color:#818181;">
+            {{L.biz_intro_text_2}}
+        </div>
+
+        <div class="text-center" style="margin:49px auto 0px auto;max-width: 887px;">
+            <img width="100%" src="./business/image/login/2.png">
+        </div>
+
+        <div class="text-center" id="module-img" style="margin:80px auto 0px auto;max-width: 887px;">
+                <span>
+                    <img src="./business/image/login/3.png">
+                    <span>{{L.menu}}</span>
+                </span>
+                <span>
+                    <img src="./business/image/login/4.png">
+                    <span>{{L.menu_order}}</span>
+                </span>
+                <span>
+                    <img src="./business/image/login/5.png">
+                    <span>{{L.menu_customer}}</span>
+                </span>
+                <span>
+                    <img src="./business/image/login/6.png">
+                    <span>{{L.menu_promotion}}</span>
+                </span>
+                <span class="position-relative">
+                    <img src="./business/image/login/7.png">
+                    <span>{{L.menu_insight}}</span>
+                    <img class="position-absolute" src="./business/image/login/8.png" style="top:-7px;right:0px;">
+                </span>
+        </div>
+
+        <button class="mp-btn-simple login-help-btn mp-border-radius-5px" style="">{{L.find_out_more}}</button>
+
+        <div class="text-center background-color-skin" style="margin-top:60px;">
+            <div class="col-xs-12 col-sm-6 text-center" style="height: inherit;">
+                <table class="width-60 text-left" style="height:inherit;margin:0px auto;">
+                    <tr>
+                        <td>
+                            <div><i style="font:italic 40px MSYiBaiti;color:#ee2d24;">{{L.photo_service}}</i></div>
+                            <div style="margin-top:20px;font:20px Ebrima;color:#818181;">
+                               {{L.biz_intro_text_3}}
+                            </div>
+                            <button class="mp-btn-simple login-help-btn mp-border-radius-5px" style="">{{L.i_need_help}}</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-12 col-sm-6 text-left position-relative" style="height:inherit;">
+                <table style="height:inherit;"> <tr> <td><img width="100%" style="max-width:486px;" src="./business/image/login/9.png"></td> </tr> </table>
+                <span class="position-absolute" style="margin:0px auto; left:320px;bottom:50px;">
+                    <img src="./business/image/login/10.png">
+                    <span style="color:#818181;font:12px Ebrima;">{{L.photography}}</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top:70px;">
+            <div class="col-xs-12 col-sm-7 text-center"><img width="100%" style="max-width:480px;margin:0px auto;" src="./business/image/login/11.png"></div>
+            <div class="col-xs-12 col-sm-5 text-left">
+                <div style="color:#ee2d24;font-size:30px;">{{L.printing_services}}</div>
+                <div style="color:#484848;font-size:14px;margin-top:30px;">
+                    {{L.biz_print_states_1}}
+                    <br>
+                    {{L.biz_print_states_2}}
+                    <br>
+                    {{L.biz_print_states_3}}
+                </div>
+                <ul style="margin:20px 0px 0px 15px;font-size:12px;color:#979794;">
+                    <li>{{L.biz_print_li_1}}</li>
+                    <li>{{L.biz_print_li_1}}</li>
+                    <li>{{L.biz_print_li_3}}</li>
+                </ul>
+                <button class="mp-btn-simple login-help-btn mp-border-radius-5px" style="margin-top:30px;">{{L.i_need_help}}</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="mp-footer col-xs-12" style="margin-top:70px;">
+    <ul class="col-xs-12 mp">
+        <li class="0pull-left"><a href="../#/about-us">{{L.about_us}}</a></li>
+        <li class="0pull-left"><a href="../#/contact-us">{{L.contact_us}}</a></li>
+        <li class="0pull-left"><a href="../#/terms">{{L.terms}}</a></li>
+        <li ng-if="!isCN" class="0pull-left"><a href="../#/privacy_policy">{{L.policy}}</a></li>
+        <li class="0pull-left"><a href="../#/feedback" style="color:#5eb70e;">{{L.feedbacks}}</a></li>
+    </ul>
+    <div class="col-xs-12 hr hr-18"></div>
+    <div class="col-xs-12" id="copyright"> {{isCN ? '© 2017 美森博多利（大连）科技有限公司 版权所有 辽ICP备14014383号-1' : 'Copyright © 2017 Mission Public Inc.'}} </div>
+</div>
+<div class="col-xs-12 space-12"></div>
+
+<!-- basic scripts -->
+
+<script type="text/javascript">
+    if ("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    if ("ontouchend" in document) document.write("<script src='/assets/js/jquery-2.0.3.min.js'>" + "<" + "/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+
+<script type="text/javascript">
+    function show_box(id) {
+        jQuery('.widget-box.visible').removeClass('visible');
+        jQuery('#' + id).addClass('visible');
+        angular.element(".widget-box").css("display","none");
+        angular.element("#"+id).css("display","block");
+    }
+</script>
+
+<!-- build:js /js/mp-g-bl.mp.js -->
+<!-- build:js /js/mp-g-bl.jq-ng.js -->
+<script src='/assets/js/jquery-2.0.3.min.js'></script>
+<script src="/js/lib/ng.1.2.6/angular.min.js"></script>
+<script src="/js/lib/ng.1.2.6/angular-cookies.js"></script>
+<script src="/js/lib/ng.1.2.6/angular-route.min.js"></script>
+<script src="/js/lib/ng-infinite-scroll.js"></script>
+<script src="/js/lib/angular-chosen.js"></script>
+<script src="/js/lib/jquery.cookie.js"></script>
+<script src="/js/lib/bindonce.min.js"></script>
+<script src="/js/lib/lodash.min.js"></script>
+<script src="/business/js/i18n/en_us.js"></script>
+<script src="/business/js/i18n/zh_cn.js"></script>
+<script src="/business/js/business_module.js"></script>
+<script src="/business/js/service.js"></script>
+<script src="/js/system_config.js"></script>
+<script src="/js/global_function.js"></script>
+<script src="/business/js/global_function.js"></script>
+<script src="/business/js/login_controller.js"></script>
+<script src="/business/js/loginIndexController.js"></script>
+<!--endbuild-->
+
+<!--[if lt IE 9]>
+<script src="/assets/js/html5shiv.js"></script>
+<script src="/assets/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+    /*if(gBrowser.sys_config.statistics_js) {
+        document.write(unescape(gBrowser.sys_config.statistics_js));
+    }*/
+</script>
+</body>
+</html>

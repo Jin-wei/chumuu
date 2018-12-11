@@ -1,0 +1,1779 @@
+{
+    "apiVersion": "1.0.0",
+    "swaggerVersion": "1.2",
+    "basePath": "http://localhost:8080/api",
+    "resourcePath": "/apidoc/prod.json",
+
+    "apis":[
+        {
+            "path":"/biz/{bizId}/prod",
+            "description":"Get a list of business product based",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"listProd",
+                    "type":"ProductDetail",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "type_id",
+                            "description": "category of a product",
+                            "type": "string",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "active",
+                            "description": "state of a product",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 404,
+                            "message": "Product cannot be found"
+                        }
+                    ],
+                    "summary":"Get a list of product of a business",
+                    "notes": "product can be searched by type, type will be a query string"
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prodBase",
+            "description":"Get a list of business product without promotion",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"prodListWithoutPromo",
+                    "type":"Product",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "typeId",
+                            "description": "category of a product",
+                            "type": "string",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "active",
+                            "description": "state of a product",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 404,
+                            "message": "Product cannot be found"
+                        }
+                    ],
+                    "summary":"Get a list of product without promotion info of a business",
+                    "notes": "product can be searched by type, type will be a query string"
+                }
+            ]
+        },
+
+
+        {
+            "path":"/biz/{bizId}/prod/{id}",
+            "description":"Get a  product",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getProd",
+                    "type":"ProductDetail",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "description": "id of a product",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 404,
+                            "message": "Product cannot be found"
+                        }
+                    ],
+                    "summary":"Get a product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/get/topDish",
+            "description":"Get recommend top Dishes",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getTopDish",
+                    "type":"productWithPromotion",
+                    "parameters":[
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "the size of dishes, default value is 10",
+                            "type": "integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "latitude",
+                            "description": "the request location latitude",
+                            "type": "Float",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "longitude",
+                            "description": "the request location longitude",
+                            "type": "Float",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "distance",
+                            "description": "the request location in distance",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 404,
+                            "message": "Get Top Dishes List is not found."
+                        }
+                    ],
+                    "summary":"Get recommend top dishes",
+                    "notes": "the parameter is a integer"
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prod/{prodId}/image",
+            "description":"upload a image for a product",
+            "operations":[
+                {
+                    "method":"POST",
+                    "nickname":"uploadBizProdImage",
+                    "type":"imageId",
+                    "consumes":[
+                        "multipart/form-data"
+                    ],
+                    "parameters":[
+                        {
+                            "paramType":"path",
+                            "name":"bizId",
+                            "description":"id of a business",
+                            "type":"integer",
+                            "required":true
+                        },
+                        {
+                            "paramType":"path",
+                            "name":"prodId",
+                            "description":"id of a product",
+                            "type":"integer",
+                            "required":true
+                        },
+                        {
+                            "name":"image",
+                            "description":"image to upload",
+                            "required":true,
+                            "type":"File",
+                            "paramType":"body",
+                            "allowMultiple":false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code":500,
+                            "message":"Error to upload a image"
+                        }
+                    ],
+                    "summary":"upload a new image for a product ",
+                    "notes":"Request content type is multipart/form-data. This rest client will give error when submit request, but you can try use POSTMAN.  If this product has image, it will be replaced by the newly uploaded image."
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prod/{prodId}",
+            "description":"Delete a  product",
+            "operations":[
+                {
+                    "method":"DELETE",
+                    "nickname":"deleteProd",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "prodId",
+                            "description": "id of a product",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 404,
+                            "message": "Product cannot be found"
+                        }
+                    ],
+                    "summary":"Delete a product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prod/{prodId}",
+            "description":"Update a  product",
+            "operations":[
+                {
+                    "method":"PUT",
+                    "nickname":"updateProd",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "prodId",
+                            "description": "id of a product",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "product detail information",
+                            "type": "ProductInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 404,
+                            "message": "Product cannot be found"
+                        }
+                    ],
+                    "summary":"Update a product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prod",
+            "description":"Create a  product",
+            "operations":[
+                {
+                    "method":"POST",
+                    "nickname":"CreateProduct",
+                    "type":"Integer",
+                    "consumes":[
+                        "multipart/form-data"
+                    ],
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+
+                        {
+                            "name":"name",
+                            "description":"the name of product",
+                            "paramType":"form",
+                            "required":true,
+                            "allowMultiple":false,
+                            "dataType":"String"
+                        },
+                        {
+                            "name":"name_lang",
+                            "description":"the name with dialect of product",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"string"
+                        },
+                        {
+                            "name":"description",
+                            "description":"the description of product",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"integer"
+                        },
+                        {
+                            "name":"description_lang",
+                            "description":"the description with dialect of product",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"integer"
+                        },
+                        {
+                            "name":"price",
+                            "description":"the price of product",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"Float"
+                        },
+                        {
+                            "name":"note",
+                            "description":"the note of product",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"string"
+                        },
+                        {
+                            "name":"type_id",
+                            "description":"the type id of product",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"Integer"
+                        },
+                        {
+                            "name":"options",
+                            "description":"the options  of product",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"String"
+                        },
+                        {
+                            "name":"calorie",
+                            "description":"the calorie size of product",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"Integer"
+                        },
+                        {
+                            "name":"spiciness",
+                            "description":"the spiciness size of product,between 0 to 10",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"Integer"
+                        },
+                        {
+                            "name":"ingredient",
+                            "description":"the ingredient of product,split by ,",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"String"
+                        },{
+                            "name":"togo",
+                            "description":"the togo of product",
+                            "paramType":"form",
+                            "required":false,
+                            "allowMultiple":false,
+                            "dataType":"Integer"
+                        },
+                        {
+                            "name":"image",
+                            "description":"image to upload",
+                            "required":false,
+                            "type":"File",
+                            "paramType":"body",
+                            "allowMultiple":false
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 404,
+                            "message": "Product cannot be created"
+                        }
+                    ],
+                    "summary":"Create a product",
+                    "notes": "Create a product with form ,upload product image."
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prodActive/{prodId}",
+            "description":"update a  product active state of the business",
+            "operations":[
+                {
+                    "method":"PUT",
+                    "nickname":"updateBizProdActive",
+                    "type":"Boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "prodId",
+                            "description": "id of a product  ",
+                            "type": "integer",
+                            "required": true
+                        },{
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "product type information",
+                            "type": "ProductActiveInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Update a product active state of the business",
+                    "notes": "the bizId must be correct"
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prodType",
+            "description":"Get product types of the business",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizProdType",
+                    "type":"ProductTypeInfo",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get all product types of the business",
+                    "notes": "the bizId must be correct"
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prodType/{id}",
+            "description":"Get a  product types detail of the business",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getBizProdType",
+                    "type":"ProductTypeInfo",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "description": "id of a product type ",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get a product type detail of the business",
+                    "notes": "the bizId must be correct"
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prodType",
+            "description":"Create a  product type",
+            "operations":[
+                {
+                    "method":"POST",
+                    "nickname":"CreateProductType",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "product type information",
+                            "type": "ProductTypeInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Create a product type",
+                    "notes": "Create a product type with form "
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prodType/{id}",
+            "description":"update a  product types info of the business",
+            "operations":[
+                {
+                    "method":"PUT",
+                    "nickname":"updateBizProdType",
+                    "type":"Boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "description": "id of a product type ",
+                            "type": "integer",
+                            "required": true
+                        },{
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "product type information",
+                            "type": "ProductTypeInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Update a product type detail of the business",
+                    "notes": "the bizId must be correct"
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prodType/{id}",
+            "description":"delete a  product types info of the business",
+            "operations":[
+                {
+                    "method":"DELETE",
+                    "nickname":"deleteBizProdType",
+                    "type":"Boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "description": "id of a product type ",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Delete a product type detail of the business",
+                    "notes": "the bizId must be correct"
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/productCount",
+            "description":"get a business active product count",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getProductCount",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get a business active product count",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/productTypeCount",
+            "description":"get a business product type count",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getProductTypeCount",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 409,
+                            "message": "Invalid arguments error"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Get a business product type count",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/prod/{productId}/ratComment",
+            "description":"get a  product comment count and average rating",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getProdCommentRating",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "productId",
+                            "description": "id of a product ",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The System inner error"
+                        }
+                    ],
+                    "summary":"get a product comment count and average rating",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/prod/{productId}/prodComment",
+            "description":"get a  product comments  state is 1",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getProdComment",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "productId",
+                            "description": "id of a product ",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The System inner error"
+                        }
+                    ],
+                    "summary":"get a product all comments",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/prod/{custId}/custComment",
+            "description":"get a  customer comments  ",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getCustomerComment",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "id of a customer ",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary":"get a customer all comments",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/prod/{custId}/prod/{productId}/comment",
+            "description":"create a  customer comments  ",
+            "operations":[
+                {
+                    "method":"POST",
+                    "nickname":"createCustomerComment",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "id of a customer ",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "productId",
+                            "description": "id of a product ",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "comment detail information",
+                            "type": "CommentInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary":"create a product comments by customer",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/prod/{custId}/comment/:id/",
+            "description":"update a  customer comments  ",
+
+            "operations":[
+                {
+                    "method":"PUT",
+                    "nickname":"updateCustomerComment",
+                    "type":"boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "id of a customer ",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "description": "id of a comment ",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "comment detail information",
+                            "type": "CommentInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary":"update a customer all comments",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/prod/{custId}/comment/{id}/",
+            "description":"Delete a  product comment",
+
+            "operations":[
+                {
+                    "method":"DELETE",
+                    "nickname":"deleteProdComment",
+                    "type":"boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "custId",
+                            "description": "id of a customer",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "description": "id of the comment",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The Current Api can't be accessed"
+                        }
+                    ],
+                    "summary":"Delete a product comment",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/prod/{productId}/favoriteCount/",
+            "description":"get a product favorite count",
+
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getProductFavoriteCount",
+                    "type":"Integer",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "productId",
+                            "description": "id of a product",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 401,
+                            "message": "The System internal error"
+                        }
+                    ],
+                    "summary":"get a product favorite count",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/type/{typeId}/order/{displayOrder}",
+            "description":"update a  product type display order of the business",
+            "operations":[
+                {
+                    "method":"PUT",
+                    "nickname":"updateProductTypeOrder",
+                    "type":"Boolean",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business ",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "typeId",
+                            "description": "id of a product type",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "displayOrder",
+                            "description": "order number of the product type",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 400,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary":"Update a product active state of the business",
+                    "notes": "the bizId must be correct"
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/specialProduct",
+            "description": "Get the special product list of business ",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizSpecailProduct",
+                    "type": "ProductInfo",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Businesses cannot be found"
+                        }
+                    ],
+                    "summary": "Get the special product of biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/specialProduct/{productId}",
+            "description": "update product special flag",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "updateProductSpecial",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "productId",
+                            "description": "product id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "product special flag information",
+                            "type": "ProductSpecialFlag",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Businesses cannot be found"
+                        }
+                    ],
+                    "summary": "Get the special product of biz",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/prod/{productId}/order",
+            "description": "add product to customer order",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "addProd2Order",
+                    "type": "Boolean",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "productId",
+                            "description": "product id",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Businesses cannot be found"
+                        }
+                    ],
+                    "summary": "Add product to customer order",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/dayOrder/{size}",
+            "description": "Get the biz product order count by day ",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getDayOrderStat",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "size",
+                            "description": "get day size",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Businesses product status cannot be found"
+                        }
+                    ],
+                    "summary": "Get biz product day order count statistics",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/weekOrder/{size}",
+            "description": "Get the biz product order count by week ",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getWeekOrderStat",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "size",
+                            "description": "get week size",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Businesses product status cannot be found"
+                        }
+                    ],
+                    "summary": "Get biz product week order count statistics",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/monthOrder/{size}",
+            "description": "Get the biz product order count by month ",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getMonthOrderStat",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "size",
+                            "description": "get month size",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Businesses product status cannot be found"
+                        }
+                    ],
+                    "summary": "Get biz product month order count statistics",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/topOrderProd/{size}",
+            "description": "Get the biz  top ordered count product ",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "getBizTopOrderProd",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz id",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "size",
+                            "description": "get top size",
+                            "type": "Integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Businesses top product  cannot be found"
+                        }
+                    ],
+                    "summary": "Get biz top ordered count product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/allProdRel",
+            "description": "get  the  biz  all product favorite customer info ",
+            "operations": [
+                {
+                    "method": "get",
+                    "nickname": "queryBizAllProdRel",
+                    "type": "customr",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "record start position",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "record size",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "get the customer info of favorite product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/allProdComment",
+            "description": "get  the  biz  all product comment info ",
+            "operations": [
+                {
+                    "method": "get",
+                    "nickname": "queryBizProdComment",
+                    "type": "customr",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "biz userId",
+                            "type": "Integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "start",
+                            "description": "record start position",
+                            "type": "Integer",
+                            "required": false
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "size",
+                            "description": "record size",
+                            "type": "Integer",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 404,
+                            "message": "Internal error"
+                        }
+                    ],
+                    "summary": "get the comment info of all product",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/prod/{prodId}/clearImage",
+            "description":"Update a  product , remove now picture",
+            "operations":[
+                {
+                    "method":"PUT",
+                    "nickname":"clearProdImage",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "prodId",
+                            "description": "id of a product",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 404,
+                            "message": "Product cannot be found"
+                        }
+                    ],
+                    "summary":"Remove product current picture",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path":"/biz/{bizId}/parentProd",
+            "description":"Get a list of business parent product ",
+            "operations":[
+                {
+                    "method":"GET",
+                    "nickname":"getParentProduct",
+                    "type":"Product",
+                    "parameters":[
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "id of a business",
+                            "type": "integer",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "active",
+                            "description": "product active status is 0 or 1",
+                            "type": "integer",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages":[
+                        {
+                            "code": 404,
+                            "message": "Parent Product cannot be found"
+                        }
+                    ],
+                    "summary":"Get a list of  parent business",
+                    "notes": ""
+                }
+            ]
+        }
+
+    ],
+    "models":{
+        "ProductTypeInfo" :{
+            "id":"ProductTypeInfo",
+            "properties":{
+                "name":{
+                    "type":"string",
+                    "required" :true,
+                    "description":"product type name"
+                },
+                "name_lang":{
+                    "type":"string",
+                    "required" :true,
+                    "description":"product type name language"
+                },
+                "display_order":{
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the display order of product type"
+                }
+            }
+        },
+        "ProductActiveInfo" :{
+            "id":"ProductActiveInfo",
+            "properties":{
+                "active":{
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"product active 0 or 1"
+                }
+            }
+        },
+        "ProductSpecialFlag" :{
+            "id":"ProductActiveInfo",
+            "properties":{
+                "special":{
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"product special 0 or 1"
+                }
+            }
+        },
+        "Product":{
+            "id":"Product",
+            "properties":{
+                "prod_id":{
+                    "type":"integer",
+                    "format":"int64",
+                    "required" :true,
+                    "description":"unique identifier for this product"
+                },
+                "biz_id":{
+                    "type":"integer",
+                    "required" :true,
+                    "description":"id of business"
+                },
+                "name":{
+                    "type":"string",
+                    "required" :true,
+                    "description":"production name"
+                },
+                "description":{
+                    "type":"string",
+                    "required" :true,
+                    "description":"description of the product"
+                },
+                "type":{
+                    "type":"string",
+                    "required" :true,
+                    "description":"product type"
+                },
+                "price":{
+                    "type":"number",
+                    "required" :true,
+                    "description":"price of the product"
+                },
+                "note":{
+                    "type":"string",
+                    "required" :true,
+                    "description":"note of the product"
+                },
+                "active":{
+                    "type":"boolean",
+                    "required" :true,
+                    "description":"product is active or not"
+                },
+                "created_on":{
+                    "type":"date",
+                    "required" :true,
+                    "description":"product created on date"
+                },
+                "updated_on":{
+                    "type":"date",
+                    "required" :true,
+                    "description":"product updated on date"
+                },
+                "img_url":{
+                    "type":"string",
+                    "required" :true,
+                    "description":"image url of this product"
+                }
+            }
+        },
+        "productWithPromotion":{
+            "id" : "productWithPromotion",
+            "properties" : {
+                "prod_id": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the dish product unique identify "
+                },
+                "productName": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the dish product name"
+                },
+                "description": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the dish product description"
+                },
+                "type": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the business defined type that the product belong to"
+                },
+                "price": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"The price of the dish"
+                },
+                "img_url": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the url of the dish image"
+                },
+                "biz_id": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the business unique identify of the dish"
+                },
+                "updated_on": {
+                    "type":"Date",
+                    "required" :true,
+                    "description":"the dish last update time"
+                },
+                "promotion_id": {
+                    "type":"Integer",
+                    "required" :false,
+                    "description":"the promotion unique identify ,if the dish has promotion"
+                },
+                "promotionName": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the promotion name ,if the dish has promotion"
+                },
+                "discount_pct": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the promotion discount value ,if the dish has promotion"
+                },
+                "bizName": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the business name that the dish belong to"
+                },
+                "latitude": {
+                    "type":"Float",
+                    "required" :true,
+                    "description":"the latitude of business location"
+                },
+                "longitude": {
+                    "type":"Float",
+                    "required" :true,
+                    "description":"the longitude of business location"
+                },
+                "togo": {
+                    "type":"Integer",
+                    "required" :false,
+                    "description":"the product can be to go or not"
+                },
+                "calorie": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the calorie size of product"
+                },
+                "spiciness": {
+                    "type":"Integer",
+                    "required" :false,
+                    "description":"the spiciness of product"
+                },
+                "ingredient": {
+                    "type":"String",
+                    "required" :false,
+                    "description":"the ingredient of product"
+                }
+
+            }
+        },
+        "ProductInfo":{
+            "id" : "ProductInfo",
+            "properties" : {
+                "name": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"name of product "
+                },
+                "name_lang": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"name with language of product "
+                },
+                "description" : {
+                    "description": "description of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "description_lang" : {
+                    "description": "description with language of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "type_id" :{
+                    "description": "type id of a product",
+                    "type": "Integer",
+                    "required": false
+                },
+                "price" : {
+                    "description": "price of a product",
+                    "type": "Float",
+                    "required": false
+                },
+                "note" : {
+                    "description": "note of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "options" : {
+                    "description": "options of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "calorie" :{
+                    "description": "The calorie size of a product",
+                    "type": "Integer",
+                    "required": false
+                },
+                "spiciness" :{
+                    "description": "The Spiciness degree of a product",
+                    "type": "Integer",
+                    "required": false
+                },
+                "ingredient" : {
+                    "options": "Ingredient of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "active" : {
+                    "options": "State of a product",
+                    "type": "Integer",
+                    "required": false
+                },
+                "togo" : {
+                    "options": "Togo of a product",
+                    "type": "Integer",
+                    "required": false
+                }
+            }
+        },
+        "ProductDetail":{
+            "id" : "ProductDetail",
+            "properties" : {
+                "prod_id": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the dish product unique identify "
+                },
+                "productName": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the dish product name"
+                },
+                "type": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the business defined type that the product belong to"
+                },
+                "price": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"The price of the dish"
+                },
+                "img_url": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the url of the dish image"
+                },
+                "biz_id": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the business unique identify of the dish"
+                },
+                "updated_on": {
+                    "type":"Date",
+                    "required" :true,
+                    "description":"the dish last update time"
+                },
+                "promotion_id": {
+                    "type":"Integer",
+                    "required" :false,
+                    "description":"the promotion unique identify ,if the dish has promotion"
+                },
+                "promotionName": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"the promotion name ,if the dish has promotion"
+                },
+                "discount_pct": {
+                    "type":"Integer",
+                    "required" :true,
+                    "description":"the promotion discount value ,if the dish has promotion"
+                },
+                "name_lang": {
+                    "type":"String",
+                    "required" :true,
+                    "description":"name with language of product "
+                },
+                "description" : {
+                    "description": "description of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "description_lang" : {
+                    "description": "description with language of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "type_id" :{
+                    "description": "type id of a product",
+                    "type": "Integer",
+                    "required": false
+                },
+                "price" : {
+                    "description": "price of a product",
+                    "type": "Float",
+                    "required": false
+                },
+                "note" : {
+                    "description": "note of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "options" : {
+                    "description": "options of a product",
+                    "type": "String",
+                    "required": false
+                },
+                "calorie" :{
+                    "description": "The calorie size of a product",
+                    "type": "Integer",
+                    "required": false
+                },
+                "spiciness" :{
+                    "description": "The Spiciness degree of a product",
+                    "type": "Integer",
+                    "required": false
+                },
+                "ingredient" : {
+                    "options": "Ingredient of a product",
+                    "type": "String",
+                    "required": false
+                }
+            }
+        },
+
+        "CommentInfo": {
+            "id": "CommentInfo",
+            "properties": {
+                "comment": {
+                    "type": "String",
+                    "required": true,
+                    "description": "the comment context  "
+                },
+                "rating": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "the product comment rating"
+                }
+            }
+        }
+    }
+}

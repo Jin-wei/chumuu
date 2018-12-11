@@ -1,0 +1,25 @@
+<div class="page-content">
+    <div class="row" >
+    <div class="space-12"></div>
+    <div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr >
+                    <th class="col-xs-1 col-sm-1"></th>
+                    <th class="center" style="width:2%;" colspan="2" ng-repeat="bandItem in bandArray">{{bandItem}}</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="dayItem in dayArray">
+                <td>{{dayItem}}</td>
+                <td  ng-repeat="timeItem in timeArray">
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="space-6"></div>
+    <div class="row">
+
+    </div>
+    </div>
+</div>

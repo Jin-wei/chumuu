@@ -1,0 +1,242 @@
+{
+    "apiVersion":"1.0.0",
+    "swaggerVersion":"1.2",
+    "basePath":"http://localhost:8080/api",
+    "resourcePath":"/apidoc/table.json",
+    "apis":[
+        {
+            "path": "/biz/{bizId}/table",
+            "description": "Business create a table",
+            "operations": [
+                {
+                    "method": "POST",
+                    "nickname": "create table",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "number",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the table base info",
+                            "type": "TableInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business create a table , need biz auth token",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/table/{tableId}",
+            "description": "Business update a table base info",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "update table base info",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "number",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "tableId",
+                            "description": "table id",
+                            "type": "number",
+                            "required": true
+                        },
+                        {
+                            "paramType": "body",
+                            "name": "body",
+                            "description": "the table base info",
+                            "type": "TableInfo",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business update table base info without status",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/table/{tableId}/status/{status}",
+            "description": "Business update a table status",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "nickname": "update table status",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "number",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "tableId",
+                            "description": "table id",
+                            "type": "number",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "status",
+                            "description": "table status",
+                            "type": "number",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business update status only",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/table/{tableId}",
+            "description": "Business delete a table ",
+            "operations": [
+                {
+                    "method": "DELETE",
+                    "nickname": "delete table",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "number",
+                            "required": true
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "tableId",
+                            "description": "table id",
+                            "type": "number",
+                            "required": true
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Business delete a table ,keep table order info",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/biz/{bizId}/table",
+            "description": "Business query a table list ",
+            "operations": [
+                {
+                    "method": "GET",
+                    "nickname": "get table",
+                    "type": "Integer",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "bizId",
+                            "description": "business id",
+                            "type": "number",
+                            "required": true
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "sortBy",
+                            "description": "sort by name , create_on,update_on,default name",
+                            "type": "number",
+                            "required": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "System internal error"
+                        }
+                    ],
+                    "summary": "Get business table info list",
+                    "notes": ""
+                }
+            ]
+        }
+
+
+    ],
+
+    "models":{
+        "TableInfo": {
+            "id": "TableInfo",
+            "properties": {
+                "id": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the id of biz table"
+                },
+                "bizId": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the id of biz"
+                },
+                "name": {
+                    "type": "String",
+                    "required": true,
+                    "description": "the table name"
+                },
+                "remark": {
+                    "type": "String",
+                    "required": false,
+                    "description": "the  description of the table"
+                },
+                "status": {
+                    "type": "Integer",
+                    "required": false,
+                    "description": "the table status"
+                },
+                "tableType": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "the table type"
+                },
+                "seats": {
+                    "type": "Integer",
+                    "required": true,
+                    "description": "the seat size of table"
+                }
+            }
+        }
+    }
+}

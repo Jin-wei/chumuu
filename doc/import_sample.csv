@@ -1,0 +1,42 @@
+type_name,type_name_lang,name,description,price,note,biz_id,name_lang,description_lang,options,active,calorie,spiciness,ingredient,togo
+Individual Hot Pots,小火锅,Sichuan High Wok (L),,11.75,,18,四川High锅 (L),,,1,,3,,1
+Individual Hot Pots,小火锅,Fashion Wok (L),,9.75,,18,食尚浓汤锅 (L),,,1,,0,,1
+Individual Hot Pots,小火锅,Pirates Miso Wok (L),,9.75,,18,海盗味增锅 (L),,,1,,0,,1
+Individual Hot Pots,小火锅,Secret Lamb Wok (L),,10.75,,18,贵妃羊肉锅 (L),,,1,,2,,1
+Individual Hot Pots,小火锅,Spices Beef Wok (L),,10.75,,18,九龙沙茶牛肉锅 (L),,,1,,1,,1
+Individual Hot Pots,小火锅,Fisherman Kimchi Wok (L),,9.75,,18,韩式泡菜锅 (L),,,1,,2,,1
+Individual Hot Pots,小火锅,Quenn Milky Wok (L),,10.75,,18,美白牛奶锅 (L),,,1,,0,,1
+Individual Hot Pots,小火锅,Grandma Curry Wok (L),,9.75,,18,外婆咖喱锅 (L),,,1,,0,,1
+Individual Hot Pots,小火锅,Vegetarian Wok (L),,8.99,,18,番茄时蔬锅 (L),,,1,,0,,1
+Individual Hot Pots,小火锅,Sichuan High Wok (D),,13.75,,18,四川High锅 (D),,,1,,3,,1
+Individual Hot Pots,小火锅,Fashion Wok (D),,11.75,,18,食尚浓汤锅 (D),,,1,,0,,1
+Individual Hot Pots,小火锅,Pirates Miso Wok (D),,11.75,,18,海盗味增锅 (D),,,1,,0,,1
+Individual Hot Pots,小火锅,Secret Lamb Wok (D),,12.75,,18,贵妃羊肉锅 (D),,,1,,2,,1
+Individual Hot Pots,小火锅,Spices Beef Wok (D),,12.75,,18,九龙沙茶牛肉锅 (D),,,1,,1,,1
+Individual Hot Pots,小火锅,Fisherman Kimchi Wok (D),,11.75,,18,韩式泡菜锅 (D),,,1,,2,,1
+Individual Hot Pots,小火锅,Quenn Milky Wok (D),,12.75,,18,美白牛奶锅 (D),,,1,,0,,1
+Individual Hot Pots,小火锅,Grandma Curry Wok (D),,11.75,,18,外婆咖喱锅 (D),,,1,,0,,1
+Individual Hot Pots,小火锅,Vegetarian Wok (D),,10.99,,18,番茄时蔬锅 (D),,,1,,0,,1
+Specialty Noodles,特色面食,Sichuan Beef Noodle Soup,,9.75,,18,川味牛肉面,,,1,,2,,1
+Specialty Noodles,特色面食,Fashion Ramen,,8.75,,18,食尚味增拉面,,,1,,0,,1
+Specialty Noodles,特色面食,Classic Beef Ramen,,9.75,,18,木屋兰州拉面,,,1,,0,,1
+Specialty Noodles,特色面食,Spicy Pork Noodle Soup,,7.95,,18,陕西岐山臊子面,,,1,,3,,1
+Specialty Noodles,特色面食,The BBR Ramen,,7.95,,18,大骨拉面,,,1,,0,,1
+Drinks,饮品,Flavored Tea,,2.75,,18,风味茶,,,1,,0,,1
+Drinks,饮品,Hong Kong Style Foamy Black/Green Tea,,3.25,,18,港式泡沫冰红茶/绿茶,,,1,,0,,1
+Drinks,饮品,Watermelon Iced Black/Green Tea,,3.25,,18,西瓜冰红茶/绿茶,,,1,,0,,1
+Drinks,饮品,Passion Fruit Iced Black/Green Tea,,3.25,,18,百香果冰红茶/绿茶,,,1,,0,,1
+Drinks,饮品,Honey Lime Grapefruit Black/Green Tea,,3.25,,18,青柠檬蜂蜜柚子茶,,,1,,0,,1
+Drinks,饮品,Traditional Plum Juice,,3.25,,18,古早酸梅汁,,,1,,0,,1
+Drinks,饮品,Aloe Juice,,3.25,,18,Duang Duang 芦荟汁,,,1,,0,,1
+Drinks,饮品,Honey Lemon Juice,,3.25,,18,蜂蜜柠檬汁,,,1,,0,,1
+Drinks,饮品,handcraft Orange Juice,,3.25,,18,特调柳橙汁,,,1,,0,,1
+Drinks,饮品,Aegean Sea Juice,,3.25,,18,爱琴海果汁,,,1,,0,,1
+Drinks,饮品,Papaya milky juice,,3.75,,18,木瓜牛奶汁,,,1,,0,,1
+Drinks,饮品,Banana milky juice,,3.75,,18,香蕉牛奶汁,,,1,,0,,1
+Drinks,饮品,Watermelon milky juice,,3.75,,18,西瓜牛奶汁,,,1,,0,,1
+Drinks,饮品,Red bean milky juice,,3.75,,18,红豆牛奶汁,,,1,,0,,1
+Drinks,饮品,Thai tea,,3.75,,18,泰式奶茶,,,1,,0,,1
+Drinks,饮品,Handcraft milk tea,,3.75,,18,手工奶茶,,,1,,0,,1
+Drinks,饮品,Soda,,1.75,,18,汽水,,,1,,0,,1
+Drinks,饮品,Wang Lao Ji,,2.25,,18,王老吉,,,1,,0,,1

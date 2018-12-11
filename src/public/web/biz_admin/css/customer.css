@@ -1,0 +1,17 @@
+#customer_view .col-xs-12,
+#customer_view .col-xs-4,
+#customer_view .col-xs-3,
+#customer_view .col-xs-2,
+#customer_view .col-xs-6,
+#customer_view .col-xs-8
+{
+    padding: 0px;
+}
+
+
+
+#customer_view .customerDetailForm>.myitem {
+    margin-bottom: 10px;
+    padding: 0px;
+    line-height: 30px;
+}

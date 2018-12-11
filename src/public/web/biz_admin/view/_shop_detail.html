@@ -1,0 +1,317 @@
+<div id="shop_detail_view" class="page-content row">
+<div class="page-header mp-display-box">
+    <div class="mp-box-flex-1">
+        <a href="javascript:;" ng-click="navTo('shop')">商家</a> &gt; <span ng-bind="$mpBizInfo.getItem('name')"></span>
+    </div>
+    <!--<div><button class="btn btn-info btn-sm">编辑查看详细</button></div>-->
+</div>
+<mp-tab class="col-xs-12 nopadding" ng-model="tabs"></mp-tab>
+<div style="padding: 40px 15px 15px 15px">
+    <div tab>
+        <div class="col-xs-12 page-line mp-display-box">
+            <div class="page-line-label">店名</div>
+            <div class="page-line-content mp-boxflex-1"><input ng-model="$mpBizInfo.getData().name" name="name" readonly type="text" class="width-100" ></div>
+        </div>
+        <div class="col-xs-12 page-line mp-display-box">
+            <div class="page-line-label">电话</div>
+            <div class="page-line-content mp-boxflex-1"><input ng-model="$mpBizInfo.getData().phone_no" name="phone_no" readonly type="text" class="width-100" ></div>
+        </div>
+        <div class="col-xs-12 page-line mp-display-box">
+            <div class="page-line-label">地址</div>
+            <div class="page-line-content mp-boxflex-1">
+                <input class="width-100" type="text" readonly value="{{$mpBizInfo.getData().state+$mpBizInfo.getData().city+$mpBizInfo.getData().address}}"></span>
+            </div>
+        </div>
+        <div class="col-xs-12 page-line mp-display-box">
+            <div class="col-xs-4 text-center"><button class="btn btn-info btn-sm" ng-click="navTo('update_shop/'+$mpBizInfo.getId())">编辑</button></div>
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4"></div>
+        </div>
+
+        <div class="col-xs-12" style="height:40px;">
+            <span style="padding:10px;font-size:15px;">员工</span>
+            <div class="pull-right">
+                <button class="btn btn-success" ng-click="showDlgAddBizUser()" style="padding:0 10px;">
+                    <i class="icon-plus-sign"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-xs-12 mp-nopadding">
+            <table id="biz-user-list" class="table table-striped table-bordered table-hover col-xs-12">
+                <!--<colgroup>-->
+                <!--<col width="10%"/>-->
+                <!--<col width="10%">-->
+                <!--<col width="10%"/>-->
+                <!--<col width="15%"/>-->
+                <!--<col width="20%"/>-->
+                <!--<col width="15%"/>-->
+                <!--<col width="10%"/>-->
+                <!--<col width="10%"/>-->
+                <!--</colgroup>-->
+                <thead>
+                <tr>
+                    <!--<th>选择</th>-->
+                    <th>用户名</th>
+                    <th>姓</th>
+                    <th>名</th>
+                    <th>邮箱</th>
+                    <th>电话</th>
+                    <!--<th>性别</th>-->
+                    <!--<th>状态</th>-->
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  ng-repeat="item in $mpBizUser.getData()">
+                    <!--<td ><input type="checkbox"></td>-->
+                    <td ng-bind="item.username"></td>
+                    <td ng-bind="item.last_name"></td>
+                    <td ng-bind="item.first_name"></td>
+                    <td ng-bind="item.email"></td>
+                    <td ng-bind="item.phone_no"></td>
+                    <!--<td ng-bind="item.active?'激活':'未激活'"></td>-->
+                    <td >
+                        <div class="btn-group">
+                            <button class="btn btn-info" style="padding:1px 10px 0 10px;" ng-click="showDlgUpdateBizUser(item.user_id)">更新</button>
+
+                            <button data-toggle="dropdown" class="btn btn-info dropdown-toggle" style="padding:0 3px;">
+                                <span class="icon-caret-down icon-only"></span>
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-info pull-right">
+                                <li> <a href="javascript:;" ng-click="onBtnSendPwdReset(item)">发送密码重置邮件</a> </li>
+                                <li class="divider"></li>
+                                <li> <a href="javascript:;" ng-click="onBtnDeleteBizUser(item)">删除</a> </li>
+                            </ul>
+                        </div><!-- /btn-group -->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="mp-dialog" id="biz-user-add-update-form"  style="width:400px;height:300px;padding:20px;">
+                <div class="col-xs-2 bigger-130">用户名</div>
+                <div class="col-xs-10"><input type="text" ng-model="bizUser.username"></div>
+                <div ng-if="isAdd" class="col-xs-12 space-6"></div>
+                <div ng-if="isAdd" class="col-xs-2 bigger-130">密码</div>
+                <div ng-if="isAdd" class="col-xs-10"><input type="text" ng-model="bizUser.password"></div>
+                <div class="col-xs-12 space-6"></div>
+                <div class="col-xs-2 bigger-130">姓</div>
+                <div class="col-xs-4"><input type="text" ng-model="bizUser.last_name"></div>
+                <div class="col-xs-2 bigger-130">名</div>
+                <div class="col-xs-4"><input type="text" ng-model="bizUser.first_name"></div>
+                <div class="col-xs-12 space-6"></div>
+                <div class="col-xs-2 bigger-130">邮箱</div>
+                <div class="col-xs-10"><input ng-readonly="isEdit" type="text" ng-model="bizUser.email"></div>
+                <div class="col-xs-12 space-6"></div>
+                <div class="col-xs-2 bigger-130">电话</div>
+                <div class="col-xs-10"><input type="text" ng-model="bizUser.phone_no"></div>
+                <div class="col-xs-12 space-6"></div>
+                <div class="col-xs-12 position-absolute" style="bottom:10px;left:0px;">
+                    <div class="col-xs-6 text-center">
+                        <button class="btn btn-success btn-small" style="padding:3px 10px" ng-click="onSubmitBizUser()">{{L.submit}}</button>
+                    </div>
+                    <div class="col-xs-6 text-center">
+                        <button class="btn btn-default btn-small" style="padding:3px 10px" ng-click="onDlgCancel()">{{L.cancel}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div tab ng-controller="orderListController">
+        <!--<div style="margin:10px 0;">-->
+        <!--&lt;!&ndash;<button class="btn btn-info" style="padding:3px 10px;" ng-click="onBtnAddShop()">新建</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;<button class="btn btn-danger" style="padding:3px 10px;">删除</button>&ndash;&gt;-->
+
+        <!--<span class="input-icon" style="margin:0px 0px 0px 20px;">-->
+        <!--<input ng-model="search_keyword" type="text" style="width:300px;" placeholder="按名称">-->
+        <!--<i class="icon-search green"></i>-->
+        <!--</span>-->
+        <!--</div>-->
+        <table id="order-list" class="table table-striped table-bordered table-hover col-xs-12">
+            <!--<colgroup>-->
+            <!--<col width="10%"/>-->
+            <!--<col width="10%">-->
+            <!--<col width="10%"/>-->
+            <!--<col width="15%"/>-->
+            <!--<col width="20%"/>-->
+            <!--<col width="15%"/>-->
+            <!--<col width="10%"/>-->
+            <!--<col width="10%"/>-->
+            <!--</colgroup>-->
+            <thead>
+            <tr>
+                <!--<th>选择</th>-->
+                <th>订单 #</th>
+                <th>预定时间</th>
+                <th>创建时间</th>
+                <th>总价</th>
+                <th>状态</th>
+                <th>客户</th>
+                <th>电话</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  bindonce ng-repeat="item in orders">
+                <!--<td ><input type="checkbox"></td>-->
+                <td bo-bind="item.id"></td>
+                <td bo-bind="item.orderStart"></td>
+                <td bo-bind="item.createOn"></td>
+                <td bo-bind="item.total_price"></td>
+                <td ng-bind="OrderConst.ORDER_STATUS.DESC[item.status]"></td>
+                <td bo-bind="item.orderUsername"></td>
+                <td bo-bind="item.phone"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div tab ng-controller="uploadFileController">
+        <div>
+            <div class="widget-box">
+                <h5>{{L.uploadFile}}</h5>
+            </div>
+            <div class="row widget-main">
+                <div class="col-xs-12 space-4"></div>
+                 <div class="col-xs-12" >
+                    <form id="file-form">
+                        <input style="border-style:groove;font-size: small"
+                               type="file" name="image" class="pic-wall" id="inputfile" file-reader="fileContent"/><br>
+                    </form>
+                 </div>
+                 <div class="col-xs-12">
+                    <button class="btn btn-primary btn-md" style="padding:1px;"
+                    ng-click="settingFilesSubmit()" >{{L.submit}}</button><br>
+                     <br>
+                  </div>
+                 <div id="yourDiv" class="col-xs-12" ng-show="showdata" >
+                     <div>{{L.insertNewType}}{{insertNewType}} </div>
+                     <div>{{L.insertNewProd}}{{insertNewProd}} </div>
+                     <div>{{L.updateProd}}{{updateProd}} </div>
+
+                     <div ng-repeat="failedcase in faileCase">{{L.inputPreIndex}}{{failedcase}}{{L.inputContentError}}</div>
+                     <div ng-repeat="priceFaileCases in priceFaileCase">{{L.inputPreIndex}}{{priceFaileCases}}{{L.inputPriceError}}</div>
+                 </div>
+            </div>
+         </div>
+    </div>
+    <div tab ng-controller="bizInvoiceController">
+        <table id="invoice-list" class="table table-striped table-bordered table-hover table-tr-link col-xs-12">
+            <thead>
+            <tr>
+                <th>帐单 #</th>
+                <th>起始于</th>
+                <th>结束于</th>
+                <!--<th>周期</th>-->
+                <th>销售总额</th>
+                <th>平台费</th>
+                <!--<th>配送费</th>-->
+                <th>应付总额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="mp-pointer" ng-click="showDetail(item)" bindonce ng-repeat="item in $mpInvoice.getData()">
+                <td bo-bind="item.id"></td>
+                <td bo-bind="DateFormat(item.settle_start,'yyyy-MM-dd')"></td>
+                <td bo-bind="DateFormat(item.settle_end,'yyyy-MM-dd')"></td>
+                <!--<td bo-bind="DateFormat(item.settle_date,'yyyy-MM-dd HH:mm')"></td>-->
+                <td ng-bind="item.amount"></td>
+                <td bo-bind="item.fee"></td>
+                <!--<td bo-bind="item.delivery_price"></td>-->
+                <td bo-bind="item.actual_amount"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div tab ng-controller="bizInvoiceDetailController">
+        <div class="col-xs-12" style="  padding: 10px 0px; background-color: #fafafa; border: 1px solid #eee;">
+            <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+                <div class="page-line-label">帐单 #</div>
+                <div class="page-line-content mp-boxflex-1">
+                    <input readonly ng-model="item.id" type="text" class="width-100" >
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+                <div class="page-line-label">起始于</div>
+                <div class="page-line-content mp-boxflex-1">
+                    <input readonly value="{{DateFormat(item.settle_start,'yyyy-MM-dd')}}" type="text" class="width-100" >
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+                <div class="page-line-label">结束于</div>
+                <div class="page-line-content mp-boxflex-1">
+                    <input readonly value="{{DateFormat(item.settle_end,'yyyy-MM-dd')}}" type="text" class="width-100" >
+                </div>
+            </div>
+            <!--<div class="col-xs-12 col-sm-4 page-line mp-display-box">-->
+            <!--<div class="page-line-label">周期</div>-->
+            <!--<div class="page-line-content mp-boxflex-1">-->
+            <!--<input readonly ng-model="item.cycle" type="text" class="width-100" >-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+                <div class="page-line-label">销售总额</div>
+                <div class="page-line-content mp-boxflex-1">
+                    <input readonly ng-model="item.amount" type="text" class="width-100" >
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+                <div class="page-line-label">平台费</div>
+                <div class="page-line-content mp-boxflex-1">
+                    <input readonly ng-model="item.fee" type="text" class="width-100" >
+                </div>
+            </div>
+            <!--<div class="col-xs-12 col-sm-4 page-line mp-display-box">-->
+            <!--<div class="page-line-label">配送费</div>-->
+            <!--<div class="page-line-content mp-boxflex-1">-->
+            <!--<input readonly ng-model="item.delivery_price" type="text" class="width-100" >-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="col-xs-12 col-sm-4 page-line mp-display-box">
+                <div class="page-line-label">应付总额</div>
+                <div class="page-line-content mp-boxflex-1">
+                    <input readonly ng-model="item.actual_amount" type="text" class="width-100" >
+                </div>
+            </div>
+        </div>
+
+        <table id="order-cycle-list" class="table table-striped table-bordered table-hover col-xs-12" style="margin-top:10px;">
+            <!--<colgroup>-->
+            <!--<col width="10%"/>-->
+            <!--<col width="10%">-->
+            <!--<col width="10%"/>-->
+            <!--<col width="15%"/>-->
+            <!--<col width="20%"/>-->
+            <!--<col width="15%"/>-->
+            <!--<col width="10%"/>-->
+            <!--<col width="10%"/>-->
+            <!--</colgroup>-->
+            <thead>
+            <tr>
+                <!--<th>选择</th>-->
+                <th>订单 #</th>
+                <th>预定时间</th>
+                <th>创建时间</th>
+                <th>总价</th>
+                <th>状态</th>
+                <th>客户</th>
+                <th>电话</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr bindonce ng-repeat="item in orders">
+                <!--<td ><input type="checkbox"></td>-->
+                <td bo-bind="item.id"></td>
+                <td bo-bind="item.orderStart"></td>
+                <td bo-bind="item.createOn"></td>
+                <td bo-bind="item.total_price"></td>
+                <td ng-bind="OrderConst.ORDER_STATUS.DESC[item.o_status]"></td>
+                <td bo-bind="item.o_username"></td>
+                <td bo-bind="item.o_phone"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div class="space-12"></div>
+</div>

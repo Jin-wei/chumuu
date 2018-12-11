@@ -1,0 +1,53 @@
+<div id="restaurant_menu_view" class="restaurant_menu_view page-content mp-mobile-marginleft-10px mp-mobile-marginright-10px" style="margin-left:80px;margin-right:80px;min-height: 400px">
+    <div  ng-show="bizKey!=null">
+        <div class="col-xs-12 mp-nomargin"></div>
+
+        <div class="col-xs-12 mp-margintop-40px mp-mobile-margintop-20px">
+            <div class="col-xs-12 col-sm-3 mp-menu-item" ng-repeat="item in MenuArr">
+                <div class="col-xs-5 col-sm-12 mp-mobile-nopadding">
+                    <div class="col-xs-12 position-relative">
+                        <div class="col-xs-12 mp-upholder-70pc mp-mobile-upholder-100pc"></div>
+                        <!--<div class="col-xs-12 mp-menu-item-image position-absolute mp-pointer" style="background-image: url('{{item.img_url_m}}');"
+                             ng-click="toMenuDetail(item.prod_id)navTo('/restaurant/'+$mpBizInfo.getItem('bizKey')+'/menu-item/'+item.prod_id)"
+                                ></div>-->
+                        <div class="col-xs-12 mp-menu-item-image position-absolute mp-pointer" style="background-image: url('{{item.img_url_m}}');"
+                             ng-click="toMenuDetail(item.prod_id)"></div>
+                    </div>
+                </div>
+                <div class="col-xs-7 col-sm-12">
+                    <div class="col-xs-12">
+                        <div class="mp-text-ellipsis overflow-hidden mp-mobile-fontsize-14px mp-mobile-height-18px" >
+                            {{item.name}}
+                            <span ng-show="item.unitofmeasure!='盘' && item.unitofmeasure!='' && item.unitofmeasure!=undefined">({{item.unitofmeasure}})</span>
+                        </div>
+                        <div class="mp-text-ellipsis overflow-hidden mp-mobile-fontsize-14px mp-mobile-height-18px" style="color:gray;" ng-bind="item.name_lang"></div>
+                    </div>
+                    <div class="col-xs-12 mp-mobile-paddingright-0px">
+                        <div class="col-xs-12 col-sm-6 mp-mobile-fontsize-14px">
+                            <span ng-if="!item.priceAfterDiscount" ng-bind="item.price | currency: currency"></span>
+                            <span ng-if="item.priceAfterDiscount" style="color:darkorange;" ng-bind="item.priceAfterDiscount | currency: currency"></span>
+                            <span ng-if="item.priceAfterDiscount" class="mp-textdecoration-linethrough" style="color:gray;font-size:12px;" ng-bind="item.price | currency: currency"></span>
+                        </div>
+                        <div ng-if="$mpBizInfo.getItem('order_status') == 1" class="col-xs-12 col-sm-6 text-right mp-mobile-margintop-0px mp-mobile-height-27px">
+                            <mp-shopping-cart-type-control ng-if="item.extend.length>0" prod="item"></mp-shopping-cart-type-control>
+                            <mp-shopping-cart-control ng-if="item.extend.length==0 || !item.extend" prod="item"></mp-shopping-cart-control>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 mp-display-box">
+                        <div class="mp-mobile-display-none">{{L.rating}}</div>
+                        <div class="mp-boxflex-1 text-right mp-mobile-textalign-left"><starrating rating="{{item.avg_rating}}" style="color:darkorange;"></starrating></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 mp-display-none mp-mobile-display-block hr " ng-if="!$last"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 mp-display-none mp-mobile-display-block text-right mytable-opt-button" ng-if="$mpMyTable.getData().count>0" style="position: fixed;bottom:0px;z-index:100;margin-left:-10px;">
+            <div class="col-xs-6">{{L.quantity}}:{{$mpMyTable.getData().count}}</div>
+            <div class="col-xs-6" ng-click="navTo('my-table')">{{L.ready_to_place_order}}</div>
+        </div>
+    </div>
+
+    <div ng-show="bizKey==null ||  MenuArr.length==0" style="text-align: center; color:#fbab36;margin-top: 100px">
+        <h3>{{information}}</h3>
+    </div>
+</div>

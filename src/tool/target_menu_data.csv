@@ -1,0 +1,152 @@
+type_name,type_name_lang,name,description,price,note,biz_id,name_lang,description_lang,options,active,calorie,spiciness,ingredient,togo
+Appetizer,,Vegetarian Egg Rolls(2),,4.5,,,,,,1,,,,1
+Appetizer,,Potstickers(6),,5.95,,,,,,1,,,,1
+Appetizer,,Grilled Chicken Skewers(4),,6.25,,,,,,1,,1,,1
+Appetizer,,Vegetarian Samosas(6),,6.75,,,,,,1,,,,1
+Appetizer,,Honey Cured BBQ Spareribs(4),,6.75,,,,,,1,,,,1
+Appetizer,,Mandarin Chicken Dumplings,,7.5,,,,,,1,,1,,1
+Appetizer,,Golden Fried Prawns(6),,7.5,,,,,,1,,,,1
+Appetizer,,Pu-Pu Platter(2 persons order min),7.25/per person,7.25,,,,,,1,,,,1
+Appetizer,,Jade Wrap(2 persons order min),4.25/per person,4.25,,,,,,1,,,,1
+Appetizer,,Small Chinese Chicken Salad,,7.5,,,,,,1,,,,1
+Appetizer,,Large Chinese Chicken Salad,,14.5,,,,,,1,,,,1
+Appetizer,,Crab Rangoon(6),,6.75,,,,,,1,,,,1
+Soups,,"Spinach,Tomato,& Tofu Soup",,7.95,,,,,,1,,,,1
+Soups,,Wonton Soup,,7.95,,,,,,1,,,,1
+Soups,,Wor Wonton Soup,,8.95,,,,,,1,,,,1
+Soups,,Prawns with Sizzling Rice Soup,,8.95,,,,,,1,,,,1
+Soups,,Seafood Soup,,9.95,,,,,,1,,,,1
+Soups,,"Miso,Tofu,&Seaweed Soup",,7.95,,,,,,1,,,,1
+Soups,,Vegetarian Hot & Sour Soup,,7.95,,,,,,1,,1,,1
+Soups,,Egg Flower Soup,,7.95,,,,,,1,,,,1
+Soups,,Chicken & Corn Soup,,7.95,,,,,,1,,,,1
+Healthy & Light Entrees,,Steamed Assorted Vegetables,,9.75,,,,,,1,,,,1
+Healthy & Light Entrees,,Steamed Assorted Vegetables with:Chicken,,10.25,,,,,,1,,,,1
+Healthy & Light Entrees,,Steamed Assorted Vegetables with:Prawns,,12.5,,,,,,1,,,,1
+Healthy & Light Entrees,,Steamed Assorted Vegetables with:Scallops,,12.5,,,,,,1,,,,1
+Healthy & Light Entrees,,Steamed Assorted Vegetables with:Combination,,14.95,,,,,,1,,,,1
+Poultry,,Mu Shu Chicken,,10.25,,,,,,1,,,,1
+Poultry,,Cashew Chicken,,10.75,,,,,,1,,,,1
+Poultry,,Snow White Chicken,,10.75,,,,,,1,,,,1
+Poultry,,Kung Pao Chicken,,10.75,,,,,,1,,1,,1
+Poultry,,Lemon Chicken,,10.95,,,,,,1,,,,1
+Poultry,,General Tso's Chicken,,10.95,,,,,,1,,1,,1
+Poultry,,Tangerine Chicken,,10.95,,,,,,1,,1,,1
+Poultry,,Peppercorn Chicken,,11.5,,,,,,1,,1,,1
+Poultry,,Curry Chicken,,11.5,,,,,,1,,,,1
+Poultry,,Vegetable Chicken,,11.5,,,,,,1,,,,1
+Poultry,,Black Bean Sauce Chicken,,11.5,,,,,,1,,,,1
+Poultry,,Beijing Chicken,,12.95,,,,,,1,,1,,1
+Poultry,,Sesame Chicken,,12.95,,,,,,1,,,,1
+Poultry,,Orange Chicken,,12.95,,,,,,1,,,,1
+Poultry,,Szechwan Chicken,,12.95,,,,,,1,,,,1
+Poultry,,Tea Smoked Duck(Half),,12.5,,,,,,1,,,,1
+Poultry,,Tea Smoked Duck(Whole),,24.5,,,,,,1,,,,1
+Beef,,Broccoli Beef,,10.75,,,,,,1,,,,1
+Beef,,Mongolian Beef,,11.5,,,,,,1,,,,1
+Beef,,Szechuan Beef,,11.5,,,,,,1,,1,,1
+Beef,,Tangerine Beef,,11.75,,,,,,1,,1,,1
+Beef,,Peppercorn Beef,,11.75,,,,,,1,,1,,1
+Beef,,Teriyaki Beef,,11.75,,,,,,1,,,,1
+Beef,,Dry Sauteed Shredded Beef,,11.75,,,,,,1,,,,1
+Beef,,Black Pepper Steak Kew,,13.25,,,,,,1,,1,,1
+Beef,,Beef with Baby Leafy Greens,,13.25,,,,,,1,,,,1
+Beef,,Beef Royale,,13.25,,,,,,1,,1,,1
+Beef,,Sesame Beef ,,13.25,,,,,,1,,,,1
+Beef,,Beijing Beef,,13.25,,,,,,1,,1,,1
+Seafood,,Prawns with Assorted Vegetables,,12.5,,,,,,1,,,,1
+Seafood,,Ceshew Prawns,,12.5,,,,,,1,,,,1
+Seafood,,Garlic Prawns,,12.5,,,,,,1,,1,,1
+Seafood,,Kung Pao Prawns ,,12.95,,,,,,1,,1,,1
+Seafood,,Szechuan Prawns,,12.95,,,,,,1,,1,,1
+Seafood,,Beijing Prawns,,14.95,,,,,,1,,1,,1
+Seafood,,Prawns with Honneyed Walnuts,,16.75,,,,,,1,,,,1
+Seafood,,Lover's Prawn,,17.5,,,,,,1,,,,1
+Seafood,,Sunllopps with Black Bean Sauce,,13.95,,,,,,1,,,,1
+Seafood,,Ruby Jade Scallops,,13.95,,,,,,1,,1,,1
+Seafood,,Seafood Delight,,17.5,,,,,,1,,,,1
+Seafood,,Steamed Fish Fillets,,23.95,,,,,,1,,,,1
+Seafood,,Roughy Saute,with choice of:Hunan Garlic or Black Bean Sauce ,19.95,,,,,,1,,,,1
+Seafood,,Lobster,"with Hot Braised,Black Bean,or Cantonese Egg Sauce",24.95,,,,,,1,,,,1
+Seafood,,Prawns with Green Soy Beans(Edamame),,14.95,,,,,,1,,,,1
+Seafood,,Salt & Peppper Prawns,,14.95,,,,,,1,,,,1
+Pork,,Sweet & Sour Pork,,9.95,,,,,,1,,,,1
+Pork,,Sweet & Sour Pork,,9.95,,,,,,1,,,,1
+Pork,,Mu-Shu Pork(4 pancakes),,10.25,,,,,,1,,,,1
+Pork,,Yu-Shoung Pork,,10.25,,,,,,1,,1,,1
+Pork,,Double-Sauteed Pork,,10.25,,,,,,1,,1,,1
+Pork,,Hunan Pork,,10.25,,,,,,1,,1,,1
+Pork,,Pork with Imperial Sauce,,10.25,,,,,,1,,,,1
+Pork,,Pork with Black Bean,,10.25,,,,,,1,,,,1
+Pork,,Imperial Spare Ribs,,10.25,,,,,,1,,,,1
+Egg Foo Yang,,Vegetable Egg Foo Yang,,9.95,,,,,,1,,,,1
+Egg Foo Yang,,Chicken Egg Foo Yang,,9.95,,,,,,1,,,,1
+Egg Foo Yang,,BBQ Pork Egg Foo Yang,,9.95,,,,,,1,,,,1
+Egg Foo Yang,,Shrimp Egg Foo Yang,,10.95,,,,,,1,,,,1
+Vegatables,,Vegetables Mu-Shu,,8.95,,,,,,1,,,,1
+Vegatables,,Yu-Shoung Broccoli,,8.95,,,,,,1,,1,,1
+Vegatables,,Buddha's Delight,,9.75,,,,,,1,,,,1
+Vegatables,,Evergreen,,9.75,,,,,,1,,,,1
+Vegatables,,+Ma Por Beancurd,,9.5,,,,,,1,,1,,1
+Vegatables,,+Hunan Beancurd,,9.5,,,,,,1,,1,,1
+Vegatables,,+Brown Braised Beancurd Puffs,,9.95,,,,,,1,,,,1
+Vegatables,,Eggplant in Spicy Garlic Sauce,,9.75,,,,,,1,,1,,1
+Vegatables,,Three Fairy Tales,,9.75,,,,,,1,,,,1
+Vegatables,,+Dry Saueed String Beans,,9.75,,,,,,1,,,,1
+Vegatables,,Three Mushroom Medley,,9.95,,,,,,1,,,,1
+Vegatables,,+Curried Beancird Puffs,,9.5,,,,,,1,,,,1
+Vegatables,,Sauteed Chinese Tender Greens,,9.75,,,,,,1,,,,1
+Vegatables,,Sauteed Spinach,,,,,,,,0,,,,1
+Vegatables,,Kung Pao Tofu,,9.75,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Steamed Rice,,1.5,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Brown Rice,,2,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Vegetarian Deluxe Pan Fried Noodles,,8.5,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Mandarin Deluxe Pan Fried Noodles,,9.25,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Singapore  Curry Rice noodles(Vegetarian version upon request),,9.25,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Bonsai Chow Mein,,9.25,,,,,,1,,1,,1
+"Rice, Chow Mein,& Chow Fun",,Seafood Rice Noodles,,9.5,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Dan Dan Noodle,,9.25,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,"Fried Rice,Chow Mein,or Chow Fun with Vegetarian",,7.95,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,"BBQ Pork,Chicken,or Beef ",,8.25,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Shrimp,,8.5,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Combo,,8.5,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Pan Fried Noodle Hong Kong Style,,9.25,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Wor Wonton Noodles in Soup,,8.95,,,,,,1,,,,1
+"Rice, Chow Mein,& Chow Fun",,Triple Treasure Noodles in Soup,,8.95,,,,,,1,,,,1
+Lunch Menu SEAFOOD,,Prawns with Mixed Vegetables,,9.75,,,,,,1,,,,1
+Lunch Menu SEAFOOD,,Cashews Prawns,,9.75,,,,,,1,,,,1
+Lunch Menu SEAFOOD,,Garlic Prawns,,9.75,,,,,,1,,1,,1
+Lunch Menu SEAFOOD,,Szechuan Prawn,,9.75,,,,,,1,,1,,1
+Lunch Menu SEAFOOD,,Kung Pao Prawn,,9.75,,,,,,1,,1,,1
+Lunch Menu BEEF,,Broccoli Beef,,9.25,,,,,,1,,,,1
+Lunch Menu BEEF,,Mongolian Beef,,9.25,,,,,,1,,,,1
+Lunch Menu BEEF,,Beef with Oyster Sauce,,9.25,,,,,,1,,,,1
+Lunch Menu BEEF,,Tangerine Beef,,9.25,,,,,,1,,1,,1
+Lunch Menu BEEF,,Garlic Beef,,9.25,,,,,,1,,1,,1
+Lunch Menu CHICKEN,,Lemon Chicken,,8.75,,,,,,1,,,,1
+Lunch Menu CHICKEN,,Cashew Chicken,,8.75,,,,,,1,,,,1
+Lunch Menu CHICKEN,,Snow White Chicken,,8.75,,,,,,1,,,,1
+Lunch Menu CHICKEN,,Kung Pao Chicken,,8.75,,,,,,1,,1,,1
+Lunch Menu CHICKEN,,General Tso's Chicken,,8.75,,,,,,1,,1,,1
+Lunch Menu PORK,,Sweet & Sour Pork,,8.5,,,,,,1,,,,1
+Lunch Menu PORK,,Yu-Shoung Pork,,8.5,,,,,,1,,1,,1
+Lunch Menu PORK,,Pork with Black Bean Sauce,,8.5,,,,,,1,,,,1
+Lunch Menu VEGETABLES,,Buddha's Delight,,8.25,,,,,,1,,,,1
+Lunch Menu VEGETABLES,,Evergreen,,8.25,,,,,,1,,,,1
+Lunch Menu VEGETABLES,,Ma Por Beancurd,,8.25,,,,,,1,,1,,1
+Lunch Menu VEGETABLES,,Yu-Shoung Broccoli,,8.25,,,,,,1,,1,,1
+Lunch Menu ORIENTAL EXPRESS ,,Wor Wonton Soup,,8.5,,,,,,1,,,,1
+Lunch Menu ORIENTAL EXPRESS ,,Triple Treasure Noodles in Soup,,8.5,,,,,,1,,,,1
+Lunch Menu SIDE OREERS,,Egg Rolls(1),,2.25,,,,,,1,,,,1
+Lunch Menu SIDE OREERS,,Pot Stickers(4),,4.25,,,,,,1,,,,1
+Lunch Menu SIDE OREERS,,Fried Prawns(4),,5.95,,,,,,1,,,,1
+Lunch Menu SIDE OREERS,,Hot & Sour Soup(16 oz),,3.5,,,,,,1,,,,1
+Lunch Menu CHINESE CHICKEN SALAD,,Half Order Chicken Salad,,7.5,,,,,,1,,,,1
+Lunch Menu CHINESE CHICKEN SALAD,,Full Order Chicken Salad ,,14.5,,,,,,1,,,,1
+Lunch Menu DRINKS,,"Coke,Diet Coke,7-Up(Can)",,1.25,,,,,,1,,,,1
+Lunch Menu DRINKS,,Bottled Water,,1.5,,,,,,1,,,,1
+SSPECIAL FAMILY MENU,,Special A,"Fried Won Ton,1Quart Cashew Chicken or Sweet & Sour Pork,1 Pint Chicken Fried Rice,2 Pint Chicken Chow Mein",18.95,,,,,,,,,,1
+SSPECIAL FAMILY MENU,,Special B,"Fried Won Ton,1Quart Cashew Chicken or Sweet & Sour Pork,1 Quart Broccoli Beef,1 Quart Chicken Fried Rice,1 Quart Chicken Chow Mein",23.95,,,,,,,,,,1
+SSPECIAL FAMILY MENU,,Special C,"Fried Won Ton,1Quart Cashew Chicken,1 Quart Sweet & Sour Pork,1 Quart Chicken Fried Rice,2 Quart Chicken Chow Mein",32.95,,,,,,,,,,1
+SSPECIAL FAMILY MENU,,Special D,"Fried Won Ton,1Quart Cashew Chicken or Sweet & Sour Pork,1 Quart Prawns with Assorted Vegetables,1 Quart Chicken Fried Rice,3 Quart Chicken Chow Mein",39.95,,,,,,,,,,1
+SSPECIAL FAMILY MENU,,Special E,"Fried Won Ton,1Quart Cashew Chicken or Sweet & Sour Pork,1 Quart Chicken Fried Rice,4 Quart Chicken Chow Mein",48.95,,,,,,,,,,1
